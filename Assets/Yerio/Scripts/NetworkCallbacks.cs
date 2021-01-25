@@ -13,12 +13,6 @@ public class NetworkCallbacks : GlobalEventListener
         var spawnPos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
         BoltNetwork.Instantiate(playerPrefab, spawnPos, Quaternion.identity);
     }
-
-    public override void Disconnected(BoltConnection connection)
-    {
-        base.Disconnected(connection);
-        SceneManager.LoadScene(0);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = false;
-    }
 }
+
+

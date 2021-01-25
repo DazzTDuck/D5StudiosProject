@@ -10,6 +10,12 @@ using UdpKit;
 
 public class MainMenu : GlobalEventListener
 {
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     //host game
     public void StartServer()
     {
@@ -39,7 +45,7 @@ public class MainMenu : GlobalEventListener
 
             if (photonSession.Source == UdpSessionSource.Photon)
             {
-                BoltMatchmaking.JoinSession(photonSession);               
+                BoltMatchmaking.JoinSession(photonSession);  
             }
         }
     }
