@@ -11,16 +11,18 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] TMP_Text nameText;
 
     readonly string localName = "Player";
+    int playerNumber;
 
     public override void Attached()
     {
-        state.Name = localName;       
+        state.Name = localName;
+        state.PlayerNumber = playerNumber;
     }
     private void Start()
     {
-        int number = BoltMatchmaking.CurrentSession.ConnectionsCurrent;
+        state.PlayerNumber = BoltMatchmaking.CurrentSession.ConnectionsCurrent;
 
-        nameText.text = state.Name + " " + number.ToString();
+        nameText.text = state.Name + " " + state.PlayerNumber.ToString();
     }
 
 }
