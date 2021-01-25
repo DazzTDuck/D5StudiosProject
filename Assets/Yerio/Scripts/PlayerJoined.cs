@@ -10,7 +10,7 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Detached()
     {
         base.Detached();
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
