@@ -20,6 +20,7 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         state.Name = localName;
+        nameText.text = state.Name;
         state.AddCallback("Name", SetNameCallback);
     }
 
@@ -38,10 +39,11 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
         state.Name = name.Length > 2 ? name : "Player";
         nameText.text = state.Name;
         nameSet = true;
-        canvas.SetActive(false);
+        state.SetDynamic("Name", state.Name);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        canvas.SetActive(false);
     }
 
 }
