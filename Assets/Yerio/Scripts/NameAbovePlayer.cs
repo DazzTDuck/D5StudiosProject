@@ -20,7 +20,6 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         state.Name = localName;
-        nameText.text = state.Name;
         state.AddCallback("Name", SetNameCallback);
     }
 
@@ -32,6 +31,7 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
     public void SetNameCallback()
     {
         localName = state.Name;
+        nameText.text = state.Name;
     }
 
     public void SetName(string name)
