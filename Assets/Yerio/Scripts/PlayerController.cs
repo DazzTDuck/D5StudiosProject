@@ -41,12 +41,14 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     Vector3 velocity;
     float horiontal;
     float vertical;
+    NameAbovePlayer nameAbovePlayer;
 
     public override void Attached()
     {
         base.Attached();
         state.SetTransforms(state.PlayerTransform, transform);
         rb = GetComponent<Rigidbody>();
+        nameAbovePlayer = FindObjectOfType<NameAbovePlayer>();
     }
 
     public override void SimulateOwner()
@@ -68,7 +70,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         Vector3 movement = new Vector3(horiontal, 0, vertical);
 
-        transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
+        if (nameAbovePlayer.nameSet)
+            transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
     }
 
     void Jumping()

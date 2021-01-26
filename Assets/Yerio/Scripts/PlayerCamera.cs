@@ -20,9 +20,12 @@ public class PlayerCamera : MonoBehaviour
     [HideInInspector]
     public float rotCamY;
 
+    NameAbovePlayer nameAbovePlayer;
+
     private void Awake()
     {
-        HideCursor();
+        ShowCursor();
+        nameAbovePlayer = FindObjectOfType<NameAbovePlayer>();
     }
 
     private void LateUpdate()
@@ -32,8 +35,11 @@ public class PlayerCamera : MonoBehaviour
 
     void CameraPos()
     {
-        rotCamY += Input.GetAxis("Mouse X") * sensitivity;
-        rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
+        if (nameAbovePlayer.nameSet)
+        {
+            rotCamY += Input.GetAxis("Mouse X") * sensitivity;
+            rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
+        }
 
         //Clamping the rotX value
         rotCamX = Mathf.Clamp(rotCamX, minRotX, maxRotX);

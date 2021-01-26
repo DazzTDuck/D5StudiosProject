@@ -1,28 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
-using Bolt;
-using Bolt.Matchmaking;
-using UdpKit;
 
 public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] TMP_Text nameText;
 
-    readonly string localName = "Player";
-    int playerNumber;
+    [SerializeField] Button button;
+    [SerializeField] TMP_InputField inputField;
+    [SerializeField] GameObject canvas;
 
-    public override void Attached()
-    {
-        state.Name = localName;
-        state.PlayerNumber = playerNumber;
-    }
+    [HideInInspector]
+    public bool nameSet = false;
+
     private void Start()
     {
-        state.PlayerNumber = BoltMatchmaking.CurrentSession.ConnectionsCurrent;
+        button.onClick.AddListener(() => { SetName(inputField.text); });
+    }
 
-        nameText.text = state.Name + " " + state.PlayerNumber.ToString();
+    public void SetName(string name)
+    {
+        state.Name = name.Length > 2 ? name : "Player";
+        nameText.text = state.Name;
+        nameSet = true;
+        canvas.SetActive(false);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 }
