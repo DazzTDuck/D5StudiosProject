@@ -5,12 +5,11 @@ using UnityEngine;
 public class CameraCopy : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Transform cameraTransform;
-    [SerializeField] Transform weaponTransfrom;
 
     public override void Attached()
     {
         base.Attached();
-        state.SetTransforms(state.GunTransform, weaponTransfrom);
+        state.SetTransforms(state.GunTransform, transform);
     }
 
     public override void SimulateOwner()
