@@ -11,6 +11,6 @@ public class PlayerLeave : GlobalEventListener
     {
         base.Disconnected(connection);
         connection.Disconnect();
-        SceneManager.LoadScene(0);
+        BoltNetwork.LoadScene("MainMenu");
     }
 }
