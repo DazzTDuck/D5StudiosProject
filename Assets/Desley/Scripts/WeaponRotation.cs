@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponParenting : MonoBehaviour
+public class WeaponRotation : MonoBehaviour
 {
     [SerializeField] Transform cam;
 
