@@ -20,11 +20,17 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         state.Name = localName;
+        state.AddCallback("Name", SetNameCallback);
     }
 
     private void Start()
     {
         button.onClick.AddListener(() => { SetName(inputField.text); });
+    }
+
+    public void SetNameCallback()
+    {
+        localName = state.Name;
     }
 
     public void SetName(string name)
