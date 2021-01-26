@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraCopy : Bolt.EntityBehaviour<IPlayerCameraState>
+public class CameraCopy : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
-
-    public override void Attached()
-    {
-        base.Attached();
-        state.SetTransforms(state.CameraTransform, transform);
-    }
 
     public void Update()
     {
