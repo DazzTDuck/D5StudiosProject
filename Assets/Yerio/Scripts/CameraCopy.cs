@@ -13,7 +13,7 @@ public class CameraCopy : Bolt.EntityBehaviour<IPlayerCameraState>
     }
 
     public void Update()
-    {        
+    {
         if (cameraTransform)
         {
             transform.position = cameraTransform.position;
