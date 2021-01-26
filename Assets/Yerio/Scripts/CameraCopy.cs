@@ -12,10 +12,8 @@ public class CameraCopy : Bolt.EntityBehaviour<IPlayerCameraState>
         state.SetTransforms(state.CameraTransform, transform);
     }
 
-    public override void SimulateOwner()
-    {
-        base.SimulateOwner();
-        
+    public void Update()
+    {        
         if (cameraTransform)
         {
             transform.position = cameraTransform.position;
