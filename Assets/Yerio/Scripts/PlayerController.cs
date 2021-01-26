@@ -25,6 +25,9 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Tooltip("This is the gravity applied to the player when hes falling down from a jump")]
     public float fallGravityMultiplier = 1.5f;
 
+
+    [Space, SerializeField] NameAbovePlayer nameAbovePlayer;
+
     [HideInInspector]
     public Rigidbody rb;
 
@@ -41,14 +44,12 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     Vector3 velocity;
     float horiontal;
     float vertical;
-    NameAbovePlayer nameAbovePlayer;
 
     public override void Attached()
     {
         base.Attached();
         state.SetTransforms(state.PlayerTransform, transform);
         rb = GetComponent<Rigidbody>();
-        nameAbovePlayer = FindObjectOfType<NameAbovePlayer>();
     }
 
     public override void SimulateOwner()

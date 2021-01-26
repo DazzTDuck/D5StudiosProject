@@ -7,7 +7,6 @@ using Bolt;
 public class NetworkCallbacks : GlobalEventListener
 {
     [SerializeField] GameObject playerPrefab;
-    [SerializeField] GameObject gunPrefab;
 
     public override void SceneLoadLocalDone(string scene)
     {

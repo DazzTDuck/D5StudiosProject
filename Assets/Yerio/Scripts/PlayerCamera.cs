@@ -14,26 +14,19 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerCameraState>
 
     [Header("--References--")]
     public Transform player;
+    [SerializeField] NameAbovePlayer nameAbovePlayer;
 
     [HideInInspector]
     public float rotCamX;
     [HideInInspector]
     public float rotCamY;
 
-    NameAbovePlayer nameAbovePlayer;
-
     public override void Attached()
     {
         base.Attached();
         state.SetTransforms(state.CameraTransform, transform);
-    }
-
-    private void Awake()
-    {
         ShowCursor();
-        nameAbovePlayer = FindObjectOfType<NameAbovePlayer>();
     }
-
     public override void SimulateOwner()
     {
         base.SimulateOwner();
