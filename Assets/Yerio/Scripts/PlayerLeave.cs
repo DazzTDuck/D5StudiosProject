@@ -6,15 +6,10 @@ using Bolt;
 
 public class PlayerLeave : GlobalEventListener
 {
-    public void Leave()
-    {
-        //SceneManager.LoadScene(0);
-    }
-
     public override void Disconnected(BoltConnection connection)
     {
         base.Disconnected(connection);
         connection.Disconnect();
-        Leave();
+        SceneManager.LoadScene(0);
     }
 }
