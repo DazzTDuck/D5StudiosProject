@@ -55,10 +55,10 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         Movement();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        Jumping();
         CheckIfGround();
+        Jumping();
     }
 
     public void Movement()
@@ -113,5 +113,4 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             velocity.y = -2f;
         }
     }
-
 }
