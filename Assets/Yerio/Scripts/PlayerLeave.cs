@@ -8,7 +8,7 @@ public class PlayerLeave : GlobalEventListener
 {
     public void Leave()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
     }
 
     public override void Disconnected(BoltConnection connection)
