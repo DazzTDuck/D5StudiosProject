@@ -15,6 +15,13 @@ public class NameAbovePlayer : Bolt.EntityBehaviour<IPlayerControllerState>
     [HideInInspector]
     public bool nameSet = false;
 
+    string localName;
+
+    public override void Attached()
+    {
+        state.Name = localName;
+    }
+
     private void Start()
     {
         button.onClick.AddListener(() => { SetName(inputField.text); });
