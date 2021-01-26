@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : Bolt.EntityBehaviour<IPlayerCameraState>
 {
     [Header("--Settings--")]
     [Tooltip("Sensitivity of the camera movement")]
@@ -12,8 +12,8 @@ public class PlayerCamera : MonoBehaviour
     public float minRotX = -55;
     public Vector3 camOffset;
 
-    [Header("--Player reference--")]
-    public Transform player;  
+    [Header("--References--")]
+    public Transform player;
 
     [HideInInspector]
     public float rotCamX;
@@ -22,14 +22,21 @@ public class PlayerCamera : MonoBehaviour
 
     NameAbovePlayer nameAbovePlayer;
 
+    public override void Attached()
+    {
+        base.Attached();
+        state.SetTransforms(state.CameraTransform, transform);
+    }
+
     private void Awake()
     {
         ShowCursor();
         nameAbovePlayer = FindObjectOfType<NameAbovePlayer>();
     }
 
-    private void LateUpdate()
+    public override void SimulateOwner()
     {
+        base.SimulateOwner();
         CameraPos();
     }
 
@@ -57,6 +64,7 @@ public class PlayerCamera : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
 
     public void ShowCursor()
     {
