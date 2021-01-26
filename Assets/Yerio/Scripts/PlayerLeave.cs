@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Bolt;
 
+[BoltGlobalBehaviour(BoltNetworkModes.Client)]
 public class PlayerLeave : GlobalEventListener
 {
     public override void Disconnected(BoltConnection connection)
