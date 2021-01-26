@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJoined : Bolt.EntityBehaviour<IPlayerCameraState>
+public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera playerCamera;
 

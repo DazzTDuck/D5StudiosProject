@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : Bolt.EntityBehaviour<IPlayerCameraState>
+public class PlayerCamera : MonoBehaviour
 {
     [Header("--Settings--")]
     [Tooltip("Sensitivity of the camera movement")]
@@ -14,32 +14,26 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerCameraState>
 
     [Header("--References--")]
     public Transform player;
-    [SerializeField] NameAbovePlayer nameAbovePlayer;
 
     [HideInInspector]
     public float rotCamX;
     [HideInInspector]
     public float rotCamY;
 
-    public override void Attached()
+    private void Awake()
     {
-        base.Attached();
-        state.SetTransforms(state.CameraTransform, transform);
-        ShowCursor();
+        HideCursor();
     }
-    public override void SimulateOwner()
+
+    public void Update()
     {
-        base.SimulateOwner();
         CameraPos();
     }
 
     void CameraPos()
     {
-        if (nameAbovePlayer.nameSet)
-        {
-            rotCamY += Input.GetAxis("Mouse X") * sensitivity;
-            rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
-        }
+        rotCamY += Input.GetAxis("Mouse X") * sensitivity;
+        rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
 
         //Clamping the rotX value
         rotCamX = Mathf.Clamp(rotCamX, minRotX, maxRotX);
@@ -49,7 +43,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerCameraState>
         Quaternion rotation = Quaternion.Euler(rotCamX, rotCamY, 0);
         transform.position = player.position + camOffset;
         transform.rotation = rotation;
-        player.rotation = rotPlayer; 
+        player.rotation = rotPlayer;
     }
 
     public void HideCursor()
@@ -57,7 +51,6 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerCameraState>
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-
 
     public void ShowCursor()
     {

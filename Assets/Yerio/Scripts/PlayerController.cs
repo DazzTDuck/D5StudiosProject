@@ -25,9 +25,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Tooltip("This is the gravity applied to the player when hes falling down from a jump")]
     public float fallGravityMultiplier = 1.5f;
 
-
-    [Space, SerializeField] NameAbovePlayer nameAbovePlayer;
-
     [HideInInspector]
     public Rigidbody rb;
 
@@ -71,8 +68,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         Vector3 movement = new Vector3(horiontal, 0, vertical);
 
-        if (nameAbovePlayer.nameSet)
-            transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
+        transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
     }
 
     void Jumping()
