@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 4788751972951705025}
   - component: {fileID: 4788751972951705084}
   - component: {fileID: 4788751972951705085}
+  - component: {fileID: 5562839472500618888}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -184,6 +185,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &5562839472500618888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788751972951705027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75601f460e04ec649a67d2e817a72065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 30
+  maxHealth: 30
 --- !u!1 &4788751972979609531
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: d676befd-e93a-4d99-9748-a48e49c5b303
-  _prefabId: 1
+  _prefabId: 2
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -445,6 +460,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4601295003860607056}
     m_Modifications:
+    - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 4788751972979609529}
+    - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
+        type: 3}
+      propertyPath: flashTimer
+      value: Infinity
+      objectReference: {fileID: 0}
     - target: {fileID: 8370687007814999857, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: m_RootOrder
