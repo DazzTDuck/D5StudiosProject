@@ -19,7 +19,10 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 
         if (currentHealth <= 0)
         {
-            BoltNetwork.Destroy(gameObject);
+            //Create DestroyRequest, set entity to ent and then send
+            var request = DestroyRequest.Create();
+            request.Entity = GetComponent<BoltEntity>();
+            request.Send();
         }
     }
 

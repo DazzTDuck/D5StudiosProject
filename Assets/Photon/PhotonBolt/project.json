@@ -4933,6 +4933,7 @@
       "PacketMaxBits": 512,
       "PacketMaxProperties": 16,
       "InitialPositionCompression": {
+        "Selection": 14,
         "Compression": [
           {
             "MinValue": -1024,
@@ -4964,6 +4965,7 @@
         ]
       },
       "InitialRotationCompression": {
+        "Selection": 14,
         "EulerCompression": [
           {
             "MaxValue": 360,
@@ -4999,6 +5001,29 @@
       },
       "Name": "EnemyState",
       "Guid": "1a18aff4-948a-4c30-a767-1c679fd46b7f",
+      "Groups": [
+        "Custom"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "Entity",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "DestroyRequest",
+      "Guid": "606c6251-8a52-4fae-9f37-754691a84624",
       "Groups": [
         "Custom"
       ]

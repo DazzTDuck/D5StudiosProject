@@ -15,10 +15,12 @@ public class NetworkCallbacks : GlobalEventListener
         base.SceneLoadLocalDone(scene, token);
 
         var spawnPos = new Vector3(Random.Range(-5, 5), 2, Random.Range(-5, 5));
-        BoltNetwork.Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+        BoltNetwork.Instantiate(playerPrefab, token, spawnPos, Quaternion.identity);
+    }
 
-        var spawnPos2 = new Vector3(Random.Range(-5, 5), 5, Random.Range(-5, 5));
-        BoltNetwork.Instantiate(enemyPrefab, spawnPos2, Quaternion.identity);
+    public override void OnEvent(DestroyRequest evnt)
+    {
+        BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
     public override void EntityDetached(BoltEntity entity)
