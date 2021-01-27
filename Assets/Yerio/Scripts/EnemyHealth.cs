@@ -19,7 +19,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 
         if (currentHealth <= 0)
         {
-            BoltNetwork.Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
