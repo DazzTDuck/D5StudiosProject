@@ -17,7 +17,8 @@ public class NetworkCallbacks : GlobalEventListener
         var spawnPos = new Vector3(Random.Range(-5, 5), 2, Random.Range(-5, 5));
         BoltNetwork.Instantiate(playerPrefab, spawnPos, Quaternion.identity);
 
-        BoltNetwork.Instantiate(enemyPrefab, new Vector3(Random.Range(-5, 5), 5, Random.Range(-5, 5)), Quaternion.identity);
+        var spawnPos2 = new Vector3(Random.Range(-5, 5), 5, Random.Range(-5, 5));
+        BoltNetwork.Instantiate(enemyPrefab, spawnPos2, Quaternion.identity);
     }
 
     public override void EntityDetached(BoltEntity entity)

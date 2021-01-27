@@ -38,12 +38,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         base.SimulateOwner();
 
         MuzzleFlash();
-
-        if(health != null)
-        {
-            health.TakeDamage(damage);
-            health = null;
-        }
     }
 
     public void ShootRaycast()
@@ -53,11 +47,17 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if(Physics.Raycast(ray, out hit))
         {
             health = hit.collider.gameObject.GetComponent<Health>();
+            if (health)
+            {
+                health.TakeDamage(damage);
+                health = null;
+            }
 
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth)
             {
                 enemyHealth.TakeDamage(damage);
+                enemyHealth = null;
             }
         }
     }

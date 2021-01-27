@@ -7,7 +7,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     [SerializeField] int maxHealth;
     [SerializeField] int currentHealth;
 
-    private void Start()
+    public override void Attached()
     {
         currentHealth = maxHealth;
         state.EnemyHealth = currentHealth;
