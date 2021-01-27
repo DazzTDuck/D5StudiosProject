@@ -14,10 +14,10 @@ public class NetworkCallbacks : GlobalEventListener
     {
         base.SceneLoadLocalDone(scene, token);
 
-        var spawnPos = new Vector3(Random.Range(-5, 5), 2, Random.Range(-5, 5));
+        var spawnPos = new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
         BoltNetwork.Instantiate(playerPrefab, token, spawnPos, Quaternion.identity);
 
-        var spawnPos2 = new Vector3(Random.Range(-5, 5), 5, Random.Range(-5, 5));
+        var spawnPos2 = new Vector3(Random.Range(-2, 2), 5, Random.Range(-2, 2));
         BoltNetwork.Instantiate(enemyPrefab, token, spawnPos2, Quaternion.identity);
     }
 
