@@ -10,6 +10,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] int damage, range;
     [SerializeField] float flashTimer = Mathf.Infinity;
 
+    Health health;
+
     public override void Attached()
     {
         base.Attached();
@@ -26,12 +28,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             flashTimer = .1f;
         }
 
-        flashTimer -= Time.deltaTime;
+        MuzzleFlash();
 
-        if(flashTimer <= 0)
+        if(health != null)
         {
-            flash.SetActive(false);
-            flashTimer = Mathf.Infinity;
+            health.TakeDamage(damage);
+            health = null;
         }
     }
 
@@ -41,11 +43,19 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit))
         {
-            Health health = hit.collider.gameObject.GetComponent<Health>();
-            if(health != null)
-            {
-                health.TakeDamage(damage);
-            }
+            health = hit.collider.gameObject.GetComponent<Health>();
         }
+    }
+
+    public void MuzzleFlash()
+    {
+        flashTimer -= Time.deltaTime;
+
+        if (flashTimer <= 0)
+        {
+            flash.SetActive(false);
+            flashTimer = Mathf.Infinity;
+        }
+
     }
 }

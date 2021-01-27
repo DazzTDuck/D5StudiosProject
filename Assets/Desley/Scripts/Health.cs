@@ -9,19 +9,21 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         base.Attached();
+        state.PlayerHealth = maxHealth;
+        state.AddCallback("PlayerHealth", HealthCallback);
     }
 
-    public override void SimulateOwner()
+    void HealthCallback()
     {
+        currentHealth = state.PlayerHealth;
         if(currentHealth <= 0)
         {
-            Debug.LogWarning("sack");
             BoltNetwork.Destroy(gameObject);
         }
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        state.PlayerHealth -= damage;
     }
 }
