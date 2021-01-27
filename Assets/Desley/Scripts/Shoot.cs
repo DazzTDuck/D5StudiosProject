@@ -11,6 +11,21 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] float flashTimer = Mathf.Infinity;
 
     Health health;
+    EnemyHealth enemyHealth;
+
+    bool isShooting;
+
+    private void Update()
+    {
+        isShooting = Input.GetButtonDown("Fire1");
+
+        if (isShooting && entity.IsOwner)
+        {
+            state.WeaponTrigger();
+            flash.SetActive(true);
+            flashTimer = .1f;
+        }
+    }
 
     public override void Attached()
     {
@@ -21,12 +36,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void SimulateOwner()
     {
         base.SimulateOwner();
-        if (Input.GetButtonDown("Fire1") && entity.IsOwner)
-        {
-            state.WeaponTrigger();
-            flash.SetActive(true);
-            flashTimer = .1f;
-        }
 
         MuzzleFlash();
 
@@ -44,6 +53,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if(Physics.Raycast(ray, out hit))
         {
             health = hit.collider.gameObject.GetComponent<Health>();
+
+            enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
         }
     }
 
