@@ -6,10 +6,13 @@ using System;
 using Bolt;
 using Bolt.Matchmaking;
 using UdpKit;
+using TMPro;
 
 
 public class MainMenu : GlobalEventListener
 {
+    [SerializeField] TMP_Text currentSessionsText;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -38,6 +41,8 @@ public class MainMenu : GlobalEventListener
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
         base.SessionListUpdated(sessionList);
+
+        currentSessionsText.text = $"{sessionList.Count} Games Found";
 
         foreach (var session in sessionList)
         {
