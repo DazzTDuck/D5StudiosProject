@@ -31,17 +31,16 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (currentHealth <= 0)
         {
+            state.IsDead = true;
+            if (state.IsDead)
+            {
+                GetComponent<MeshRenderer>().enabled = false;
+            }
             //Create DestroyRequest, set entity to ent and then send
             var request = DestroyRequest.Create();
             request.Entity = GetComponentInParent<BoltEntity>();
             request.IsPlayer = true;
             request.Send();
-            state.IsDead = true;
-
-            if (state.IsDead)
-            {
-                GetComponent<MeshRenderer>().enabled = false;
-            }
         }
     }
 
@@ -52,15 +51,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ResetHealth()
     {
-        currentHealth = maxHealth;
-        state.PlayerHealth = currentHealth;
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
-        state.IsDead = false;
-
         if (!state.IsDead)
         {
             GetComponent<MeshRenderer>().enabled = true;
         }
+        currentHealth = maxHealth;
+        state.PlayerHealth = currentHealth;
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
+        state.IsDead = false;
     }
 
     public int GetCurrentHealth() { return currentHealth; }
