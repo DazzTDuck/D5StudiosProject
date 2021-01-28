@@ -30,7 +30,6 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         playerNameLocal = state.PlayerName;
         playerNameText.text = state.PlayerName;
-        state.SetDynamic("PlayerName", state.PlayerName);
 
         //Create DestroyRequest, set entity to ent and then send
         var request = DestroyRequest.Create();
@@ -41,7 +40,7 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ChangeName(string name)
     {
-        state.PlayerName = name.Length > 2 ? name : "Playerz";
+        state.PlayerName = name.Length > 2 ? name : "Player";
         playerNameText.text = state.PlayerName;
         state.SetDynamic("PlayerName", state.PlayerName);
 
