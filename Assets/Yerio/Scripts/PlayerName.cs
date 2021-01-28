@@ -18,12 +18,12 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         state.PlayerName = playerNameLocal;
         state.AddCallback("PlayerName", ChangeNameCallback);
-        crosshairCanvas.SetActive(false);
         state.IsDead = true;
     }
     private void Start()
     {
         button.onClick.AddListener(() => { ChangeName(playerInputName.text); });
+        crosshairCanvas.SetActive(false);
     }
 
     public void ChangeNameCallback()
