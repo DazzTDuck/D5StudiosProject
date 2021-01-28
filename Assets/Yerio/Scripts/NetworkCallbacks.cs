@@ -25,6 +25,7 @@ public class NetworkCallbacks : GlobalEventListener
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponentInChildren<Rigidbody>().useGravity = true;
             player.GetComponentInChildren<Health>().ResetHealth();
             return;
         }

@@ -16,18 +16,26 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         state.PlayerName = playerNameLocal;
         state.AddCallback("PlayerName", ChangeNameCallback);
-        state.IsDead = true;
         crosshairCanvas.SetActive(false);
+        state.IsDead = true;
+        GetComponentInParent<MeshRenderer>().enabled = false;
+        GetComponentInParent<Collider>().enabled = false;
+        GetComponentInParent<Rigidbody>().useGravity = false;
     }
 
     public void ChangeNameCallback()
     {
         playerNameLocal = state.PlayerName;
         playerNameText.text = state.PlayerName;
-        state.IsDead = false;
         PlayerCamera.HideCursor();
         crosshairCanvas.SetActive(true);
         setNameCanvas.SetActive(false);
+
+        //Create DestroyRequest, set entity to ent and then send
+        var request = DestroyRequest.Create();
+        request.Entity = GetComponentInParent<BoltEntity>();
+        request.IsPlayer = true;
+        request.Send();
     }
 
     public void ChangeName()
