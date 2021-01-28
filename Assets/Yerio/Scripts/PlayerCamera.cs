@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [Header("--Settings--")]
     [Tooltip("Sensitivity of the camera movement")]
@@ -22,7 +22,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
-        HideCursor();
+        ShowCursor();
     }
 
     public void Update()
@@ -32,8 +32,11 @@ public class PlayerCamera : MonoBehaviour
 
     void CameraPos()
     {
-        rotCamY += Input.GetAxis("Mouse X") * sensitivity;
-        rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
+        if (!state.IsDead)
+        {
+            rotCamY += Input.GetAxis("Mouse X") * sensitivity;
+            rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
+        }
 
         //Clamping the rotX value
         rotCamX = Mathf.Clamp(rotCamX, minRotX, maxRotX);
@@ -46,13 +49,13 @@ public class PlayerCamera : MonoBehaviour
         player.rotation = rotPlayer;
     }
 
-    public void HideCursor()
+    public static void HideCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void ShowCursor()
+    public static void ShowCursor()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

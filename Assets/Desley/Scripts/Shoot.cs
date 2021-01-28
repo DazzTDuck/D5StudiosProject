@@ -21,7 +21,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         isShooting = Input.GetButtonDown("Fire1");
 
-        if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot)
+        if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.WeaponTrigger();
             var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);

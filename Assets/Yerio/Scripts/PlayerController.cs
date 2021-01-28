@@ -68,7 +68,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         Vector3 movement = new Vector3(horiontal, 0, vertical);
 
-        transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
+        if (!state.IsDead)
+            transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
     }
 
     void Jumping()

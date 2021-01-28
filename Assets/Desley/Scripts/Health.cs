@@ -34,6 +34,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             if (state.IsDead)
             {
                 GetComponent<MeshRenderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
             }
             //Create DestroyRequest, set entity to ent and then send
             var request = DestroyRequest.Create();
@@ -54,6 +55,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead)
         {
             GetComponent<MeshRenderer>().enabled = true;
+            GetComponent<Collider>().enabled = true;
         }
         currentHealth = maxHealth;
         state.PlayerHealth = currentHealth;
