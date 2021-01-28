@@ -41,7 +41,7 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ChangeName(string name)
     {
-        state.PlayerName = name.Length > 2 ? name : "Player";
+        state.PlayerName = name.Length > 2 ? name : "Playerz";
         playerNameText.text = state.PlayerName;
         state.SetDynamic("PlayerName", state.PlayerName);
 
