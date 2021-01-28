@@ -22,7 +22,11 @@ public class NetworkCallbacks : GlobalEventListener
     {
         if (evnt.IsPlayer)
         {
-            BoltNetwork.Instantiate(playerPrefab, GetNewSpawnpoint(), Quaternion.identity);
+            var player = evnt.Entity.gameObject;
+            player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
+            player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponentInChildren<Health>().ResetHealth();
+            return;
         }
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
