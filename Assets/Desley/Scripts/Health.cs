@@ -16,11 +16,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
     }
 
+    private void Update()
+    {
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
+    }
+
     void HealthCallback()
     {
         currentHealth = state.PlayerHealth;
-
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
 
         if (currentHealth <= 0)
         {

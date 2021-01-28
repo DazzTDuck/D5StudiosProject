@@ -8,7 +8,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject flash;
     [SerializeField] Transform muzzle;
     [SerializeField] int damage, range;
-    [SerializeField] float flashTimer = Mathf.Infinity;
+    [SerializeField] float flashTimer = Mathf.Infinity, fireRate;
+    float nextTimeToShoot;
 
     Health health;
     EnemyHealth enemyHealth;
@@ -19,11 +20,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         isShooting = Input.GetButtonDown("Fire1");
 
-        if (isShooting && entity.IsOwner)
+        if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot)
         {
             state.WeaponTrigger();
             flash.SetActive(true);
             flashTimer = .1f;
+            nextTimeToShoot = Time.time + 1f / fireRate;
         }
     }
 

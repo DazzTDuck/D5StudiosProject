@@ -389,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 9178749281941194123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.777, y: 0.74, z: 0.74000025}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 619933419880681391}
   - {fileID: 5484878381213212332}
@@ -411,10 +411,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  bullet: {fileID: 2542480327314565218, guid: 3a1d027a141949d4fbeabf7043b00780, type: 3}
   flash: {fileID: 641425664602048825}
   muzzle: {fileID: 3488462987841733067}
   damage: 10
+  range: 0
+  flashTimer: Infinity
+  fireRate: 2.5
 --- !u!1001 &641425664602083229
 PrefabInstance:
   m_ObjectHideFlags: 0
