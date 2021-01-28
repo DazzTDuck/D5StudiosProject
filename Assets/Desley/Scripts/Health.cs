@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] int currentHealth, maxHealth;
+    [SerializeField] Healthbar healthbar;
 
     public override void Attached()
     {
@@ -12,6 +13,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         currentHealth = maxHealth;
         state.PlayerHealth = currentHealth;
         state.AddCallback("PlayerHealth", HealthCallback);
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
     }
 
     void HealthCallback()
@@ -31,5 +33,9 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     public void TakeDamage(int damage)
     {
         state.PlayerHealth -= damage;
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
     }
+
+    public int GetCurrentHealth() { return currentHealth; }
+    public float GetCurrentHealthPercentage() { return 100f / maxHealth * currentHealth; }
 }

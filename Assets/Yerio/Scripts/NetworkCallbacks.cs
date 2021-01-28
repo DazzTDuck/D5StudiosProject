@@ -22,8 +22,7 @@ public class NetworkCallbacks : GlobalEventListener
     {
         if (evnt.IsPlayer)
         {
-            var playerRef = evnt.Entity.gameObject;
-            BoltNetwork.Instantiate(playerRef, GetNewSpawnpoint(), Quaternion.identity);
+            BoltNetwork.Instantiate(playerPrefab, GetNewSpawnpoint(), Quaternion.identity);
         }
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
