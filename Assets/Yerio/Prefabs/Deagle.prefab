@@ -412,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   flash: {fileID: 641425664602048825}
+  bulletHit: {fileID: 0}
   muzzle: {fileID: 3488462987841733067}
   damage: 10
   range: 0
@@ -487,6 +488,10 @@ PrefabInstance:
     - target: {fileID: 400004, guid: e5727721799e00f44906e7af53883073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: e5727721799e00f44906e7af53883073, type: 3}
+      propertyPath: m_Range
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5727721799e00f44906e7af53883073, type: 3}

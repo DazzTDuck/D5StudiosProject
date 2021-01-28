@@ -6,6 +6,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera cam;
     [SerializeField] GameObject flash;
+    [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
     [SerializeField] int damage, range;
     [SerializeField] float flashTimer = Mathf.Infinity, fireRate;
@@ -48,6 +49,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit))
         {
+            var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
+            StartCoroutine(DestroyHitEffect(0.25f, hitEffect));
+
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health)
             {
@@ -78,5 +82,14 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             flashTimer = Mathf.Infinity;
         }
 
+    }
+
+    public IEnumerator DestroyHitEffect(float time, BoltEntity entity)
+    {
+        yield return new WaitForSeconds(time);
+
+        BoltNetwork.Destroy(entity);
+
+        StopCoroutine(nameof(DestroyHitEffect));
     }
 }
