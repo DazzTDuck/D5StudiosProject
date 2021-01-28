@@ -51,14 +51,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ResetHealth()
     {
+        state.IsDead = false;
         if (!state.IsDead)
         {
             GetComponent<MeshRenderer>().enabled = true;
         }
         currentHealth = maxHealth;
         state.PlayerHealth = currentHealth;
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
-        state.IsDead = false;
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);    
     }
 
     public int GetCurrentHealth() { return currentHealth; }
