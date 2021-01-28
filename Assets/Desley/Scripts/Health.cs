@@ -16,7 +16,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         state.PlayerHealth = currentHealth;
         state.IsDead = isDeadlocal;
         state.AddCallback("PlayerHealth", HealthCallback);
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
     }
 
     private void Update()
@@ -58,7 +57,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         }
         currentHealth = maxHealth;
         state.PlayerHealth = currentHealth;
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);    
     }
 
     public int GetCurrentHealth() { return currentHealth; }

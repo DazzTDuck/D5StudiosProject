@@ -12,6 +12,7 @@ public class Healthbar : MonoBehaviour
     public void UpdateHealthbar(float healthPercentage, int maxHealth, int currentHealth)
     {
         healthText.text = $"{currentHealth} | {maxHealth}";
-        healthbarImage.fillAmount = healthPercentage / 100;
+        healthbarImage.fillAmount = Mathf.Lerp(healthbarImage.fillAmount, healthPercentage / 100, 20 * BoltNetwork.FrameDeltaTime);
+        //healthbarImage.fillAmount = healthPercentage / 100;
     }
 }
