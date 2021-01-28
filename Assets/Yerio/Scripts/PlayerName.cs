@@ -23,6 +23,11 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ChangeNameCallback()
     {
         playerNameLocal = state.PlayerName;
+        playerNameText.text = state.PlayerName;
+        state.IsDead = false;
+        PlayerCamera.HideCursor();
+        crosshairCanvas.SetActive(true);
+        setNameCanvas.SetActive(false);
     }
 
     public void ChangeName()
@@ -30,10 +35,5 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
         var name = "";
         if(playerInputName.text.Length < 2) { name = "Player"; } else { name = playerInputName.text; }
         state.PlayerName = name;
-        playerNameText.text = state.PlayerName;
-        state.IsDead = false;
-        PlayerCamera.HideCursor();
-        crosshairCanvas.SetActive(true);
-        setNameCanvas.SetActive(false);
     }
 }
