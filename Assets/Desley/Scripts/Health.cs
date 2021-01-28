@@ -20,6 +20,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         currentHealth = state.PlayerHealth;
 
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
+
         if (currentHealth <= 0)
         {
             //Create DestroyRequest, set entity to ent and then send
@@ -33,7 +35,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     public void TakeDamage(int damage)
     {
         state.PlayerHealth -= damage;
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
     }
 
     public void ResetHealth()
