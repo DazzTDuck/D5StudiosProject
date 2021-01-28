@@ -7,11 +7,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] int currentHealth, maxHealth;
     [SerializeField] Healthbar healthbar;
 
+    bool isDeadlocal;
+
     public override void Attached()
     {
         base.Attached();
         currentHealth = maxHealth;
         state.PlayerHealth = currentHealth;
+        state.IsDead = isDeadlocal;
         state.AddCallback("PlayerHealth", HealthCallback);
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
     }
@@ -24,6 +27,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     void HealthCallback()
     {
         currentHealth = state.PlayerHealth;
+        isDeadlocal = state.IsDead;
 
         if (currentHealth <= 0)
         {
@@ -32,6 +36,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             request.Entity = GetComponentInParent<BoltEntity>();
             request.IsPlayer = true;
             request.Send();
+            state.IsDead = true;
+
+            if (state.IsDead)
+            {
+                GetComponent<MeshRenderer>().enabled = false;
+            }
         }
     }
 
@@ -45,6 +55,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         currentHealth = maxHealth;
         state.PlayerHealth = currentHealth;
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
+        state.IsDead = false;
+
+        if (!state.IsDead)
+        {
+            GetComponent<MeshRenderer>().enabled = true;
+        }
     }
 
     public int GetCurrentHealth() { return currentHealth; }
