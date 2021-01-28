@@ -20,7 +20,10 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (currentHealth <= 0)
         {
-            BoltNetwork.Destroy(gameObject);
+            //Create DestroyRequest, set entity to ent and then send
+            var request = DestroyRequest.Create();
+            request.Entity = GetComponentInParent<BoltEntity>();
+            request.Send();
         }
     }
 

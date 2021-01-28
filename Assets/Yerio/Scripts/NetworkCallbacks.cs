@@ -26,6 +26,11 @@ public class NetworkCallbacks : GlobalEventListener
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
+    public override void OnEvent(DamageRequest evnt)
+    {
+        evnt.Entity.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
+    }
+
     public override void EntityDetached(BoltEntity entity)
     {
         base.EntityDetached(entity);

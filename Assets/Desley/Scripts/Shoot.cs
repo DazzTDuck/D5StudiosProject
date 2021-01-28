@@ -49,7 +49,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health)
             {
-                health.TakeDamage(damage);
+                //Create DamageRequest, set entity to ent and Damage to damage, then send
+                var request = DamageRequest.Create();
+                request.Entity = health.GetComponentInParent<BoltEntity>();
+                request.Damage = damage;
+                request.Send();
                 health = null;
             }
 
