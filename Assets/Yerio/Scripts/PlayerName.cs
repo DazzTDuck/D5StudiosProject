@@ -27,9 +27,6 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         playerNameLocal = state.PlayerName;
         playerNameText.text = state.PlayerName;
-        PlayerCamera.HideCursor();
-        crosshairCanvas.SetActive(true);
-        setNameCanvas.SetActive(false);
 
         //Create DestroyRequest, set entity to ent and then send
         var request = DestroyRequest.Create();
@@ -43,5 +40,11 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
         var name = "";
         if(playerInputName.text.Length < 2) { name = "Player"; } else { name = playerInputName.text; }
         state.PlayerName = name;
+        playerNameText.text = state.PlayerName;
+        state.SetDynamic("PlayerName", state.PlayerName);
+
+        PlayerCamera.HideCursor();
+        crosshairCanvas.SetActive(true);
+        setNameCanvas.SetActive(false);
     }
 }
