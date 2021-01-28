@@ -7,22 +7,24 @@ using UdpKit;
 
 public class NetworkCallbacks : GlobalEventListener
 {
-    [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject playerPrefab;
+
+    [SerializeField] Transform[] spawnPoints;
 
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         base.SceneLoadLocalDone(scene, token);
 
-        var spawnPos = new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
-        BoltNetwork.Instantiate(playerPrefab, token, spawnPos, Quaternion.identity);
-
-        var spawnPos2 = new Vector3(Random.Range(-2, 2), 5, Random.Range(-2, 2));
-        BoltNetwork.Instantiate(enemyPrefab, token, spawnPos2, Quaternion.identity);
+        BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
     }
 
     public override void OnEvent(DestroyRequest evnt)
     {
+        if (evnt.IsPlayer)
+        {
+            var playerRef = evnt.Entity.gameObject;
+            BoltNetwork.Instantiate(playerRef, GetNewSpawnpoint(), Quaternion.identity);
+        }
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
@@ -46,6 +48,11 @@ public class NetworkCallbacks : GlobalEventListener
                 SceneManager.LoadScene(0);
             }
         }       
+    }
+
+    public Vector3 GetNewSpawnpoint()
+    {
+        return spawnPoints[Random.Range(0, spawnPoints.Length)].position;
     }
 }
 
