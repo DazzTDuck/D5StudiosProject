@@ -9,7 +9,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
     [SerializeField] int damage, range;
-    [SerializeField] float flashTimer = Mathf.Infinity, fireRate;
+    [SerializeField] float fireRate;
     float nextTimeToShoot;
 
     Health health;
@@ -24,8 +24,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot)
         {
             state.WeaponTrigger();
-            flash.SetActive(true);
-            flashTimer = .1f;
+            var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
+            flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
+            StartCoroutine(DestroyEffect(0.1f, flashEffect));
             nextTimeToShoot = Time.time + 1f / fireRate;
         }
     }
@@ -36,13 +37,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         state.OnWeaponTrigger = ShootRaycast;
     }
 
-    public override void SimulateOwner()
-    {
-        base.SimulateOwner();
-
-        MuzzleFlash();
-    }
-
     public void ShootRaycast()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -50,7 +44,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if(Physics.Raycast(ray, out hit))
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
-            StartCoroutine(DestroyHitEffect(0.25f, hitEffect));
+            StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health)
@@ -72,24 +66,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    public void MuzzleFlash()
-    {
-        flashTimer -= Time.deltaTime;
-
-        if (flashTimer <= 0)
-        {
-            flash.SetActive(false);
-            flashTimer = Mathf.Infinity;
-        }
-
-    }
-
-    public IEnumerator DestroyHitEffect(float time, BoltEntity entity)
+    public IEnumerator DestroyEffect(float time, BoltEntity entity)
     {
         yield return new WaitForSeconds(time);
 
         BoltNetwork.Destroy(entity);
 
-        StopCoroutine(nameof(DestroyHitEffect));
+        StopCoroutine(nameof(DestroyEffect));
     }
 }
