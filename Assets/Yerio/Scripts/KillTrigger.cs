@@ -23,7 +23,7 @@ public class KillTrigger : MonoBehaviour
 
     IEnumerator ResetRequest()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1f);
 
         requestSent = false;
     }
