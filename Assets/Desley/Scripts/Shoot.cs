@@ -10,6 +10,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Transform muzzle;
     [SerializeField] int damage, range;
     [SerializeField] float fireRate;
+    [SerializeField] Animator animator;
     float nextTimeToShoot;
 
     Health health;
@@ -24,6 +25,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.WeaponTrigger();
+            animator.SetTrigger("Shoot");
             var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
             flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
             StartCoroutine(DestroyEffect(0.1f, flashEffect));
@@ -35,6 +37,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Attached();
         state.OnWeaponTrigger = ShootRaycast;
+        state.SetAnimator(animator);
     }
 
     public void ShootRaycast()
@@ -45,6 +48,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
+            animator.ResetTrigger("Shoot");
 
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health)
