@@ -22,6 +22,7 @@ public class NetworkCallbacks : GlobalEventListener
     {
         if (evnt.IsPlayer)
         {
+            Debug.LogWarning("dead");
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
@@ -35,6 +36,7 @@ public class NetworkCallbacks : GlobalEventListener
     public override void OnEvent(DamageRequest evnt)
     {
         evnt.Entity.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
+        Debug.LogWarning("shot");
     }
 
     public override void OnEvent(ChangeNameEvent evnt)
