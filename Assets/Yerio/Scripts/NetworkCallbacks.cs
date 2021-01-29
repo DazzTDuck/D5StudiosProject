@@ -36,7 +36,7 @@ public class NetworkCallbacks : GlobalEventListener
     public override void OnEvent(DamageRequest evnt)
     {
         evnt.Entity.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
-        Debug.LogWarning("shot");
+        //Debug.LogWarning("shot");
     }
 
     public override void OnEvent(ChangeNameEvent evnt)
