@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 {
-    [SerializeField] Animator animator;
-
     [Header("Stats")]
     [SerializeField] float moveSpeed = 4;
 
@@ -48,7 +46,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Attached();
         state.SetTransforms(state.PlayerTransform, transform);
-        state.SetAnimator(animator);
         rb = GetComponent<Rigidbody>();
     }
 

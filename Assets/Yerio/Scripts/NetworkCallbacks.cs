@@ -21,8 +21,7 @@ public class NetworkCallbacks : GlobalEventListener
     public override void OnEvent(DestroyRequest evnt)
     {
         if (evnt.IsPlayer)
-        {
-            
+        {   
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
