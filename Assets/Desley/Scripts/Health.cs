@@ -50,6 +50,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                     request.IsPlayer = true;
                     request.Send();
                     destroyRequestDone = true;
+                    state.IsDead = false;
                 }
 
             }
@@ -70,7 +71,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ResetHealth()
     {
-        state.IsDead = false;
         if (!state.IsDead)
         {
             state.PlayerHealth = maxHealth;

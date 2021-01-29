@@ -38,10 +38,11 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Send();
 
         //Create DestroyRequest, set entity to ent and then send
-        var request2 = DestroyRequest.Create();
-        request2.Entity = GetComponentInParent<BoltEntity>();
-        request2.IsPlayer = true;
-        request2.Send();
+        //var request2 = DestroyRequest.Create();
+        //request2.Entity = GetComponentInParent<BoltEntity>();
+        //request2.IsPlayer = true;
+        //request2.Send();
+        state.IsDead = false;
     }
 
     public void ChangeName(string name)

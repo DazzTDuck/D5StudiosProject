@@ -54,7 +54,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
             health = hit.collider.gameObject.GetComponent<Health>();
-            if (health)
+            if (health && !state.IsDead)
             {
                 if (!damageRequestSent)
                 {
