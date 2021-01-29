@@ -9,6 +9,11 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     bool isDeadlocal;
 
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
+
     public override void Attached()
     {
         base.Attached();
@@ -36,12 +41,13 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 GetComponent<MeshRenderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
                 GetComponent<Rigidbody>().useGravity = false;
+
+                //Create DestroyRequest, set entity to ent and then send
+                var request = DestroyRequest.Create();
+                request.Entity = GetComponentInParent<BoltEntity>();
+                request.IsPlayer = true;
+                request.Send();
             }
-            //Create DestroyRequest, set entity to ent and then send
-            var request = DestroyRequest.Create();
-            request.Entity = GetComponentInParent<BoltEntity>();
-            request.IsPlayer = true;
-            request.Send();
         }
     }
 

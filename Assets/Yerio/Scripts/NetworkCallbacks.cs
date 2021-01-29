@@ -46,9 +46,13 @@ public class NetworkCallbacks : GlobalEventListener
     {
         base.EntityDetached(entity);
 
-        if (entity.IsControlled && entity.IsOwner)
+        if (entity.IsOwner && entity.IsControlled)
         {
-            if (BoltNetwork.Server.DisconnectToken != null)
+            if (BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Timeout ||
+                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Disconnected ||
+                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Authentication ||
+                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Error ||
+                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Unknown)
             {
                 foreach (var client in BoltNetwork.Connections)
                 {
@@ -56,9 +60,9 @@ public class NetworkCallbacks : GlobalEventListener
                 }
                 SceneManager.LoadScene(0);
             }
-        }       
+        }
     }
-
+   
     public Vector3 GetNewSpawnpoint()
     {
         return spawnPoints[Random.Range(0, spawnPoints.Length)].position;

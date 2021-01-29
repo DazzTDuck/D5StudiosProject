@@ -15,7 +15,7 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void Attached()
     {
-        state.PlayerName = playerNameLocal;
+        //state.PlayerName = playerNameLocal;
         state.AddCallback("PlayerName", ChangeNameCallback);
         state.IsDead = true;
     }
@@ -28,12 +28,6 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         playerNameLocal = state.PlayerName;
         playerNameText.text = state.PlayerName;
-
-        //Create DestroyRequest, set entity to ent and then send
-        var request = DestroyRequest.Create();
-        request.Entity = GetComponentInParent<BoltEntity>();
-        request.IsPlayer = true;
-        request.Send();
     }
 
     public void SendChangeNameRequest(string name)
@@ -42,13 +36,19 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Entity = GetComponentInParent<BoltEntity>();
         request.Name = name;
         request.Send();
+
+        //Create DestroyRequest, set entity to ent and then send
+        var request2 = DestroyRequest.Create();
+        request2.Entity = GetComponentInParent<BoltEntity>();
+        request2.IsPlayer = true;
+        request2.Send();
     }
 
     public void ChangeName(string name)
     {
         state.PlayerName = name.Length > 2 ? name : "Player";
         playerNameText.text = state.PlayerName;
-        state.SetDynamic("PlayerName", state.PlayerName);
+        //state.SetDynamic("PlayerName", state.PlayerName);
 
         PlayerCamera.HideCursor();
         setNameCanvas.SetActive(false);
