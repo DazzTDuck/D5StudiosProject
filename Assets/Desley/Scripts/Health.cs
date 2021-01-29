@@ -58,7 +58,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void TakeDamage(int damage)
     {
-        state.PlayerHealth -= damage;
+        if(state.PlayerHealth - damage <= 0)
+        {
+            state.PlayerHealth = 0;
+        }
+        else
+        {
+            state.PlayerHealth -= damage;
+        }
     }
 
     public void ResetHealth()
