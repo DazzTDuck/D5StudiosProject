@@ -10,7 +10,6 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] TMP_InputField playerInputName;
     [SerializeField] Button button;
     [SerializeField] GameObject setNameCanvas;
-    [SerializeField] GameObject crosshairCanvas;
 
     string playerNameLocal;
 
@@ -22,8 +21,7 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     }
     private void Start()
     {
-        button.onClick.AddListener(() => { ChangeName(playerInputName.text); });
-        crosshairCanvas.SetActive(false);
+        button.onClick.AddListener(() => { SendChangeNameRequest(playerInputName.text); });
     }
 
     public void ChangeNameCallback()
@@ -38,6 +36,14 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Send();
     }
 
+    public void SendChangeNameRequest(string name)
+    {
+        var request = ChangeNameEvent.Create();
+        request.Entity = GetComponentInParent<BoltEntity>();
+        request.Name = name;
+        request.Send();
+    }
+
     public void ChangeName(string name)
     {
         state.PlayerName = name.Length > 2 ? name : "Player";
@@ -45,7 +51,6 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
         state.SetDynamic("PlayerName", state.PlayerName);
 
         PlayerCamera.HideCursor();
-        crosshairCanvas.SetActive(true);
         setNameCanvas.SetActive(false);
     }
 }

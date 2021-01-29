@@ -37,13 +37,18 @@ public class NetworkCallbacks : GlobalEventListener
         evnt.Entity.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
     }
 
+    public override void OnEvent(ChangeNameEvent evnt)
+    {
+        evnt.Entity.GetComponentInChildren<PlayerName>().ChangeName(evnt.Name);
+    }
+
     public override void EntityDetached(BoltEntity entity)
     {
         base.EntityDetached(entity);
 
-        if (entity.IsControlled)
+        if (entity.IsControlled && entity.IsOwner)
         {
-            if (BoltNetwork.Server.DisconnectReason == UdpKit.UdpConnectionDisconnectReason.Disconnected)
+            if (BoltNetwork.Server.DisconnectToken != null)
             {
                 foreach (var client in BoltNetwork.Connections)
                 {
