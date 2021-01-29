@@ -66,12 +66,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         state.IsDead = false;
         if (!state.IsDead)
         {
+            state.PlayerHealth = maxHealth;
             GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Collider>().enabled = true;
             GetComponent<Rigidbody>().useGravity = true;
             destroyRequestDone = false;
         }
-        state.PlayerHealth = maxHealth;
     }
 
     public int GetCurrentHealth() { return state.PlayerHealth; }
