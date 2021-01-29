@@ -17,15 +17,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         base.Attached();
-        currentHealth = maxHealth;
-        state.PlayerHealth = currentHealth;
+        state.PlayerHealth = maxHealth;
         state.IsDead = isDeadlocal;
         state.AddCallback("PlayerHealth", HealthCallback);
     }
 
     private void Update()
     {
-        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, currentHealth);
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
     }
 
     void HealthCallback()
@@ -33,7 +32,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         currentHealth = state.PlayerHealth;
         isDeadlocal = state.IsDead;
 
-        if (currentHealth <= 0)
+        if (state.PlayerHealth <= 0)
         {
             state.IsDead = true;
             if (state.IsDead)
@@ -65,10 +64,9 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             GetComponent<Collider>().enabled = true;
             GetComponent<Rigidbody>().useGravity = true;
         }
-        currentHealth = maxHealth;
-        state.PlayerHealth = currentHealth;
+        state.PlayerHealth = maxHealth;
     }
 
-    public int GetCurrentHealth() { return currentHealth; }
-    public float GetCurrentHealthPercentage() { return 100f / maxHealth * currentHealth; }
+    public int GetCurrentHealth() { return state.PlayerHealth; }
+    public float GetCurrentHealthPercentage() { return 100f / maxHealth * state.PlayerHealth; }
 }
