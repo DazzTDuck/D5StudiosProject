@@ -8,7 +8,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Healthbar healthbar;
 
     bool isDeadlocal;
-    bool destroyRequestDone = false;
 
     private void Awake()
     {
@@ -30,32 +29,30 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void HealthCallback()
     {
-        currentHealth = state.PlayerHealth;
-        isDeadlocal = state.IsDead;
-
-        if (state.PlayerHealth <= 0)
+        if (!state.IsDead)
         {
-            state.IsDead = true;
-            if (state.IsDead)
-            {
-                GetComponent<MeshRenderer>().enabled = false;
-                GetComponent<Collider>().enabled = false;
-                GetComponent<Rigidbody>().useGravity = false;
+            currentHealth = state.PlayerHealth;
+            isDeadlocal = state.IsDead;
 
-                if (!destroyRequestDone)
+            if (state.PlayerHealth <= 0)
+            {
+                state.IsDead = true;
+                if (state.IsDead)
                 {
                     Debug.LogWarning("dead");
+
+                    GetComponent<MeshRenderer>().enabled = false;
+                    GetComponent<Collider>().enabled = false;
+                    GetComponent<Rigidbody>().useGravity = false;
+
                     //Create DestroyRequest, set entity to ent and then send
                     var request = DestroyRequest.Create();
                     request.Entity = GetComponentInParent<BoltEntity>();
                     request.IsPlayer = true;
                     request.Send();
-                    destroyRequestDone = true;
-                    state.IsDead = false;
                 }
-
             }
-        }
+        }  
     }
 
     public void TakeDamage(int damage)
@@ -72,13 +69,13 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ResetHealth()
     {
+        state.IsDead = false;
         if (!state.IsDead)
         {
             state.PlayerHealth = maxHealth;
             GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Collider>().enabled = true;
             GetComponent<Rigidbody>().useGravity = true;
-            destroyRequestDone = false;
         }
     }
 

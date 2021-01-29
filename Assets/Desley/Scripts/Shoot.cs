@@ -17,7 +17,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     EnemyHealth enemyHealth;
 
     bool isShooting;
-    bool damageRequestSent = false;
 
     private void Update()
     {
@@ -26,7 +25,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.Animator.ResetTrigger("Shoot");
-            damageRequestSent = false;
             //state.WeaponTrigger();
             ShootRaycast();
             var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
@@ -56,16 +54,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health && !state.IsDead)
             {
-                if (!damageRequestSent)
-                {
-                    //Create DamageRequest, set entity to ent and Damage to damage, then send
-                    var request = DamageRequest.Create();
-                    request.Entity = health.GetComponentInParent<BoltEntity>();
-                    request.Damage = damage;
-                    request.Send();
-                    health = null;
-                    damageRequestSent = true;
-                }
+                //Create DamageRequest, set entity to ent and Damage to damage, then send
+                var request = DamageRequest.Create();
+                request.Entity = health.GetComponentInParent<BoltEntity>();
+                request.Damage = damage;
+                request.Send();
+                health = null;
             }
 
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
