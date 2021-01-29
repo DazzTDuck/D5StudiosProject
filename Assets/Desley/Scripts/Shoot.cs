@@ -25,7 +25,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.Animator.ResetTrigger("Shoot");
-            state.WeaponTrigger();
+            //state.WeaponTrigger();
+            ShootRaycast();
             var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
             flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
             StartCoroutine(DestroyEffect(0.1f, flashEffect));
