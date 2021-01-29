@@ -22,7 +22,7 @@ public class NetworkCallbacks : GlobalEventListener
     {
         if (evnt.IsPlayer)
         {
-            Debug.LogWarning("dead");
+            
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;

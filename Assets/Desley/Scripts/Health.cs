@@ -44,6 +44,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
                 if (!destroyRequestDone)
                 {
+                    Debug.LogWarning("dead");
                     //Create DestroyRequest, set entity to ent and then send
                     var request = DestroyRequest.Create();
                     request.Entity = GetComponentInParent<BoltEntity>();
