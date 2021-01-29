@@ -8,6 +8,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Healthbar healthbar;
 
     bool isDeadlocal;
+    bool destroyRequestDone = false;
 
     private void Awake()
     {
@@ -41,11 +42,16 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 GetComponent<Collider>().enabled = false;
                 GetComponent<Rigidbody>().useGravity = false;
 
-                //Create DestroyRequest, set entity to ent and then send
-                var request = DestroyRequest.Create();
-                request.Entity = GetComponentInParent<BoltEntity>();
-                request.IsPlayer = true;
-                request.Send();
+                if (!destroyRequestDone)
+                {
+                    //Create DestroyRequest, set entity to ent and then send
+                    var request = DestroyRequest.Create();
+                    request.Entity = GetComponentInParent<BoltEntity>();
+                    request.IsPlayer = true;
+                    request.Send();
+                    destroyRequestDone = true;
+                }
+
             }
         }
     }
@@ -63,6 +69,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Collider>().enabled = true;
             GetComponent<Rigidbody>().useGravity = true;
+            destroyRequestDone = false;
         }
         state.PlayerHealth = maxHealth;
     }
