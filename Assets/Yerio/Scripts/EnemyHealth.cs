@@ -17,7 +17,6 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 
     public override void Attached()
     {
-        currentHealth = maxHealth;
         state.EnemyHealth = currentHealth;
         state.AddCallback("EnemyHealth", HealthCallback);
     }
