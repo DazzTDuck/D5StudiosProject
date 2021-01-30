@@ -17,7 +17,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     {
         currentHealth = state.EnemyHealth;
 
-        if (currentHealth <= 0)
+        if (state.EnemyHealth <= 0)
         {
             //Create DestroyRequest, set entity to ent and then send
             var request = DestroyRequest.Create();

@@ -51,6 +51,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
+            /*kill player
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health && !state.IsDead)
             {
@@ -61,7 +62,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.Send();
                 health = null;
             }
-
+            */
+            
+            //kill enemies
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth)
             {
