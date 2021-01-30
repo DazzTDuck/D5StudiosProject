@@ -18,7 +18,7 @@ public class NetworkCallbacks : GlobalEventListener
         base.SceneLoadLocalDone(scene, token);
 
         BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
-        BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
+        BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(0,3), Quaternion.identity);
     }
 
     public override void OnEvent(DestroyRequest evnt)
