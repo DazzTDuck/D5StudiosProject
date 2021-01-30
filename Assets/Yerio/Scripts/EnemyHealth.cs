@@ -44,5 +44,5 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
         healthbarCanvas.LookAt(transform);
     }
 
-    public float GetCurrentHealthPercentage() { return 100f / maxHealth * currentHealth; }
+    public float GetCurrentHealthPercentage() { return 100f / maxHealth * state.EnemyHealth; }
 }
