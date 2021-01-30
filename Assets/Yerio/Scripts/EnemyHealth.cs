@@ -15,14 +15,10 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
         enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
     }
 
-    private void Awake()
-    {
-        currentHealth = maxHealth;
-    }
-
     public override void Attached()
     {
-        state.EnemyHealth = maxHealth;
+        currentHealth = maxHealth;
+        state.EnemyHealth = currentHealth;
         state.AddCallback("EnemyHealth", HealthCallback);
     }
     void HealthCallback()
