@@ -17,11 +17,8 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 
     public override void Attached()
     {
-        if (entity.IsOwner)
-        {
-            state.EnemyHealth = currentHealth;
-            state.AddCallback("EnemyHealth", HealthCallback);
-        }
+        state.EnemyHealth = currentHealth;
+        state.AddCallback("EnemyHealth", HealthCallback);
     }
     void HealthCallback()
     {
