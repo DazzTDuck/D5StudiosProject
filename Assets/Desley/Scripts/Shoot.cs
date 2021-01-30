@@ -68,8 +68,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth)
             {
-                enemyHealth.TakeDamage(damage);
-                enemyHealth = null;
+                //Create DamageRequest, set entity to ent and Damage to damage, then send
+                var request = DamageRequest.Create();
+                request.Entity = health.GetComponentInParent<BoltEntity>();
+                request.Damage = damage;
+                request.IsEnemy = true;
+                request.Send();
+                health = null;
             }
         }
     }
