@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 {
     [SerializeField] int maxHealth;
-    [SerializeField] int currentHealth;
+    [SerializeField] Image enemyHealthbar;
+    [SerializeField] Transform healthbarCanvas;
+    int currentHealth;
+
+    private void Update()
+    {
+        enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
+    }
 
     public override void Attached()
     {
@@ -30,4 +38,11 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     {
         state.EnemyHealth -= damage;
     }
+
+    public void CanvasLookAt(Transform transform)
+    {
+        healthbarCanvas.LookAt(transform);
+    }
+
+    public float GetCurrentHealthPercentage() { return 100f / maxHealth * state.EnemyHealth; }
 }

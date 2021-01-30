@@ -51,7 +51,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void SimulateOwner()
     {
-        base.SimulateOwner();
         Movement();
     }
 

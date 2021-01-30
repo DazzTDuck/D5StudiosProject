@@ -8,8 +8,9 @@ using UdpKit;
 public class NetworkCallbacks : GlobalEventListener
 {
     [SerializeField] GameObject playerPrefab;
-
     [SerializeField] Transform[] spawnPoints;
+
+    [Space, SerializeField] EnemySpawningHandler enemySpawning;
 
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
@@ -29,6 +30,7 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Health>().ResetHealth();
             return;
         }
+        enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
