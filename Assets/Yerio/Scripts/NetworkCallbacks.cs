@@ -33,7 +33,8 @@ public class NetworkCallbacks : GlobalEventListener
             return;
         }
         //enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
-        BoltNetwork.Destroy(evnt.Entity.gameObject);
+        if (evnt.Entity.IsOwner)
+            BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
     public override void OnEvent(DamageRequest evnt)

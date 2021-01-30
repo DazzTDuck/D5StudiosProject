@@ -10,7 +10,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     [SerializeField] Transform healthbarCanvas;
     int currentHealth;
 
-    private void Update()
+    public override void SimulateOwner()
     {
         enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
     }
@@ -29,7 +29,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     {
         currentHealth = state.EnemyHealth;
 
-        if (state.EnemyHealth <= 0)
+        if (currentHealth <= 0)
         {
             //Create DestroyRequest, set entity to ent and then send
             var request = DestroyRequest.Create();
@@ -48,5 +48,5 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
         healthbarCanvas.LookAt(transform);
     }
 
-    public float GetCurrentHealthPercentage() { return 100f / maxHealth * state.EnemyHealth; }
+    public float GetCurrentHealthPercentage() { return 100f / maxHealth * currentHealth; }
 }
