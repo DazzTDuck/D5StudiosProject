@@ -32,7 +32,7 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Health>().ResetHealth();
             return;
         }
-        enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
+        //enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
