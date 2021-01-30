@@ -12,7 +12,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 
     public override void SimulateOwner()
     {
-        //enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
+        enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
     }
 
     public override void Attached()
@@ -23,7 +23,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     void HealthCallback()
     {
         currentHealth = state.EnemyHealth;
-        enemyHealthbar.fillAmount = GetCurrentHealthPercentage() / 100;
+        //enemyHealthbar.fillAmount = GetCurrentHealthPercentage() / 100;
 
         if (currentHealth <= 0)
         {
