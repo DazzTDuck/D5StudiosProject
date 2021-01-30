@@ -10,7 +10,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     [SerializeField] Image enemyHealthbar;
     [SerializeField] Transform healthbarCanvas;
 
-    public override void SimulateOwner()
+    private void Update()
     {
         enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
     }
