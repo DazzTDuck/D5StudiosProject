@@ -70,7 +70,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             {
                 //Create DamageRequest, set entity to ent and Damage to damage, then send
                 var request = DamageRequest.Create();
-                request.Entity = health.GetComponentInParent<BoltEntity>();
+                request.Entity = enemyHealth.GetComponent<BoltEntity>();
                 request.Damage = damage;
                 request.IsEnemy = true;
                 request.Send();
