@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Bolt;
 using UdpKit;
 
-public class EnemySpawningHandler : GlobalEventListener
+public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 {
     [SerializeField] float spawnPerSecond = 0.75f;
     [SerializeField] int maxEnemies = 5;
@@ -17,13 +17,13 @@ public class EnemySpawningHandler : GlobalEventListener
     bool startSpawning = false;
     float spawnTimer;
 
-    private void Start()
+    public override void Attached()
     {
         StartSpawning();
         Debug.LogWarning("started");
     }
 
-    private void Update()
+    public override void SimulateOwner()
     {
         UpdateSpawnTimer();
     }

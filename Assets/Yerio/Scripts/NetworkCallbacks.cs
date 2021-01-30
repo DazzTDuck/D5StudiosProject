@@ -9,6 +9,7 @@ public class NetworkCallbacks : GlobalEventListener
 {
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform[] spawnPoints;
+    [SerializeField] GameObject enemyPrefab;
 
     [Space, SerializeField] EnemySpawningHandler enemySpawning;
 
@@ -17,6 +18,7 @@ public class NetworkCallbacks : GlobalEventListener
         base.SceneLoadLocalDone(scene, token);
 
         BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
+        BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
     }
 
     public override void OnEvent(DestroyRequest evnt)

@@ -4898,7 +4898,6 @@ GameObject:
   m_Component:
   - component: {fileID: 983544882}
   - component: {fileID: 983544881}
-  - component: {fileID: 983544883}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -4925,7 +4924,7 @@ MonoBehaviour:
   - {fileID: 1375285579}
   - {fileID: 30605601}
   - {fileID: 1574519953}
-  enemySpawning: {fileID: 983544883}
+  enemySpawning: {fileID: 0}
 --- !u!4 &983544882
 Transform:
   m_ObjectHideFlags: 0
@@ -4938,38 +4937,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &983544883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983544880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b247c1e1bba0e4c87f0a5c436cbb9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPerSecond: 0.75
-  maxEnemies: 4
-  enemyPrefab: {fileID: 6513203305492154438, guid: 945df08f497d1b44785bd94577f9402c,
-    type: 3}
-  spawnPoints:
-  - {fileID: 662923913}
-  - {fileID: 171417012}
-  - {fileID: 2131490967}
-  - {fileID: 1875829070}
-  - {fileID: 1790604351}
-  - {fileID: 2069182570}
-  targetPoints:
-  - {fileID: 504898076}
-  - {fileID: 660040301}
-  - {fileID: 737094227}
-  - {fileID: 121986515}
-  - {fileID: 1692409334}
-  enemies: []
 --- !u!1 &1001114305
 GameObject:
   m_ObjectHideFlags: 0
@@ -8670,7 +8639,7 @@ PrefabInstance:
     - target: {fileID: 3841261462967296831, guid: ad9a7e13903577249ba9e4a6b906cfc3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3841261462967296831, guid: ad9a7e13903577249ba9e4a6b906cfc3,
         type: 3}
@@ -11049,7 +11018,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982305940
 GameObject:
@@ -11940,7 +11909,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 128.705, y: -25.967987, z: 3.1489868}
 --- !u!1 &2120676595
 GameObject:
