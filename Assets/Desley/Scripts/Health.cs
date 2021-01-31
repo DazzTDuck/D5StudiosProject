@@ -16,10 +16,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void Attached()
     {
-        base.Attached();
-        state.PlayerHealth = maxHealth;
-        state.IsDead = isDeadlocal;
-        state.AddCallback("PlayerHealth", HealthCallback);
+        if (entity.IsOwner)
+        {
+            state.PlayerHealth = maxHealth;
+            state.IsDead = isDeadlocal;
+            state.AddCallback("PlayerHealth", HealthCallback);
+        }
     }
 
     private void Update()

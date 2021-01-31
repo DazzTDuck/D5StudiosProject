@@ -15,7 +15,9 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void Attached()
     {
-        //state.PlayerName = playerNameLocal;
+        if (entity.IsOwner)
+            state.PlayerName = playerNameLocal;
+
         state.AddCallback("PlayerName", ChangeNameCallback);
         state.IsDead = true;
     }

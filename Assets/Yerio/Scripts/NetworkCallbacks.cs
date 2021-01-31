@@ -18,13 +18,13 @@ public class NetworkCallbacks : GlobalEventListener
         base.SceneLoadLocalDone(scene, token);
 
         BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
-        BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(0,3), Quaternion.identity);
+        BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(-3,3), Quaternion.identity);
     }
 
     public override void OnEvent(DestroyRequest evnt)
     {
         if (evnt.IsPlayer)
-        {   
+        {
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
@@ -33,8 +33,7 @@ public class NetworkCallbacks : GlobalEventListener
             return;
         }
         //enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
-        if (evnt.Entity.IsOwner)
-            BoltNetwork.Destroy(evnt.Entity.gameObject);
+        BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
     public override void OnEvent(DamageRequest evnt)

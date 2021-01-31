@@ -43,11 +43,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ShootRaycast()
     {
+        state.Animator.SetTrigger("Shoot");
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit))
         {
-            state.Animator.SetTrigger("Shoot");
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
@@ -66,7 +66,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             
             //kill enemies
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
-            if (enemyHealth)
+            if (enemyHealth && entity.IsOwner)
             {
                 //Create DamageRequest, set entity to ent and Damage to damage, then send
                 var request = DamageRequest.Create();

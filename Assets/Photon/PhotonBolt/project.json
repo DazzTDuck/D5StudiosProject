@@ -4577,7 +4577,7 @@
         {
           "Name": "PlayerHealth",
           "Enabled": true,
-          "ReplicationMode": 2,
+          "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
@@ -4610,7 +4610,7 @@
         {
           "Name": "KillAmount",
           "Enabled": true,
-          "ReplicationMode": 2,
+          "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
@@ -4627,6 +4627,7 @@
         {
           "Name": "PlayerName",
           "Enabled": true,
+          "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
@@ -4898,7 +4899,7 @@
           "Name": "EnemyHealth",
           "Enabled": true,
           "Expanded": true,
-          "ReplicationMode": 2,
+          "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
@@ -4982,6 +4983,23 @@
               "Shift": 1.0,
               "BitsRequired": 8
             }
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "SnapMagnitude": 10.0
+          }
+        },
+        {
+          "Name": "IsDead",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",

@@ -10,6 +10,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
     [SerializeField] Image enemyHealthbar;
     [SerializeField] Transform healthbarCanvas;
 
+    bool isDeadLocal;
     private void Update()
     {
         enemyHealthbar.fillAmount = Mathf.Lerp(enemyHealthbar.fillAmount, GetCurrentHealthPercentage() / 100, 20 * BoltNetwork.FrameDeltaTime);
@@ -17,26 +18,39 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
 
     public override void Attached()
     {
-        state.EnemyHealth = currentHealth;
-        state.AddCallback("EnemyHealth", HealthCallback);
+        if (entity.IsOwner)
+        {
+            state.EnemyHealth = currentHealth;
+            state.IsDead = isDeadLocal;
+            state.AddCallback("EnemyHealth", HealthCallback);
+        }
     }
     void HealthCallback()
     {
-        currentHealth = state.EnemyHealth;
-        //enemyHealthbar.fillAmount = GetCurrentHealthPercentage() / 100;
-
-        if (currentHealth <= 0)
+        if (!state.IsDead)
         {
-            //Create DestroyRequest, set entity to ent and then send
-            var request = DestroyRequest.Create();
-            request.Entity = GetComponent<BoltEntity>();
-            request.Send();
+            currentHealth = state.EnemyHealth;
+            isDeadLocal = state.IsDead;
+            //enemyHealthbar.fillAmount = GetCurrentHealthPercentage() / 100;
+
+            if (currentHealth <= 0)
+            {
+                state.IsDead = true;
+                //Create DestroyRequest, set entity to ent and then send
+                var request = DestroyRequest.Create();
+                request.Entity = GetComponent<BoltEntity>();
+                request.Send();
+            }
         }
+
     }
 
     public void TakeDamage(int damage)
     {
-        state.EnemyHealth -= damage;
+        if (entity.IsOwner)
+        {
+            state.EnemyHealth -= damage;
+        }
     }
 
     public void CanvasLookAt(Transform transform)
