@@ -7,6 +7,7 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
 {
     [SerializeField] NavMeshAgent agent;
     [SerializeField] float attackingDistance = 0.25f;
+    [SerializeField] float moveSpeed = 10f;
 
     bool hasPath = false;
     Vector3 target;
@@ -16,11 +17,15 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
         state.SetTransforms(state.EnemyTransform, transform);
     }
 
+    public override void SimulateOwner()
+    {
+        state.SetTransforms(state.EnemyTransform, transform);
+    }
+
     private void Update()
     {
         AttackTarget();
     }
-
     public void AttackTarget()
     {
         if (GetTargetDistance() <= attackingDistance)
@@ -43,6 +48,6 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
     public void SetPath(Vector3 targetPos)
     {
         target = targetPos;
-        agent.SetDestination(target);
+        agent.SetDestination(target);   
     }
 }
