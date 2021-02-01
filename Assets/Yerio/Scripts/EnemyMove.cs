@@ -12,7 +12,8 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
 
     public override void Attached()
     {
-        state.SetTransforms(state.EnemyTransform, transform);
+        if (entity.IsOwner)
+            state.SetTransforms(state.EnemyTransform, transform);
     }
 
     public override void SimulateOwner()
@@ -45,6 +46,8 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
             target = targetPos;
             agent.SetDestination(target);
             agent.speed = moveSpeed * 10 * BoltNetwork.FrameDeltaTime;
+
+            Debug.LogWarning("Desleyo very cool");
         }
     }
 }
