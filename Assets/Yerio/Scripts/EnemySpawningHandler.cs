@@ -53,8 +53,8 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         var enemy = BoltNetwork.Instantiate(enemyPrefab, GetRandomSpawnPoint(), Quaternion.identity);
         //var enemy = Instantiate(enemyPrefab, GetRandomSpawnPoint(), Quaternion.identity);
         enemies.Add(enemy.gameObject);
-        //var agent = enemy.gameObject.AddComponent<NavMeshAgent>();
-        //enemy.GetComponent<EnemyMove>().SetAgent(agent);
+        var agent = enemy.gameObject.AddComponent<NavMeshAgent>();
+        enemy.GetComponent<EnemyMove>().SetAgent(agent);
         enemy.GetComponent<EnemyMove>().SetPath(GetRandomTargetPoint());
     }
 
