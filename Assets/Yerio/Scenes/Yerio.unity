@@ -4898,6 +4898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 983544882}
   - component: {fileID: 983544881}
+  - component: {fileID: 983544883}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -4924,8 +4925,6 @@ MonoBehaviour:
   - {fileID: 1375285579}
   - {fileID: 30605601}
   - {fileID: 1574519953}
-  enemyPrefab: {fileID: 6513203305492154438, guid: 945df08f497d1b44785bd94577f9402c,
-    type: 3}
   enemySpawning: {fileID: 0}
 --- !u!4 &983544882
 Transform:
@@ -4941,6 +4940,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &983544883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983544880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b039d7b21b20b9c4cb744984992f7cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 4976626348893527966, guid: 5e5ca5037699382479fd720a651e5818,
+    type: 3}
+  targetPoints:
+  - {fileID: 504898076}
+  - {fileID: 660040301}
+  - {fileID: 737094227}
+  - {fileID: 121986515}
+  - {fileID: 1692409334}
+  spawnPoints:
+  - {fileID: 662923913}
+  - {fileID: 171417012}
+  - {fileID: 2131490967}
+  - {fileID: 1875829070}
+  - {fileID: 1790604351}
+  - {fileID: 2069182570}
 --- !u!1 &1001114305
 GameObject:
   m_ObjectHideFlags: 0

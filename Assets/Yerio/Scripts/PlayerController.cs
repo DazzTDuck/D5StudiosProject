@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 {
+    [SerializeField] bool isHost;
+
     [Header("Stats")]
     [SerializeField] float moveSpeed = 4;
 
@@ -42,10 +44,12 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     float horiontal;
     float vertical;
 
+
     public override void Attached()
     {
         base.Attached();
         state.SetTransforms(state.PlayerTransform, transform);
+        state.IsHost = isHost;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -58,6 +62,16 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         CheckIfGround();
         Jumping();
+    }
+
+    public void SetHost()
+    {
+        state.IsHost = true;
+    }
+
+    public bool GetIfHost()
+    {
+        return state.IsHost;
     }
 
     public void Movement()

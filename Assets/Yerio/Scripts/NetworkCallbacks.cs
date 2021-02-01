@@ -9,16 +9,26 @@ public class NetworkCallbacks : GlobalEventListener
 {
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform[] spawnPoints;
-    [SerializeField] GameObject enemyPrefab;
+    public EnemySpawningHandler enemySpawning;
+    //[SerializeField] GameObject enemyPrefab;
 
-    [Space, SerializeField] EnemySpawningHandler enemySpawning;
+    [Space, SerializeField] int connectionsAmount;
 
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         base.SceneLoadLocalDone(scene, token);
+        var player = BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
 
-        BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
-        BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(-3,3), Quaternion.identity);
+        foreach (var connection in BoltNetwork.Connections)
+        {
+            connectionsAmount++;
+        }
+        if(connectionsAmount == 0)
+        {
+            player.GetComponentInChildren<PlayerController>().SetHost();
+        }
+
+        //BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(-3,3), Quaternion.identity);
     }
 
     public override void OnEvent(DestroyRequest evnt)
@@ -32,7 +42,7 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Health>().ResetHealth();
             return;
         }
-        //enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
+        enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 

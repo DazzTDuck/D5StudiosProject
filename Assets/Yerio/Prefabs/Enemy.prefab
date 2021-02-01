@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 4618793839628654089}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -375,8 +375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075f94d460d6d4445a12e39aa29e4ad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 45
-  currentHealth: 45
+  maxHealth: 35
+  currentHealth: 35
   enemyHealthbar: {fileID: 1699169059183757379}
   healthbarCanvas: {fileID: 6345864229653713921}
 --- !u!114 &1626297634479972084
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6513203305492154438}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f917e24d644900499567c4fc28f8508, type: 3}
   m_Name: 

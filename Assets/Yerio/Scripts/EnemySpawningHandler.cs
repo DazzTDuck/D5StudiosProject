@@ -5,22 +5,29 @@ using UnityEngine.AI;
 using Bolt;
 using UdpKit;
 
+[BoltGlobalBehaviour(BoltNetworkModes.Server)]
 public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 {
     [SerializeField] float spawnPerSecond = 0.75f;
     [SerializeField] int maxEnemies = 5;
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] Transform[] spawnPoints;
-    [SerializeField] Transform[] targetPoints;
+    [SerializeField] float enemySpeed = 20f;
+    public Transform[] spawnPoints;
+    public Transform[] targetPoints;
     public List<GameObject> enemies = new List<GameObject>();
 
     bool startSpawning = false;
+    bool hasInstantiated = false;
     float spawnTimer;
 
     public override void Attached()
     {
-        StartSpawning();
-        Debug.LogWarning("started");
+        StartCoroutine(StartDelay());
+    }
+
+    void SpawnedSpawnerCallback()
+    {
+        hasInstantiated = state.HasSpawned;
     }
 
     public override void SimulateOwner()
@@ -48,6 +55,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         //var enemy = Instantiate(enemyPrefab, GetRandomSpawnPoint(), Quaternion.identity);
         enemies.Add(enemy.gameObject);
         var agent = enemy.gameObject.AddComponent<NavMeshAgent>();
+        agent.speed = enemySpeed * 10 * BoltNetwork.FrameDeltaTime;
         enemy.GetComponent<EnemyMove>().SetAgent(agent);
         enemy.GetComponent<EnemyMove>().SetPath(GetRandomTargetPoint());
     }
@@ -65,6 +73,23 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
     {
         var index = enemies.IndexOf(enemy);
         enemies.RemoveAt(index);
+    }
+
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(5);
+
+        if (GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().GetIfHost() && entity.IsOwner)
+        {
+            state.HasSpawned = hasInstantiated;
+            state.AddCallback("HasSpawned", SpawnedSpawnerCallback);
+            state.HasSpawned = true;
+            StartSpawning();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void StartSpawning() { startSpawning = true; spawnTimer = spawnPerSecond; }

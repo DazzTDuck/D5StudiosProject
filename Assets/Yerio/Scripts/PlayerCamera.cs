@@ -28,6 +28,15 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public void Update()
     {
         CameraPos();
+        EnemyHealthbarLookat();
+    }
+
+    void EnemyHealthbarLookat()
+    {
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("enemy"))
+        {
+            enemy.GetComponent<EnemyHealth>().CanvasLookAt(transform);
+        }
     }
 
     void CameraPos()
