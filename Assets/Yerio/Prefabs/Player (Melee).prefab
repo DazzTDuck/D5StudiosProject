@@ -1293,7 +1293,7 @@ GameObject:
   - component: {fileID: 4788751972951705084}
   - component: {fileID: 4788751972951705085}
   - component: {fileID: 5562839472500618888}
-  - component: {fileID: 7063808106760798564}
+  - component: {fileID: 9185460742567943604}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -1435,7 +1435,7 @@ MonoBehaviour:
   currentHealth: 30
   maxHealth: 30
   healthbar: {fileID: 2538583457088671388}
---- !u!114 &7063808106760798564
+--- !u!114 &9185460742567943604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1444,13 +1444,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4788751972951705027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f1c7f233077f74f85a31f5e9820cc2, type: 3}
+  m_Script: {fileID: 11500000, guid: a40f9add0ff1c10468737c2283405e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 728898478619064678}
   playerInputName: {fileID: 1629583760096598187}
   button: {fileID: 4499406032663203052}
   setNameCanvas: {fileID: 960846150136496836}
+  playerNamesInLobby: []
+  players: []
 --- !u!1 &4788751972979609531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,7 +2110,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
+  m_fontSize: 17.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

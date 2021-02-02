@@ -93,7 +93,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void Jumping()
     {
-        wantToJump = Input.GetButtonDown("Jump");
+        if (!state.IsDead)
+            wantToJump = Input.GetButtonDown("Jump");
 
         //when the cooldown is active add it up with time and if it has exceeded the cooldown time you can jump again
         if (jumpCooldown && isGrounded && !wantToJump)

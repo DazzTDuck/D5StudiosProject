@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
+public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] TMP_Text playerNameText;
     [SerializeField] TMP_InputField playerInputName;
     [SerializeField] Button button;
     [SerializeField] GameObject setNameCanvas;
 
+    [SerializeField] TMP_Text[] playerNamesInLobby;
+    [SerializeField] List<GameObject> players = new List<GameObject>();
+ 
     string playerNameLocal;
 
     public override void Attached()
@@ -24,6 +27,19 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Start()
     {
         button.onClick.AddListener(() => { SendChangeNameRequest(playerInputName.text); });
+    }
+
+    public void StartGame()
+    {
+        //Disable all Host Screens (event)
+        //start spawning enemies
+    }
+
+    public void GetAllPlayers()
+    {
+        //update if there are players in the scene
+        //add them into the Players List
+        //Send Event To update Host Screen to corrensponding Player name      
     }
 
     public void ChangeNameCallback()
@@ -55,5 +71,7 @@ public class PlayerName : Bolt.EntityBehaviour<IPlayerControllerState>
 
         PlayerCamera.HideCursor();
         setNameCanvas.SetActive(false);
+
+        //change corresponding name in array to what has been set.
     }
 }

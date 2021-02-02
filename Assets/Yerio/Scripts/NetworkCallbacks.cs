@@ -72,9 +72,10 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(ChangeNameEvent evnt)
     {
-        evnt.Entity.GetComponentInChildren<PlayerName>().ChangeName(evnt.Name);
+        evnt.Entity.GetComponentInChildren<WaitForHostScreen>().ChangeName(evnt.Name);
     }
 
+    //fix later
     public override void EntityDetached(BoltEntity entity)
     {
         base.EntityDetached(entity);
