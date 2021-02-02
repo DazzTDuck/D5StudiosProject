@@ -17,7 +17,7 @@ public class NetworkCallbacks : GlobalEventListener
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         base.SceneLoadLocalDone(scene, token);
-        var player = BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
+        var player = BoltNetwork.Instantiate(playerPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
         foreach (var connection in BoltNetwork.Connections)
         {
