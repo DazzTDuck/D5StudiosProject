@@ -425,7 +425,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8370687007814999857}
   - component: {fileID: 1259697112945051263}
-  - component: {fileID: 1374007891232183462}
   m_Layer: 0
   m_Name: DeagleBonk
   m_TagString: Untagged
@@ -461,27 +460,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2282dee7be4afa84d815f8eef16aa5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   animator: {fileID: 6004033440337053743}
   shankPoint: {fileID: 3488462987841733067}
-  player: {fileID: 0}
   damage: 50
   shankRate: 1
   range: 2
   damageTime: 0.5
-  hitObjects: []
-  hitEnemies: []
-  enemyToAttack: {fileID: 0}
-  closestDistanceToScreen: Infinity
---- !u!135 &1374007891232183462
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9178749281941194123}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
