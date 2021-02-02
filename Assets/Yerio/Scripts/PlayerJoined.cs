@@ -9,17 +9,16 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void Attached()
     {
-
+        if (entity.IsOwner && !playerSetNameCanvas.gameObject.activeInHierarchy)
+        {
+            playerSetNameCanvas.gameObject.SetActive(true);
+        }
     }
     private void Update()
     {
         if (entity.IsOwner && !playerCamera.gameObject.activeInHierarchy)
         {
             playerCamera.gameObject.SetActive(true);
-        }
-        if (entity.IsOwner && !playerSetNameCanvas.gameObject.activeInHierarchy)
-        {
-            playerSetNameCanvas.gameObject.SetActive(true);
         }
     }
 }
