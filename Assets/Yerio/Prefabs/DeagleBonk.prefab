@@ -461,13 +461,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2282dee7be4afa84d815f8eef16aa5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   animator: {fileID: 6004033440337053743}
   shankPoint: {fileID: 3488462987841733067}
-  damage: 10
+  player: {fileID: 0}
+  damage: 50
   shankRate: 1
-  range: 0.75
+  range: 2
   damageTime: 0.5
+  hitObjects: []
+  hitEnemies: []
+  enemyToAttack: {fileID: 0}
+  closestDistanceToScreen: Infinity
 --- !u!135 &1374007891232183462
 SphereCollider:
   m_ObjectHideFlags: 0
