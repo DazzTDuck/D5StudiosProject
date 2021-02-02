@@ -42,7 +42,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     float horiontal;
     float vertical;
 
-    bool isHost;
+    [SerializeField] bool isHost;
 
     public override void Attached()
     {
