@@ -12,7 +12,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Awake()
     {
         currentHealth = maxHealth;
-        state.IsDead = true;
     }
 
     public override void Attached()

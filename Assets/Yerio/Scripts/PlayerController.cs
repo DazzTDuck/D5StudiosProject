@@ -48,8 +48,11 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Attached();
         state.SetTransforms(state.PlayerTransform, transform);
-        state.IsHost = isHost;
-        state.AddCallback("IsHost", HostCallback);
+        if (entity.IsOwner)
+        {
+            state.IsHost = isHost;
+            state.AddCallback("IsHost", HostCallback);
+        }
         rb = GetComponent<Rigidbody>();
     }
 
