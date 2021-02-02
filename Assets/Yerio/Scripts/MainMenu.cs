@@ -12,9 +12,6 @@ using TMPro;
 public class MainMenu : GlobalEventListener
 {
     [SerializeField] Button hostButton;
-    [SerializeField] GameObject findGamePanel;
-    [SerializeField] TMP_Text currentSessionsText;
-    [SerializeField] GameObject sessionButtonPrefab;
 
     private void Awake()
     {
@@ -39,26 +36,17 @@ public class MainMenu : GlobalEventListener
     public void StartClient()
     {
         BoltLauncher.StartClient();
-
-        //enable Panel & disable host button
-        findGamePanel.SetActive(true);
-        hostButton.interactable = false;
     }
 
     public void BackToMainMenu()
     {
         //disable Panel & enable host button
         BoltLauncher.Shutdown();
-
-        findGamePanel.SetActive(false);
-        hostButton.interactable = true;
     }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
         base.SessionListUpdated(sessionList);
-
-        currentSessionsText.text = $"{sessionList.Count} Games Found";
 
         foreach (var session in sessionList)
         {
@@ -66,8 +54,7 @@ public class MainMenu : GlobalEventListener
 
             if (photonSession.Source == UdpSessionSource.Photon)
             {
-                var button = Instantiate(sessionButtonPrefab, findGamePanel.transform);
-                button.GetComponent<Button>().onClick.AddListener(() => JoinSession(photonSession));
+                JoinSession(photonSession);
             }
         }
     }
