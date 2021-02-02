@@ -16,7 +16,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
     public List<GameObject> enemies = new List<GameObject>();
 
     bool startSpawning = false;
-    bool hasInstantiated = false;
+    bool isHost = false;
     float spawnTimer;
 
     public override void Attached()
@@ -24,14 +24,10 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         StartCoroutine(StartDelay());
     }
 
-    void SpawnedSpawnerCallback()
-    {
-        hasInstantiated = state.HasSpawned;
-    }
-
     public override void SimulateOwner()
     {
-        UpdateSpawnTimer();
+        if (isHost)
+            UpdateSpawnTimer();
     }
 
     public void UpdateSpawnTimer()
@@ -75,12 +71,14 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(2);
 
-        if (GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().GetIfHost() && entity.IsOwner)
+        isHost = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().GetIfHost();
+
+        yield return new WaitForSeconds(5);
+
+        if (isHost && entity.IsOwner)
         {
-            state.HasSpawned = hasInstantiated;
-            state.AddCallback("HasSpawned", SpawnedSpawnerCallback);
             state.HasSpawned = true;
             StartSpawning();
         }

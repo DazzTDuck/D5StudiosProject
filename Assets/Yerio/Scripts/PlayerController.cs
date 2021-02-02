@@ -100,7 +100,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             wantToJump = Input.GetButtonDown("Jump");
 
         //when the cooldown is active add it up with time and if it has exceeded the cooldown time you can jump again
-        if (jumpCooldown && isGrounded && !wantToJump)
+        if (jumpCooldown && isGrounded && !wantToJump && entity.IsOwner)
         {
             jumpCooldownTimer += Time.deltaTime;
             if (jumpCooldownTimer >= jumpCooldownTime)
@@ -110,7 +110,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             }
         }
 
-        if (wantToJump && isGrounded && !jumpCooldown)
+        if (wantToJump && isGrounded && !jumpCooldown && entity.IsOwner)
         {
             //calculate the force needed to jump the height given
             var jumpVelocity = Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight);
@@ -129,7 +129,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     void CheckIfGround()
     {
         //this checks if the player is standing on the ground
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
+        if (entity.IsOwner)
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
 
         //so there is always a little velocity down on the player for when it falls
         if (isGrounded && velocity.y < 0)
