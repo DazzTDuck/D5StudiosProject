@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 {
-    [SerializeField] Camera cam;
     [SerializeField] Animator animator;
-    [SerializeField] Transform shankPoint;
+    [SerializeField] Transform shankPoint, player;
     [SerializeField] int damage;
     [SerializeField] float shankRate, range, damageTime;
     float nextTimeToShank;
 
-    public List<GameObject> hitEnemies;
-    public EnemyHealth enemyHealth;
+    public Collider[] hitObjects;
+    public List<GameObject> hitEnemies = new List<GameObject>();
+    public GameObject enemyToAttack;
     public float closestDistanceToScreen = Mathf.Infinity;
 
     bool isShooting;
@@ -25,6 +25,7 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             state.Animator.ResetTrigger("Bonk");
             FilterEnemies();
+            state.Animator.SetTrigger("Bonk");
             nextTimeToShank = Time.time + 1f / shankRate;
         }
 
@@ -41,45 +42,34 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void FilterEnemies()
     {
-        Collider[] hitObjects = Physics.OverlapSphere(shankPoint.position, range);
+        hitObjects = Physics.OverlapSphere(shankPoint.position, range);
         foreach (Collider collider in hitObjects)
         {
             if (collider.GetComponent<EnemyHealth>() && !hitEnemies.Contains(collider.gameObject))
             {
                 hitEnemies.Add(collider.gameObject);
             }
-            else if (collider.GetComponentInParent<EnemyHealth>() && !hitEnemies.Contains(collider.gameObject))
-            {
-                hitEnemies.Add(collider.GetComponentInParent<Collider>().gameObject);
-            }
         }
     }
 
     public void PredictEnemy()
     {
-        foreach(GameObject enemy in hitEnemies)
+        foreach(GameObject enemy in hitEnemies.ToArray())
         {
-            float DistanceToScreen = Vector3.Dot(cam.transform.position, enemy.transform.position.normalized);
+            float DistanceToScreen = Vector3.Dot(player.position, enemy.transform.position.normalized);
             if(DistanceToScreen <= closestDistanceToScreen)
             {
                 closestDistanceToScreen = DistanceToScreen;
-                enemyHealth = enemy.GetComponent<EnemyHealth>();
+                enemyToAttack = enemy;
             }
             hitEnemies.Remove(enemy);
         }
 
         if (hitEnemies.Count == 0)
         {
-            Shank();
+            StartCoroutine(DoDamage(damageTime));
             closestDistanceToScreen = Mathf.Infinity;
         }
-    }
-
-    public void Shank()
-    {
-        //shank erin, shank eruit
-        state.Animator.SetTrigger("Bonk");
-        StartCoroutine(DoDamage(damageTime));
     }
 
     public IEnumerator DoDamage(float time)
@@ -88,11 +78,11 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
         //Create DamageRequest, set entity to ent and Damage to damage, then send
         var request = DamageRequest.Create();
-        request.Entity = enemyHealth.GetComponent<BoltEntity>();
+        request.Entity = enemyToAttack.GetComponent<BoltEntity>();
         request.Damage = damage;
         request.IsEnemy = true;
         request.Send();
-        enemyHealth = null;
+        enemyToAttack = null;
         StopCoroutine(nameof(DoDamage));
     }
 }

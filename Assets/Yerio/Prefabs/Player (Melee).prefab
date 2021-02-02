@@ -2110,7 +2110,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17.25
+  m_fontSize: 13
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2534,6 +2534,16 @@ PrefabInstance:
       propertyPath: range
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
+        type: 3}
+      propertyPath: damage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4788751973370468055}
     - target: {fileID: 8370687007814999857, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
       propertyPath: m_RootOrder
