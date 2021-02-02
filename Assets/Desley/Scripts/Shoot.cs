@@ -8,12 +8,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject flash;
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
-    [SerializeField] int damage, range;
+    [SerializeField] int damage;
     [SerializeField] float fireRate;
     [SerializeField] Animator animator;
     float nextTimeToShoot;
 
-    Health health;
+    //Health health;
     EnemyHealth enemyHealth;
 
     bool isShooting;
@@ -25,7 +25,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.Animator.ResetTrigger("Shoot");
-            //state.WeaponTrigger();
             ShootRaycast();
             var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
             flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
@@ -37,7 +36,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         base.Attached();
-        state.OnWeaponTrigger = ShootRaycast;
         state.SetAnimator(animator);
     }
 
@@ -74,7 +72,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.Damage = damage;
                 request.IsEnemy = true;
                 request.Send();
-                health = null;
+                enemyHealth = null;
             }
         }
     }

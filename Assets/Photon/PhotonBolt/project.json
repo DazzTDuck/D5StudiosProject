@@ -4643,23 +4643,6 @@
           }
         },
         {
-          "Name": "Shoot",
-          "Enabled": true,
-          "Expanded": true,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeTrigger, bolt.compiler"
-          },
-          "AssetSettings": {
-            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
-            "ExtrapolationErrorTolerance": 0.25,
-            "_ExtrapolationCorrectionFrames": 6,
-            "ExtrapolationMaxFrames": 9,
-            "MecanimMode": 1,
-            "SnapMagnitude": 10.0
-          }
-        },
-        {
           "Name": "IsHost",
           "Enabled": true,
           "ReplicationMode": 1,
