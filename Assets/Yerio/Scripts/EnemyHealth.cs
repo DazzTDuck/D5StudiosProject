@@ -39,6 +39,7 @@ public class EnemyHealth : Bolt.EntityBehaviour<IEnemyState>
                 //Create DestroyRequest, set entity to ent and then send
                 var request = DestroyRequest.Create();
                 request.Entity = GetComponent<BoltEntity>();
+                request.IsEnemy = true;
                 request.Send();
             }
         }

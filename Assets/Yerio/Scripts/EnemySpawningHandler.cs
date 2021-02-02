@@ -21,7 +21,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     public override void Attached()
     {
-        StartCoroutine(StartDelay());
+        //StartCoroutine(StartDelay());
     }
 
     void SpawnedSpawnerCallback()

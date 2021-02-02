@@ -7,7 +7,7 @@ using UdpKit;
 
 public class NetworkCallbacks : GlobalEventListener
 {
-    [SerializeField] GameObject playerPrefab;
+    [SerializeField] GameObject cameraPrefab;
     [SerializeField] Transform[] spawnPoints;
     public EnemySpawningHandler enemySpawning;
     //[SerializeField] GameObject enemyPrefab;
@@ -17,18 +17,28 @@ public class NetworkCallbacks : GlobalEventListener
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         base.SceneLoadLocalDone(scene, token);
-        var player = BoltNetwork.Instantiate(playerPrefab, token, GetNewSpawnpoint(), Quaternion.identity);
+        var player = BoltNetwork.Instantiate(cameraPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
         foreach (var connection in BoltNetwork.Connections)
         {
             connectionsAmount++;
         }
-        if(connectionsAmount == 0)
+
+        //BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(-3,3), Quaternion.identity);
+    }
+
+    public void SpawnPlayer(GameObject objectToRemove, GameObject newPrefab)
+    {
+        //Create DestroyRequest, set entity to ent and then send
+        var request = DestroyRequest.Create();
+        request.Entity = objectToRemove.GetComponent<BoltEntity>();
+        request.Send();
+        var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
+
+        if (connectionsAmount == 0)
         {
             player.GetComponentInChildren<PlayerController>().SetHost();
         }
-
-        //BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(-3,3), Quaternion.identity);
     }
 
     public override void OnEvent(DestroyRequest evnt)
@@ -42,7 +52,10 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Health>().ResetHealth();
             return;
         }
-        enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
+
+        if (evnt.IsEnemy)
+            enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
+
         BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
