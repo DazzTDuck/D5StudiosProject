@@ -75,7 +75,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
 
         if (GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().GetIfHost() && entity.IsOwner)
         {
