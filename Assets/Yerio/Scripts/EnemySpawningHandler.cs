@@ -18,10 +18,12 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
     bool startSpawning = false;
     bool isHost = false;
     float spawnTimer;
+    PlayerController player;
 
     public override void Attached()
     {
-        StartCoroutine(StartDelay());
+        if (player)
+            StartCoroutine(StartDelay());
     }
 
     public override void SimulateOwner()
@@ -69,13 +71,18 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         enemies.RemoveAt(index);
     }
 
+    public void SetPlayer(PlayerController playerController)
+    {
+        player = playerController;
+    }
+
     IEnumerator StartDelay()
     {
         yield return new WaitForSeconds(2);
 
-        isHost = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().GetIfHost();
+        isHost = player.GetIfHost();
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         if (isHost && entity.IsOwner)
         {

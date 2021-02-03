@@ -34,6 +34,7 @@ public class NetworkCallbacks : GlobalEventListener
         request.Entity = objectToRemove.GetComponent<BoltEntity>();
         request.Send();
         var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
+        enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
 
         if (connectionsAmount == 0)
         {
