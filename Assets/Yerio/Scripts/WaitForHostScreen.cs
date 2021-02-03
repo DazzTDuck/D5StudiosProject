@@ -121,6 +121,8 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
             {
                 CloseScreen();
             }
+
+            Debug.LogWarning(started.GetIfGameStarted());
         }
     }
 
