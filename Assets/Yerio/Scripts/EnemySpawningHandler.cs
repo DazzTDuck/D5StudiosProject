@@ -77,7 +77,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
 
         isHost = player.GetIfHost();
 
