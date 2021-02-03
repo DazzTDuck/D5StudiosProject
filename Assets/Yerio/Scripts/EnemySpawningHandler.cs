@@ -22,8 +22,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     public override void Attached()
     {
-        if (player)
-            StartCoroutine(StartDelay());
+        StartCoroutine(StartDelay());
     }
 
     public override void SimulateOwner()
@@ -78,11 +77,11 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
 
         isHost = player.GetIfHost();
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         if (isHost && entity.IsOwner)
         {
