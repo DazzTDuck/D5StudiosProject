@@ -22,6 +22,14 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
     float spawnTimer;
     PlayerController player;
 
+    public override void Attached()
+    {
+        if (entity.IsOwner)
+        {
+            state.HasSpawned = false;
+        }
+    }
+
     public static void StartGame()
     {
         startGame = true;
@@ -29,7 +37,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     public bool GetIfGameStarted()
     {
-        return gameStarted;
+        return state.HasSpawned;
     }
 
     public override void SimulateOwner()
@@ -37,11 +45,11 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         if (isHost)
             UpdateSpawnTimer();
 
-        if (startGame && !gameStarted)
+        if (startGame && !state.HasSpawned)
         {
             StartCoroutine(StartDelay());
             startGame = false;
-            gameStarted = true;
+            state.HasSpawned = true;
         }
     }
 
@@ -99,7 +107,6 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
         if (isHost && entity.IsOwner)
         {
-            state.HasSpawned = true;
             StartSpawning();
         }
         else
