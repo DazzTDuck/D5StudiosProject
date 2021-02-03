@@ -77,6 +77,15 @@ public class NetworkCallbacks : GlobalEventListener
         evnt.Entity.GetComponentInChildren<WaitForHostScreen>().ChangeName(evnt.Name);
     }
 
+    public override void OnEvent(StartGameRequest evnt)
+    {
+        foreach (var host in FindObjectsOfType<WaitForHostScreen>())
+        {
+            if (host.entity.IsOwner)
+                host.CloseScreen();
+        }
+    }
+
     //fix later
     public override void EntityDetached(BoltEntity entity)
     {

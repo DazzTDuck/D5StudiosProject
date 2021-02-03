@@ -16,19 +16,26 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
     public List<GameObject> enemies = new List<GameObject>();
 
     bool startSpawning = false;
+    static bool startGame = false;
     bool isHost = false;
     float spawnTimer;
     PlayerController player;
 
-    public override void Attached()
+    public static void StartGame()
     {
-        StartCoroutine(StartDelay());
+        startGame = true;
     }
 
     public override void SimulateOwner()
     {
         if (isHost)
             UpdateSpawnTimer();
+
+        if (startGame)
+        {
+            StartCoroutine(StartDelay());
+            startGame = false;
+        }
     }
 
     public void UpdateSpawnTimer()
