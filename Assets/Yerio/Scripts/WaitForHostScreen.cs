@@ -33,7 +33,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     }
     private void Start()
     {
-        setNameButton.onClick.AddListener(() => { SendChangeNameRequest(playerInputName.text); });
+        setNameButton.onClick.AddListener(() => { SendChangeNameRequest(playerInputName.text); CheckIfGameStarted(); });
         startGameButton.onClick.AddListener(() => { StartGame(); });
     }
     private void Update()
@@ -111,10 +111,16 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
 
         playerNameText.text = state.PlayerName;
         //state.SetDynamic("PlayerName", state.PlayerName);
+    }
 
-        if (EnemySpawningHandler.GetIfGameStarted())
+    public void CheckIfGameStarted()
+    {
+        foreach (var started in FindObjectsOfType<EnemySpawningHandler>())
         {
-            CloseScreen();
+            if (started.GetIfGameStarted())
+            {
+                CloseScreen();
+            }
         }
     }
 
