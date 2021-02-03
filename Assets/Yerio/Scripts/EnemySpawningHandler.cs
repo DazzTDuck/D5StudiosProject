@@ -17,6 +17,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     bool startSpawning = false;
     static bool startGame = false;
+    bool gameStarted = false;
     bool isHost = false;
     float spawnTimer;
     PlayerController player;
@@ -26,15 +27,20 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         startGame = true;
     }
 
+    public static bool GetIfGameStarted()
+    {
+        return startGame;
+    }
+
     public override void SimulateOwner()
     {
         if (isHost)
             UpdateSpawnTimer();
 
-        if (startGame)
+        if (startGame && !gameStarted)
         {
             StartCoroutine(StartDelay());
-            startGame = false;
+            gameStarted = true;
         }
     }
 

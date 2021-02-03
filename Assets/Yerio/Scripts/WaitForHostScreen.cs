@@ -103,11 +103,10 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Name = name;
         request.Send();
 
-        //Create DestroyRequest, set entity to ent and then send
-        //var request2 = DestroyRequest.Create();
-        //request2.Entity = GetComponentInParent<BoltEntity>();
-        //request2.IsPlayer = true;
-        //request2.Send();
+        if (EnemySpawningHandler.GetIfGameStarted())
+        {
+            CloseScreen();
+        }
     }
 
     public void ChangeName(string name)
