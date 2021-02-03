@@ -107,7 +107,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ChangeName(string name)
     {
         if(entity.IsOwner)
-        state.PlayerName = name.Length > 2 ? name : "Player";
+        state.PlayerName = name.Length > 2 || name.Length < 20 ? name : "Player";
 
         playerNameText.text = state.PlayerName;
         //state.SetDynamic("PlayerName", state.PlayerName);
