@@ -102,11 +102,6 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Entity = GetComponentInParent<BoltEntity>();
         request.Name = name;
         request.Send();
-
-        if (EnemySpawningHandler.GetIfGameStarted())
-        {
-            CloseScreen();
-        }
     }
 
     public void ChangeName(string name)
@@ -117,7 +112,10 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         playerNameText.text = state.PlayerName;
         //state.SetDynamic("PlayerName", state.PlayerName);
 
-        //change corresponding name in array to what has been set.
+        if (EnemySpawningHandler.GetIfGameStarted())
+        {
+            CloseScreen();
+        }
     }
 
     IEnumerator StartButtonInteractable()
