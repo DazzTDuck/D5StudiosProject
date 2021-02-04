@@ -20,7 +20,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
-        isShooting = Input.GetButton("Fire1");
+        isShooting = Input.GetButtonDown("Fire1");
 
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
         {
@@ -34,6 +34,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             nextTimeToShoot = Time.time + 1f / fireRate;
         }
     }
+
+    public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
 
     public override void Attached()
     {

@@ -17,6 +17,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [Header("--References--")]
     public Transform player;
+    public Shoot weapon;
 
     [HideInInspector]
     public float rotCamX;
@@ -46,9 +47,9 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
             recoilValue = Mathf.Lerp(recoilValue, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
         }
 
-        if (recoilValue + .1 >= recoilMax)
+        if (recoilValue + .1 > recoilMax)
             increaseRecoil = false;
-        if (recoilValue <= .1)
+        if (recoilValue < .1)
             recoilMax = 0;
     }
 
