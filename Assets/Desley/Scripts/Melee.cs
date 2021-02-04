@@ -37,12 +37,13 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (entity.IsOwner)
         {
-            gameObject.layer = 9;
+            int index = 9;
+            gameObject.layer = index;
             var transforms = GetComponentsInChildren<Transform>();
 
             foreach (var gameObject in transforms)
             {
-                gameObject.gameObject.layer = 9;
+                gameObject.gameObject.layer = index;
             }
         }
     }
