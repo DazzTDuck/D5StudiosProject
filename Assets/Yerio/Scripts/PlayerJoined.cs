@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera playerCamera;
+    [SerializeField] Camera weaponCamera;
     [SerializeField] GameObject playerSetNameCanvas;
 
     public override void Attached()
@@ -19,6 +20,13 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
         if (entity.IsOwner && !playerCamera.gameObject.activeInHierarchy)
         {
             playerCamera.gameObject.SetActive(true);
+        }
+        if (weaponCamera)
+        {
+            if (entity.IsOwner && !weaponCamera.gameObject.activeInHierarchy)
+            {
+                weaponCamera.gameObject.SetActive(true);
+            }
         }
     }
 }
