@@ -16,8 +16,8 @@ public class CameraCopy : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (cameraTransform)
         {
-            transform.position = Vector3.Slerp(transform.position, cameraTransform.position, BoltNetwork.FrameDeltaTime * 15);
-            transform.rotation = Quaternion.Slerp(transform.rotation, cameraTransform.rotation, BoltNetwork.FrameDeltaTime * 15);
+            transform.position = Vector3.Slerp(transform.position, cameraTransform.position, BoltNetwork.FrameDeltaTime * 25);
+            transform.rotation = Quaternion.Slerp(transform.rotation, cameraTransform.rotation, BoltNetwork.FrameDeltaTime * 25);
         }
     }
 }

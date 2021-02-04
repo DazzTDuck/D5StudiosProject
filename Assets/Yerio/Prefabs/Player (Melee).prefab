@@ -271,9 +271,14 @@ MonoBehaviour:
   maxRotX: 60
   minRotX: -60
   camOffset: {x: 0, y: 1.15, z: 0}
+  recoilDecreaseValue: 0
+  recoilIncreaseValue: 0
   player: {fileID: 4788751972951705024}
   rotCamX: 0
   rotCamY: 0
+  recoilMax: 0
+  recoilValue: 0
+  increaseRecoil: 0
 --- !u!1 &1713651737991147581
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9689230901295b48b8036373f01521b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 2.5
   jumpHeight: 1
   jumpCooldownTime: 0
   groundCheck: {fileID: 2173349506192043996}
@@ -1058,9 +1063,14 @@ MonoBehaviour:
   maxRotX: 60
   minRotX: -60
   camOffset: {x: 0, y: 1.15, z: 0}
+  recoilDecreaseValue: 0
+  recoilIncreaseValue: 0
   player: {fileID: 4788751972951705024}
   rotCamX: 0
   rotCamY: 0
+  recoilMax: 0
+  recoilValue: 0
+  increaseRecoil: 0
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1388,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.15
+  m_fontSize: 14.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

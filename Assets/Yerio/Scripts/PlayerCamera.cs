@@ -22,9 +22,9 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     [HideInInspector]
     public float rotCamY;
 
-    public float recoilMax;
-    public float recoilValue = 0;
-    public bool increaseRecoil;
+    float recoilMax;
+    float recoilValue = 0;
+    bool increaseRecoil = false;
 
     private void Awake()
     {
