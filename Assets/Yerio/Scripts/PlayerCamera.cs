@@ -13,6 +13,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public Vector3 camOffset;
     [SerializeField] float recoilDecreaseValue;
     [SerializeField] float recoilIncreaseValue;
+    [SerializeField] float recoilMaxClamp;
 
     [Header("--References--")]
     public Transform player;
@@ -54,6 +55,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public void AddRecoil(float value)
     {
         recoilMax += value;
+        recoilMax = Mathf.Clamp(recoilMax, 0, recoilMaxClamp);
         increaseRecoil = true;
     }
 

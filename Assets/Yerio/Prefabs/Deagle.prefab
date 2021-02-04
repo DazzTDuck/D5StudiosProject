@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3488462987841733067}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 619933419880681391}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5484878381213212332}
   - component: {fileID: 7110861519528281816}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Deagle LowPoly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8595682794651270630}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hammer_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 373804839812357356}
   - component: {fileID: 6004033440337053743}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 597629702719562316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 657336297847757210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grip/Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8921224543490879102}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8379742149068338557}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Slide_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6828550454194114900}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1970183075212713006}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8370687007814999857}
   - component: {fileID: -8445362038409339019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Deagle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,11 +461,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+  weaponCam: {fileID: 0}
   flash: {fileID: 100004, guid: e5727721799e00f44906e7af53883073, type: 3}
   bulletHit: {fileID: 4193772629632023559, guid: 2470c3a121c722641bc6a7f1fe2ffce3,
     type: 3}
   muzzle: {fileID: 3488462987841733067}
-  damage: 10
-  range: 0
+  damage: 15
   fireRate: 2.7
+  weaponPunch: 3.5
   animator: {fileID: 6004033440337053743}

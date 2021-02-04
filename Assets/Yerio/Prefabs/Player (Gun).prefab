@@ -751,6 +751,7 @@ MonoBehaviour:
   camOffset: {x: 0, y: 1.15, z: 0}
   recoilDecreaseValue: 4
   recoilIncreaseValue: 18
+  recoilMaxClamp: 10
   player: {fileID: 4788751972951705024}
   rotCamX: 0
   rotCamY: 0
@@ -1071,6 +1072,7 @@ MonoBehaviour:
   camOffset: {x: 0, y: 1.15, z: 0}
   recoilDecreaseValue: 4
   recoilIncreaseValue: 18
+  recoilMaxClamp: 10
   player: {fileID: 4788751972951705024}
   rotCamX: 0
   rotCamY: 0
@@ -1391,7 +1393,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14.8
+  m_fontSize: 12.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1914,79 +1916,14 @@ PrefabInstance:
       objectReference: {fileID: 4788751972979609529}
     - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
-      propertyPath: damage
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
       propertyPath: fireRate
-      value: 2.7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: weaponCam
       value: 
       objectReference: {fileID: 5909814220828917061}
-    - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: weaponPunch
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 191641168389917477, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1298646908488041957, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1675519438213128244, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3207964675820361795, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290086879792356535, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4098063455291687936, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5203988711911828651, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7010079598432574105, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7417357200946495347, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7500956124231377704, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200768907243485353, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 8370687007814999857, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: m_RootOrder
@@ -2046,11 +1983,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Deagle
-      objectReference: {fileID: 0}
-    - target: {fileID: 9178749281941194123, guid: deef26e1ee209794fba717d004d5cb23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deef26e1ee209794fba717d004d5cb23, type: 3}
