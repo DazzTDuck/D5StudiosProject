@@ -749,9 +749,9 @@ MonoBehaviour:
   maxRotX: 60
   minRotX: -60
   camOffset: {x: 0, y: 1.15, z: 0}
-  recoilDecreaseValue: 5
-  recoilIncreaseValue: 14
-  recoilMaxClamp: 6
+  recoilDecreaseValue: 10
+  recoilIncreaseValue: 20
+  recoilMaxClamp: 7
   player: {fileID: 4788751972951705024}
   weapon: {fileID: 3833603442288366387}
   rotCamX: 0
@@ -1071,9 +1071,9 @@ MonoBehaviour:
   maxRotX: 60
   minRotX: -60
   camOffset: {x: 0, y: 1.15, z: 0}
-  recoilDecreaseValue: 5
-  recoilIncreaseValue: 14
-  recoilMaxClamp: 6
+  recoilDecreaseValue: 10
+  recoilIncreaseValue: 20
+  recoilMaxClamp: 7
   player: {fileID: 4788751972951705024}
   weapon: {fileID: 3833603442288366387}
   rotCamX: 0
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.15
+  m_fontSize: 12.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1920,7 +1920,7 @@ PrefabInstance:
     - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: fireRate
-      value: 2.7
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
@@ -1930,7 +1930,7 @@ PrefabInstance:
     - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: weaponPunch
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6531854552420769918, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}

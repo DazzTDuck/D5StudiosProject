@@ -35,7 +35,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
+    //public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
 
     public override void Attached()
     {
