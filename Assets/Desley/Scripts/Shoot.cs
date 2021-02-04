@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 {
@@ -12,27 +13,46 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] float fireRate, weaponPunch;
     [SerializeField] Animator animator;
     float nextTimeToShoot;
+    bool isShooting;
+    bool nextShot;
 
-    //Health health;
     EnemyHealth enemyHealth;
 
-    bool isShooting;
+    [SerializeField] TextMeshProUGUI bulletCountText;
+    [SerializeField] int currentBulletCount;
+    [SerializeField] int maxBulletCount;
+    [SerializeField] float reloadTime;
+    [SerializeField] bool reloading;
 
     private void Update()
     {
-        isShooting = Input.GetButtonDown("Fire1");
+        isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
 
-        if (isShooting && entity.IsOwner && Time.time >= nextTimeToShoot && !state.IsDead)
+        if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.Animator.ResetTrigger("Shoot");
             ShootRaycast();
-            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
+            InstantiateEffect();
             weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
-            var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
-            flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
-            StartCoroutine(DestroyEffect(0.1f, flashEffect));
+            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
             nextTimeToShoot = Time.time + 1f / fireRate;
+            nextShot = false;
+            currentBulletCount--;
         }
+
+        if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
+            nextShot = true;
+        else if (nextTimeToShoot > Time.time && Input.GetButtonUp("Fire1"))
+            nextShot = false;
+
+        if(Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
+        {
+            StartCoroutine(Reload(reloadTime));
+            bulletCountText.text = "Reloading";
+            reloading = true;
+        }
+        if (!reloading)
+            bulletCountText.text = currentBulletCount + "|" + maxBulletCount;
     }
 
     //public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
@@ -53,20 +73,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
-            /*kill player
-            health = hit.collider.gameObject.GetComponent<Health>();
-            if (health && !state.IsDead)
-            {
-                //Create DamageRequest, set entity to ent and Damage to damage, then send
-                var request = DamageRequest.Create();
-                request.Entity = health.GetComponentInParent<BoltEntity>();
-                request.Damage = damage;
-                request.Send();
-                health = null;
-            }
-            */
-            
-            //kill enemies
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth && entity.IsOwner)
             {
@@ -81,6 +87,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
+    public void InstantiateEffect()
+    {
+        var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
+        flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
+        StartCoroutine(DestroyEffect(0.1f, flashEffect));
+    }
+
     public IEnumerator DestroyEffect(float time, BoltEntity entity)
     {
         yield return new WaitForSeconds(time);
@@ -88,5 +101,15 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         BoltNetwork.Destroy(entity);
 
         StopCoroutine(nameof(DestroyEffect));
+    }
+
+    public IEnumerator Reload(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        currentBulletCount = maxBulletCount;
+        reloading = false;
+
+        StopCoroutine(nameof(Reload));
     }
 }

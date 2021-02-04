@@ -445,7 +445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2408724250961889891
 RectTransform:
   m_ObjectHideFlags: 0
@@ -701,6 +701,9 @@ MonoBehaviour:
     type: 3}
   muzzle: {fileID: 3488462987841733067}
   damage: 15
-  fireRate: 2.7
-  weaponPunch: 3.5
+  fireRate: 2.5
+  weaponPunch: 5
   animator: {fileID: 6004033440337053743}
+  bulletCount: {fileID: 0}
+  currentBulletCount: 7
+  maxBulletCount: 7
