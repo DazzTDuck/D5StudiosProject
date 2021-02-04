@@ -12,17 +12,20 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] int damage;
     [SerializeField] float fireRate, weaponPunch;
     [SerializeField] Animator animator;
+
+    [Space, SerializeField] TMP_Text bulletCountText;
+    [SerializeField] TMP_Text reloadingText;
+
+    [Space, SerializeField] int currentBulletCount;
+    [SerializeField] int maxBulletCount;
+    [SerializeField] float reloadTime;
+    [SerializeField] bool reloading;
+
     float nextTimeToShoot;
     bool isShooting;
     bool nextShot;
 
     EnemyHealth enemyHealth;
-
-    [SerializeField] TextMeshProUGUI bulletCountText;
-    [SerializeField] int currentBulletCount;
-    [SerializeField] int maxBulletCount;
-    [SerializeField] float reloadTime;
-    [SerializeField] bool reloading;
 
     private void Update()
     {
@@ -45,10 +48,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         else if (nextTimeToShoot > Time.time && Input.GetButtonUp("Fire1"))
             nextShot = false;
 
-        if(Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
+        if(Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
             StartCoroutine(Reload(reloadTime));
-            bulletCountText.text = "Reloading";
             reloading = true;
         }
         if (!reloading)
@@ -105,11 +107,21 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public IEnumerator Reload(float time)
     {
+        reloadingText.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(time);
 
         currentBulletCount = maxBulletCount;
+        nextShot = false;
         reloading = false;
 
+        reloadingText.gameObject.SetActive(false);
+
         StopCoroutine(nameof(Reload));
+    }
+
+    public void ResetAmmo()
+    {
+        currentBulletCount = maxBulletCount;
     }
 }

@@ -273,12 +273,11 @@ MonoBehaviour:
   camOffset: {x: 0, y: 1.15, z: 0}
   recoilDecreaseValue: 0
   recoilIncreaseValue: 0
+  recoilMaxClamp: 0
   player: {fileID: 4788751972951705024}
+  weapon: {fileID: 0}
   rotCamX: 0
   rotCamY: 0
-  recoilMax: 0
-  recoilValue: 0
-  increaseRecoil: 0
 --- !u!1 &1713651737991147581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,12 +1064,11 @@ MonoBehaviour:
   camOffset: {x: 0, y: 1.15, z: 0}
   recoilDecreaseValue: 0
   recoilIncreaseValue: 0
+  recoilMaxClamp: 0
   player: {fileID: 4788751972951705024}
+  weapon: {fileID: 0}
   rotCamX: 0
   rotCamY: 0
-  recoilMax: 0
-  recoilValue: 0
-  increaseRecoil: 0
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1153,7 @@ MonoBehaviour:
   playerCamera: {fileID: 4788751972979609529}
   weaponCamera: {fileID: 3663411601210606873}
   playerSetNameCanvas: {fileID: 2986888698125377600}
+  playerAmmoCount: {fileID: 0}
 --- !u!114 &4564692037605074766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1388,7 +1387,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14.8
+  m_fontSize: 13.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1907,7 +1906,7 @@ PrefabInstance:
     - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
       propertyPath: damage
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
