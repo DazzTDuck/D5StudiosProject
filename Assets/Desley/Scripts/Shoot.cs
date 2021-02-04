@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 {
-    [SerializeField] Camera cam;
+    [SerializeField] Camera cam, weaponCam;
     [SerializeField] GameObject flash;
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
     [SerializeField] int damage;
-    [SerializeField] float fireRate;
+    [SerializeField] float fireRate, weaponPunch;
     [SerializeField] Animator animator;
     float nextTimeToShoot;
 
@@ -26,6 +26,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             state.Animator.ResetTrigger("Shoot");
             ShootRaycast();
+            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
+            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
             var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
             flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
             StartCoroutine(DestroyEffect(0.1f, flashEffect));
@@ -42,7 +44,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ShootRaycast()
     {
         state.Animator.SetTrigger("Shoot");
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit))
         {

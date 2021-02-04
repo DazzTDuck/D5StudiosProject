@@ -12,6 +12,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public float minRotX = -55;
     public Vector3 camOffset;
     [SerializeField] float recoilDecreaseValue;
+    [SerializeField] float recoilIncreaseValue;
 
     [Header("--References--")]
     public Transform player;
@@ -21,7 +22,9 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     [HideInInspector]
     public float rotCamY;
 
-    float recoilValue = 0;
+    public float recoilMax;
+    public float recoilValue = 0;
+    public bool increaseRecoil;
 
     private void Awake()
     {
@@ -32,15 +35,26 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         CameraPos();
         EnemyHealthbarLookat();
+
+        if (increaseRecoil)
+        {
+            recoilValue = Mathf.Lerp(recoilValue, recoilMax, recoilIncreaseValue * BoltNetwork.FrameDeltaTime);
+        }
+        else
+        {
+            recoilValue = Mathf.Lerp(recoilValue, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
+        }
+
+        if (recoilValue + .1 >= recoilMax)
+            increaseRecoil = false;
+        if (recoilValue <= .1)
+            recoilMax = 0;
     }
 
     public void AddRecoil(float value)
     {
-        recoilValue += value;
-        if(recoilValue > 0)
-        {
-            recoilValue = Mathf.Lerp(recoilValue, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
-        }
+        recoilMax += value;
+        increaseRecoil = true;
     }
 
     void EnemyHealthbarLookat()
@@ -64,7 +78,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
         //EulerAngles for the camera rotation (this is so it rotates around the player)
         Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
-        Quaternion rotation = Quaternion.Euler(rotCamX + recoilValue, rotCamY, 0);
+        Quaternion rotation = Quaternion.Euler(rotCamX - recoilValue, rotCamY, 0);
         transform.position = player.position + camOffset;
         transform.rotation = rotation;
         player.rotation = rotPlayer;
