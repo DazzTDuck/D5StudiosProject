@@ -34,6 +34,11 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         state.SetAnimator(animator);
+
+        if (entity.IsOwner)
+        {
+            gameObject.layer = 9;
+        }
     }
 
     public void Shank()

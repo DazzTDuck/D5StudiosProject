@@ -64,6 +64,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Attached();
         state.SetAnimator(animator);
+
+        if (entity.IsOwner)
+        {
+            gameObject.layer = 9;
+        }
     }
 
     public void ShootRaycast()
