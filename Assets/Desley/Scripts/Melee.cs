@@ -54,6 +54,18 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.Send();
                 enemyToAttack = null;
             }
+
+            if (hit.collider.GetComponent<Health>() && entity.IsOwner)
+            {
+                enemyToAttack = hit.collider.gameObject;
+
+                //Create DamageRequest, set entity to ent and Damage to damage, then send
+                var request = DamageRequest.Create();
+                request.Entity = enemyToAttack.GetComponentInParent<BoltEntity>();
+                request.Damage = damage;
+                request.Send();
+                enemyToAttack = null;
+            }
         }
     }
 

@@ -26,6 +26,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
 
     EnemyHealth enemyHealth;
+    Health health;
 
     private void Update()
     {
@@ -83,6 +84,16 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.Entity = enemyHealth.GetComponent<BoltEntity>();
                 request.Damage = damage;
                 request.IsEnemy = true;
+                request.Send();
+                enemyHealth = null;
+            }
+            health = hit.collider.gameObject.GetComponent<Health>();
+            if (health && entity.IsOwner)
+            {
+                //Create DamageRequest, set entity to ent and Damage to damage, then send
+                var request = DamageRequest.Create();
+                request.Entity = health.GetComponentInParent<BoltEntity>();
+                request.Damage = damage;
                 request.Send();
                 enemyHealth = null;
             }
