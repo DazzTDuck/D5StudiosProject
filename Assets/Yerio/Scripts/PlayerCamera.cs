@@ -11,6 +11,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public float maxRotX = 45f;
     public float minRotX = -55;
     public Vector3 camOffset;
+    [SerializeField] float recoilDecreaseValue;
 
     [Header("--References--")]
     public Transform player;
@@ -19,6 +20,8 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public float rotCamX;
     [HideInInspector]
     public float rotCamY;
+
+    float recoilValue = 0;
 
     private void Awake()
     {
@@ -29,6 +32,15 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         CameraPos();
         EnemyHealthbarLookat();
+    }
+
+    public void AddRecoil(float value)
+    {
+        recoilValue += value;
+        if(recoilValue > 0)
+        {
+            recoilValue = Mathf.Lerp(recoilValue, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
+        }
     }
 
     void EnemyHealthbarLookat()
@@ -52,7 +64,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
         //EulerAngles for the camera rotation (this is so it rotates around the player)
         Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
-        Quaternion rotation = Quaternion.Euler(rotCamX, rotCamY, 0);
+        Quaternion rotation = Quaternion.Euler(rotCamX + recoilValue, rotCamY, 0);
         transform.position = player.position + camOffset;
         transform.rotation = rotation;
         player.rotation = rotPlayer;
