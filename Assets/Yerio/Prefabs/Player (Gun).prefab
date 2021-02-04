@@ -2067,12 +2067,17 @@ PrefabInstance:
         type: 3}
       propertyPath: reloadingText
       value: 
-      objectReference: {fileID: 2867388831834218190}
+      objectReference: {fileID: 4647381539139704073}
     - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: bulletCountText
       value: 
       objectReference: {fileID: 3193460502606427868}
+    - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
+        type: 3}
+      propertyPath: BulletCountCanvas
+      value: 
+      objectReference: {fileID: 7303280484536298552}
     - target: {fileID: 191641168389917477, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: m_Layer
@@ -2236,15 +2241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2867388831834218190 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1744224629271843464, guid: deef26e1ee209794fba717d004d5cb23,
+--- !u!1 &4647381539139704073 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9187740298262583631, guid: deef26e1ee209794fba717d004d5cb23,
     type: 3}
   m_PrefabInstance: {fileID: 4611609036748147782}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

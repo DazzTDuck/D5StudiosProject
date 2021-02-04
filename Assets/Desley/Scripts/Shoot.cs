@@ -13,8 +13,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] float fireRate, weaponPunch;
     [SerializeField] Animator animator;
 
-    [Space, SerializeField] TMP_Text bulletCountText;
-    [SerializeField] TMP_Text reloadingText;
+    [Space, SerializeField] GameObject BulletCountCanvas;
+    [SerializeField] TMP_Text bulletCountText;
+    [SerializeField] GameObject reloadingText;
 
     [Space, SerializeField] int currentBulletCount;
     [SerializeField] int maxBulletCount;
@@ -67,10 +68,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (entity.IsOwner)
         {
-            int index = 9;
+            int index = 9; //Weapon layer
             gameObject.layer = index;
-            reloadingText.gameObject.layer = index;
-            bulletCountText.gameObject.layer = index;
+            BulletCountCanvas.layer = 10;
+            reloadingText.gameObject.layer = 10; //HUD layer
+            bulletCountText.gameObject.layer = 10;
             var transforms = GetComponentsInChildren<Transform>();
 
             foreach (var gameObject in transforms)
@@ -132,7 +134,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public IEnumerator Reload(float time)
     {
-        reloadingText.gameObject.SetActive(true);
+        reloadingText.SetActive(true);
 
         yield return new WaitForSeconds(time);
 
@@ -140,7 +142,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         nextShot = false;
         reloading = false;
 
-        reloadingText.gameObject.SetActive(false);
+        reloadingText.SetActive(false);
 
         StopCoroutine(nameof(Reload));
     }
