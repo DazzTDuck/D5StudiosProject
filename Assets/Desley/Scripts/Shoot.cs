@@ -104,7 +104,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             sprayPatternIndex++;
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
-            //StartCoroutine(DestroyEffect(0.25f, hitEffect));
+            StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth && entity.IsOwner)

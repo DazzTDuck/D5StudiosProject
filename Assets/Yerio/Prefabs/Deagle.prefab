@@ -714,14 +714,14 @@ MonoBehaviour:
   reloading: 0
   sprayPattern:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 10, z: 0}
-  - {x: 0, y: 20, z: 0}
-  - {x: 0, y: 30, z: 0}
-  - {x: 0, y: 40, z: 0}
-  - {x: 0, y: 50, z: 0}
-  - {x: 0, y: 60, z: 0}
+  - {x: 20, y: 20, z: 0}
+  - {x: 40, y: 40, z: 0}
+  - {x: 60, y: 60, z: 0}
+  - {x: 80, y: 80, z: 0}
+  - {x: 40, y: 90, z: 0}
+  - {x: 0, y: 90, z: 0}
   sprayPatternIndex: 0
-  recoilResetTime: Infinity
+  recoilResetAddTime: 0.75
 --- !u!1 &9187740298262583631
 GameObject:
   m_ObjectHideFlags: 0
