@@ -21,6 +21,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] int maxBulletCount;
     [SerializeField] float reloadTime;
     [SerializeField] bool reloading;
+    
+    [Space, SerializeField] Vector3[] sprayPattern;
+    [SerializeField] int sprayPatternIndex;
+    [SerializeField] float recoilResetAddTime;
+    float recoilResetTime;
 
     float nextTimeToShoot;
     bool isShooting;
@@ -40,6 +45,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             InstantiateEffect();
             weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
             cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
+            recoilResetTime = recoilResetAddTime;
             nextTimeToShoot = Time.time + 1f / fireRate;
             nextShot = false;
             currentBulletCount--;
@@ -57,6 +63,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
         if (!reloading)
             bulletCountText.text = currentBulletCount + "|" + maxBulletCount;
+
+        recoilResetTime -= Time.deltaTime;
+        if (recoilResetTime <= 0)
+        {
+            sprayPatternIndex = 0;
+            recoilResetTime = Mathf.Infinity;
+        }
     }
 
     //public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
@@ -85,12 +98,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ShootRaycast()
     {
         state.Animator.SetTrigger("Shoot");
-        Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition + sprayPattern[sprayPatternIndex]);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit))
         {
+            sprayPatternIndex++;
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
-            StartCoroutine(DestroyEffect(0.25f, hitEffect));
+            //StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
             enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth && entity.IsOwner)
