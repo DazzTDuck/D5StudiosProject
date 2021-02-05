@@ -85,6 +85,11 @@ public class NetworkCallbacks : GlobalEventListener
             if (host.entity.IsOwner)
                 host.CloseScreen();
         }
+
+        if (evnt.Entity.IsOwner)
+        {
+            evnt.Entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
+        }
     }
 
     //fix later
