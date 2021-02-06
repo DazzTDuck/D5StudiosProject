@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class AbilityHandler : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] GameObject ability2Button;
     [SerializeField] Image ability2TimerOverlay;
     [SerializeField] GameObject UltimateButton;
+    [SerializeField] Image ultimateChargeBar;
+    [SerializeField] TMP_Text ultimateChargePercentageText;
 
     [Header("Timers")]
     [SerializeField] Timer ability1Timer;
@@ -30,12 +33,14 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] float ultimateRechargeTime;
 
     bool pressedAblility1, pressedAblility2, pressedUltimate;
-    bool canActivateAblility1 = true, canActivateAblility2 = true, canActivateUltimate = true;
+    bool canActivateAblility1 = true, canActivateAblility2 = true, canActivateUltimate = false;
 
     bool AbilitiesActive = false;
 
     float timeBetweenAbilites = 2f;
     bool abilityActivated = false;
+
+    float fontSize;
 
     private void Update()
     {
@@ -71,23 +76,34 @@ public class AbilityHandler : MonoBehaviour
             {
                 abilityActivated = true;
                 UltimateOnClick.Invoke();
-                ultimateTimer.SetTimer(ultimateRechargeTime,
-                    () => { canActivateUltimate = true; },
-                    () => { canActivateUltimate = false; });
+                StartUlimateTimer();
             }
 
             //update visual timers
             if (!canActivateAblility1) { ability1TimerOverlay.fillAmount =  GetPercentage(ablility1RechargeTime, ability1Timer.GetTimerValue()) / 100; }
             if (!canActivateAblility2) { ability2TimerOverlay.fillAmount = GetPercentage(ablility2RechargeTime, ability2Timer.GetTimerValue()) / 100; }
+            if (!canActivateUltimate) 
+            {
+                float percent = 100 - GetPercentage(ultimateRechargeTime, ultimateTimer.GetTimerValue());
+                ultimateChargeBar.fillAmount = percent / 100;
+                ultimateChargePercentageText.text = $"{percent:0}";               
+            }
         }
 
+    }
+
+    public void StartUlimateTimer()
+    {
+        ultimateTimer.SetTimer(ultimateRechargeTime,
+            () => { canActivateUltimate = true; },
+            () => { canActivateUltimate = false; });
     }
 
     public void GetAllInputs()
     {
         pressedAblility1 = Input.GetButtonDown("AbilityOne");
         pressedAblility2 = Input.GetButtonDown("AbilityTwo");
-        //pressedUltimate = Input.GetButtonDown("Ultimate");
+        pressedUltimate = Input.GetButtonDown("Ultimate");
     }
 
     public float GetPercentage(float maxValue, float currentValue)
@@ -98,6 +114,7 @@ public class AbilityHandler : MonoBehaviour
     public void ActivateAbilities()
     {
         AbilitiesActive = true;
+        StartUlimateTimer();
     }
 
 }
