@@ -42,6 +42,12 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
             if (entity.IsOwner && !playerHUDCanvas.gameObject.activeInHierarchy)
             {
                 playerHUDCanvas.gameObject.SetActive(true);
+                playerHUDCanvas.GetComponent<AbilityHandler>().enabled = true;
+
+                foreach (var timer in playerHUDCanvas.GetComponents<Timer>())
+                {
+                    timer.enabled = true;
+                }
             }
         }
 
