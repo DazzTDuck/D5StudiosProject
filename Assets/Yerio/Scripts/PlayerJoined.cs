@@ -8,6 +8,7 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Camera weaponCamera;
     [SerializeField] GameObject playerSetNameCanvas;
     [SerializeField] GameObject playerAmmoCount;
+    [SerializeField] GameObject playerHUDCanvas;
 
     public override void Attached()
     {
@@ -34,6 +35,13 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
             if (entity.IsOwner && !playerAmmoCount.gameObject.activeInHierarchy)
             {
                 playerAmmoCount.gameObject.SetActive(true);
+            }
+        }
+        if (playerHUDCanvas)
+        {
+            if (entity.IsOwner && !playerHUDCanvas.gameObject.activeInHierarchy)
+            {
+                playerHUDCanvas.gameObject.SetActive(true);
             }
         }
 
