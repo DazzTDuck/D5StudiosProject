@@ -9,8 +9,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject flash;
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
-    [SerializeField] int damage;
-    [SerializeField] float fireRate, weaponPunch;
+    [SerializeField] int damage, hsMultiplier;
+    [SerializeField] float fireRate, weaponPunchX;
+    [SerializeField] float[] weaponPunchY;
     [SerializeField] Animator animator;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
@@ -31,7 +32,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isShooting;
     bool nextShot;
 
-    EnemyHealth enemyHealth;
+    public EnemyHealth enemyHealth;
     Health health;
 
     private void Update()
@@ -43,8 +44,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             state.Animator.ResetTrigger("Shoot");
             ShootRaycast();
             InstantiateEffect();
-            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
-            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunch);
+            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
+            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
             recoilResetTime = recoilResetAddTime;
             nextTimeToShoot = Time.time + 1f / fireRate;
             nextShot = false;
@@ -106,8 +107,22 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
-            enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
-            if (enemyHealth && entity.IsOwner)
+            //headshot or bodyshot
+            enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+            if(!enemyHealth)
+                enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
+
+            if (enemyHealth && hit.collider.tag == "enemyHead" && entity.IsOwner)
+            {
+                //Create DamageRequest, set entity to ent and Damage to damage, then send
+                var request = DamageRequest.Create();
+                request.Entity = enemyHealth.GetComponent<BoltEntity>();
+                request.Damage = damage * hsMultiplier;
+                request.IsEnemy = true;
+                request.Send();
+                enemyHealth = null;
+            }
+            else if (enemyHealth && hit.collider.tag == "enemy" && entity.IsOwner)
             {
                 //Create DamageRequest, set entity to ent and Damage to damage, then send
                 var request = DamageRequest.Create();
@@ -117,6 +132,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.Send();
                 enemyHealth = null;
             }
+
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health && entity.IsOwner)
             {

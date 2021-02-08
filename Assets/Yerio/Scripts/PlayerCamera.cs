@@ -24,8 +24,10 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     [HideInInspector]
     public float rotCamY;
 
-    float recoilMax;
-    float recoilValue = 0;
+    float recoilMaxX;
+    float recoilMaxY;
+    float recoilValueX = 0;
+    float recoilValueY = 0;
     bool increaseRecoil = false;
 
     private void Awake()
@@ -40,23 +42,29 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (increaseRecoil)
         {
-            recoilValue = Mathf.Lerp(recoilValue, recoilMax, recoilIncreaseValue * BoltNetwork.FrameDeltaTime);
+            recoilValueX = Mathf.Lerp(recoilValueX, recoilMaxX, recoilIncreaseValue * BoltNetwork.FrameDeltaTime);
+            recoilValueY = Mathf.Lerp(recoilValueY, recoilMaxY, recoilIncreaseValue * BoltNetwork.FrameDeltaTime);
         }
         else
         {
-            recoilValue = Mathf.Lerp(recoilValue, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
+            recoilValueX = Mathf.Lerp(recoilValueX, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
+            recoilValueY = Mathf.Lerp(recoilValueY, 0, recoilDecreaseValue * BoltNetwork.FrameDeltaTime);
         }
 
-        if (recoilValue + .1 > recoilMax)
+        if (recoilValueX + .1 > recoilMaxX)
             increaseRecoil = false;
-        if (recoilValue < .1)
-            recoilMax = 0;
+        if (recoilValueX < .1)
+        {
+            recoilMaxX = 0;
+            recoilMaxY = 0;
+        }
     }
 
-    public void AddRecoil(float value)
+    public void AddRecoil(float valueX, float valueY)
     {
-        recoilMax += value;
-        recoilMax = Mathf.Clamp(recoilMax, 0, recoilMaxClamp);
+        recoilMaxX += valueX;
+        recoilMaxX = Mathf.Clamp(recoilMaxX, 0, recoilMaxClamp);
+        recoilMaxY = valueY;
         increaseRecoil = true;
     }
 
@@ -81,7 +89,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
         //EulerAngles for the camera rotation (this is so it rotates around the player)
         Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
-        Quaternion rotation = Quaternion.Euler(rotCamX - recoilValue, rotCamY, 0);
+        Quaternion rotation = Quaternion.Euler(rotCamX - recoilValueX, rotCamY - recoilValueY, 0);
         transform.position = player.position + camOffset;
         transform.rotation = rotation;
         player.rotation = rotPlayer;
