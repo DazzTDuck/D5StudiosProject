@@ -35,10 +35,11 @@ public class AbilityHandler : MonoBehaviour
     bool pressedAblility1, pressedAblility2, pressedUltimate;
     bool canActivateAblility1 = true, canActivateAblility2 = true, canActivateUltimate = false;
 
-    [SerializeField] bool AbilitiesActive = false;
+    bool AbilitiesActive = false;
 
     float timeBetweenAbilites = 2f;
     bool abilityActivated = false;
+    bool ultimateActivated = false;
 
     private void Update()
     {
@@ -92,9 +93,13 @@ public class AbilityHandler : MonoBehaviour
 
     public void StartUlimateTimer()
     {
-        ultimateTimer.SetTimer(ultimateRechargeTime,
+        if (!ultimateActivated)
+        {
+            ultimateActivated = true;
+            ultimateTimer.SetTimer(ultimateRechargeTime,
             () => { canActivateUltimate = true; },
             () => { canActivateUltimate = false; });
+        }
     }
 
     public void GetAllInputs()
@@ -111,15 +116,12 @@ public class AbilityHandler : MonoBehaviour
 
     public void ActivateAbilities()
     {
-        if (!AbilitiesActive)
-        {
-            ability1Timer.gameObject.SetActive(true);
-            ability2Timer.gameObject.SetActive(true);
-            ultimateTimer.gameObject.SetActive(true);
-            betweenAbilitesTimer.gameObject.SetActive(true);
-            AbilitiesActive = true;
-            StartUlimateTimer();
-        }   
+        ability1Timer.gameObject.SetActive(true);
+        ability2Timer.gameObject.SetActive(true);
+        ultimateTimer.gameObject.SetActive(true);
+        betweenAbilitesTimer.gameObject.SetActive(true);
+        AbilitiesActive = true;
+        StartUlimateTimer();
     }
 
 }

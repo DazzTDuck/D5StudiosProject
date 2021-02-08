@@ -80,17 +80,19 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(StartGameRequest evnt)
     {
+        if (evnt.GameStarted && evnt.Entity.IsOwner)
+        {
+            evnt.Entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
+            return;
+        }
+
         foreach (var host in FindObjectsOfType<WaitForHostScreen>())
         {
             if (host.entity.IsOwner)
             {
                 host.CloseScreen();
+                host.entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
             }              
-        }
-
-        if (evnt.GameStarted && evnt.Entity.IsOwner)
-        {
-            evnt.Entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
         }
     }
 
