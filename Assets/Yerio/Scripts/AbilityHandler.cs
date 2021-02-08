@@ -35,10 +35,10 @@ public class AbilityHandler : MonoBehaviour
     bool pressedAblility1, pressedAblility2, pressedUltimate;
     bool canActivateAblility1 = true, canActivateAblility2 = true, canActivateUltimate = false;
 
-    bool AbilitiesActive = false;
+    [SerializeField] bool AbilitiesActive = false;
 
     float timeBetweenAbilites = 2f;
-    bool abilityActivated = true;
+    bool abilityActivated = false;
 
     private void Update()
     {
