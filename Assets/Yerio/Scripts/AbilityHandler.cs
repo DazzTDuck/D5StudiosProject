@@ -20,7 +20,7 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Timer ability1Timer;
     [SerializeField] Timer ability2Timer;
     [SerializeField] Timer ultimateTimer;
-    [SerializeField] Timer BetweenAbilitesTimer;
+    [SerializeField] Timer betweenAbilitesTimer;
 
     [Header("Actions")]
     [SerializeField] UnityEvent Ability1OnClick;
@@ -40,8 +40,6 @@ public class AbilityHandler : MonoBehaviour
     float timeBetweenAbilites = 2f;
     bool abilityActivated = false;
 
-    float fontSize;
-
     private void Update()
     {
         GetAllInputs();
@@ -50,8 +48,8 @@ public class AbilityHandler : MonoBehaviour
         {
             if (abilityActivated)
             {
-                if (BetweenAbilitesTimer.IsTimerComplete())
-                    BetweenAbilitesTimer.SetTimer(timeBetweenAbilites, () => { abilityActivated = false; });
+                if (betweenAbilitesTimer.IsTimerComplete())
+                    betweenAbilitesTimer.SetTimer(timeBetweenAbilites, () => { abilityActivated = false; });
             }
 
             if (canActivateAblility1 && pressedAblility1 && !abilityActivated)
@@ -113,6 +111,11 @@ public class AbilityHandler : MonoBehaviour
 
     public void ActivateAbilities()
     {
+        ability1Timer.gameObject.SetActive(true);
+        ability2Timer.gameObject.SetActive(true);
+        ultimateTimer.gameObject.SetActive(true);
+        betweenAbilitesTimer.gameObject.SetActive(true);
+
         AbilitiesActive = true;
         StartUlimateTimer();
     }
