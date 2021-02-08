@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 {
     Action timerCallback;
     Action timerActiveAction;
-    float timer;
+    [SerializeField] float timer;
 
     public void SetTimer(float time, Action actionAfterTimer = null, Action actionWhileTimerActive = null)
     {
