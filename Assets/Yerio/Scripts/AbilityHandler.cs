@@ -111,12 +111,15 @@ public class AbilityHandler : MonoBehaviour
 
     public void ActivateAbilities()
     {
-        ability1Timer.gameObject.SetActive(true);
-        ability2Timer.gameObject.SetActive(true);
-        ultimateTimer.gameObject.SetActive(true);
-        betweenAbilitesTimer.gameObject.SetActive(true);
-        AbilitiesActive = true;
-        StartUlimateTimer();
+        if (!AbilitiesActive)
+        {
+            ability1Timer.gameObject.SetActive(true);
+            ability2Timer.gameObject.SetActive(true);
+            ultimateTimer.gameObject.SetActive(true);
+            betweenAbilitesTimer.gameObject.SetActive(true);
+            AbilitiesActive = true;
+            StartUlimateTimer();
+        }   
     }
 
 }
