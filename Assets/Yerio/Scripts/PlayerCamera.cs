@@ -89,7 +89,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
         //EulerAngles for the camera rotation (this is so it rotates around the player)
         Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
-        Quaternion rotation = Quaternion.Euler(rotCamX - recoilValueX, rotCamY - recoilValueY, 0);
+        Quaternion rotation = Quaternion.Euler(rotCamX - recoilValueX, rotCamY + recoilValueY, 0);
         transform.position = player.position + camOffset;
         transform.rotation = rotation;
         player.rotation = rotPlayer;
