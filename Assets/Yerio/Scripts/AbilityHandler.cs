@@ -38,7 +38,7 @@ public class AbilityHandler : MonoBehaviour
     bool AbilitiesActive = false;
 
     float timeBetweenAbilites = 2f;
-    bool abilityActivated = false;
+    bool abilityActivated = true;
 
     private void Update()
     {
