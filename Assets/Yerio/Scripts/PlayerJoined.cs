@@ -43,7 +43,6 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
             {
                 playerHUDCanvas.gameObject.SetActive(true);
                 playerHUDCanvas.GetComponent<AbilityHandler>().enabled = true;
-                playerHUDCanvas.GetComponent<AbilityHandler>().ActivateTimers();
             }
         }
 

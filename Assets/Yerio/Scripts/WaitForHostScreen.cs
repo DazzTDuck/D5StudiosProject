@@ -120,6 +120,10 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
             if (started.GetIfGameStarted())
             {
                 CloseScreen();
+                var request = StartGameRequest.Create();
+                request.Entity = entity;
+                request.GameStarted = true;
+                request.Send();
             }
         }
     }

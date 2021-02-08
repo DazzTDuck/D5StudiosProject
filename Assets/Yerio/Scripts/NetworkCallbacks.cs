@@ -83,10 +83,13 @@ public class NetworkCallbacks : GlobalEventListener
         foreach (var host in FindObjectsOfType<WaitForHostScreen>())
         {
             if (host.entity.IsOwner)
+            {
                 host.CloseScreen();
+                host.entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
+            }              
         }
 
-        if (evnt.Entity.IsOwner)
+        if (evnt.GameStarted && evnt.Entity.IsOwner)
         {
             evnt.Entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
         }

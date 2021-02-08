@@ -109,16 +109,12 @@ public class AbilityHandler : MonoBehaviour
         return 100f / maxValue * currentValue;
     }
 
-    public void ActivateTimers()
+    public void ActivateAbilities()
     {
         ability1Timer.gameObject.SetActive(true);
         ability2Timer.gameObject.SetActive(true);
         ultimateTimer.gameObject.SetActive(true);
         betweenAbilitesTimer.gameObject.SetActive(true);
-    }
-
-    public void ActivateAbilities()
-    {
         AbilitiesActive = true;
         StartUlimateTimer();
     }
