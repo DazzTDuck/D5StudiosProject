@@ -14,6 +14,7 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Image ability2TimerOverlay;
     [SerializeField] GameObject UltimateButton;
     [SerializeField] Image ultimateChargeBar;
+    [SerializeField] GameObject ultimateIcon;
     [SerializeField] TMP_Text ultimateChargePercentageText;
 
     [Header("Timers")]
@@ -76,6 +77,7 @@ public class AbilityHandler : MonoBehaviour
                 abilityActivated = true;
                 UltimateOnClick.Invoke();
                 StartUlimateTimer();
+                ultimateIcon.SetActive(false);
             }
 
             //update visual timers
@@ -93,13 +95,9 @@ public class AbilityHandler : MonoBehaviour
 
     public void StartUlimateTimer()
     {
-        if (!ultimateActivated)
-        {
-            ultimateActivated = true;
-            ultimateTimer.SetTimer(ultimateRechargeTime,
-            () => { canActivateUltimate = true; },
-            () => { canActivateUltimate = false; });
-        }
+        ultimateTimer.SetTimer(ultimateRechargeTime,
+        () => { canActivateUltimate = true; ultimateIcon.SetActive(true); },
+        () => { canActivateUltimate = false; });
     }
 
     public void GetAllInputs()
@@ -121,7 +119,12 @@ public class AbilityHandler : MonoBehaviour
         ultimateTimer.gameObject.SetActive(true);
         betweenAbilitesTimer.gameObject.SetActive(true);
         AbilitiesActive = true;
-        StartUlimateTimer();
+        if (!ultimateActivated)
+        {
+            StartUlimateTimer();
+            ultimateActivated = true;
+        }
+        
     }
 
 }
