@@ -44,6 +44,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [SerializeField] bool isHost;
 
+    [Space, SerializeField] float reducedMovement;
+
     public override void Attached()
     {
         base.Attached();
@@ -94,7 +96,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead && isGrounded)
             transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
         if(!state.IsDead && !isGrounded)
-            transform.Translate(movement * moveSpeed / 2.5f * BoltNetwork.FrameDeltaTime, Space.Self);
+            transform.Translate(movement * moveSpeed / reducedMovement * BoltNetwork.FrameDeltaTime, Space.Self);
     }
 
     void Jumping()
