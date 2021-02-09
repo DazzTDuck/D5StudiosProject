@@ -27,6 +27,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] int sprayPatternIndex;
     [SerializeField] float recoilResetAddTime;
     float recoilResetTime;
+    int count;
 
     float nextTimeToShoot;
     bool isShooting;
@@ -44,10 +45,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             state.Animator.ResetTrigger("Shoot");
             ShootRaycast();
             InstantiateEffect();
-            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
-            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
             recoilResetTime = recoilResetAddTime;
             nextTimeToShoot = Time.time + 1f / fireRate;
+            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
+            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
             nextShot = false;
             currentBulletCount--;
         }
@@ -180,5 +181,28 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ResetAmmo()
     {
         currentBulletCount = maxBulletCount;
+    }
+
+    public void ReduceRecoil(bool crouching)
+    {
+        count = 0;
+        if (crouching)
+        {
+            foreach (Vector3 pattern in sprayPattern)
+            {
+                pattern.Set(pattern.x / 2, pattern.y / 2, pattern.z / 2);
+                sprayPattern[count] = pattern;
+                count++;
+            }
+        }
+        else
+        {
+            foreach (Vector3 pattern in sprayPattern)
+            {
+                pattern.Set(pattern.x * 2, pattern.y * 2, pattern.z * 2);
+                sprayPattern[count] = pattern;
+                count++;
+            }
+        }
     }
 }

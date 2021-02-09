@@ -479,9 +479,11 @@ MonoBehaviour:
   recoilIncreaseValue: 20
   recoilMaxClamp: 7
   player: {fileID: 4788751972951705024}
+  capsuleCollider: {fileID: 4788751972951705025}
   weapon: {fileID: 3833603442288366387}
   rotCamX: 0
   rotCamY: 0
+  crouchDivider: 2
 --- !u!1 &4788751972951705027
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +612,12 @@ MonoBehaviour:
   isStationary: 0
   isHost: 0
   reducedMovement: 2.5
+  cam: {fileID: 4788751972979609531}
+  weaponCam: {fileID: 4297703519134521421}
+  shoot: {fileID: 3833603442288366387}
+  nextCrouch: 0.2
+  canCrouch: 1
+  waitingForCourotine: 0
 --- !u!54 &4788751972951705085
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -802,9 +810,11 @@ MonoBehaviour:
   recoilIncreaseValue: 20
   recoilMaxClamp: 7
   player: {fileID: 4788751972951705024}
+  capsuleCollider: {fileID: 4788751972951705025}
   weapon: {fileID: 3833603442288366387}
   rotCamX: 0
   rotCamY: 0
+  crouchDivider: 2
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0

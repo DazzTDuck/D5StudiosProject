@@ -17,12 +17,16 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [Header("--References--")]
     public Transform player;
+    public CapsuleCollider capsuleCollider;
     public Shoot weapon;
 
     [HideInInspector]
     public float rotCamX;
     [HideInInspector]
     public float rotCamY;
+
+    Vector3 colliderCenter;
+    [SerializeField] float crouchDivider = 2;
 
     float recoilMaxX;
     float recoilMaxY;
@@ -33,6 +37,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Awake()
     {
         ShowCursor();
+        colliderCenter = capsuleCollider.center;
     }
 
     public void Update()
@@ -57,6 +62,24 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             recoilMaxX = 0;
             recoilMaxY = 0;
+        }
+    }
+
+    public void Crouch(bool crouching)
+    {
+        if (crouching)
+        {
+            camOffset /= crouchDivider;
+            capsuleCollider.height /= crouchDivider;
+            colliderCenter = new Vector3(colliderCenter.x, colliderCenter.y / crouchDivider, colliderCenter.z);
+            capsuleCollider.center = colliderCenter;
+        }
+        else
+        {
+            camOffset *= crouchDivider;
+            capsuleCollider.height *= crouchDivider;
+            colliderCenter = new Vector3(colliderCenter.x, colliderCenter.y * crouchDivider, colliderCenter.z);
+            capsuleCollider.center = colliderCenter;
         }
     }
 

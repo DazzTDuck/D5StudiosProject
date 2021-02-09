@@ -44,7 +44,16 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [SerializeField] bool isHost;
 
-    [Space, SerializeField] float reducedMovement;
+    [Space, SerializeField] float reducedMovement = 2.5f;
+
+    [Space, SerializeField] GameObject cam;
+    [SerializeField] GameObject weaponCam;
+    [SerializeField] Shoot shoot;
+
+    [Space, SerializeField] float nextCrouch = .2f;
+    bool canCrouch = true;
+    bool waitingForCourotine = false;
+    bool isCrouching;
 
     public override void Attached()
     {
@@ -95,8 +104,39 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (!state.IsDead && isGrounded)
             transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
-        if(!state.IsDead && !isGrounded)
+        if (!state.IsDead && !isGrounded)
             transform.Translate(movement * moveSpeed / reducedMovement * BoltNetwork.FrameDeltaTime, Space.Self);
+
+        isCrouching = Input.GetButton("Crouch");
+
+        if (!waitingForCourotine)
+        {
+            Crouch();
+        }
+    }
+
+    void Crouch()
+    {
+        if (isCrouching && !state.IsDead && canCrouch)
+        {
+            cam.GetComponent<PlayerCamera>().Crouch(true);
+            weaponCam.GetComponent<PlayerCamera>().Crouch(true);
+            CrouchMoveSpeed(true);
+            if(shoot)
+                shoot.ReduceRecoil(true);
+
+            canCrouch = false;
+        }
+        else if (!isCrouching && !state.IsDead && !canCrouch)
+        {
+            cam.GetComponent<PlayerCamera>().Crouch(false);
+            weaponCam.GetComponent<PlayerCamera>().Crouch(false);
+            CrouchMoveSpeed(false);
+            if(shoot)
+                shoot.ReduceRecoil(false);
+
+            StartCoroutine(WaitForCrouch(nextCrouch));
+        }
     }
 
     void Jumping()
@@ -143,4 +183,24 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             velocity.y = -2f;
         }
     }
+
+    public void CrouchMoveSpeed(bool crouching)
+    {
+        if (crouching)
+            moveSpeed /= 2;
+        else
+            moveSpeed *= 2;
+    }
+
+    public IEnumerator WaitForCrouch(float time)
+    {
+        waitingForCourotine = true;
+        yield return new WaitForSeconds(time);
+
+        canCrouch = true;
+        waitingForCourotine = false;
+
+        StopCoroutine(nameof(WaitForCrouch));
+    }
 }
+
