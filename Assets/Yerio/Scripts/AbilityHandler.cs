@@ -23,6 +23,10 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Timer ultimateTimer;
     [SerializeField] Timer betweenAbilitesTimer;
 
+    [Header("Activatable")]
+    [SerializeField] bool abilityOneActivatable = true;
+    [SerializeField] bool abilityTwoActivatable = true;
+
     [Header("Actions")]
     [SerializeField] UnityEvent Ability1OnClick;
     [SerializeField] UnityEvent Ability2OnClick;
@@ -54,7 +58,7 @@ public class AbilityHandler : MonoBehaviour
                     betweenAbilitesTimer.SetTimer(timeBetweenAbilites, () => { abilityActivated = false; });
             }
 
-            if (canActivateAblility1 && pressedAblility1 && !abilityActivated)
+            if (canActivateAblility1 && pressedAblility1 && !abilityActivated && abilityOneActivatable)
             {
                 abilityActivated = true;
                 Ability1OnClick.Invoke();
@@ -63,7 +67,7 @@ public class AbilityHandler : MonoBehaviour
                     () => { canActivateAblility1 = false; ability1TimerOverlay.gameObject.SetActive(true); });
             }
 
-            if (canActivateAblility2 && pressedAblility2 && !abilityActivated)
+            if (canActivateAblility2 && pressedAblility2 && !abilityActivated && abilityTwoActivatable)
             {
                 abilityActivated = true;
                 Ability2OnClick.Invoke();
@@ -90,7 +94,6 @@ public class AbilityHandler : MonoBehaviour
                 ultimateChargePercentageText.text = $"{percent:0}";               
             }
         }
-
     }
 
     public void StartUlimateTimer()
@@ -124,7 +127,7 @@ public class AbilityHandler : MonoBehaviour
             StartUlimateTimer();
             ultimateActivated = true;
         }
-        
+        if (!abilityOneActivatable) { ability1TimerOverlay.gameObject.SetActive(true); }
+        if (!abilityTwoActivatable) { ability2TimerOverlay.gameObject.SetActive(true); }
     }
-
 }

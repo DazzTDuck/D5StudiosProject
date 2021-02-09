@@ -694,7 +694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0.54509807}
+  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0.5882353}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1477,6 +1477,8 @@ MonoBehaviour:
   ability2Timer: {fileID: 7615118587953899905}
   ultimateTimer: {fileID: 3930305184839988925}
   betweenAbilitesTimer: {fileID: 403954284302842675}
+  abilityOneActivatable: 1
+  abilityTwoActivatable: 1
   Ability1OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2104,7 +2106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0.54509807}
+  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0.5882353}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
