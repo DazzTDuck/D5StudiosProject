@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9689230901295b48b8036373f01521b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.5
+  moveSpeed: 3
   jumpHeight: 1
   jumpCooldownTime: 0
   groundCheck: {fileID: 2173349506192043996}
@@ -615,6 +615,7 @@ MonoBehaviour:
   cam: {fileID: 4788751972979609531}
   weaponCam: {fileID: 4297703519134521421}
   shoot: {fileID: 3833603442288366387}
+  shotgun: {fileID: 0}
   nextCrouch: 0.2
 --- !u!54 &4788751972951705085
 Rigidbody:

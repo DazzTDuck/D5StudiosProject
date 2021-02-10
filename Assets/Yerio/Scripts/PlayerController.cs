@@ -102,11 +102,15 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         vertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(horiontal, 0, vertical);
+        float finalMoveSpeed = 0;
 
         if (!state.IsDead && isGrounded)
-            transform.Translate(movement * moveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
+            finalMoveSpeed = moveSpeed;
         if (!state.IsDead && !isGrounded)
-            transform.Translate(movement * moveSpeed / reducedMovement * BoltNetwork.FrameDeltaTime, Space.Self);
+            finalMoveSpeed = moveSpeed / reducedMovement;
+
+        if (!state.IsDead)
+            transform.Translate(movement * finalMoveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
 
         isCrouching = Input.GetButton("Crouch");
 
