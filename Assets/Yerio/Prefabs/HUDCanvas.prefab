@@ -176,7 +176,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.75
+  m_fontSize: 9.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9.05
+  m_fontSize: 6.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -978,6 +978,7 @@ GameObject:
   - component: {fileID: 4635279239304678306}
   - component: {fileID: 427003641210888554}
   - component: {fileID: 9128295165352320762}
+  - component: {fileID: 4348397979224916576}
   m_Layer: 10
   m_Name: Ultimate
   m_TagString: Untagged
@@ -1047,6 +1048,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &4348397979224916576
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562136084208867419}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d5a97d18a965cc04f99997aac188cb5d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5747631480899252050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,7 +1307,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.35
+  m_fontSize: 16.5
   m_fontSizeBase: 6.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1469,7 +1489,7 @@ MonoBehaviour:
   ability1TimerOverlay: {fileID: 5371194809176512622}
   ability2Button: {fileID: 3727707404938756060}
   ability2TimerOverlay: {fileID: 3696244256512617162}
-  UltimateButton: {fileID: 5562136084208867419}
+  ultimateAnimator: {fileID: 4348397979224916576}
   ultimateChargeBar: {fileID: 107287942756389522}
   ultimateIcon: {fileID: 5902470410175409064}
   ultimateChargePercentageText: {fileID: 1208133558161228292}
@@ -1479,7 +1499,7 @@ MonoBehaviour:
   betweenAbilitesTimer: {fileID: 403954284302842675}
   abilityOneActivatable: 1
   abilityTwoActivatable: 1
-  Ability1OnClick:
+  ability1OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5864480347846815221}
@@ -1493,7 +1513,7 @@ MonoBehaviour:
           m_StringArgument: Press
           m_BoolArgument: 0
         m_CallState: 2
-  Ability2OnClick:
+  ability2OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7461511288160485468}
@@ -1507,12 +1527,12 @@ MonoBehaviour:
           m_StringArgument: Press
           m_BoolArgument: 0
         m_CallState: 2
-  UltimateOnClick:
+  ultimateOnClick:
     m_PersistentCalls:
       m_Calls: []
-  ablility1RechargeTime: 4
-  ablility2RechargeTime: 4
-  ultimateRechargeTime: 10
+  ablility1RechargeTime: 8
+  ablility2RechargeTime: 8
+  ultimateRechargeTime: 250
 --- !u!1 &7345292408593306464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1625,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.15
+  m_fontSize: 7.85
   m_fontSizeBase: 6.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1739,7 +1759,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.25
+  m_fontSize: 5.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1971,7 +1991,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.55
+  m_fontSize: 11
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

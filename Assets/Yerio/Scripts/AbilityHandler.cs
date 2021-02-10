@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using TMPro;
 
 public class AbilityHandler : MonoBehaviour
 {
@@ -12,7 +10,8 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Image ability1TimerOverlay;
     [SerializeField] GameObject ability2Button;
     [SerializeField] Image ability2TimerOverlay;
-    [SerializeField] GameObject UltimateButton;
+    [Header("--Ultimate--")]
+    [SerializeField] Animator ultimateAnimator;
     [SerializeField] Image ultimateChargeBar;
     [SerializeField] GameObject ultimateIcon;
     [SerializeField] TMP_Text ultimateChargePercentageText;
@@ -28,9 +27,9 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] bool abilityTwoActivatable = true;
 
     [Header("Actions")]
-    [SerializeField] UnityEvent Ability1OnClick;
-    [SerializeField] UnityEvent Ability2OnClick;
-    [SerializeField] UnityEvent UltimateOnClick;
+    [SerializeField] UnityEvent ability1OnClick;
+    [SerializeField] UnityEvent ability2OnClick;
+    [SerializeField] UnityEvent ultimateOnClick;
 
     [Header("Cooldowns")]
     [SerializeField] float ablility1RechargeTime;
@@ -61,7 +60,7 @@ public class AbilityHandler : MonoBehaviour
             if (canActivateAblility1 && pressedAblility1 && !abilityActivated && abilityOneActivatable)
             {
                 abilityActivated = true;
-                Ability1OnClick.Invoke();
+                ability1OnClick.Invoke();
                 ability1Timer.SetTimer(ablility1RechargeTime,
                     () => { canActivateAblility1 = true; ability1TimerOverlay.gameObject.SetActive(false); },
                     () => { canActivateAblility1 = false; ability1TimerOverlay.gameObject.SetActive(true); });
@@ -70,7 +69,7 @@ public class AbilityHandler : MonoBehaviour
             if (canActivateAblility2 && pressedAblility2 && !abilityActivated && abilityTwoActivatable)
             {
                 abilityActivated = true;
-                Ability2OnClick.Invoke();
+                ability2OnClick.Invoke();
                 ability2Timer.SetTimer(ablility2RechargeTime,
                     () => { canActivateAblility2 = true; ability2TimerOverlay.gameObject.SetActive(false); },
                     () => { canActivateAblility2 = false; ability2TimerOverlay.gameObject.SetActive(true); });
@@ -79,9 +78,11 @@ public class AbilityHandler : MonoBehaviour
             if (canActivateUltimate && pressedUltimate && !abilityActivated)
             {
                 abilityActivated = true;
-                UltimateOnClick.Invoke();
+                ultimateOnClick.Invoke();
                 StartUlimateTimer();
                 ultimateIcon.SetActive(false);
+                ultimateAnimator.ResetTrigger("Charged");
+                ultimateAnimator.SetTrigger("Back");
             }
 
             //update visual timers
@@ -99,7 +100,7 @@ public class AbilityHandler : MonoBehaviour
     public void StartUlimateTimer()
     {
         ultimateTimer.SetTimer(ultimateRechargeTime,
-        () => { canActivateUltimate = true; ultimateIcon.SetActive(true); },
+        () => { canActivateUltimate = true; ultimateIcon.SetActive(true); ultimateAnimator.ResetTrigger("Back"); ultimateAnimator.SetTrigger("Charged"); },
         () => { canActivateUltimate = false; });
     }
 
