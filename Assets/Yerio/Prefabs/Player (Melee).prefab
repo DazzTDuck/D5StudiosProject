@@ -598,6 +598,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  reducedMovement: 2.5
+  jumpBoost: 1.5
+  nextCrouch: 0.2
   jumpHeight: 1
   jumpCooldownTime: 0
   groundCheck: {fileID: 2173349506192043996}
@@ -607,17 +610,13 @@ MonoBehaviour:
     m_Bits: 256
   isGrounded: 0
   fallGravityMultiplier: 1.5
-  rb: {fileID: 0}
-  gForceVector: {x: 0, y: 0, z: 0}
-  isStationary: 0
-  jumpBoost: 2
-  isHost: 0
-  reducedMovement: 2.5
   cam: {fileID: 4788751972979609531}
   weaponCam: {fileID: 1238842621562586105}
   shoot: {fileID: 0}
   shotgun: {fileID: 0}
-  nextCrouch: 0.2
+  rb: {fileID: 0}
+  gForceVector: {x: 0, y: 0, z: 0}
+  isStationary: 0
 --- !u!54 &4788751972951705085
 Rigidbody:
   m_ObjectHideFlags: 0

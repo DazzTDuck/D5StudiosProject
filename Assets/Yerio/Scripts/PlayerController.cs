@@ -6,6 +6,9 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [Header("Stats")]
     [SerializeField] float moveSpeed = 4;
+    [SerializeField] float reducedMovement = 2.5f;
+    [SerializeField] float jumpBoost;
+    [SerializeField] float nextCrouch = .2f;
 
     [Header("--Jumping--")]
     [Tooltip("Height of the jump in meters")]
@@ -25,6 +28,11 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Tooltip("This is the gravity applied to the player when hes falling down from a jump")]
     public float fallGravityMultiplier = 1.5f;
 
+    [Space, SerializeField] GameObject cam;
+    [SerializeField] GameObject weaponCam;
+    [SerializeField] Shoot shoot;
+    [SerializeField] Shotgun shotgun;
+
     [HideInInspector]
     public Rigidbody rb;
 
@@ -42,18 +50,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     float horizontal;
     float vertical;
 
-    [SerializeField] float jumpBoost;
+    bool isHost;
 
-    [SerializeField] bool isHost;
-
-    [Space, SerializeField] float reducedMovement = 2.5f;
-
-    [Space, SerializeField] GameObject cam;
-    [SerializeField] GameObject weaponCam;
-    [SerializeField] Shoot shoot;
-    [SerializeField] Shotgun shotgun;
-
-    [Space, SerializeField] float nextCrouch = .2f;
     bool canCrouch = true;
     bool waitingForCourotine = false;
     bool isCrouching;
