@@ -39,8 +39,10 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     bool jumpCooldown = false;
     bool wantToJump = false;
     Vector3 velocity;
-    float horiontal;
+    float horizontal;
     float vertical;
+
+    [SerializeField] float jumpBoost;
 
     [SerializeField] bool isHost;
 
@@ -98,10 +100,10 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void Movement()
     {
-        horiontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(horiontal, 0, vertical);
+        Vector3 movement = new Vector3(horizontal, 0, vertical);
         float finalMoveSpeed = 0;
 
         if (!state.IsDead && isGrounded)
@@ -168,7 +170,9 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (wantToJump && isGrounded && !jumpCooldown && entity.IsOwner)
         {
             //calculate the force needed to jump the height given
-            var jumpVelocity = Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight);
+            var jumpVelocityY = Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight);
+            var jumpVelocityX = jumpBoost * horizontal;
+            var jumpVelocityZ = jumpBoost * vertical;
 
             //if player is moving down reset the velocity to zero so it always reaches full height when jumping     
             if (rb.velocity.y < 0)
@@ -176,7 +180,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
 
-            rb.AddForce(0, jumpVelocity, 0, ForceMode.Impulse);
+            rb.AddRelativeForce(jumpVelocityX, jumpVelocityY, jumpVelocityZ, ForceMode.Impulse);
             jumpCooldown = true;
         }
 
