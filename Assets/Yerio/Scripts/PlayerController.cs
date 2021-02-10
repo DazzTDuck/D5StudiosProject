@@ -49,6 +49,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] GameObject cam;
     [SerializeField] GameObject weaponCam;
     [SerializeField] Shoot shoot;
+    [SerializeField] Shotgun shotgun;
 
     [Space, SerializeField] float nextCrouch = .2f;
     bool canCrouch = true;
@@ -122,8 +123,11 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             cam.GetComponent<PlayerCamera>().Crouch(true);
             weaponCam.GetComponent<PlayerCamera>().Crouch(true);
             CrouchMoveSpeed(true);
-            if(shoot)
+            if (shoot)
                 shoot.ReduceRecoil(true);
+            else if (shotgun)
+                shotgun.ReduceSpread(true);
+                    
 
             canCrouch = false;
         }
@@ -134,6 +138,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             CrouchMoveSpeed(false);
             if(shoot)
                 shoot.ReduceRecoil(false);
+            else if (shotgun)
+                shotgun.ReduceSpread(false);
 
             StartCoroutine(WaitForCrouch(nextCrouch));
         }

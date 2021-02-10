@@ -33,7 +33,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isShooting;
     bool nextShot;
 
-    public EnemyHealth enemyHealth;
+    EnemyHealth enemyHealth;
     Health health;
 
     private void Update()

@@ -25,7 +25,7 @@ public class ClassSelect : MonoBehaviour
                 networkCallbacks.SpawnPlayer(transform.parent.gameObject, playerPrefabs[1]);
                 break;
             case 2:
-                //other
+                //shotgun prefab
                 networkCallbacks.SpawnPlayer(transform.parent.gameObject, playerPrefabs[2]);
                 break;
             case 3:
