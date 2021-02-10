@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AbilityHandler : MonoBehaviour
 {
-    [Header("--Buttons--")]
+    [Header("--Abilities--")]
     [SerializeField] GameObject ability1Button;
     [SerializeField] Image ability1TimerOverlay;
     [SerializeField] GameObject ability2Button;
@@ -23,8 +23,9 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Timer betweenAbilitesTimer;
 
     [Header("Activatable")]
-    [SerializeField] bool abilityOneActivatable = true;
-    [SerializeField] bool abilityTwoActivatable = true;
+    [SerializeField] bool abilityOneActivatable;
+    [SerializeField] bool abilityTwoActivatable;
+    [SerializeField] bool ultimateActivatable;
 
     [Header("Actions")]
     [SerializeField] UnityEvent ability1OnClick;
@@ -35,13 +36,16 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] float ablility1RechargeTime;
     [SerializeField] float ablility2RechargeTime;
     [SerializeField] float ultimateRechargeTime;
+    [SerializeField] float ability1UseTime;
+    [SerializeField] float ability2UseTime;
+    [SerializeField] float ultimateUseTime;
 
     bool pressedAblility1, pressedAblility2, pressedUltimate;
     bool canActivateAblility1 = true, canActivateAblility2 = true, canActivateUltimate = false;
 
     bool AbilitiesActive = false;
 
-    float timeBetweenAbilites = 2f;
+    float timeBetweenAbilites = 0;
     bool abilityActivated = false;
     bool ultimateActivated = false;
 
@@ -59,6 +63,7 @@ public class AbilityHandler : MonoBehaviour
 
             if (canActivateAblility1 && pressedAblility1 && !abilityActivated && abilityOneActivatable)
             {
+                timeBetweenAbilites = ability1UseTime;
                 abilityActivated = true;
                 ability1OnClick.Invoke();
                 ability1Timer.SetTimer(ablility1RechargeTime,
@@ -68,6 +73,7 @@ public class AbilityHandler : MonoBehaviour
 
             if (canActivateAblility2 && pressedAblility2 && !abilityActivated && abilityTwoActivatable)
             {
+                timeBetweenAbilites = ability2UseTime;
                 abilityActivated = true;
                 ability2OnClick.Invoke();
                 ability2Timer.SetTimer(ablility2RechargeTime,
@@ -75,8 +81,9 @@ public class AbilityHandler : MonoBehaviour
                     () => { canActivateAblility2 = false; ability2TimerOverlay.gameObject.SetActive(true); });
             }
 
-            if (canActivateUltimate && pressedUltimate && !abilityActivated)
+            if (canActivateUltimate && pressedUltimate && !abilityActivated && ultimateActivatable)
             {
+                timeBetweenAbilites = ultimateUseTime;
                 abilityActivated = true;
                 ultimateOnClick.Invoke();
                 StartUlimateTimer();
@@ -86,13 +93,13 @@ public class AbilityHandler : MonoBehaviour
             }
 
             //update visual timers
-            if (!canActivateAblility1) { ability1TimerOverlay.fillAmount =  GetPercentage(ablility1RechargeTime, ability1Timer.GetTimerValue()) / 100; }
+            if (!canActivateAblility1) { ability1TimerOverlay.fillAmount = GetPercentage(ablility1RechargeTime, ability1Timer.GetTimerValue()) / 100; }
             if (!canActivateAblility2) { ability2TimerOverlay.fillAmount = GetPercentage(ablility2RechargeTime, ability2Timer.GetTimerValue()) / 100; }
-            if (!canActivateUltimate) 
+            if (!canActivateUltimate)
             {
                 float percent = 100 - GetPercentage(ultimateRechargeTime, ultimateTimer.GetTimerValue());
                 ultimateChargeBar.fillAmount = percent / 100;
-                ultimateChargePercentageText.text = $"{percent:0}";               
+                ultimateChargePercentageText.text = $"{percent:0}";
             }
         }
     }
