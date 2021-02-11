@@ -176,7 +176,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.45
+  m_fontSize: 13.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.15
+  m_fontSize: 8.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1307,7 +1307,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.05
+  m_fontSize: 22.65
   m_fontSizeBase: 6.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1487,8 +1487,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability1Button: {fileID: 8081601096070206323}
   ability1TimerOverlay: {fileID: 5371194809176512622}
+  ability1IsSwitch: 0
+  ability1Animator: {fileID: 5864480347846815221}
   ability2Button: {fileID: 3727707404938756060}
   ability2TimerOverlay: {fileID: 3696244256512617162}
+  ability2IsSwitch: 0
+  ability2Animator: {fileID: 7461511288160485468}
   ultimateAnimator: {fileID: 4348397979224916576}
   ultimateChargeBar: {fileID: 107287942756389522}
   ultimateIcon: {fileID: 5902470410175409064}
@@ -1502,32 +1506,10 @@ MonoBehaviour:
   ultimateActivatable: 1
   ability1OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5864480347846815221}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Press
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ability2OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7461511288160485468}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Press
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ultimateOnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -1535,7 +1517,7 @@ MonoBehaviour:
   ablility2RechargeTime: 8
   ultimateRechargeTime: 250
   ability1UseTime: 1
-  ability2UseTime: 4
+  ability2UseTime: 1
   ultimateUseTime: 2
 --- !u!1 &7345292408593306464
 GameObject:
@@ -1629,7 +1611,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10.05
+  m_fontSize: 10.8
   m_fontSizeBase: 6.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1763,7 +1745,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 6.55
+  m_fontSize: 7.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1995,7 +1977,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14.05
+  m_fontSize: 15.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

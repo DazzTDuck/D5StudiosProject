@@ -8,8 +8,14 @@ public class AbilityHandler : MonoBehaviour
     [Header("--Abilities--")]
     [SerializeField] GameObject ability1Button;
     [SerializeField] Image ability1TimerOverlay;
-    [SerializeField] GameObject ability2Button;
+    [SerializeField] Animator ability1Animator;
+    [SerializeField] bool ability1IsSwitch;
+
+    [Space, SerializeField] GameObject ability2Button;
     [SerializeField] Image ability2TimerOverlay;
+    [SerializeField] Animator ability2Animator;
+    [SerializeField] bool ability2IsSwitch;
+
     [Header("--Ultimate--")]
     [SerializeField] Animator ultimateAnimator;
     [SerializeField] Image ultimateChargeBar;
@@ -49,6 +55,9 @@ public class AbilityHandler : MonoBehaviour
     bool abilityActivated = false;
     bool ultimateActivated = false;
 
+    bool switchAbility1 = false;
+    bool switchAbility2 = false;
+
     private void Update()
     {
         GetAllInputs();
@@ -63,22 +72,71 @@ public class AbilityHandler : MonoBehaviour
 
             if (canActivateAblility1 && pressedAblility1 && !abilityActivated && abilityOneActivatable)
             {
-                timeBetweenAbilites = ability1UseTime;
-                abilityActivated = true;
                 ability1OnClick.Invoke();
-                ability1Timer.SetTimer(ablility1RechargeTime,
+                abilityActivated = true;
+                timeBetweenAbilites = ability1UseTime;
+
+                if (ability1IsSwitch)
+                {
+                    switchAbility1 = !switchAbility1;
+                }
+                else
+                {
+                    ability1Timer.SetTimer(ablility1RechargeTime,
                     () => { canActivateAblility1 = true; ability1TimerOverlay.gameObject.SetActive(false); },
                     () => { canActivateAblility1 = false; ability1TimerOverlay.gameObject.SetActive(true); });
+                }
+
+                if (switchAbility1 && ability1IsSwitch)
+                {
+                    ability1Animator.ResetTrigger("Switch");
+                    ability1Animator.SetTrigger("Switch");
+                }
+                else if (!switchAbility1 && ability1IsSwitch)
+                {
+                    ability1Animator.ResetTrigger("SwitchBack");
+                    ability1Animator.SetTrigger("SwitchBack");
+                }
+                else
+                {
+                    ability1Animator.ResetTrigger("Press");
+                    ability1Animator.SetTrigger("Press");
+                }
+
             }
 
             if (canActivateAblility2 && pressedAblility2 && !abilityActivated && abilityTwoActivatable)
             {
-                timeBetweenAbilites = ability2UseTime;
-                abilityActivated = true;
                 ability2OnClick.Invoke();
-                ability2Timer.SetTimer(ablility2RechargeTime,
-                    () => { canActivateAblility2 = true; ability2TimerOverlay.gameObject.SetActive(false); },
-                    () => { canActivateAblility2 = false; ability2TimerOverlay.gameObject.SetActive(true); });
+                abilityActivated = true;
+                timeBetweenAbilites = ability2UseTime;
+
+                if (ability2IsSwitch)
+                {
+                    switchAbility2 = !switchAbility2;
+                }
+                else
+                {                   
+                    ability2Timer.SetTimer(ablility2RechargeTime,
+                        () => { canActivateAblility2 = true; ability2TimerOverlay.gameObject.SetActive(false); },
+                        () => { canActivateAblility2 = false; ability2TimerOverlay.gameObject.SetActive(true); });
+                }
+
+                if (switchAbility2 && ability2IsSwitch)
+                {
+                    ability2Animator.ResetTrigger("Switch");
+                    ability2Animator.SetTrigger("Switch");
+                }
+                else if(!switchAbility2 && ability2IsSwitch)
+                {
+                    ability2Animator.ResetTrigger("SwitchBack");
+                    ability2Animator.SetTrigger("SwitchBack");
+                }
+                else
+                {
+                    ability2Animator.ResetTrigger("Press");
+                    ability2Animator.SetTrigger("Press");
+                }
             }
 
             if (canActivateUltimate && pressedUltimate && !abilityActivated && ultimateActivatable)
