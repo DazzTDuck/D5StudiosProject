@@ -65,7 +65,6 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.Damage = damage;
                 request.IsEnemy = true;
                 request.EntityShooter = entity;
-                request.ShowDamage = true;
                 request.Send();
                 hitDamageUI.SendDamage(damage, true);
                 enemyToAttack = null;

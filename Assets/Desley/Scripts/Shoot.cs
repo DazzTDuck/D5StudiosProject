@@ -146,7 +146,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Damage = damage;
         request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
-        request.ShowDamage = true;
         request.Send();
         if(isEnemy) { enemyHealth = null; } else { health = null; }
 
