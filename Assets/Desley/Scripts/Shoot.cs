@@ -9,14 +9,15 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject flash;
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
-    [SerializeField] int damage, hsMultiplier;
-    [SerializeField] float fireRate, weaponPunchX;
     [SerializeField] float[] weaponPunchY;
     [SerializeField] Animator animator;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] GameObject reloadingText;
+
+    [Space, SerializeField] int damage, hsMultiplier;
+    [SerializeField] float fireRate, weaponPunchX;
 
     [Space, SerializeField] int currentBulletCount;
     [SerializeField] int maxBulletCount;
@@ -32,13 +33,20 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     float nextTimeToShoot;
     bool isShooting;
     bool nextShot;
+    bool fullAuto;
 
     EnemyHealth enemyHealth;
     Health health;
 
     private void Update()
     {
-        isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
+        if(Input.GetButtonDown("FireMode") && !fullAuto) { fullAuto = true; } 
+        else if(Input.GetButtonDown("FireMode") && fullAuto) { fullAuto = false; }
+
+        if(!fullAuto)
+            isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
+        else
+            isShooting = Input.GetButton("Fire1") && nextTimeToShoot < Time.time;
 
         if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
