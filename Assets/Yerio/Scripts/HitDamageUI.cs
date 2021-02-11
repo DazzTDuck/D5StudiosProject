@@ -20,13 +20,13 @@ public class HitDamageUI : GlobalEventListener
 
     public override void OnEvent(DamageRequest evnt)
     {
-        if (evnt.EntityShooter.IsOwner && evnt.ShowDamage && evnt.OverallDamage > 0)
+        if (evnt.EntityShooter.IsOwner == entityOwner.IsOwner && evnt.ShowDamage && evnt.OverallDamage > 0)
         {
             ShowDamageDone(evnt.OverallDamage);
             return;
         }
 
-        if (evnt.EntityShooter.IsOwner && evnt.ShowDamage)
+        if (evnt.EntityShooter.IsOwner == entityOwner.IsOwner && evnt.ShowDamage)
         {
             ShowDamageDone(evnt.Damage);
         }
