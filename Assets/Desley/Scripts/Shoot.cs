@@ -51,6 +51,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
+            currentBulletCount--;
+            sprayPatternIndex++;
             state.Animator.ResetTrigger("Shoot");
             ShootRaycast();
             InstantiateEffect();
@@ -59,7 +61,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
             cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
             nextShot = false;
-            currentBulletCount--;
         }
 
         if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
@@ -109,11 +110,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ShootRaycast()
     {
         state.Animator.SetTrigger("Shoot");
-        Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition + sprayPattern[sprayPatternIndex]);
+        Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition + sprayPattern[sprayPatternIndex - 1]);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit))
         {
-            sprayPatternIndex++;
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(0.25f, hitEffect));
 
