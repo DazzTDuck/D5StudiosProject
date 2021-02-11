@@ -6,6 +6,7 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera cam;
     [SerializeField] Animator animator;
+    [SerializeField] HitDamageUI hitDamageUI;
     [SerializeField] Transform shankPoint;
     [SerializeField] int damage;
     [SerializeField] float shankRate, range, damageTime;
@@ -63,7 +64,10 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
                 request.EntityShot = enemyToAttack.GetComponent<BoltEntity>();
                 request.Damage = damage;
                 request.IsEnemy = true;
+                request.EntityShooter = entity;
+                request.ShowDamage = true;
                 request.Send();
+                hitDamageUI.SendDamage(damage, true);
                 enemyToAttack = null;
             }
 
@@ -75,7 +79,9 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
                 var request = DamageRequest.Create();
                 request.EntityShot = enemyToAttack.GetComponentInParent<BoltEntity>();
                 request.Damage = damage;
+                request.EntityShooter = entity;
                 request.Send();
+                hitDamageUI.SendDamage(damage, true);
                 enemyToAttack = null;
             }
         }

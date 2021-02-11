@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Bolt;
 using TMPro;
 
-public class HitDamageUI : GlobalEventListener
+public class HitDamageUI : MonoBehaviour
 {
     [SerializeField] RectTransform canvas;
     [SerializeField] GameObject hitTextPrefab;
@@ -18,17 +18,17 @@ public class HitDamageUI : GlobalEventListener
         Destroy(text, 0.45f);
     }
 
-    public override void OnEvent(DamageRequest evnt)
+    public void SendDamage(float damage, bool showDamage, float overallDamage = 0)
     {
-        if (evnt.EntityShooter.IsOwner == entityOwner.IsOwner && evnt.ShowDamage && evnt.OverallDamage > 0)
+        if (showDamage && overallDamage > 0)
         {
-            ShowDamageDone(evnt.OverallDamage);
+            ShowDamageDone(overallDamage);
             return;
         }
 
-        if (evnt.EntityShooter.IsOwner == entityOwner.IsOwner && evnt.ShowDamage)
+        if (showDamage)
         {
-            ShowDamageDone(evnt.Damage);
+            ShowDamageDone(damage);
         }
     }
 }

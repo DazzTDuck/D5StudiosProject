@@ -10,6 +10,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
     [SerializeField] Animator animator;
+    [SerializeField] HitDamageUI hitDamageUI;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
@@ -157,12 +158,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             if(overallDamage != 0)
             {
-                //send overallDamage
-                var request = DamageRequest.Create();
-                request.OverallDamage = overallDamage;
-                request.ShowDamage = true;
-                request.EntityShooter = entity;
-                request.Send();
+                hitDamageUI.SendDamage(0, true, overallDamage);
             }
             overallDamage = 0;
             amountShot = 0;
@@ -174,7 +170,6 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
         var request = DamageRequest.Create();
         request.EntityShot = entityShot;
         request.Damage = damage;
-        request.ShowDamage = false;
         request.IsEnemy = isEnemy;
         request.Send();
         if (isEnemy) { enemyHealth = null; } else { health = null; }

@@ -1058,6 +1058,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4441eaf43be19344eb45058c80f82074, type: 3}
+--- !u!114 &4408299781075190026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4131523403967172454, guid: 4441eaf43be19344eb45058c80f82074,
+    type: 3}
+  m_PrefabInstance: {fileID: 322979264742182508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6a68d42ae9640428d2dfeb7a42cace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2982713427430049020 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3251539425196755600, guid: 4441eaf43be19344eb45058c80f82074,
@@ -1423,6 +1435,11 @@ PrefabInstance:
       propertyPath: weaponCam
       value: 
       objectReference: {fileID: 5909814220828917061}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
+      propertyPath: hitDamageUI
+      value: 
+      objectReference: {fileID: 4408299781075190026}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
       propertyPath: dropoffRange

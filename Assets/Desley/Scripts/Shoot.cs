@@ -11,6 +11,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Transform muzzle;
     [SerializeField] float[] weaponPunchY;
     [SerializeField] Animator animator;
+    [SerializeField] HitDamageUI hitDamageUI;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
@@ -148,6 +149,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         request.ShowDamage = true;
         request.Send();
         if(isEnemy) { enemyHealth = null; } else { health = null; }
+
+        hitDamageUI.SendDamage(damage, true);
     }
 
     public void InstantiateEffect()

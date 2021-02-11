@@ -1390,6 +1390,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4441eaf43be19344eb45058c80f82074, type: 3}
+--- !u!114 &922345264537054525 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4131523403967172454, guid: 4441eaf43be19344eb45058c80f82074,
+    type: 3}
+  m_PrefabInstance: {fileID: 3862622302840791643}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6a68d42ae9640428d2dfeb7a42cace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1766822164533897419 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3251539425196755600, guid: 4441eaf43be19344eb45058c80f82074,
@@ -1413,6 +1425,11 @@ PrefabInstance:
       propertyPath: weaponCam
       value: 
       objectReference: {fileID: 5909814220828917061}
+    - target: {fileID: -8445362038409339019, guid: deef26e1ee209794fba717d004d5cb23,
+        type: 3}
+      propertyPath: hitDamageUI
+      value: 
+      objectReference: {fileID: 922345264537054525}
     - target: {fileID: 6531854552420769918, guid: deef26e1ee209794fba717d004d5cb23,
         type: 3}
       propertyPath: m_IsActive
