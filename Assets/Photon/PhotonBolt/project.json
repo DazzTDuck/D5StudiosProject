@@ -5169,9 +5169,20 @@
       "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [
         {
-          "Name": "Entity",
+          "Name": "EntityShot",
           "Enabled": true,
-          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "EntityShooter",
+          "Enabled": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
@@ -5183,6 +5194,31 @@
         },
         {
           "Name": "Damage",
+          "Enabled": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "IsEnemy",
+          "Enabled": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "OverallDamage",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
@@ -5196,7 +5232,7 @@
           }
         },
         {
-          "Name": "IsEnemy",
+          "Name": "ShowDamage",
           "Enabled": true,
           "ReplicationMode": 1,
           "Priority": 1,

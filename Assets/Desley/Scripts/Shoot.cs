@@ -113,38 +113,33 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             if(!enemyHealth)
                 enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
 
-            if (enemyHealth && hit.collider.tag == "enemyHead" && entity.IsOwner)
+            if (enemyHealth && hit.collider.CompareTag("enemyHead") && entity.IsOwner)
             {
-                //Create DamageRequest, set entity to ent and Damage to damage, then send
-                var request = DamageRequest.Create();
-                request.Entity = enemyHealth.GetComponent<BoltEntity>();
-                request.Damage = damage * hsMultiplier;
-                request.IsEnemy = true;
-                request.Send();
-                enemyHealth = null;
+                SendDamage(damage * hsMultiplier, true, enemyHealth.GetComponent<BoltEntity>());
             }
-            else if (enemyHealth && hit.collider.tag == "enemy" && entity.IsOwner)
+            else if (enemyHealth && hit.collider.CompareTag("enemy") && entity.IsOwner)
             {
-                //Create DamageRequest, set entity to ent and Damage to damage, then send
-                var request = DamageRequest.Create();
-                request.Entity = enemyHealth.GetComponent<BoltEntity>();
-                request.Damage = damage;
-                request.IsEnemy = true;
-                request.Send();
-                enemyHealth = null;
+                SendDamage(damage, true, enemyHealth.GetComponent<BoltEntity>());
             }
-
+          
             health = hit.collider.gameObject.GetComponent<Health>();
             if (health && entity.IsOwner)
             {
-                //Create DamageRequest, set entity to ent and Damage to damage, then send
-                var request = DamageRequest.Create();
-                request.Entity = health.GetComponentInParent<BoltEntity>();
-                request.Damage = damage;
-                request.Send();
-                enemyHealth = null;
+                SendDamage(damage, false, health.GetComponentInParent<BoltEntity>());
             }
         }
+    }
+
+    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    {
+        var request = DamageRequest.Create();
+        request.EntityShot = entityShot;
+        request.Damage = damage;
+        request.IsEnemy = isEnemy;
+        request.EntityShooter = entity;
+        request.ShowDamage = true;
+        request.Send();
+        if(isEnemy) { enemyHealth = null; } else { health = null; }
     }
 
     public void InstantiateEffect()

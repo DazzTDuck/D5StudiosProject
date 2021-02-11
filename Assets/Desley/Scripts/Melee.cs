@@ -60,7 +60,7 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
                 //Create DamageRequest, set entity to ent and Damage to damage, then send
                 var request = DamageRequest.Create();
-                request.Entity = enemyToAttack.GetComponent<BoltEntity>();
+                request.EntityShot = enemyToAttack.GetComponent<BoltEntity>();
                 request.Damage = damage;
                 request.IsEnemy = true;
                 request.Send();
@@ -73,7 +73,7 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
                 //Create DamageRequest, set entity to ent and Damage to damage, then send
                 var request = DamageRequest.Create();
-                request.Entity = enemyToAttack.GetComponentInParent<BoltEntity>();
+                request.EntityShot = enemyToAttack.GetComponentInParent<BoltEntity>();
                 request.Damage = damage;
                 request.Send();
                 enemyToAttack = null;

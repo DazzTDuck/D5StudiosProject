@@ -13,7 +13,7 @@ public class KillTrigger : MonoBehaviour
         {
             //Create DamageRequest, set entity to ent and Damage to damage, then send
             var request = DamageRequest.Create();
-            request.Entity = health.GetComponentInParent<BoltEntity>();
+            request.EntityShot = health.GetComponentInParent<BoltEntity>();
             request.Damage = 100;
             request.Send();
             requestSent = true;

@@ -66,11 +66,13 @@ public class NetworkCallbacks : GlobalEventListener
     {
         if (evnt.IsEnemy)
         {
-            evnt.Entity.GetComponent<EnemyHealth>().TakeDamage(evnt.Damage);
+            evnt.EntityShot.GetComponent<EnemyHealth>().TakeDamage(evnt.Damage);
             return;
         }
-        evnt.Entity.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
-        
+
+        if (evnt.EntityShot)
+            evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
+
     }
 
     public override void OnEvent(ChangeNameEvent evnt)
