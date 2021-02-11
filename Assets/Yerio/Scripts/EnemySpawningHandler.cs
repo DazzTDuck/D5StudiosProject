@@ -37,12 +37,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
 
     public bool GetIfGameStarted()
     {
-        if (startGame)
-        {
-            return state.HasSpawned;
-        }
-
-        return false;
+        return state.HasSpawned;
     }
 
     public override void SimulateOwner()
