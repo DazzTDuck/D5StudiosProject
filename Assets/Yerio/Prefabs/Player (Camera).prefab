@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 4788751973370468054, guid: 4b3724d8746b5ad4c87522a75dafae9d, type: 3}
   - {fileID: 4788751973370468054, guid: 8c81dc7cdda7914448df130e33f66d00, type: 3}
   - {fileID: 4788751973370468054, guid: 6b5ae2190a65eec43aa8d08df1b5a61d, type: 3}
+  - {fileID: 4788751973370468054, guid: a4e944ccca8a88745a08b4d908e94f15, type: 3}
 --- !u!1 &1139341316496343370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1043,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 709734470207717879}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2389184673528187681}
+        m_MethodName: SelectClass
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &2831556251247855106
 Animator:
   serializedVersion: 3
@@ -1322,7 +1334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Class
+  m_text: Support
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 868bcb614aeb5464e8e59b4b06ca5112, type: 2}
   m_sharedMaterial: {fileID: -481509246804229531, guid: 868bcb614aeb5464e8e59b4b06ca5112,
