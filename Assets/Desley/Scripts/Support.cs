@@ -8,8 +8,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Transform firePoint;
 
     [Space, SerializeField] float chargeForce;
-    [SerializeField] float maxCharge;
-    [SerializeField] float chargeTimeMultiplier;
+    [SerializeField] float maxCharge, minCharge;
     bool isShooting;
     bool charging;
     float chargeTime;
@@ -28,12 +27,12 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && !state.IsDead && !usingHeal && !usingStun)
         {
             charging = true;
-            chargeTime += Time.deltaTime * chargeTimeMultiplier;
+            chargeTime += Time.deltaTime;
             chargeTime = Mathf.Clamp(chargeTime, 0, maxCharge);
         }
         else if (charging)
         {
-            if(chargeTime < 1) { chargeTime = 1; }
+            if(chargeTime < minCharge) { return; }
             InstantiateFireBall();
             charging = false;
         }
@@ -42,6 +41,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     public void InstantiateFireBall()
     {
         var fireball = BoltNetwork.Instantiate(fireBall, firePoint.position, firePoint.rotation);
+        fireball.GetComponent<FireBall>().playerEntity = GetComponentInParent<BoltEntity>();
         fireball.GetComponent<Rigidbody>().AddRelativeForce(0, 0, chargeForce * chargeTime, ForceMode.Impulse);
         chargeTime = 0;
     }

@@ -5,6 +5,25 @@ using UnityEngine;
 public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 {
     [SerializeField] LayerMask playerLayer;
+    public bool canHitPlayer;
+
+    [Space, SerializeField] int damage;
+    [SerializeField] float radius;
+
+    [Space, SerializeField] float destroyTime;
+
+    [Space] public BoltEntity playerEntity;
+    [SerializeField] List<BoltEntity> enemyEntities;
+    [SerializeField] List<BoltEntity> playerEntities;
+    [SerializeField] List<int> distanceToEntities;
+    int entitiesDamaged;
+    bool collided;
+
+
+    private void Start()
+    {
+        StartCoroutine(DestroyFallBack(destroyTime));
+    }
 
     public override void Attached()
     {
@@ -14,13 +33,90 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer != playerLayer)
+        if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
+            return;
+
+        collided = true;
+        GetHealthScripts();
+    }
+
+    void GetHealthScripts()
+    {
+        Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);
+        //check which colliders have health scripts
+        foreach(Collider collider in hitObjects)
         {
-            //Create DestroyRequest, set entity to ent and then send
-            var request = DestroyRequest.Create();
-            request.Entity = GetComponent<BoltEntity>();
-            request.IsEnemy = false;
-            request.Send();
+            if (collider.GetComponent<EnemyHealth>() && !enemyEntities.Contains(collider.GetComponent<BoltEntity>()))
+            {
+                enemyEntities.Add(collider.GetComponent<BoltEntity>());
+                GetDistanceToEntities(collider);
+            }
+            else if (collider.GetComponentInParent<EnemyHealth>() && !enemyEntities.Contains(collider.GetComponentInParent<BoltEntity>()))
+            {
+                enemyEntities.Add(collider.GetComponentInParent<BoltEntity>());
+                GetDistanceToEntities(collider);
+            }
+            else if (collider.GetComponent<Health>() && canHitPlayer && !playerEntities.Contains(collider.GetComponent<BoltEntity>()))
+            {
+                playerEntities.Add(collider.GetComponent<BoltEntity>());
+                GetDistanceToEntities(collider);
+            }
         }
+
+        if (enemyEntities.Count == 0 && playerEntities.Count == 0)
+            DestroyFireBall();
+        else
+            SendDamageInfo();
+    }
+
+    void GetDistanceToEntities(Collider collider)
+    {
+        float distance = Vector3.Distance(transform.position, collider.transform.position);
+        int distanceRound = Mathf.RoundToInt(distance);
+        if(distanceRound == 0) { distanceRound = 1; }
+        distanceToEntities.Add(distanceRound);
+    }
+
+    void SendDamageInfo()
+    {
+        //send damage to all enemies
+        foreach (BoltEntity entity in enemyEntities)
+        {
+            SendDamage(damage / distanceToEntities[entitiesDamaged], true, entity);
+            entitiesDamaged++;
+        }
+        //send damage to all players
+        foreach (BoltEntity entity in playerEntities)
+        {
+            SendDamage(damage / distanceToEntities[entitiesDamaged], false, entity);
+            entitiesDamaged++;
+        }
+
+        if (enemyEntities.Count + playerEntities.Count == entitiesDamaged)
+            DestroyFireBall();
+    }
+
+    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    {
+        var request = DamageRequest.Create();
+        request.EntityShot = entityShot;
+        request.Damage = damage;
+        request.IsEnemy = isEnemy;
+        request.EntityShooter = playerEntity;
+        request.Send();
+    }
+
+    void DestroyFireBall()
+    {
+        BoltNetwork.Destroy(gameObject);
+    }
+
+    public IEnumerator DestroyFallBack(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        BoltNetwork.Destroy(gameObject);
+
+        StopCoroutine(nameof(DestroyFallBack));
     }
 }
