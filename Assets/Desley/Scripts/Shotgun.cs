@@ -39,10 +39,6 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
 
     EnemyHealth enemyHealth;
     Health health;
-
-    int amountShot = 0;
-    int overallDamage = 0;
-
     private void Update()
     {
         isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
@@ -100,6 +96,9 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         state.Animator.SetTrigger("Shoot");
 
+        int totalDamage = 0;
+        int amountShot = 0;
+
         for (var i = 0; i < shotgunPellets; i++)
         {
             var randomX = Random.Range(-randomSpread, randomSpread);
@@ -119,50 +118,46 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
                     enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
 
                 health = hit.collider.gameObject.GetComponent<Health>();
-
-                if (!health && !enemyHealth && entity.IsOwner)
-                {
-                    CalculateAllDamage(0);                    
-                }
                   
                 float distance = Vector3.Distance(weaponCam.transform.position, hit.point);
                 damageDivider = distance < dropoffRange ? 1 : dropOffDivider;
 
-                if (enemyHealth && hit.collider.CompareTag("enemyHead") && entity.IsOwner)
+                if (entity.IsOwner)
                 {
-                    SendDamage(damage * hsMultiplier / damageDivider, true, enemyHealth.GetComponent<BoltEntity>());
-                    CalculateAllDamage(damage * hsMultiplier / damageDivider);
+                    int damageToDo = damage / damageDivider;
+                    if (!health && !enemyHealth)
+                    {
+                        totalDamage += 0;
+                        amountShot++;
+                    }
+                    else if(enemyHealth && hit.collider.CompareTag("enemyHead"))
+                    {
+                        SendDamage(damageToDo * hsMultiplier, true, enemyHealth.GetComponent<BoltEntity>());
+                        totalDamage += damageToDo * hsMultiplier;
+                        amountShot++;
+                    }
+                    else if (enemyHealth && hit.collider.CompareTag("enemy"))
+                    {
+                        SendDamage(damageToDo, true, enemyHealth.GetComponent<BoltEntity>());
+                        totalDamage += damageToDo;
+                        amountShot++;
+                    }
+                    else if (health)
+                    {
+                        SendDamage(damageToDo, false, health.GetComponentInParent<BoltEntity>());
+                        totalDamage += damageToDo;
+                        amountShot++;
+                    }             
                 }
-                else if (enemyHealth && hit.collider.CompareTag("enemy") && entity.IsOwner)
-                {
-                    SendDamage(damage / damageDivider, true, enemyHealth.GetComponent<BoltEntity>());
-                    CalculateAllDamage(damage / damageDivider);
-                }
-                
-                if (health && entity.IsOwner)
-                {
-                    SendDamage(damage / damageDivider, false, health.GetComponentInParent<BoltEntity>());
-                    CalculateAllDamage(damage / damageDivider);
-                }
-
             }
-        }
-    }
-
-    void CalculateAllDamage(int addDamage)
-    {
-        overallDamage += addDamage;
-        amountShot++;
-
-        if (amountShot == shotgunPellets)
-        {
-            if(overallDamage != 0)
+            if (amountShot == shotgunPellets)
             {
-                hitDamageUI.SendDamage(0, true, overallDamage);
+                if (totalDamage != 0)
+                {
+                    hitDamageUI.SendDamage(0, true, totalDamage);
+                }
             }
-            overallDamage = 0;
-            amountShot = 0;
-        }        
+        }   
     }
 
     void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
@@ -171,6 +166,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
         request.EntityShot = entityShot;
         request.Damage = damage;
         request.IsEnemy = isEnemy;
+        request.EntityShooter = entity;
         request.Send();
         if (isEnemy) { enemyHealth = null; } else { health = null; }
     }
