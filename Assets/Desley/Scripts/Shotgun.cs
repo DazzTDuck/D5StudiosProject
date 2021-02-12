@@ -6,15 +6,16 @@ using TMPro;
 public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera cam, weaponCam;
-    [SerializeField] GameObject flash;
-    [SerializeField] GameObject bulletHit;
-    [SerializeField] Transform muzzle;
     [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] GameObject reloadingText;
+
+    [Space, SerializeField] GameObject flash;
+    [SerializeField] GameObject bulletHit;
+    [SerializeField] Transform muzzle;
 
     [Space, SerializeField] int damage, hsMultiplier, range;
     [SerializeField] float fireRate, weaponPunchX;
@@ -37,29 +38,39 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isShooting;
     bool nextShot;
 
-    EnemyHealth enemyHealth;
-    Health health;
     private void Update()
     {
-        isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
+        CheckFireModeInput();
+        CheckReloadInput();
 
         if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
             state.Animator.ResetTrigger("Shoot");
+            state.Animator.SetTrigger("Shoot");
             ShootRaycast();
-            InstantiateEffect();
+            InstantiateEffect(); 
             nextTimeToShoot = Time.time + 1f / fireRate;
             weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, 0);
             cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, 0);
             nextShot = false;
             currentBulletCount--;
         }
+    }
 
+    void CheckFireModeInput()
+    {
+        //check input of mouse
+        isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
+
+        //check for input in between chambering rounds
         if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
             nextShot = true;
         else if (nextTimeToShoot > Time.time && Input.GetButtonUp("Fire1"))
             nextShot = false;
+    }
 
+    void CheckReloadInput()
+    {
         if (Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
             StartCoroutine(Reload(reloadTime));
@@ -93,9 +104,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     }
 
     public void ShootRaycast()
-    {
-        state.Animator.SetTrigger("Shoot");
-
+    { 
         int totalDamage = 0;
         int amountShot = 0;
 
@@ -110,44 +119,47 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
             if (Physics.Raycast(ray, out hit, range))
             {
                 var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
-                StartCoroutine(DestroyEffect(0.25f, hitEffect));
+                StartCoroutine(DestroyEffect(.25f, hitEffect));
 
-                //headshot or bodyshot
-                enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                if (!enemyHealth)
-                    enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
-
-                health = hit.collider.gameObject.GetComponent<Health>();
-                  
                 float distance = Vector3.Distance(weaponCam.transform.position, hit.point);
                 damageDivider = distance < dropoffRange ? 1 : dropOffDivider;
+
+                string entityTag = hit.collider.tag;
+                BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
+                if (!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
                 if (entity.IsOwner)
                 {
                     int damageToDo = damage / damageDivider;
-                    if (!health && !enemyHealth)
+                    if (hit.collider.GetComponent<Health>() && hit.collider.GetComponent<EnemyHealth>() && hit.collider.GetComponentInParent<EnemyHealth>())
                     {
                         totalDamage += 0;
                         amountShot++;
                     }
-                    else if(enemyHealth && hit.collider.CompareTag("enemyHead"))
+                    else if (entityTag == "Enemy")
                     {
-                        SendDamage(damageToDo * hsMultiplier, true, enemyHealth.GetComponent<BoltEntity>());
+                        SendDamage(damageToDo, true, boltEntity);
+                        totalDamage += damageToDo;
+                        amountShot++;
+                    }
+                    else if(entityTag == "EnemyHead")
+                    {
+                        SendDamage(damageToDo * hsMultiplier, true, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
                         amountShot++;
                     }
-                    else if (enemyHealth && hit.collider.CompareTag("enemy"))
+                    else if (entityTag == "Player")
                     {
-                        SendDamage(damageToDo, true, enemyHealth.GetComponent<BoltEntity>());
+                        SendDamage(damageToDo, false, boltEntity);
                         totalDamage += damageToDo;
                         amountShot++;
                     }
-                    else if (health)
+                    else if (entityTag == "PlayerHead")
                     {
-                        SendDamage(damageToDo, false, health.GetComponentInParent<BoltEntity>());
-                        totalDamage += damageToDo;
+                        SendDamage(damageToDo * hsMultiplier, false, boltEntity);
+                        totalDamage += damageToDo * hsMultiplier;
                         amountShot++;
-                    }             
+                    }
                 }
             }
             if (amountShot == shotgunPellets)
@@ -168,14 +180,13 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
         request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
         request.Send();
-        if (isEnemy) { enemyHealth = null; } else { health = null; }
     }
 
-    public void InstantiateEffect()
+    void InstantiateEffect()
     {
-        var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
-        flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
-        StartCoroutine(DestroyEffect(0.1f, flashEffect));
+        var Effect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
+        Effect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
+        StartCoroutine(DestroyEffect(.1f, Effect));
     }
 
     public IEnumerator DestroyEffect(float time, BoltEntity entity)

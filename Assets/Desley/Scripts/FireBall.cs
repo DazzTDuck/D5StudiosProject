@@ -37,28 +37,26 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
             return;
 
         collided = true;
-        GetHealthScripts();
+        GetHitObjects();
     }
 
-    void GetHealthScripts()
+    void GetHitObjects()
     {
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);
         //check which colliders have health scripts
         foreach(Collider collider in hitObjects)
         {
-            if (collider.GetComponent<EnemyHealth>() && !enemyEntities.Contains(collider.GetComponent<BoltEntity>()))
+            string entityTag = collider.tag;
+            BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
+
+            if (entityTag == "Enemy" && !enemyEntities.Contains(boltEntity) && entity.IsOwner)
             {
-                enemyEntities.Add(collider.GetComponent<BoltEntity>());
+                enemyEntities.Add(boltEntity);
                 GetDistanceToEntities(collider);
             }
-            else if (collider.GetComponentInParent<EnemyHealth>() && !enemyEntities.Contains(collider.GetComponentInParent<BoltEntity>()))
+            else if (entityTag == "Player" && !playerEntities.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
             {
-                enemyEntities.Add(collider.GetComponentInParent<BoltEntity>());
-                GetDistanceToEntities(collider);
-            }
-            else if (collider.GetComponent<Health>() && canHitPlayer && !playerEntities.Contains(collider.GetComponent<BoltEntity>()))
-            {
-                playerEntities.Add(collider.GetComponent<BoltEntity>());
+                playerEntities.Add(boltEntity);
                 GetDistanceToEntities(collider);
             }
         }

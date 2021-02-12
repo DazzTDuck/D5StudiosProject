@@ -6,10 +6,6 @@ using TMPro;
 public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera cam, weaponCam;
-    [SerializeField] GameObject flash;
-    [SerializeField] GameObject bulletHit;
-    [SerializeField] Transform muzzle;
-    [SerializeField] float[] weaponPunchY;
     [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
 
@@ -17,8 +13,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] GameObject reloadingText;
 
+    [Space, SerializeField] GameObject flash;
+    [SerializeField] GameObject bulletHit;
+    [SerializeField] Transform muzzle;
+
     [Space, SerializeField] int damage, hsMultiplier;
     [SerializeField] float fireRate, weaponPunchX;
+    [SerializeField] float[] weaponPunchY;
 
     [Space, SerializeField] int currentBulletCount;
     [SerializeField] int maxBulletCount;
@@ -36,18 +37,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool fullAuto;
 
-    EnemyHealth enemyHealth;
-    Health health;
-
     private void Update()
     {
-        if(Input.GetButtonDown("FireMode") && !fullAuto) { fullAuto = true; } 
-        else if(Input.GetButtonDown("FireMode") && fullAuto) { fullAuto = false; }
-
-        if(!fullAuto)
-            isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
-        else
-            isShooting = Input.GetButton("Fire1") && nextTimeToShoot < Time.time;
+        CheckFireModeInput();
+        CheckReloadInput();
 
         if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
@@ -63,25 +56,42 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             nextShot = false;
         }
 
-        if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
-            nextShot = true;
-        else if (nextTimeToShoot > Time.time && Input.GetButtonUp("Fire1"))
-            nextShot = false;
-
-        if(Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
-        {
-            StartCoroutine(Reload(reloadTime));
-            reloading = true;
-        }
-        if (!reloading)
-            bulletCountText.text = currentBulletCount + "|" + maxBulletCount;
-
         recoilResetTime -= Time.deltaTime;
         if (recoilResetTime <= 0)
         {
             sprayPatternIndex = 0;
             recoilResetTime = Mathf.Infinity;
         }
+    }
+
+    void CheckFireModeInput()
+    {
+        //switch between fire modes
+        if (Input.GetButtonDown("FireMode") && !fullAuto) { fullAuto = true; }
+        else if (Input.GetButtonDown("FireMode") && fullAuto) { fullAuto = false; }
+
+        //check input of mouse
+        if (!fullAuto)
+            isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
+        else
+            isShooting = Input.GetButton("Fire1") && nextTimeToShoot < Time.time;
+
+        //check for input in between chambering rounds
+        if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
+            nextShot = true;
+        else if (nextTimeToShoot > Time.time && Input.GetButtonUp("Fire1"))
+            nextShot = false;
+    }
+
+    void CheckReloadInput()
+    {
+        if (Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
+        {
+            StartCoroutine(Reload(reloadTime));
+            reloading = true;
+        }
+        if (!reloading)
+            bulletCountText.text = currentBulletCount + "|" + maxBulletCount;
     }
 
     //public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
@@ -115,26 +125,27 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if(Physics.Raycast(ray, out hit))
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
-            StartCoroutine(DestroyEffect(0.25f, hitEffect));
+            StartCoroutine(DestroyEffect(.25f, hitEffect));
 
-            //headshot or bodyshot
-            enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-            if(!enemyHealth)
-                enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
+            string entityTag = hit.collider.tag;
+            BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
+            if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
-            if (enemyHealth && hit.collider.CompareTag("enemyHead") && entity.IsOwner)
+            if (entityTag == "Enemy" && entity.IsOwner)
             {
-                SendDamage(damage * hsMultiplier, true, enemyHealth.GetComponent<BoltEntity>());
+                SendDamage(damage, true, boltEntity);
             }
-            else if (enemyHealth && hit.collider.CompareTag("enemy") && entity.IsOwner)
+            else if (entityTag == "EnemyHead" && entity.IsOwner)
             {
-                SendDamage(damage, true, enemyHealth.GetComponent<BoltEntity>());
+                SendDamage(damage * hsMultiplier, true, boltEntity);
             }
-          
-            health = hit.collider.gameObject.GetComponent<Health>();
-            if (health && entity.IsOwner)
+            else if (entityTag == "Player" && entity.IsOwner)
             {
-                SendDamage(damage, false, health.GetComponentInParent<BoltEntity>());
+                SendDamage(damage, false, boltEntity);
+            }
+            else if (entityTag == "PlayerHead" && entity.IsOwner)
+            {
+                SendDamage(damage * hsMultiplier, false, boltEntity);
             }
         }
     }
@@ -147,16 +158,15 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
         request.Send();
-        if(isEnemy) { enemyHealth = null; } else { health = null; }
 
         hitDamageUI.SendDamage(damage, true);
     }
 
-    public void InstantiateEffect()
+    void InstantiateEffect()
     {
-        var flashEffect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
-        flashEffect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
-        StartCoroutine(DestroyEffect(0.1f, flashEffect));
+        var Effect = BoltNetwork.Instantiate(flash, muzzle.position, muzzle.rotation);
+        Effect.GetComponent<BoltEntity>().transform.SetParent(muzzle);
+        StartCoroutine(DestroyEffect(.1f, Effect));
     }
 
     public IEnumerator DestroyEffect(float time, BoltEntity entity)

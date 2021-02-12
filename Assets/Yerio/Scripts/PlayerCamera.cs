@@ -93,7 +93,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void EnemyHealthbarLookat()
     {
-        foreach (var enemy in GameObject.FindGameObjectsWithTag("enemy"))
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             enemy.GetComponent<EnemyHealth>().CanvasLookAt(transform);
         }

@@ -14,8 +14,6 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
     Collider[] hitObjects;
     List<GameObject> hitEnemies = new List<GameObject>();
-    GameObject enemyToAttack;
-    float closestDistanceToScreen = Mathf.Infinity;
 
     bool isShooting;
 
@@ -26,8 +24,8 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShank && !state.IsDead)
         {
             state.Animator.ResetTrigger("Bonk");
-            StartCoroutine(DoDamage(damageTime));
             state.Animator.SetTrigger("Bonk");
+            StartCoroutine(WaitForAnimation(damageTime));
             nextTimeToShank = Time.time + 1f / shankRate;
         }
     }
@@ -55,43 +53,39 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
         {
-            if(hit.collider.GetComponent<EnemyHealth>() && entity.IsOwner)
-            {
-                enemyToAttack = hit.collider.gameObject;
+            string entityTag = hit.collider.tag;
+            BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
+            if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
-                //Create DamageRequest, set entity to ent and Damage to damage, then send
-                var request = DamageRequest.Create();
-                request.EntityShot = enemyToAttack.GetComponent<BoltEntity>();
-                request.Damage = damage;
-                request.IsEnemy = true;
-                request.EntityShooter = entity;
-                request.Send();
-                hitDamageUI.SendDamage(damage, true);
-                enemyToAttack = null;
+            if(entityTag == "Enemy" && entity.IsOwner || entityTag == "EnemyHead" && entity.IsOwner)
+            {
+                SendDamage(damage, true, boltEntity);
             }
-
-            if (hit.collider.GetComponent<Health>() && entity.IsOwner)
+            else if(entityTag == "Player" && entity.IsOwner || entityTag == "PlayerHead" && entity.IsOwner)
             {
-                enemyToAttack = hit.collider.gameObject;
-
-                //Create DamageRequest, set entity to ent and Damage to damage, then send
-                var request = DamageRequest.Create();
-                request.EntityShot = enemyToAttack.GetComponentInParent<BoltEntity>();
-                request.Damage = damage;
-                request.EntityShooter = entity;
-                request.Send();
-                hitDamageUI.SendDamage(damage, true);
-                enemyToAttack = null;
+                SendDamage(damage, false, boltEntity);
             }
         }
     }
 
-    public IEnumerator DoDamage(float time)
+    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    {
+        var request = DamageRequest.Create();
+        request.EntityShot = entityShot;
+        request.Damage = damage;
+        request.IsEnemy = isEnemy;
+        request.EntityShooter = entity;
+        request.Send();
+
+        hitDamageUI.SendDamage(damage, true);
+    }
+
+    public IEnumerator WaitForAnimation(float time)
     {
         yield return new WaitForSeconds(time);
 
         Shank();
 
-        StopCoroutine(nameof(DoDamage));
+        StopCoroutine(nameof(WaitForAnimation));
     }
 }
