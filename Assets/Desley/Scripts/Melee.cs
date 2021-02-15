@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 {
+    [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
     [SerializeField] Camera cam;
     [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
@@ -19,7 +20,7 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void Update()
     {
-        isShooting = Input.GetButton("Fire1");
+        isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused();
 
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShank && !state.IsDead)
         {

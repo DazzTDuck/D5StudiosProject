@@ -28,6 +28,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Tooltip("This is the gravity applied to the player when hes falling down from a jump")]
     public float fallGravityMultiplier = 1.5f;
 
+    [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
     [Space, SerializeField] GameObject cam;
     [SerializeField] GameObject weaponCam;
     [SerializeField] Shoot shoot;
@@ -109,7 +110,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead && !isGrounded)
             finalMoveSpeed = moveSpeed / reducedMovement;
 
-        if (!state.IsDead)
+        if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
             transform.Translate(movement * finalMoveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
 
         isCrouching = Input.GetButton("Crouch");
@@ -122,7 +123,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void Crouch()
     {
-        if (isCrouching && !state.IsDead && canCrouch)
+        if (isCrouching && !state.IsDead && canCrouch && !pauseMenuHandler.GetIfPaused())
         {
             cam.GetComponent<PlayerCamera>().Crouch(true);
             weaponCam.GetComponent<PlayerCamera>().Crouch(true);
@@ -135,7 +136,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
             canCrouch = false;
         }
-        else if (!isCrouching && !state.IsDead && !canCrouch)
+        else if (!isCrouching && !state.IsDead && !canCrouch && !pauseMenuHandler.GetIfPaused())
         {
             cam.GetComponent<PlayerCamera>().Crouch(false);
             weaponCam.GetComponent<PlayerCamera>().Crouch(false);
@@ -151,7 +152,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void Jumping()
     {
-        if (!state.IsDead)
+        if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
             wantToJump = Input.GetButtonDown("Jump");
 
         //when the cooldown is active add it up with time and if it has exceeded the cooldown time you can jump again
@@ -213,6 +214,14 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         waitingForCourotine = false;
 
         StopCoroutine(nameof(WaitForCrouch));
+    }
+
+    public void SetConnectionID(string id)
+    {
+        if (entity.IsOwner)
+        {
+            state.ConnectionID = id;
+        }
     }
 }
 

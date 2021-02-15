@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 {
+    [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
+
     [Header("--Settings--")]
     [Tooltip("Sensitivity of the camera movement")]
     public float sensitivity = 3f;
@@ -101,7 +103,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void CameraPos()
     {
-        if (!state.IsDead)
+        if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
         {
             rotCamY += Input.GetAxis("Mouse X") * sensitivity;
             rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;

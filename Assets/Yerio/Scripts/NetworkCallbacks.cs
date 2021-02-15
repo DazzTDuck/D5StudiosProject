@@ -35,6 +35,15 @@ public class NetworkCallbacks : GlobalEventListener
         request.Send();
         var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
+        foreach (var connection in BoltNetwork.Connections)
+        {
+            if (player.IsOwner)
+            {
+                Debug.LogWarning("ConnectionId");
+                player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
+            }
+        }
+
         if (connectionsAmount == 0)
         {
             player.GetComponentInChildren<PlayerController>().SetHost();
@@ -99,28 +108,6 @@ public class NetworkCallbacks : GlobalEventListener
                 host.CloseScreen();
                 host.entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
             }              
-        }
-    }
-
-    //fix later
-    public override void EntityDetached(BoltEntity entity)
-    {
-        base.EntityDetached(entity);
-
-        if (entity.IsOwner && entity.IsControlled)
-        {
-            if (BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Timeout ||
-                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Disconnected ||
-                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Authentication ||
-                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Error ||
-                BoltNetwork.Server.DisconnectReason == UdpConnectionDisconnectReason.Unknown)
-            {
-                foreach (var client in BoltNetwork.Connections)
-                {
-                    client.Disconnect();
-                }
-                SceneManager.LoadScene(0);
-            }
         }
     }
    

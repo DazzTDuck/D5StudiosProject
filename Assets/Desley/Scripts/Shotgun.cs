@@ -5,6 +5,8 @@ using TMPro;
 
 public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
 {
+    [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
+
     [SerializeField] Camera cam, weaponCam;
     [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
@@ -60,7 +62,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     void CheckFireModeInput()
     {
         //check input of mouse
-        isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time;
+        isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
 
         //check for input in between chambering rounds
         if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
@@ -71,7 +73,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void CheckReloadInput()
     {
-        if (Input.GetButtonDown("Reload") && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
+        if (Input.GetButtonDown("Reload") && !pauseMenuHandler.GetIfPaused() && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
             StartCoroutine(Reload(reloadTime));
             reloading = true;
