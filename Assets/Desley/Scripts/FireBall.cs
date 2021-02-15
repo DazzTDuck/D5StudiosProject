@@ -34,11 +34,14 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
-            return;
+        if (entity.IsOwner)
+        {
+            if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
+                return;
 
-        collided = true;
-        GetHitObjects();
+            collided = true;
+            GetHitObjects();
+        }
     }
 
     void GetHitObjects()
@@ -114,7 +117,7 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
             }
         }
 
-        if (enemyEntities.Count + playerEntities.Count == entitiesDamaged)
+        if (enemyEntities.Count + playerEntities.Count == entitiesDamaged) { }
             DestroyFireBall();
     }
 
@@ -130,14 +133,14 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     void DestroyFireBall()
     {
-        BoltNetwork.Destroy(gameObject);
+        //BoltNetwork.Destroy(gameObject);
     }
 
     public IEnumerator DestroyFallBack(float time)
     {
         yield return new WaitForSeconds(time);
 
-        BoltNetwork.Destroy(gameObject);
+        DestroyFireBall();
 
         StopCoroutine(nameof(DestroyFallBack));
     }
