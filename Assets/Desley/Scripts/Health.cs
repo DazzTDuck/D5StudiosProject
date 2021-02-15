@@ -80,10 +80,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             {
                 healing = maxHealth - state.PlayerHealth;
             }
-            else
-            {
-                state.PlayerHealth += healing;
-            }
+
+            state.PlayerHealth += healing;
         }
     }
 
