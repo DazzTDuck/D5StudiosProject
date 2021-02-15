@@ -55,7 +55,7 @@ public class NetworkCallbacks : GlobalEventListener
             return;
         }
 
-        if (evnt.IsEnemy)
+        if (evnt.IsEnemy && evnt.Entity)
             enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
 
         BoltNetwork.Destroy(evnt.Entity.gameObject);
