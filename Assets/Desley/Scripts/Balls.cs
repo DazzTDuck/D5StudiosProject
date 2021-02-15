@@ -112,10 +112,12 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
             else
             {
                 SendHealing(ballValue, entity);
+                entitiesDamaged++;
             }
         }
 
-        DestroyBall();
+        if(entitiesList.Count == entitiesDamaged)
+            DestroyBall();
     }
 
     void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
