@@ -41,6 +41,23 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
 
     }
 
+    public void DisconnectEventSend()
+    {
+        var request = DisconnectEvent.Create();
+        request.EnitityToDisconnect = entity;
+
+        if(state.ConnectionID == null)
+        {
+            request.DisconnectEveryone = true;
+        }
+        else
+        {
+            request.DisconnectEveryone = false;
+        }
+
+        request.Send();
+    }
+
     public void Disconnect()
     {
         int connections = 0;
@@ -54,16 +71,7 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
                 connection.Disconnect();
                 BoltLauncher.Shutdown();
                 SceneManager.LoadScene(0);
-            }
-            else if(state.ConnectionID == null)
-            {
-                foreach (var connection2 in BoltNetwork.Connections)
-                {
-                    connection2.Disconnect();
-                }
-                BoltLauncher.Shutdown();
-                SceneManager.LoadScene(0);
-            }
+            }           
         }
 
         if(connections == 0)

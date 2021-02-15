@@ -80,7 +80,24 @@ public class NetworkCallbacks : GlobalEventListener
 
         if (evnt.EntityShot)
             evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
+    }
 
+    public override void OnEvent(DisconnectEvent evnt)
+    {
+        if (evnt.DisconnectEveryone)
+        {
+            foreach (var connection in BoltNetwork.Connections)
+            {
+                connection.Disconnect();             
+            }
+            BoltLauncher.Shutdown();
+            SceneManager.LoadScene(0);
+        }
+
+        if (evnt.EnitityToDisconnect)
+        {
+            evnt.EnitityToDisconnect.GetComponentInChildren<PauseMenuHandler>().Disconnect();
+        }
     }
 
     public override void OnEvent(HealRequest evnt)
