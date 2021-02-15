@@ -110,6 +110,8 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
 
         for (var i = 0; i < shotgunPellets; i++)
         {
+            amountShot++;
+
             var randomX = Random.Range(-randomSpread, randomSpread);
             var randomY = Random.Range(-randomSpread, randomSpread);
             spread = new Vector3(randomX, randomY, 0);
@@ -134,31 +136,26 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
                     if (hit.collider.GetComponent<Health>() && hit.collider.GetComponent<EnemyHealth>() && hit.collider.GetComponentInParent<EnemyHealth>())
                     {
                         totalDamage += 0;
-                        amountShot++;
                     }
                     else if (entityTag == "Enemy")
                     {
                         SendDamage(damageToDo, true, boltEntity);
                         totalDamage += damageToDo;
-                        amountShot++;
                     }
-                    else if(entityTag == "EnemyHead")
+                    else if (entityTag == "EnemyHead")
                     {
                         SendDamage(damageToDo * hsMultiplier, true, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
-                        amountShot++;
                     }
                     else if (entityTag == "Player")
                     {
                         SendDamage(damageToDo, false, boltEntity);
                         totalDamage += damageToDo;
-                        amountShot++;
                     }
                     else if (entityTag == "PlayerHead")
                     {
                         SendDamage(damageToDo * hsMultiplier, false, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
-                        amountShot++;
                     }
                 }
             }
