@@ -59,19 +59,24 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void TakeDamage(int damage)
     {
-        if(state.PlayerHealth - damage <= 0)
+        if (entity.IsOwner)
         {
-            state.PlayerHealth = 0;
-        }
-        else
-        {
-            state.PlayerHealth -= damage;
+            if (state.PlayerHealth - damage <= 0)
+            {
+                state.PlayerHealth = 0;
+            }
+            else
+            {
+                state.PlayerHealth -= damage;
+            }
         }
     }
 
     public void ResetHealth()
     {
-        state.IsDead = false;
+        if (entity.IsOwner)
+            state.IsDead = false;
+
         if (!state.IsDead)
         {
             state.PlayerHealth = maxHealth;

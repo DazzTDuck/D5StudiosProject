@@ -52,7 +52,6 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
             player.GetComponentInChildren<Rigidbody>().useGravity = true;
             player.GetComponentInChildren<Health>().ResetHealth();
-            player.GetComponentInChildren<PlayerController>().GetComponentInChildren<CameraCopy>().GetComponentInChildren<Shoot>().ResetAmmo();
             return;
         }
 
