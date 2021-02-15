@@ -72,6 +72,21 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
+    public void GetHealing(int healing)
+    {
+        if (entity.IsOwner)
+        {
+            if(state.PlayerHealth + healing > maxHealth)
+            {
+                healing = maxHealth - state.PlayerHealth;
+            }
+            else
+            {
+                state.PlayerHealth += healing;
+            }
+        }
+    }
+
     public void ResetHealth()
     {
         if (entity.IsOwner)

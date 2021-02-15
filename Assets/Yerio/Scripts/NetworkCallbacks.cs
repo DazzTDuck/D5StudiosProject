@@ -74,6 +74,11 @@ public class NetworkCallbacks : GlobalEventListener
 
     }
 
+    public override void OnEvent(HealRequest evnt)
+    {
+        evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing);
+    }
+
     public override void OnEvent(ChangeNameEvent evnt)
     {
         evnt.Entity.GetComponentInChildren<WaitForHostScreen>().ChangeName(evnt.Name);

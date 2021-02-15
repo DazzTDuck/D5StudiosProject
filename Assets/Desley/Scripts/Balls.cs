@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBall : Bolt.EntityBehaviour<IFireBallState>
+public class Balls : Bolt.EntityBehaviour<IFireBallState>
 {  
     [SerializeField] LayerMask playerLayer;
     public bool canHitPlayer;
+    bool directHit;
 
-    [Space, SerializeField] int damage;
+    [Space, SerializeField] int ballValue;
     [SerializeField] float radius;
 
     [Space, SerializeField] float destroyTime;
 
     [Space] public BoltEntity playerEntity;
-    [SerializeField] List<BoltEntity> enemyEntities;
-    [SerializeField] List<BoltEntity> playerEntities;
+    [SerializeField] List<BoltEntity> entitiesList;
     [SerializeField] List<int> distanceToEntities;
     int entitiesDamaged;
     bool collided;
@@ -34,11 +34,18 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-            if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
-                return;
+        if(collision.gameObject.layer == playerLayer && canHitPlayer)
+        {
+            SendHealing(ballValue, collision.gameObject.GetComponentInParent<BoltEntity>());
+            directHit = true;
+            return;
+        }
 
-            collided = true;
-            GetHitObjects();
+        if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
+            return;
+
+        collided = true;
+        GetHitObjects();
     }
 
     void GetHitObjects()
@@ -53,22 +60,22 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
                 BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
                 if (!boltEntity) { boltEntity = collider.GetComponentInParent<BoltEntity>(); }
 
-                if (entityTag == "Enemy" && !enemyEntities.Contains(boltEntity) && entity.IsOwner)
+                if (entityTag == "Enemy" && !entitiesList.Contains(boltEntity) && !canHitPlayer && entity.IsOwner)
                 {
-                    enemyEntities.Add(boltEntity);
+                    entitiesList.Add(boltEntity);
                     GetDistanceToEntities(collider);
                 }
-                else if (entityTag == "Player" && !playerEntities.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
+                else if (entityTag == "Player" && !entitiesList.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
                 {
-                    playerEntities.Add(boltEntity);
+                    entitiesList.Add(boltEntity);
                     GetDistanceToEntities(collider);
                 }
             }
 
-            if (enemyEntities.Count == 0 && playerEntities.Count == 0)
-                DestroyFireBall();
+            if (entitiesList.Count == 0)
+                DestroyBall();
             else
-                SendDamageInfo();
+                SendRequestInfo();
         }
     }
 
@@ -80,46 +87,35 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
         distanceToEntities.Add(distanceRound);
     }
 
-    void SendDamageInfo()
+    void SendRequestInfo()
     {
         int totalDamage = 0;
         int amountOfEnemiesDamaged = 0;
 
-        //send damage to all enemies
-        foreach (BoltEntity entity in enemyEntities)
+        foreach (BoltEntity entity in entitiesList)
         {
-            amountOfEnemiesDamaged++;
-            SendDamage(damage / distanceToEntities[entitiesDamaged], true, entity);
-            totalDamage += damage / distanceToEntities[entitiesDamaged];
-            entitiesDamaged++;
-
-            if (amountOfEnemiesDamaged == distanceToEntities.Count)
+            if (!canHitPlayer)
             {
-                if (totalDamage != 0)
+                amountOfEnemiesDamaged++;
+                SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
+                totalDamage += ballValue / distanceToEntities[entitiesDamaged];
+                entitiesDamaged++;
+
+                if (amountOfEnemiesDamaged == distanceToEntities.Count)
                 {
-                    hitDamageUI.SendDamage(0, true, totalDamage);
+                    if (totalDamage != 0)
+                    {
+                        hitDamageUI.SendDamage(0, true, totalDamage);
+                    }
                 }
             }
-        }
-        //send damage to all players
-        foreach (BoltEntity entity in playerEntities)
-        {
-            amountOfEnemiesDamaged++;
-            SendDamage(damage / distanceToEntities[entitiesDamaged], false, entity);
-            totalDamage += damage / distanceToEntities[entitiesDamaged];
-            entitiesDamaged++;
-
-            if (amountOfEnemiesDamaged == distanceToEntities.Count)
+            else
             {
-                if (totalDamage != 0)
-                {
-                    hitDamageUI.SendDamage(0, true, totalDamage);
-                }
+                SendHealing(ballValue, entity);
             }
         }
 
-        if (enemyEntities.Count + playerEntities.Count == entitiesDamaged) { }
-            DestroyFireBall();
+        DestroyBall();
     }
 
     void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
@@ -132,7 +128,18 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
         request.Send();
     }
 
-    void DestroyFireBall()
+    void SendHealing(int healing, BoltEntity entityShot)
+    {
+        var request = HealRequest.Create();
+        request.Healing = healing;
+        request.EntityShot = entityShot;
+        request.Send();
+
+        if (directHit)
+            DestroyBall();
+    }
+
+    void DestroyBall()
     {
         BoltNetwork.Destroy(gameObject);
     }
@@ -141,10 +148,14 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
     {
         yield return new WaitForSeconds(time);
 
-        DestroyFireBall();
+        DestroyBall();
 
         StopCoroutine(nameof(DestroyFallBack));
     }
 
     public void SetHitDamageUI(HitDamageUI ui) { hitDamageUI = ui; }
+    public void SetPlayerHit(bool playerHit, bool healBall) 
+    { 
+        canHitPlayer = playerHit; 
+    }
 }
