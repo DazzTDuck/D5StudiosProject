@@ -1265,11 +1265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637ea55c332f2964e93d48f2fc6b9231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 4788751972979609529}
-  weaponCamera: {fileID: 0}
-  playerSetNameCanvas: {fileID: 960846150136496836}
-  playerAmmoCount: {fileID: 0}
-  playerHUDCanvas: {fileID: 0}
+  objectsToSetActiveForPlayer:
+  - {fileID: 4788751972979609531}
+  - {fileID: 960846150136496836}
 --- !u!1 &5215204905443711672
 GameObject:
   m_ObjectHideFlags: 0
