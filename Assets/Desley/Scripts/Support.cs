@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 {
-    [SerializeField] GameObject fireBall;
+    [SerializeField] HitDamageUI hitDamageUI;
+
+    [Space, SerializeField] GameObject fireBall;
     [SerializeField] Transform firePoint;
 
     [Space, SerializeField] float chargeForce;
@@ -41,6 +43,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     public void InstantiateFireBall()
     {
         var fireball = BoltNetwork.Instantiate(fireBall, firePoint.position, firePoint.rotation);
+        fireball.GetComponent<FireBall>().SetHitDamageUI(hitDamageUI);
         fireball.GetComponent<FireBall>().playerEntity = GetComponentInParent<BoltEntity>();
         fireball.GetComponent<Rigidbody>().AddRelativeForce(0, 0, chargeForce * chargeTime, ForceMode.Impulse);
         chargeTime = 0;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireBall : Bolt.EntityBehaviour<IFireBallState>
-{
+{  
     [SerializeField] LayerMask playerLayer;
     public bool canHitPlayer;
 
@@ -18,6 +18,7 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
     [SerializeField] List<int> distanceToEntities;
     int entitiesDamaged;
     bool collided;
+    HitDamageUI hitDamageUI;
 
 
     private void Start()
@@ -77,17 +78,40 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     void SendDamageInfo()
     {
+        int totalDamage = 0;
+        int amountOfEnemiesDamaged = 0;
+
         //send damage to all enemies
         foreach (BoltEntity entity in enemyEntities)
         {
+            amountOfEnemiesDamaged++;
             SendDamage(damage / distanceToEntities[entitiesDamaged], true, entity);
+            totalDamage += damage / distanceToEntities[entitiesDamaged];
             entitiesDamaged++;
+
+            if (amountOfEnemiesDamaged == distanceToEntities.Count)
+            {
+                if (totalDamage != 0)
+                {
+                    hitDamageUI.SendDamage(0, true, totalDamage);
+                }
+            }
         }
         //send damage to all players
         foreach (BoltEntity entity in playerEntities)
         {
+            amountOfEnemiesDamaged++;
             SendDamage(damage / distanceToEntities[entitiesDamaged], false, entity);
+            totalDamage += damage / distanceToEntities[entitiesDamaged];
             entitiesDamaged++;
+
+            if (amountOfEnemiesDamaged == distanceToEntities.Count)
+            {
+                if (totalDamage != 0)
+                {
+                    hitDamageUI.SendDamage(0, true, totalDamage);
+                }
+            }
         }
 
         if (enemyEntities.Count + playerEntities.Count == entitiesDamaged)
@@ -117,4 +141,6 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
         StopCoroutine(nameof(DestroyFallBack));
     }
+
+    public void SetHitDamageUI(HitDamageUI ui) { hitDamageUI = ui; }
 }
