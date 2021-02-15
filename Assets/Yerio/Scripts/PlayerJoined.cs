@@ -4,47 +4,16 @@ using UnityEngine;
 
 public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
 {
-    [SerializeField] Camera playerCamera;
-    [SerializeField] Camera weaponCamera;
-    [SerializeField] GameObject playerSetNameCanvas;
-    [SerializeField] GameObject playerAmmoCount;
-    [SerializeField] GameObject playerHUDCanvas;
+    [SerializeField] GameObject[] objectsToSetActiveForPlayer;
 
-    public override void Attached()
-    {
-        if (entity.IsOwner && !playerSetNameCanvas.gameObject.activeInHierarchy)
-        {
-            playerSetNameCanvas.gameObject.SetActive(true);
-        }
-    }
     private void Update()
     {
-        if (entity.IsOwner && !playerCamera.gameObject.activeInHierarchy)
+        foreach (var gameObject in objectsToSetActiveForPlayer)
         {
-            playerCamera.gameObject.SetActive(true);
-        }
-        if (weaponCamera)
-        {
-            if (entity.IsOwner && !weaponCamera.gameObject.activeInHierarchy)
+            if (entity.IsOwner && !gameObject.activeInHierarchy)
             {
-                weaponCamera.gameObject.SetActive(true);
+                gameObject.SetActive(true);
             }
         }
-        if (playerAmmoCount)
-        {
-            if (entity.IsOwner && !playerAmmoCount.gameObject.activeInHierarchy)
-            {
-                playerAmmoCount.gameObject.SetActive(true);
-            }
-        }
-        if (playerHUDCanvas)
-        {
-            if (entity.IsOwner && !playerHUDCanvas.gameObject.activeInHierarchy)
-            {
-                playerHUDCanvas.gameObject.SetActive(true);
-                playerHUDCanvas.GetComponent<AbilityHandler>().enabled = true;
-            }
-        }
-
     }
 }

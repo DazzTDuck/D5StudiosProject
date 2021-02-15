@@ -587,11 +587,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637ea55c332f2964e93d48f2fc6b9231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 4788751972979609529}
-  weaponCamera: {fileID: 5909814220828917061}
-  playerSetNameCanvas: {fileID: 1707418126732497923}
-  playerAmmoCount: {fileID: 7303280484536298552}
-  playerHUDCanvas: {fileID: 4571308570237180164}
+  objectsToSetActiveForPlayer:
+  - {fileID: 4788751972979609531}
+  - {fileID: 4297703519134521421}
+  - {fileID: 1707418126732497923}
+  - {fileID: 4571308570237180164}
+  - {fileID: 7303280484536298552}
 --- !u!1 &4823394030178523046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,7 +1739,7 @@ PrefabInstance:
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2788017870834494655, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
