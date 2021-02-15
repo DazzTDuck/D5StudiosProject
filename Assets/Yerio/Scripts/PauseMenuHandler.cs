@@ -6,13 +6,8 @@ using Bolt;
 
 public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
 {
+    [SerializeField] GameObject panel;
     bool isPaused;
-    Canvas canvas;
-
-    private void Start()
-    {
-        canvas = GetComponent<Canvas>();
-    }
 
     public void Update()
     {
@@ -25,7 +20,7 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
     public void OpenAndClosePauseMenu()
     {
         isPaused = !isPaused;
-        canvas.enabled = isPaused;
+        panel.SetActive(isPaused);
 
         if (isPaused) { PlayerCamera.ShowCursor(); } else { PlayerCamera.HideCursor(); }    
     }
