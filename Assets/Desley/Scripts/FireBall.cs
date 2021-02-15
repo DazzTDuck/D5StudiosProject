@@ -52,6 +52,7 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
         {
             string entityTag = collider.tag;
             BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
+            if (!boltEntity) { boltEntity = collider.GetComponentInParent<BoltEntity>(); }
 
             if (entityTag == "Enemy" && !enemyEntities.Contains(boltEntity) && entity.IsOwner)
             {
