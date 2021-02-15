@@ -34,42 +34,42 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (entity.IsOwner)
-        {
             if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
                 return;
 
             collided = true;
             GetHitObjects();
-        }
     }
 
     void GetHitObjects()
     {
-        Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);
-        //check which colliders have health scripts
-        foreach(Collider collider in hitObjects)
+        if (entity.IsOwner)
         {
-            string entityTag = collider.tag;
-            BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
-            if (!boltEntity) { boltEntity = collider.GetComponentInParent<BoltEntity>(); }
+            Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);
+            //check which colliders have health scripts
+            foreach (Collider collider in hitObjects)
+            {
+                string entityTag = collider.tag;
+                BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
+                if (!boltEntity) { boltEntity = collider.GetComponentInParent<BoltEntity>(); }
 
-            if (entityTag == "Enemy" && !enemyEntities.Contains(boltEntity) && entity.IsOwner)
-            {
-                enemyEntities.Add(boltEntity);
-                GetDistanceToEntities(collider);
+                if (entityTag == "Enemy" && !enemyEntities.Contains(boltEntity) && entity.IsOwner)
+                {
+                    enemyEntities.Add(boltEntity);
+                    GetDistanceToEntities(collider);
+                }
+                else if (entityTag == "Player" && !playerEntities.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
+                {
+                    playerEntities.Add(boltEntity);
+                    GetDistanceToEntities(collider);
+                }
             }
-            else if (entityTag == "Player" && !playerEntities.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
-            {
-                playerEntities.Add(boltEntity);
-                GetDistanceToEntities(collider);
-            }
+
+            if (enemyEntities.Count == 0 && playerEntities.Count == 0)
+                DestroyFireBall();
+            else
+                SendDamageInfo();
         }
-
-        if (enemyEntities.Count == 0 && playerEntities.Count == 0)
-            DestroyFireBall();
-        else
-            SendDamageInfo();
     }
 
     void GetDistanceToEntities(Collider collider)
