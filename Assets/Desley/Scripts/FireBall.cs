@@ -134,7 +134,7 @@ public class FireBall : Bolt.EntityBehaviour<IFireBallState>
 
     void DestroyFireBall()
     {
-        //BoltNetwork.Destroy(gameObject);
+        BoltNetwork.Destroy(gameObject);
     }
 
     public IEnumerator DestroyFallBack(float time)
