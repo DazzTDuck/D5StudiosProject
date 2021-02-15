@@ -92,6 +92,7 @@ public class NetworkCallbacks : GlobalEventListener
             }
             BoltLauncher.Shutdown();
             SceneManager.LoadScene(0);
+            return;
         }
 
         if (evnt.EnitityToDisconnect)
