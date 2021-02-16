@@ -38,10 +38,11 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
         {
             SendHealing(ballValue, collision.gameObject.GetComponentInParent<BoltEntity>());
             directHit = true;
+            collided = true;
             return;
         }
 
-        if (collided || collision.gameObject.layer == playerLayer && !canHitPlayer)
+        if (collided)
             return;
 
         collided = true;
@@ -143,7 +144,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
     void DestroyBall()
     {
-        BoltNetwork.Destroy(gameObject);
+        //BoltNetwork.Destroy(gameObject);
     }
 
     public IEnumerator DestroyFallBack(float time)
