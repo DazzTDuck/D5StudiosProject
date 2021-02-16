@@ -139,6 +139,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
         request.Send();
 
         Debug.LogWarning(healing);
+        Debug.LogWarning(directHit);
 
         if (directHit)
             DestroyBall();
