@@ -35,9 +35,10 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == playerLayer && canHitPlayer && !directHit)
+        if(collision.gameObject.layer == playerLayer && canHitPlayer && !collided)
         {
             directHit = true;
+            collided = true;
             SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
             return;
         }
