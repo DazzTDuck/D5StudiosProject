@@ -84,7 +84,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(DisconnectEvent evnt)
     {
-        if (evnt.DisconnectEveryone)
+        if (evnt.DisconnectEveryone && evnt.EnitityToDisconnect.IsOwner)
         {
             foreach (var connection in BoltNetwork.Connections)
             {
@@ -92,7 +92,6 @@ public class NetworkCallbacks : GlobalEventListener
             }
             BoltLauncher.Shutdown();
             SceneManager.LoadScene(0);
-            return;
         }
 
         if (evnt.EnitityToDisconnect)
