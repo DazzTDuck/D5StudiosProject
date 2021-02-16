@@ -5,11 +5,13 @@ using UnityEngine;
 public class Balls : Bolt.EntityBehaviour<IFireBallState>
 {
     [SerializeField] int playerLayer;
-    public bool canHitPlayer;
-    public bool directHit;
+    bool stunsEnemies;
+    bool canHitPlayer;
+    bool directHit;
 
     [Space, SerializeField] int ballValue;
     [SerializeField] int directHitValue;
+    [SerializeField] float stunTime;
     [SerializeField] float radius;
 
     [Space, SerializeField] float destroyTime;
@@ -55,7 +57,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
         if (entity.IsOwner)
         {
             Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);
-            //check which colliders have health scripts
+            //check colliders for tag and bolt component
             foreach (Collider collider in hitObjects)
             {
                 string entityTag = collider.tag;
@@ -65,7 +67,8 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
                 if (entityTag == "Enemy" && !entitiesList.Contains(boltEntity) && !canHitPlayer && entity.IsOwner)
                 {
                     entitiesList.Add(boltEntity);
-                    GetDistanceToEntities(collider);
+                    if(!stunsEnemies)
+                        GetDistanceToEntities(collider);
                 }
                 else if (entityTag == "Player" && !entitiesList.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
                 {
@@ -95,7 +98,12 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
         foreach (BoltEntity entity in entitiesList)
         {
-            if (!canHitPlayer)
+            if (stunsEnemies)
+            {
+                entity.GetComponent<EnemyMove>().StunEnemy(stunTime);
+                entitiesDamaged++;
+            }
+            else if (!canHitPlayer)
             {
                 amountOfEnemiesDamaged++;
                 SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
@@ -110,7 +118,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
                     }
                 }
             }
-            else
+            else if (canHitPlayer)
             {
                 SendHealing(ballValue, entity);
                 entitiesDamaged++;
@@ -157,8 +165,5 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
     }
 
     public void SetHitDamageUI(HitDamageUI ui) { hitDamageUI = ui; }
-    public void SetPlayerHit(bool playerHit, bool healBall) 
-    { 
-        canHitPlayer = playerHit; 
-    }
+    public void SetPlayerHit(bool playerHit, bool stuns) { canHitPlayer = playerHit; stunsEnemies = stuns; }
 }

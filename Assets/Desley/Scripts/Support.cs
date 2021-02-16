@@ -8,6 +8,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [Space, SerializeField] GameObject fireBall;
     [SerializeField] GameObject healBall;
+    [SerializeField] GameObject stunBall;
     [SerializeField] Transform firePoint;
     GameObject ballToUse;
 
@@ -17,7 +18,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     bool charging;
     float chargeTime;
 
-    public bool usingHeal, usingStun;
+    bool usingHeal, usingStun;
     bool canHitPlayer;
 
     public override void Attached()
@@ -25,34 +26,45 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
         base.Attached();
     }
 
-    void Start() { ballToUse = fireBall; }
+    void Start() 
+    { 
+        ballToUse = fireBall; 
+    }
 
     private void Update()
     {
         isShooting = Input.GetButton("Fire1");
 
-        if (isShooting && entity.IsOwner && !state.IsDead && !usingStun)
+        if (!usingStun)
         {
-            charging = true;
-            chargeTime += Time.deltaTime;
-            chargeTime = Mathf.Clamp(chargeTime, 0, maxCharge);
-        }
-        else if (charging)
-        {
-            if(chargeTime < minCharge) { return; }
-            InstantiateBall();
-            charging = false;
+            if (isShooting && entity.IsOwner && !state.IsDead)
+            {
+                charging = true;
+                chargeTime += Time.deltaTime;
+                chargeTime = Mathf.Clamp(chargeTime, 0, maxCharge);
+            }
+            else if (charging)
+            {
+                if (chargeTime < minCharge) { return; }
+                InstantiateBall(ballToUse, chargeTime, canHitPlayer, false);
+                charging = false;
+            }
         }
     }
 
-    public void InstantiateBall()
+    public void InstantiateBall(GameObject pickedBall, float finalChargeTime, bool hitPlayer, bool stunsEnemies)
     {
-        var ball = BoltNetwork.Instantiate(ballToUse, firePoint.position, firePoint.rotation);
+        var ball = BoltNetwork.Instantiate(pickedBall, firePoint.position, firePoint.rotation);
         ball.GetComponent<Balls>().SetHitDamageUI(hitDamageUI);
-        ball.GetComponent<Balls>().SetPlayerHit(canHitPlayer, usingHeal);
+        ball.GetComponent<Balls>().SetPlayerHit(hitPlayer, stunsEnemies);
         ball.GetComponent<Balls>().playerEntity = GetComponentInParent<BoltEntity>();
-        ball.GetComponent<Rigidbody>().AddRelativeForce(0, 0, chargeForce * chargeTime, ForceMode.Impulse);
+        ball.GetComponent<Rigidbody>().AddRelativeForce(0, 0, chargeForce * finalChargeTime, ForceMode.Impulse);
         chargeTime = 0;
+    }
+
+    public void StunBall()
+    {
+        InstantiateBall(stunBall, maxCharge, false, true);
     }
 
     public void ChangeBalls()

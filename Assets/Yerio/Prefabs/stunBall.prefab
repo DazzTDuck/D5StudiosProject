@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8188196903616122508}
   - component: {fileID: 8675591347785414244}
   m_Layer: 0
-  m_Name: FireBall
+  m_Name: stunBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f396ce6b94ff9c941aa75f7242a4faad, type: 2}
+  - {fileID: 2100000, guid: 451fcd18c2e8ebb41b19f943551648d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,7 +104,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3776084704856560855}
   serializedVersion: 2
-  m_Mass: 0.5
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: d77784ad-680e-448b-9e77-e7418c2bde10
-  _prefabId: 4
+  _prefabId: 11
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -154,11 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLayer: 11
-  canHitPlayer: 0
-  directHit: 0
-  ballValue: 10
+  ballValue: 0
   directHitValue: 0
-  radius: 2
+  stunTime: 5
+  radius: 3
   destroyTime: 10
   playerEntity: {fileID: 0}
   entitiesList: []

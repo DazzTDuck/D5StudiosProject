@@ -648,12 +648,12 @@ MonoBehaviour:
     type: 3}
   healBall: {fileID: 3776084704856560855, guid: 1c135bc7df417a5429548a8703d7b2d4,
     type: 3}
+  stunBall: {fileID: 3776084704856560855, guid: 598a95f330176b24c8494469ed7965fd,
+    type: 3}
   firePoint: {fileID: 1239695763191456581}
   chargeForce: 20
   maxCharge: 3
   minCharge: 0.5
-  usingHeal: 0
-  usingStun: 0
 --- !u!1 &4788751972979609531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1810,7 @@ PrefabInstance:
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
       propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
@@ -1850,7 +1850,7 @@ PrefabInstance:
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
       propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeBalls
+      value: StunBall
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
