@@ -49,7 +49,6 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             request.DisconnectEveryone = false;
         }
-
         request.Send();
     }
 
@@ -63,16 +62,9 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
 
             if (connection.ConnectionId.ToString() == state.ConnectionID)
             {
-                connection.Disconnect();
                 BoltLauncher.Shutdown();
                 SceneManager.LoadScene(0);
             }           
-        }
-
-        if(connections == 0)
-        {
-            BoltLauncher.Shutdown();
-            SceneManager.LoadScene(0);
         }
     }
 }

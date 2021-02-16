@@ -67,7 +67,8 @@ public class NetworkCallbacks : GlobalEventListener
         if (evnt.IsEnemy && evnt.Entity)
             enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
 
-        BoltNetwork.Destroy(evnt.Entity.gameObject);
+        if (evnt.Entity)
+            BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
     public override void OnEvent(DamageRequest evnt)
@@ -84,18 +85,21 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(DisconnectEvent evnt)
     {
-        if (evnt.DisconnectEveryone && evnt.EnitityToDisconnect.IsOwner)
+        if (!evnt.EnitityToDisconnect.IsOwner && evnt.DisconnectEveryone)
         {
-            foreach (var connection in BoltNetwork.Connections)
-            {
-                connection.Disconnect();             
-            }
             BoltLauncher.Shutdown();
             SceneManager.LoadScene(0);
         }
 
-        if (evnt.EnitityToDisconnect)
+        if (evnt.EnitityToDisconnect.IsOwner && evnt.DisconnectEveryone)
+        {          
+            BoltLauncher.Shutdown();
+            SceneManager.LoadScene(0);
+        }
+
+        if (evnt.EnitityToDisconnect && !evnt.DisconnectEveryone)
         {
+            //Debug.LogWarning("Disconnect person given");
             evnt.EnitityToDisconnect.GetComponentInChildren<PauseMenuHandler>().Disconnect();
         }
     }
