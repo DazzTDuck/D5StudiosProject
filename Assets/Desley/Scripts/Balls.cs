@@ -35,7 +35,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == playerLayer && canHitPlayer)
+        if(collision.gameObject.layer == playerLayer && canHitPlayer && !directHit)
         {
             directHit = true;
             SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
@@ -47,9 +47,6 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
         collided = true;
         GetHitObjects();
-
-        Debug.LogWarning(collision.gameObject.name);
-        Debug.LogWarning(collision.gameObject.layer);
     }
 
     void GetHitObjects()
@@ -139,9 +136,6 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
         request.Healing = healing;
         request.EntityShot = entityShot;
         request.Send();
-
-        Debug.LogWarning(healing);
-        Debug.LogWarning(directHit);
 
         if (directHit)
             DestroyBall();

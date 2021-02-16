@@ -27,11 +27,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Update()
     {
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
-
-        if (Input.GetButtonDown("FireMode"))
-        {
-            state.PlayerHealth -= 10;
-        }
     }
 
     void HealthCallback()
