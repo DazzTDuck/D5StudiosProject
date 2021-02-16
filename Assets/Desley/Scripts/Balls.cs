@@ -9,6 +9,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
     bool directHit;
 
     [Space, SerializeField] int ballValue;
+    [SerializeField] int directHitValue;
     [SerializeField] float radius;
 
     [Space, SerializeField] float destroyTime;
@@ -36,13 +37,13 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
     {
         if(collision.gameObject.layer == playerLayer && canHitPlayer)
         {
-            SendHealing(ballValue, collision.gameObject.GetComponentInParent<BoltEntity>());
+            SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
             directHit = true;
             collided = true;
             return;
         }
 
-        if (collided)
+        if (collided && !directHit)
             return;
 
         collided = true;
@@ -69,7 +70,6 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
                 else if (entityTag == "Player" && !entitiesList.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
                 {
                     entitiesList.Add(boltEntity);
-                    GetDistanceToEntities(collider);
                 }
             }
 
