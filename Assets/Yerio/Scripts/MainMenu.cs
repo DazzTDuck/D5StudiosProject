@@ -38,9 +38,8 @@ public class MainMenu : GlobalEventListener
         BoltLauncher.StartClient();
     }
 
-    public void BackToMainMenu()
+    public void ShutdownBolt()
     {
-        //disable Panel & enable host button
         BoltLauncher.Shutdown();
     }
 
