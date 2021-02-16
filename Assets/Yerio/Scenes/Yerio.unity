@@ -131,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2153174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,11 +578,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c145b3c0cd3c97348a2181c32ae93001,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c145b3c0cd3c97348a2181c32ae93001,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c145b3c0cd3c97348a2181c32ae93001, type: 3}
+--- !u!1 &20780603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c145b3c0cd3c97348a2181c32ae93001,
+    type: 3}
+  m_PrefabInstance: {fileID: 20780602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &20780604
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20780603}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -153830957423991239, guid: c145b3c0cd3c97348a2181c32ae93001, type: 3}
 --- !u!1 &22824579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,11 +1655,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd11017e63420a643a335a87e73941c9, type: 3}
+--- !u!1 &86387655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 86387654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &86387656
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86387655}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -153830957423991239, guid: bd11017e63420a643a335a87e73941c9, type: 3}
 --- !u!1001 &89761805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1704,11 +1754,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70a680c63a8620499d1976041e27186, type: 3}
+--- !u!1 &89761806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+    type: 3}
+  m_PrefabInstance: {fileID: 89761805}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &89761807
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89761806}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: b70a680c63a8620499d1976041e27186, type: 3}
 --- !u!1001 &91921887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1815,7 +1890,7 @@ GameObject:
   - component: {fileID: 99217938}
   - component: {fileID: 99217937}
   - component: {fileID: 99217936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2001,7 +2076,7 @@ GameObject:
   - component: {fileID: 105429352}
   - component: {fileID: 105429351}
   - component: {fileID: 105429350}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2094,7 +2169,7 @@ GameObject:
   - component: {fileID: 115369127}
   - component: {fileID: 115369126}
   - component: {fileID: 115369125}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBroken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2187,7 +2262,7 @@ GameObject:
   - component: {fileID: 116204602}
   - component: {fileID: 116204601}
   - component: {fileID: 116204600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2373,7 +2448,7 @@ GameObject:
   - component: {fileID: 121623374}
   - component: {fileID: 121623373}
   - component: {fileID: 121623372}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Building4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2501,7 +2576,7 @@ GameObject:
   - component: {fileID: 124062646}
   - component: {fileID: 124062645}
   - component: {fileID: 124062644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2966,7 +3041,7 @@ GameObject:
   - component: {fileID: 151965523}
   - component: {fileID: 151965522}
   - component: {fileID: 151965521}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBroken (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3059,7 +3134,7 @@ GameObject:
   - component: {fileID: 164079249}
   - component: {fileID: 164079248}
   - component: {fileID: 164079247}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BrokenRoofBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3779,7 +3854,7 @@ GameObject:
   - component: {fileID: 212788035}
   - component: {fileID: 212788034}
   - component: {fileID: 212788033}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3965,7 +4040,7 @@ GameObject:
   - component: {fileID: 224822726}
   - component: {fileID: 224822725}
   - component: {fileID: 224822724}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4058,7 +4133,7 @@ GameObject:
   - component: {fileID: 226489152}
   - component: {fileID: 226489151}
   - component: {fileID: 226489150}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4250,7 +4325,7 @@ GameObject:
   - component: {fileID: 248463821}
   - component: {fileID: 248463820}
   - component: {fileID: 248463819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4442,7 +4517,7 @@ GameObject:
   - component: {fileID: 250518970}
   - component: {fileID: 250518969}
   - component: {fileID: 250518968}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4655,7 +4730,7 @@ GameObject:
   - component: {fileID: 253748535}
   - component: {fileID: 253748534}
   - component: {fileID: 253748533}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5132,7 +5207,7 @@ GameObject:
   - component: {fileID: 313745840}
   - component: {fileID: 313745839}
   - component: {fileID: 313745838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5318,7 +5393,7 @@ GameObject:
   - component: {fileID: 321296011}
   - component: {fileID: 321296010}
   - component: {fileID: 321296009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5561,11 +5636,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
+--- !u!1 &328979321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 328979320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &328979322
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328979321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
 --- !u!1 &330915654
 GameObject:
   m_ObjectHideFlags: 0
@@ -5892,7 +5992,7 @@ GameObject:
   - component: {fileID: 356732470}
   - component: {fileID: 356732469}
   - component: {fileID: 356732468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6882,7 +6982,7 @@ GameObject:
   - component: {fileID: 474106258}
   - component: {fileID: 474106257}
   - component: {fileID: 474106256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBroken (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7161,7 +7261,7 @@ GameObject:
   - component: {fileID: 494072550}
   - component: {fileID: 494072549}
   - component: {fileID: 494072548}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7254,7 +7354,7 @@ GameObject:
   - component: {fileID: 495817611}
   - component: {fileID: 495817610}
   - component: {fileID: 495817609}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7446,7 +7546,7 @@ GameObject:
   - component: {fileID: 500486072}
   - component: {fileID: 500486071}
   - component: {fileID: 500486070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7659,7 +7759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 524064625}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7753,11 +7853,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
+--- !u!1 &532141224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 532141223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &532141225
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532141224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
 --- !u!1 &533988605
 GameObject:
   m_ObjectHideFlags: 0
@@ -7770,7 +7895,7 @@ GameObject:
   - component: {fileID: 533988609}
   - component: {fileID: 533988608}
   - component: {fileID: 533988607}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7860,7 +7985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 545657466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MetalContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8461,7 +8586,7 @@ GameObject:
   - component: {fileID: 589930997}
   - component: {fileID: 589930996}
   - component: {fileID: 589930995}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Building1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8960,7 +9085,7 @@ GameObject:
   - component: {fileID: 602491689}
   - component: {fileID: 602491688}
   - component: {fileID: 602491687}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBuilding2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9053,7 +9178,7 @@ GameObject:
   - component: {fileID: 605022616}
   - component: {fileID: 605022615}
   - component: {fileID: 605022614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9143,7 +9268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 631622423}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9179,7 +9304,7 @@ GameObject:
   - component: {fileID: 634281130}
   - component: {fileID: 634281129}
   - component: {fileID: 634281128}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9554,11 +9679,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
+--- !u!1 &648160913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+    type: 3}
+  m_PrefabInstance: {fileID: 648160912}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &648160914
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648160913}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8385836491182413749, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
 --- !u!1 &660040300
 GameObject:
   m_ObjectHideFlags: 0
@@ -9724,7 +9874,7 @@ GameObject:
   - component: {fileID: 707829954}
   - component: {fileID: 707829953}
   - component: {fileID: 707829952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9910,7 +10060,7 @@ GameObject:
   - component: {fileID: 737027197}
   - component: {fileID: 737027196}
   - component: {fileID: 737027195}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10033,7 +10183,7 @@ GameObject:
   - component: {fileID: 743897717}
   - component: {fileID: 743897716}
   - component: {fileID: 743897715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10126,7 +10276,7 @@ GameObject:
   - component: {fileID: 746085553}
   - component: {fileID: 746085552}
   - component: {fileID: 746085551}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10462,11 +10612,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70a680c63a8620499d1976041e27186, type: 3}
+--- !u!1 &756820778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+    type: 3}
+  m_PrefabInstance: {fileID: 756820777}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &756820779
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756820778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: b70a680c63a8620499d1976041e27186, type: 3}
 --- !u!1 &763578443
 GameObject:
   m_ObjectHideFlags: 0
@@ -10572,7 +10747,7 @@ GameObject:
   - component: {fileID: 764677433}
   - component: {fileID: 764677432}
   - component: {fileID: 764677431}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10722,11 +10897,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
+--- !u!1 &778044794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 778044793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &778044795
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778044794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
 --- !u!1001 &781911990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10796,11 +10996,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
+--- !u!1 &781911991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 781911990}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &781911992
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781911991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
 --- !u!1 &806777606
 GameObject:
   m_ObjectHideFlags: 0
@@ -10810,7 +11035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 806777607}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11038,7 +11263,7 @@ GameObject:
   - component: {fileID: 814752505}
   - component: {fileID: 814752504}
   - component: {fileID: 814752503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11600,7 +11825,7 @@ GameObject:
   - component: {fileID: 906723199}
   - component: {fileID: 906723198}
   - component: {fileID: 906723197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11693,7 +11918,7 @@ GameObject:
   - component: {fileID: 913741864}
   - component: {fileID: 913741863}
   - component: {fileID: 913741862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11876,6 +12101,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4905374406833347983, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374406833347983, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -11883,6 +12113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374406923221451, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374406923221451, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11896,13 +12131,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374406944053165, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374406944053165, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407029520821, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407029520821, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407157527404, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407157527404, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11916,8 +12166,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407181780719, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407181780719, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407233020498, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407233020498, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11926,8 +12186,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407363228812, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407363228812, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407402339502, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407402339502, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11936,8 +12206,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407504626168, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407504626168, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407510953053, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407510953053, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11946,8 +12226,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407700737652, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407700737652, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407859281753, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407859281753, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11956,8 +12246,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407867554156, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407867554156, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374407972078851, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374407972078851, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11966,8 +12266,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408359154157, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408359154157, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408362939394, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408362939394, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11976,8 +12286,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408475329841, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408475329841, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408609050767, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408609050767, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11986,8 +12306,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408691526579, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408691526579, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408719354287, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408719354287, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -11996,13 +12326,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408738645749, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408738645749, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408811193780, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408811193780, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905374408898136671, guid: c9965eaab1887e9418c1b4016bd28776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4905374408898136671, guid: c9965eaab1887e9418c1b4016bd28776,
         type: 3}
@@ -12239,6 +12584,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+        type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -12249,6 +12599,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
+--- !u!1 &925014324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+    type: 3}
+  m_PrefabInstance: {fileID: 925014323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &925014325
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925014324}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8385836491182413749, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
 --- !u!1 &927592656
 GameObject:
   m_ObjectHideFlags: 0
@@ -12354,7 +12724,7 @@ GameObject:
   - component: {fileID: 933184748}
   - component: {fileID: 933184747}
   - component: {fileID: 933184746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12633,7 +13003,7 @@ GameObject:
   - component: {fileID: 944327883}
   - component: {fileID: 944327882}
   - component: {fileID: 944327881}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12929,7 +13299,7 @@ GameObject:
   - component: {fileID: 967230506}
   - component: {fileID: 967230505}
   - component: {fileID: 967230504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13022,7 +13392,7 @@ GameObject:
   - component: {fileID: 973992236}
   - component: {fileID: 973992235}
   - component: {fileID: 973992234}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13115,7 +13485,7 @@ GameObject:
   - component: {fileID: 982213460}
   - component: {fileID: 982213459}
   - component: {fileID: 982213458}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13641,7 +14011,7 @@ GameObject:
   - component: {fileID: 1001959676}
   - component: {fileID: 1001959675}
   - component: {fileID: 1001959674}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14202,6 +14572,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 744af6e00f3831a49930e1b16a09642d,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 744af6e00f3831a49930e1b16a09642d,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -14213,6 +14588,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1024207625}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1024207627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 744af6e00f3831a49930e1b16a09642d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024207625}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1024207628
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024207627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8314571269056883277, guid: 744af6e00f3831a49930e1b16a09642d, type: 3}
 --- !u!1 &1026295499
 GameObject:
   m_ObjectHideFlags: 0
@@ -14225,7 +14620,7 @@ GameObject:
   - component: {fileID: 1026295503}
   - component: {fileID: 1026295502}
   - component: {fileID: 1026295501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14594,7 +14989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1036338455}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StairWay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14690,11 +15085,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
+--- !u!1 &1036778172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+    type: 3}
+  m_PrefabInstance: {fileID: 1036778171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1036778173
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036778172}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8385836491182413749, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
 --- !u!1 &1038743228
 GameObject:
   m_ObjectHideFlags: 0
@@ -14899,7 +15319,7 @@ GameObject:
   - component: {fileID: 1049143220}
   - component: {fileID: 1049143219}
   - component: {fileID: 1049143218}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBroken (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14992,7 +15412,7 @@ GameObject:
   - component: {fileID: 1061670184}
   - component: {fileID: 1061670183}
   - component: {fileID: 1061670182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15624,11 +16044,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd11017e63420a643a335a87e73941c9, type: 3}
+--- !u!1 &1113040466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1113040465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1113040467
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113040466}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -153830957423991239, guid: bd11017e63420a643a335a87e73941c9, type: 3}
 --- !u!1 &1117645508
 GameObject:
   m_ObjectHideFlags: 0
@@ -15641,7 +16086,7 @@ GameObject:
   - component: {fileID: 1117645512}
   - component: {fileID: 1117645511}
   - component: {fileID: 1117645510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15734,7 +16179,7 @@ GameObject:
   - component: {fileID: 1121267467}
   - component: {fileID: 1121267466}
   - component: {fileID: 1121267465}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16162,7 +16607,7 @@ GameObject:
   - component: {fileID: 1168120499}
   - component: {fileID: 1168120498}
   - component: {fileID: 1168120497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16602,7 +17047,7 @@ GameObject:
   - component: {fileID: 1197431169}
   - component: {fileID: 1197431168}
   - component: {fileID: 1197431167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBuilding1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16794,7 +17239,7 @@ GameObject:
   - component: {fileID: 1218025425}
   - component: {fileID: 1218025424}
   - component: {fileID: 1218025423}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16887,7 +17332,7 @@ GameObject:
   - component: {fileID: 1220443698}
   - component: {fileID: 1220443697}
   - component: {fileID: 1220443696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17141,11 +17586,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
+--- !u!1 &1229669930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+    type: 3}
+  m_PrefabInstance: {fileID: 1229669929}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1229669931
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229669930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8385836491182413749, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
 --- !u!1 &1247890146
 GameObject:
   m_ObjectHideFlags: 0
@@ -17158,7 +17628,7 @@ GameObject:
   - component: {fileID: 1247890150}
   - component: {fileID: 1247890149}
   - component: {fileID: 1247890148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17251,7 +17721,7 @@ GameObject:
   - component: {fileID: 1249970649}
   - component: {fileID: 1249970648}
   - component: {fileID: 1249970647}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17453,7 +17923,7 @@ GameObject:
   - component: {fileID: 1258142539}
   - component: {fileID: 1258142538}
   - component: {fileID: 1258142537}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17732,7 +18202,7 @@ GameObject:
   - component: {fileID: 1279331342}
   - component: {fileID: 1279331341}
   - component: {fileID: 1279331340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18012,7 +18482,7 @@ GameObject:
   - component: {fileID: 1291626171}
   - component: {fileID: 1291626170}
   - component: {fileID: 1291626169}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18105,7 +18575,7 @@ GameObject:
   - component: {fileID: 1309092107}
   - component: {fileID: 1309092106}
   - component: {fileID: 1309092105}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18294,7 +18764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1340750078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TreeStonePedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18331,7 +18801,7 @@ GameObject:
   - component: {fileID: 1342376112}
   - component: {fileID: 1342376111}
   - component: {fileID: 1342376110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FencegateFoundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18424,7 +18894,7 @@ GameObject:
   - component: {fileID: 1353532973}
   - component: {fileID: 1353532972}
   - component: {fileID: 1353532971}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18517,7 +18987,7 @@ GameObject:
   - component: {fileID: 1355692149}
   - component: {fileID: 1355692148}
   - component: {fileID: 1355692147}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBuilding2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18883,11 +19353,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd11017e63420a643a335a87e73941c9, type: 3}
+--- !u!1 &1383039596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1383039595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1383039597
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383039596}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -153830957423991239, guid: bd11017e63420a643a335a87e73941c9, type: 3}
 --- !u!1 &1388654006
 GameObject:
   m_ObjectHideFlags: 0
@@ -18900,7 +19395,7 @@ GameObject:
   - component: {fileID: 1388654010}
   - component: {fileID: 1388654009}
   - component: {fileID: 1388654008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBroken (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19363,11 +19858,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd11017e63420a643a335a87e73941c9, type: 3}
+--- !u!1 &1428643248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bd11017e63420a643a335a87e73941c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1428643247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1428643249
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428643248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -153830957423991239, guid: bd11017e63420a643a335a87e73941c9, type: 3}
 --- !u!1 &1429098308
 GameObject:
   m_ObjectHideFlags: 0
@@ -19779,7 +20299,7 @@ GameObject:
   - component: {fileID: 1450698590}
   - component: {fileID: 1450698589}
   - component: {fileID: 1450698588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19929,11 +20449,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
+--- !u!1 &1456629242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7894f3f10b3e347bd7de87cfeff2ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1456629241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1456629243
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456629242}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: eb7894f3f10b3e347bd7de87cfeff2ad, type: 3}
 --- !u!1001 &1464397833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20003,11 +20548,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fd899d1a4738d7479e7ac9da9870437, type: 3}
+--- !u!1 &1464397834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+    type: 3}
+  m_PrefabInstance: {fileID: 1464397833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1464397835
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464397834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8314571269056883277, guid: 8fd899d1a4738d7479e7ac9da9870437, type: 3}
 --- !u!1 &1475663377
 GameObject:
   m_ObjectHideFlags: 0
@@ -20020,7 +20590,7 @@ GameObject:
   - component: {fileID: 1475663381}
   - component: {fileID: 1475663380}
   - component: {fileID: 1475663379}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20326,7 +20896,7 @@ GameObject:
   - component: {fileID: 1505897191}
   - component: {fileID: 1505897190}
   - component: {fileID: 1505897189}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20419,7 +20989,7 @@ GameObject:
   - component: {fileID: 1510133122}
   - component: {fileID: 1510133121}
   - component: {fileID: 1510133120}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20627,7 +21197,7 @@ GameObject:
   - component: {fileID: 1522837903}
   - component: {fileID: 1522837902}
   - component: {fileID: 1522837901}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20847,7 +21417,7 @@ GameObject:
   - component: {fileID: 1537774844}
   - component: {fileID: 1537774843}
   - component: {fileID: 1537774842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20973,7 +21543,7 @@ GameObject:
   - component: {fileID: 1555783385}
   - component: {fileID: 1555783384}
   - component: {fileID: 1555783383}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21107,7 +21677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1567106395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Blockout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21164,7 +21734,7 @@ GameObject:
   - component: {fileID: 1572319925}
   - component: {fileID: 1572319924}
   - component: {fileID: 1572319923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21344,11 +21914,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70a680c63a8620499d1976041e27186, type: 3}
+--- !u!1 &1578380097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+    type: 3}
+  m_PrefabInstance: {fileID: 1578380096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1578380098
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578380097}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: b70a680c63a8620499d1976041e27186, type: 3}
 --- !u!1 &1584312612
 GameObject:
   m_ObjectHideFlags: 0
@@ -21404,7 +21999,7 @@ GameObject:
   - component: {fileID: 1589039078}
   - component: {fileID: 1589039077}
   - component: {fileID: 1589039076}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21590,7 +22185,7 @@ GameObject:
   - component: {fileID: 1591533178}
   - component: {fileID: 1591533177}
   - component: {fileID: 1591533176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21683,7 +22278,7 @@ GameObject:
   - component: {fileID: 1594694481}
   - component: {fileID: 1594694480}
   - component: {fileID: 1594694479}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21833,11 +22428,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70a680c63a8620499d1976041e27186, type: 3}
+--- !u!1 &1594797444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+    type: 3}
+  m_PrefabInstance: {fileID: 1594797443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1594797445
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594797444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: b70a680c63a8620499d1976041e27186, type: 3}
 --- !u!1 &1607477202
 GameObject:
   m_ObjectHideFlags: 0
@@ -21943,7 +22563,7 @@ GameObject:
   - component: {fileID: 1608238413}
   - component: {fileID: 1608238412}
   - component: {fileID: 1608238411}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22033,7 +22653,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1614798297}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22633,7 +23253,7 @@ GameObject:
   - component: {fileID: 1668755157}
   - component: {fileID: 1668755156}
   - component: {fileID: 1668755155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22726,7 +23346,7 @@ GameObject:
   - component: {fileID: 1675661738}
   - component: {fileID: 1675661737}
   - component: {fileID: 1675661736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22881,6 +23501,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+        type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -22891,6 +23516,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
+--- !u!1 &1691065793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89ac9328733154a488b0ab3f237b0b79,
+    type: 3}
+  m_PrefabInstance: {fileID: 1691065792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1691065794
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691065793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8385836491182413749, guid: 89ac9328733154a488b0ab3f237b0b79, type: 3}
 --- !u!1 &1692409333
 GameObject:
   m_ObjectHideFlags: 0
@@ -23125,7 +23770,7 @@ GameObject:
   - component: {fileID: 1740886594}
   - component: {fileID: 1740886593}
   - component: {fileID: 1740886592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Building2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23315,7 +23960,7 @@ GameObject:
   - component: {fileID: 1771192767}
   - component: {fileID: 1771192766}
   - component: {fileID: 1771192765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBroken (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23518,7 +24163,7 @@ GameObject:
   - component: {fileID: 1782617088}
   - component: {fileID: 1782617087}
   - component: {fileID: 1782617086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Building3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23615,7 +24260,7 @@ GameObject:
   - component: {fileID: 1789319479}
   - component: {fileID: 1789319478}
   - component: {fileID: 1789319477}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23801,7 +24446,7 @@ GameObject:
   - component: {fileID: 1797451706}
   - component: {fileID: 1797451705}
   - component: {fileID: 1797451704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofPieceBuilding1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23998,7 +24643,7 @@ GameObject:
   - component: {fileID: 1804076636}
   - component: {fileID: 1804076635}
   - component: {fileID: 1804076634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24285,7 +24930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1834260113}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Scaffolding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24338,7 +24983,7 @@ GameObject:
   - component: {fileID: 1851789693}
   - component: {fileID: 1851789692}
   - component: {fileID: 1851789691}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24530,7 +25175,7 @@ GameObject:
   - component: {fileID: 1858340734}
   - component: {fileID: 1858340733}
   - component: {fileID: 1858340732}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24765,7 +25410,7 @@ GameObject:
   - component: {fileID: 1882998917}
   - component: {fileID: 1882998916}
   - component: {fileID: 1882998915}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24957,7 +25602,7 @@ GameObject:
   - component: {fileID: 1909032130}
   - component: {fileID: 1909032129}
   - component: {fileID: 1909032128}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flooringUnderBuildings (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25504,6 +26149,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -25515,6 +26165,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1937934151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1937934153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+    type: 3}
+  m_PrefabInstance: {fileID: 1937934151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1937934154
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937934153}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8314571269056883277, guid: 8fd899d1a4738d7479e7ac9da9870437, type: 3}
 --- !u!1001 &1942514674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26465,6 +27135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -26476,6 +27151,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1996914878}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1996914880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+    type: 3}
+  m_PrefabInstance: {fileID: 1996914878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1996914881
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996914880}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8314571269056883277, guid: 8fd899d1a4738d7479e7ac9da9870437, type: 3}
 --- !u!1 &2003655811
 GameObject:
   m_ObjectHideFlags: 0
@@ -26966,7 +27661,7 @@ GameObject:
   - component: {fileID: 2046315840}
   - component: {fileID: 2046315839}
   - component: {fileID: 2046315838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofpieceBuilding2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27548,11 +28243,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70a680c63a8620499d1976041e27186, type: 3}
+--- !u!1 &2067172834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b70a680c63a8620499d1976041e27186,
+    type: 3}
+  m_PrefabInstance: {fileID: 2067172833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2067172835
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067172834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: b70a680c63a8620499d1976041e27186, type: 3}
 --- !u!1 &2069182569
 GameObject:
   m_ObjectHideFlags: 0
@@ -27595,7 +28315,7 @@ GameObject:
   - component: {fileID: 2070855196}
   - component: {fileID: 2070855195}
   - component: {fileID: 2070855194}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27838,11 +28558,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fd899d1a4738d7479e7ac9da9870437, type: 3}
+--- !u!1 &2082958949 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fd899d1a4738d7479e7ac9da9870437,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082958948}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2082958950
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082958949}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8314571269056883277, guid: 8fd899d1a4738d7479e7ac9da9870437, type: 3}
 --- !u!1 &2086938971
 GameObject:
   m_ObjectHideFlags: 0
