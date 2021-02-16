@@ -75,7 +75,8 @@ public class NetworkCallbacks : GlobalEventListener
     {
         if (evnt.IsEnemy)
         {
-            evnt.EntityShot.GetComponent<EnemyHealth>().TakeDamage(evnt.Damage);
+            if (evnt.EntityShot.IsOwner)
+                evnt.EntityShot.GetComponent<EnemyHealth>().TakeDamage(evnt.Damage);
             return;
         }
 
