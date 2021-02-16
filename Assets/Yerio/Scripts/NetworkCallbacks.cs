@@ -95,12 +95,14 @@ public class NetworkCallbacks : GlobalEventListener
         {          
             BoltLauncher.Shutdown();
             SceneManager.LoadScene(0);
+            return;
         }
 
-        if (evnt.EnitityToDisconnect && !evnt.DisconnectEveryone)
+        if (evnt.EnitityToDisconnect.IsOwner && !evnt.DisconnectEveryone)
         {
             //Debug.LogWarning("Disconnect person given");
-            evnt.EnitityToDisconnect.GetComponentInChildren<PauseMenuHandler>().Disconnect();
+            if (evnt.EnitityToDisconnect)
+                evnt.EnitityToDisconnect.GetComponentInChildren<PauseMenuHandler>().Disconnect();
         }
     }
 
