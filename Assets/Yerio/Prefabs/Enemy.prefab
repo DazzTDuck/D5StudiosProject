@@ -257,6 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656826047018781899}
+  - component: {fileID: 4002976459903760279}
   m_Layer: 0
   m_Name: StunTimer
   m_TagString: Untagged
@@ -278,6 +279,18 @@ Transform:
   m_Father: {fileID: 6513203305492154441}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4002976459903760279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5540410948095705378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cda10aaa34109d4091187fa389b7a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6513203305492154438
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackingDistance: 3
   moveSpeed: 20
+  stunTimer: {fileID: 4002976459903760279}
 --- !u!136 &4618793839628654089
 CapsuleCollider:
   m_ObjectHideFlags: 0
