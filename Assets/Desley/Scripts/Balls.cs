@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Balls : Bolt.EntityBehaviour<IFireBallState>
-{  
-    [SerializeField] LayerMask playerLayer;
+{
+    [SerializeField] int playerLayer;
     public bool canHitPlayer;
     public bool directHit;
 
@@ -35,11 +35,10 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 11 && canHitPlayer)
+        if(collision.gameObject.layer == playerLayer && canHitPlayer)
         {
-            SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
             directHit = true;
-            collided = true;
+            SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
             return;
         }
 
