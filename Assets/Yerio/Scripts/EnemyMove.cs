@@ -7,6 +7,7 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
 {
     [SerializeField] float attackingDistance = 0.25f;
     [SerializeField] float moveSpeed = 20f;
+    [SerializeField] Timer stunTimer;
     NavMeshAgent agent;
     Vector3 target = Vector3.zero;
 
@@ -26,6 +27,14 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
             agent.isStopped = true;
             //attacking code after
         }
+    }
+
+    public void StunEnemy(float time)
+    {
+        if (stunTimer.IsTimerComplete())
+        {
+            stunTimer.SetTimer(time, () => agent.isStopped = false, () => agent.isStopped = true);
+        }     
     }
 
     public float GetTargetDistance()
