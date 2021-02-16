@@ -138,13 +138,15 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
         request.EntityShot = entityShot;
         request.Send();
 
+        Debug.LogWarning(healing);
+
         if (directHit)
             DestroyBall();
     }
 
     void DestroyBall()
     {
-        //BoltNetwork.Destroy(gameObject);
+        BoltNetwork.Destroy(gameObject);
     }
 
     public IEnumerator DestroyFallBack(float time)
