@@ -48,6 +48,9 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
         collided = true;
         GetHitObjects();
+
+        Debug.LogWarning(collision.gameObject.name);
+        Debug.LogWarning(collision.gameObject.layer);
     }
 
     void GetHitObjects()
