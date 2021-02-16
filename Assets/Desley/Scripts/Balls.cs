@@ -6,7 +6,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 {  
     [SerializeField] LayerMask playerLayer;
     public bool canHitPlayer;
-    bool directHit;
+    public bool directHit;
 
     [Space, SerializeField] int ballValue;
     [SerializeField] int directHitValue;
@@ -43,7 +43,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
             return;
         }
 
-        if (collided && !directHit)
+        if (collided && directHit)
             return;
 
         collided = true;
