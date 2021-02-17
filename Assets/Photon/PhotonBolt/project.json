@@ -3477,10 +3477,21 @@
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
           }
+        },
+        {
+          "Name": "SceneIndex",
+          "Enabled": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
         }
       ],
-      "EntitySenders": 3,
-      "GlobalSenders": 1,
       "Name": "LoadSceneRequest",
       "Guid": "36169eee-160a-4fc8-ab66-d48ca5ce69e4",
       "Groups": [
@@ -6056,6 +6067,30 @@
       },
       "Name": "GateState",
       "Guid": "216add54-28bd-4ae4-b3e3-08e5775ad68c",
+      "Groups": [
+        "Custom"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "SceneIndex",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "RestartRequest",
+      "Guid": "15353298-f9f7-4904-9675-cecf58b21ade",
       "Groups": [
         "Custom"
       ]
