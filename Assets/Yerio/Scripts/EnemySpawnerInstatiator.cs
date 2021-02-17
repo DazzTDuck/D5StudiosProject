@@ -14,13 +14,17 @@ public class EnemySpawnerInstatiator : MonoBehaviour
 
     private void Start()
     {
+        var networkCallback = GetComponent<NetworkCallbacks>();
+
         var reference = BoltNetwork.Instantiate(enemySpawner, Vector3.zero, Quaternion.identity);
         var enemySpawning = reference.GetComponent<EnemySpawningHandler>();
-        GetComponent<NetworkCallbacks>().enemySpawning = enemySpawning;
+        networkCallback.enemySpawning = enemySpawning;
         enemySpawning.targetPoints = targetPoints;
         enemySpawning.spawnPoints = spawnPoints;
 
-        if (!FindObjectOfType<GateHealth>())
-            BoltNetwork.Instantiate(gateHealth, instatiatePoint.position, Quaternion.identity);
+        
+       var reference2 = BoltNetwork.Instantiate(gateHealth, instatiatePoint.position, Quaternion.identity);
+       var gateHealthRef = reference2.GetComponent<GateHealth>();
+       networkCallback.gateHealth = gateHealthRef;
     }
 }

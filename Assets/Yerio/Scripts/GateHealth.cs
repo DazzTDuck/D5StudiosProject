@@ -8,6 +8,9 @@ public class GateHealth : Bolt.EntityBehaviour<IGateState>
 
     int currentHealth;
     bool isDestroyed = false;
+    bool healthActive = false;
+    bool isHost;
+    PlayerController player;
 
     private void Awake()
     {
@@ -15,18 +18,13 @@ public class GateHealth : Bolt.EntityBehaviour<IGateState>
     }
 
     public override void Attached()
-    {
-        if (entity.IsOwner)
-        {
-            state.IsDestroyed = isDestroyed;
-            state.Health = currentHealth;
-            state.AddCallback("Health", HealthCallback);
-        }
+    {      
+        StartCoroutine(StartDelay());
     }
 
     void HealthCallback()
     {
-        if (!state.IsDestroyed)
+        if (!state.IsDestroyed && healthActive)
         {
             currentHealth = state.Health;
             isDestroyed = state.IsDestroyed;
@@ -57,6 +55,35 @@ public class GateHealth : Bolt.EntityBehaviour<IGateState>
             {
                 state.Health -= damage;
             }
+        }
+    }
+
+    public void SetPlayer(PlayerController playerController)
+    {
+        player = playerController;
+    }
+
+    IEnumerator StartDelay()
+    {
+        yield return new WaitUntil(() => player);
+
+        isHost = player.GetIfHost();
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (isHost)
+        {
+            if (entity.IsOwner)
+            {
+                state.IsDestroyed = isDestroyed;
+                state.Health = currentHealth;
+                state.AddCallback("Health", HealthCallback);
+            }
+            healthActive = true;
+        }
+        else
+        {
+            BoltNetwork.Destroy(gameObject);
         }
     }
 

@@ -11,6 +11,7 @@ public class NetworkCallbacks : GlobalEventListener
     [SerializeField] Transform[] spawnPoints;
 
     [HideInInspector] public EnemySpawningHandler enemySpawning;
+    [HideInInspector] public GateHealth gateHealth;
 
     int connectionsAmount;
     bool gameStarted;
@@ -51,6 +52,7 @@ public class NetworkCallbacks : GlobalEventListener
         }
 
         enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
+        gateHealth.SetPlayer(player.GetComponentInChildren<PlayerController>());
     }
 
     public override void OnEvent(DestroyRequest evnt)
