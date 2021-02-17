@@ -81,7 +81,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 maxHealth -= usedDamage;
                 damage -= usedDamage;
             }
-            else if (state.PlayerHealth - damage <= 0)
+
+            if (state.PlayerHealth - damage <= 0)
             {
                 state.PlayerHealth = 0;
             }
