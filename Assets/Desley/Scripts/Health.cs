@@ -11,6 +11,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     int defaultMaxHealth;
 
     bool isDeadlocal;
+    bool gotShot;
 
     private void Awake()
     {
@@ -33,12 +34,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (Input.GetButtonDown("FireMode")) { state.PlayerHealth -= 10; }
 
-        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
+        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce && !gotShot)
         {
             maxHealth -= 1;
             timePerReduce = Time.time + 1 / 5f;
         }
-        if(state.PlayerHealth > defaultMaxHealth)
+        if(state.PlayerHealth > defaultMaxHealth && !gotShot)
         {
             state.PlayerHealth = maxHealth;
         }
@@ -88,6 +89,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             }
             else
             {
+                gotShot = true;
                 state.PlayerHealth -= damage;
             }
         }
@@ -103,6 +105,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             if(state.PlayerHealth == maxHealth)
             {
                 maxHealth += healing;
+                gotShot = false;
             }
             else if(state.PlayerHealth + healing > maxHealth)
             {
