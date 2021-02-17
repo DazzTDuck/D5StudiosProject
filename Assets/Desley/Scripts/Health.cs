@@ -89,7 +89,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             }
             else
             {
-                if(maxHealth > defaultMaxHealth)
+                if(maxHealth <= defaultMaxHealth)
                 {
                     gotShot = true;
                 }
