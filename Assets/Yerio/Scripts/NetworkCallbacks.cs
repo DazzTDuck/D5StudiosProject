@@ -13,6 +13,9 @@ public class NetworkCallbacks : GlobalEventListener
     [HideInInspector] public EnemySpawningHandler enemySpawning;
 
     int connectionsAmount;
+    bool gameStarted;
+
+    public bool GetIfGameStarted() { return gameStarted; }
 
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
@@ -105,6 +108,11 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
+    public override void OnEvent(RestartRequest evnt)
+    {
+        SceneManager.LoadScene(evnt.SceneIndex);
+    }
+
     public override void OnEvent(HealRequest evnt)
     {
         evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing);
@@ -123,6 +131,7 @@ public class NetworkCallbacks : GlobalEventListener
             return;
         }
 
+        gameStarted = true;
         foreach (var host in FindObjectsOfType<WaitForHostScreen>())
         {
             if (host.entity.IsOwner)
