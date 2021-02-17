@@ -34,7 +34,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (Input.GetButtonDown("FireMode")) { state.PlayerHealth -= 10; }
 
-        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce && !gotShot)
+        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
         {
             maxHealth -= 1;
             timePerReduce = Time.time + 1 / 4f;
