@@ -21,12 +21,13 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
 
     public override void Attached()
     {
-        state.SetTransforms(state.EnemyTransform, transform);
-        gateHealth = FindObjectOfType<GateHealth>();
+        state.SetTransforms(state.EnemyTransform, transform);     
     }
 
     public override void SimulateOwner()
     {
+        if(!gateHealth) { gateHealth = FindObjectOfType<GateHealth>(); }
+
         AttackTarget();
     }
     public void AttackTarget()
