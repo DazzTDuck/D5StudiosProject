@@ -37,7 +37,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce && !gotShot)
         {
             maxHealth -= 1;
-            timePerReduce = Time.time + 1 / 5f;
+            timePerReduce = Time.time + 1 / 4f;
         }
         if(state.PlayerHealth > defaultMaxHealth && entity.IsOwner && !gotShot)
         {
