@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 {
-    [SerializeField] int currentHealth, maxHealth;
     [SerializeField] Healthbar healthbar;
     [SerializeField] Animator animator;
+    [SerializeField] int maxHealth;
+    float timePerReduce;
+    int defaultMaxHealth;
 
     bool isDeadlocal;
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        defaultMaxHealth = maxHealth;
     }
 
     public override void Attached()
@@ -30,13 +32,22 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
 
         if (Input.GetButtonDown("FireMode")) { state.PlayerHealth -= 10; }
+
+        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
+        {
+            maxHealth -= 1;
+            timePerReduce = Time.time + 1 / 5f;
+        }
+        if(state.PlayerHealth > defaultMaxHealth)
+        {
+            state.PlayerHealth = maxHealth;
+        }
     }
 
     void HealthCallback()
     {
         if (!state.IsDead)
         {
-            currentHealth = state.PlayerHealth;
             isDeadlocal = state.IsDead;
 
             if (state.PlayerHealth <= 0)
@@ -64,7 +75,13 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (entity.IsOwner)
         {
-            if (state.PlayerHealth - damage <= 0)
+            if(maxHealth > defaultMaxHealth && damage > maxHealth - defaultMaxHealth)
+            {
+                int usedDamage = maxHealth - defaultMaxHealth;
+                maxHealth -= usedDamage;
+                damage -= usedDamage;
+            }
+            else if (state.PlayerHealth - damage <= 0)
             {
                 state.PlayerHealth = 0;
             }
@@ -77,12 +94,16 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void GetHealing(int healing)
     {
-        if (entity.IsOwner && state.PlayerHealth != maxHealth)
+        if (entity.IsOwner)
         {
             animator.ResetTrigger("Healed");
             animator.SetTrigger("Healed");
 
-            if(state.PlayerHealth + healing > maxHealth)
+            if(state.PlayerHealth == maxHealth)
+            {
+                maxHealth += healing;
+            }
+            else if(state.PlayerHealth + healing > maxHealth)
             {
                 healing = maxHealth - state.PlayerHealth;
             }

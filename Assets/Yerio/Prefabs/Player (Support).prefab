@@ -604,10 +604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75601f460e04ec649a67d2e817a72065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 100
-  maxHealth: 100
   healthbar: {fileID: 2808438063710960821}
   animator: {fileID: 4045349615693939769}
+  maxHealth: 100
 --- !u!114 &9185460742567943604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,7 +852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: d676befd-e93a-4d99-9748-a48e49c5b303
-  _prefabId: 10
+  _prefabId: 11
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
