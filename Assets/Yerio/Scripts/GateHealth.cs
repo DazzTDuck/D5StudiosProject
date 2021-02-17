@@ -36,10 +36,10 @@ public class GateHealth : Bolt.EntityBehaviour<IGateState>
                 state.IsDestroyed = true;
                 if (state.IsDestroyed)
                 {
-                    //restart game panel
-                    var request = RestartRequest.Create();
-                    request.SceneIndex = 1;
-                    request.Send();
+                    ////restart game panel
+                    //var request = RestartRequest.Create();
+                    //request.SceneIndex = 1;
+                    //request.Send();
                 }
             }
         }
