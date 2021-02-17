@@ -129,7 +129,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             weaponCam.GetComponent<PlayerCamera>().Crouch(true);
             CrouchMoveSpeed(true);
             if (shoot)
-                shoot.ReduceRecoil(true);
+                shoot.CrouchRecoil(true);
             else if (shotgun)
                 shotgun.ReduceSpread(true);
                     
@@ -142,7 +142,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             weaponCam.GetComponent<PlayerCamera>().Crouch(false);
             CrouchMoveSpeed(false);
             if(shoot)
-                shoot.ReduceRecoil(false);
+                shoot.CrouchRecoil(false);
             else if (shotgun)
                 shotgun.ReduceSpread(false);
 

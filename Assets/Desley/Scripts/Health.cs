@@ -6,6 +6,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] int currentHealth, maxHealth;
     [SerializeField] Healthbar healthbar;
+    [SerializeField] Animator animator;
 
     bool isDeadlocal;
 
@@ -27,6 +28,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Update()
     {
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
+
+        if (Input.GetButtonDown("FireMode")) { state.PlayerHealth -= 10; }
     }
 
     void HealthCallback()
@@ -74,8 +77,11 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void GetHealing(int healing)
     {
-        if (entity.IsOwner)
+        if (entity.IsOwner && state.PlayerHealth != maxHealth)
         {
+            animator.ResetTrigger("Healed");
+            animator.SetTrigger("Healed");
+
             if(state.PlayerHealth + healing > maxHealth)
             {
                 healing = maxHealth - state.PlayerHealth;

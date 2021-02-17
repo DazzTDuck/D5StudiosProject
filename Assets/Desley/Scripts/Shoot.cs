@@ -9,6 +9,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [SerializeField] Camera cam, weaponCam;
     [SerializeField] Animator animator;
+    [SerializeField] Animator animatorOverlay;
     [SerializeField] HitDamageUI hitDamageUI;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
@@ -200,7 +201,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         currentBulletCount = maxBulletCount;
     }
 
-    public void ReduceRecoil(bool crouching)
+    public void CrouchRecoil(bool crouching)
     {
         count = 0;
         if (crouching)
@@ -221,5 +222,35 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 count++;
             }
         }
+    }
+
+    public void StartAccuracyStim(float time) 
+    {
+        animatorOverlay.ResetTrigger("Accuracy");
+        StartCoroutine(AccuracyStim(time));
+        animatorOverlay.SetTrigger("Accuracy");
+    }
+
+    public IEnumerator AccuracyStim(float time)
+    {
+        count = 0;
+        foreach (Vector3 pattern in sprayPattern)
+        {
+            pattern.Set(pattern.x / 10, pattern.y / 10, pattern.z / 10);
+            sprayPattern[count] = pattern;
+            count++;
+        }
+
+        yield return new WaitForSeconds(time);
+
+        count = 0;
+        foreach (Vector3 pattern in sprayPattern)
+        {
+            pattern.Set(pattern.x * 10, pattern.y * 10, pattern.z * 10);
+            sprayPattern[count] = pattern;
+            count++;
+        }
+
+        StopCoroutine(nameof(AccuracyStim));
     }
 }
