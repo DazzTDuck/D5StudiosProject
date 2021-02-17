@@ -69,8 +69,6 @@ public class GateHealth : Bolt.EntityBehaviour<IGateState>
 
         isHost = player.GetIfHost();
 
-        yield return new WaitForSeconds(0.5f);
-
         if (isHost)
         {
             if (entity.IsOwner)

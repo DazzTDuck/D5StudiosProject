@@ -111,7 +111,7 @@ public class EnemySpawningHandler : Bolt.EntityBehaviour<IEnemySpawner>
         }
         else
         {
-            gameObject.SetActive(false);
+            BoltNetwork.Destroy(gameObject);
         }
     }
 

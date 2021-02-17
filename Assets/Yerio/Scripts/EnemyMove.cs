@@ -31,21 +31,24 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
     }
     public void AttackTarget()
     {
-        if (GetTargetDistance() <= attackingDistance && entity.IsOwner)
+        if (gateHealth)
         {
-            agent.isStopped = true;
-
-            if (attackTimer.IsTimerComplete() && gateHealth.state.Health > 0 && !isStunned)
+            if (GetTargetDistance() <= attackingDistance && entity.IsOwner)
             {
-                attackTimer.SetTimer(timeBetweenAttack, () => canAttack = true, () => canAttack = false);
-            }
+                agent.isStopped = true;
 
-            if (canAttack && !isStunned)
-            {
-                gateHealth.TakeDamage(attackDamage);
-                canAttack = false;
+                if (attackTimer.IsTimerComplete() && gateHealth.state.Health > 0 && !isStunned)
+                {
+                    attackTimer.SetTimer(timeBetweenAttack, () => canAttack = true, () => canAttack = false);
+                }
+
+                if (canAttack && !isStunned)
+                {
+                    gateHealth.TakeDamage(attackDamage);
+                    canAttack = false;
+                }
             }
-        }
+        } 
     }
 
     public void StunEnemy(float time)
