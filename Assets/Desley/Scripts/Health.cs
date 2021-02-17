@@ -34,12 +34,10 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (Input.GetButtonDown("FireMode")) { state.PlayerHealth -= 10; }
 
-        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
+        if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce && !gotShot)
         {
             maxHealth -= 1;
             timePerReduce = Time.time + 1 / 4f;
-
-            if(state.PlayerHealth > defaultMaxHealth) { gotShot = false; }
         }
         if(state.PlayerHealth > defaultMaxHealth && entity.IsOwner && !gotShot)
         {
@@ -91,7 +89,11 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             }
             else
             {
-                gotShot = true;
+                if(maxHealth > defaultMaxHealth)
+                {
+                    gotShot = true;
+                }
+
                 state.PlayerHealth -= damage;
             }
         }
