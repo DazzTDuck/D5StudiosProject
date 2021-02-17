@@ -9,10 +9,10 @@ public class NetworkCallbacks : GlobalEventListener
 {
     [SerializeField] GameObject cameraPrefab;
     [SerializeField] Transform[] spawnPoints;
-    public EnemySpawningHandler enemySpawning;
-    //[SerializeField] GameObject enemyPrefab;
 
-    [Space, SerializeField] int connectionsAmount;
+    [HideInInspector] public EnemySpawningHandler enemySpawning;
+
+    int connectionsAmount;
 
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
@@ -23,8 +23,6 @@ public class NetworkCallbacks : GlobalEventListener
         {
             connectionsAmount++;
         }
-
-        //BoltNetwork.Instantiate(enemyPrefab, token, GetNewSpawnpoint() + Vector3.right * Random.Range(-3,3), Quaternion.identity);
     }
 
     public void SpawnPlayer(GameObject objectToRemove, GameObject newPrefab)

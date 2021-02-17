@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: -7466782425464895284}
   - component: {fileID: 1626297634479972084}
   - component: {fileID: 4618793839628654089}
+  - component: {fileID: 596522500842331644}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -439,7 +440,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackingDistance: 3
   moveSpeed: 20
+  attackDamage: 1
+  timeBetweenAttack: 2
   stunTimer: {fileID: 4002976459903760279}
+  attackTimer: {fileID: 596522500842331644}
 --- !u!136 &4618793839628654089
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -454,6 +458,18 @@ CapsuleCollider:
   m_Height: 0.96343505
   m_Direction: 1
   m_Center: {x: 0, y: -0.03203392, z: 0}
+--- !u!114 &596522500842331644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6513203305492154438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cda10aaa34109d4091187fa389b7a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7322197756894926949
 GameObject:
   m_ObjectHideFlags: 0

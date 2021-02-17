@@ -5,15 +5,24 @@ using UnityEngine.AI;
 
 public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
 {
-    [SerializeField] float attackingDistance = 0.25f;
+    [SerializeField] float attackingDistance = 2f;
     [SerializeField] float moveSpeed = 20f;
+    [SerializeField] int attackDamage = 3;
+    [SerializeField] float timeBetweenAttack = 2;
     [SerializeField] Timer stunTimer;
+    [SerializeField] Timer attackTimer;
+    
     NavMeshAgent agent;
     Vector3 target = Vector3.zero;
+
+    bool canAttack = false;
+    bool isStunned;
+    GateHealth gateHealth;
 
     public override void Attached()
     {
         state.SetTransforms(state.EnemyTransform, transform);
+        gateHealth = FindObjectOfType<GateHealth>();
     }
 
     public override void SimulateOwner()
@@ -25,7 +34,17 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
         if (GetTargetDistance() <= attackingDistance && entity.IsOwner)
         {
             agent.isStopped = true;
-            //attacking code after
+
+            if (attackTimer.IsTimerComplete() && gateHealth.state.Health > 0 && !isStunned)
+            {
+                attackTimer.SetTimer(timeBetweenAttack, () => canAttack = true, () => canAttack = false);
+            }
+
+            if (canAttack && !isStunned)
+            {
+                gateHealth.TakeDamage(attackDamage);
+                canAttack = false;
+            }
         }
     }
 
@@ -33,7 +52,8 @@ public class EnemyMove : Bolt.EntityBehaviour<IEnemyState>
     {
         if (stunTimer.IsTimerComplete())
         {
-            stunTimer.SetTimer(time, () => agent.isStopped = false, () => agent.isStopped = true);
+            stunTimer.SetTimer(time, () => { agent.isStopped = false; isStunned = false; }, 
+                () => { agent.isStopped = true; isStunned = true; });
         }     
     }
 
