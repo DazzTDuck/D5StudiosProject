@@ -240,8 +240,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
             tag = state.PlayerTeamTag;
         }
 
-        //var request = TeamTagEvent.Create();
-        //request.Send();
+        var request = TeamTagEvent.Create();
+        request.Send();
     }
 
     IEnumerator WaitForTag(float time)
