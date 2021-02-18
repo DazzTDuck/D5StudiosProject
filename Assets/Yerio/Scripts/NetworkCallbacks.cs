@@ -15,7 +15,6 @@ public class NetworkCallbacks : GlobalEventListener
     [SerializeField] public GameInfo gameInfo;
 
     int connectionsAmount;
-    bool gameStarted;
 
     public bool GetIfGameStarted() { return gameStarted; }
 
@@ -140,7 +139,7 @@ public class NetworkCallbacks : GlobalEventListener
             return;
         }
 
-        gameStarted = true;
+        gameInfo.SetGameStarted();
         foreach (var host in FindObjectsOfType<WaitForHostScreen>())
         {
             if (host.entity.IsOwner)

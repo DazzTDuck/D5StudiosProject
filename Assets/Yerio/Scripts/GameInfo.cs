@@ -39,6 +39,11 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
         }
     }
 
+    public void SetGameStarted()
+    {
+        if(!state.GameStarted) { state.GameStarted = true; }
+    }
+
     void TimerCallback()
     {
         timer = state.GameTimeLeft;
