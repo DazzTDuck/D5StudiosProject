@@ -9,13 +9,13 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject panel;
     bool isPaused;
 
-    NetworkCallbacks networkCallbacks;
+    GameInfo gameInfo;
 
     public void Update()
     {
-        if(!networkCallbacks) { networkCallbacks = FindObjectOfType<NetworkCallbacks>(); }
+        if(!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
 
-        if (Input.GetButtonDown("Cancel") && networkCallbacks.GetIfGameStarted())
+        if (Input.GetButtonDown("Cancel") && gameInfo.state.GameStarted)
         {
             OpenAndClosePauseMenu();
         }

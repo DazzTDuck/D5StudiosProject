@@ -40,6 +40,9 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isShooting;
     bool nextShot;
 
+    string teamTag;
+    string enemyTeamTag;
+
     private void Update()
     {
         CheckFireModeInput();
@@ -149,12 +152,12 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
                         SendDamage(damageToDo * hsMultiplier, true, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
                     }
-                    else if (entityTag == "Player")
+                    else if (entityTag == enemyTeamTag)
                     {
                         SendDamage(damageToDo, false, boltEntity);
                         totalDamage += damageToDo;
                     }
-                    else if (entityTag == "PlayerHead")
+                    else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                     {
                         SendDamage(damageToDo * hsMultiplier, false, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
@@ -223,5 +226,12 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
             randomSpread /= spreadDivider;
         else
             randomSpread *= spreadDivider;
+    }
+
+    public void SetTags()
+    {
+        teamTag = GetComponentInParent<Health>().tag;
+        if (teamTag == "Team1") { enemyTeamTag = "Team2"; }
+        else if (teamTag == "Team2") { enemyTeamTag = "Team1"; }
     }
 }

@@ -40,6 +40,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool fullAuto;
 
+    string teamTag;
+    string enemyTeamTag;
+
     private void Update()
     {
         CheckFireModeInput();
@@ -134,19 +137,19 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
             if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
-            if (entityTag == "Enemy" && entity.IsOwner)
+            if (entityTag == "Enemy")
             {
                 SendDamage(damage, true, boltEntity);
             }
-            else if (entityTag == "EnemyHead" && entity.IsOwner)
+            else if (entityTag == "EnemyHead")
             {
                 SendDamage(damage * hsMultiplier, true, boltEntity);
             }
-            else if (entityTag == "Player" && entity.IsOwner)
+            else if (entityTag == enemyTeamTag)
             {
                 SendDamage(damage, false, boltEntity);
             }
-            else if (entityTag == "PlayerHead" && entity.IsOwner)
+            else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
             {
                 SendDamage(damage * hsMultiplier, false, boltEntity);
             }
@@ -252,5 +255,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
 
         StopCoroutine(nameof(AccuracyStim));
+    }
+
+    public void SetTags()
+    {
+        teamTag = GetComponentInParent<Health>().tag;
+        if (teamTag == "Team1") { enemyTeamTag = "Team2"; }
+        else if (teamTag == "Team2") { enemyTeamTag = "Team1"; }
     }
 }

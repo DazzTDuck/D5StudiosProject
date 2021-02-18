@@ -6,8 +6,8 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 {
     [SerializeField] int playerLayer;
     bool stunsEnemies;
-    bool canHitPlayer;
     bool directHit;
+    bool healBall;
 
     [Space, SerializeField] int ballValue;
     [SerializeField] int directHitValue;
@@ -23,11 +23,14 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
     bool collided;
     HitDamageUI hitDamageUI;
 
+    string teamTag;
+    string enemyTeamTag;
 
     private void Start()
     {
         StartCoroutine(DestroyFallBack(destroyTime));
     }
+
 
     public override void Attached()
     {
@@ -37,15 +40,18 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == playerLayer && canHitPlayer && !collided)
+        if (collision.gameObject.layer == playerLayer && healBall && !collided)
         {
-            directHit = true;
-            collided = true;
-            SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
-            return;
+            if (collision.collider.CompareTag(teamTag) || collision.collider.GetComponentInParent<Health>().CompareTag(teamTag))
+            {
+                directHit = true;
+                collided = true;
+                SendHealing(directHitValue, collision.gameObject.GetComponentInParent<BoltEntity>());
+            }
+            else return;
         }
 
-        if (collided && directHit)
+        if (collided || directHit)
             return;
 
         collided = true;
@@ -64,15 +70,14 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
                 BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
                 if (!boltEntity) { boltEntity = collider.GetComponentInParent<BoltEntity>(); }
 
-                if (entityTag == "Enemy" && !entitiesList.Contains(boltEntity) && !canHitPlayer && entity.IsOwner)
+                if (!entitiesList.Contains(boltEntity))
                 {
-                    entitiesList.Add(boltEntity);
-                    if(!stunsEnemies)
-                        GetDistanceToEntities(collider);
-                }
-                else if (entityTag == "Player" && !entitiesList.Contains(boltEntity) && canHitPlayer && entity.IsOwner)
-                {
-                    entitiesList.Add(boltEntity);
+                    if (entityTag == "Enemy" || entityTag == teamTag || entityTag == enemyTeamTag)
+                    {
+                        entitiesList.Add(boltEntity);
+                        if (!stunsEnemies && !healBall)
+                            GetDistanceToEntities(collider);
+                    }
                 }
             }
 
@@ -103,7 +108,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
                 entity.GetComponent<EnemyMove>().StunEnemy(stunTime);
                 entitiesDamaged++;
             }
-            else if (!canHitPlayer)
+            else if (!healBall)
             {
                 amountOfEnemiesDamaged++;
                 SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
@@ -118,7 +123,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
                     }
                 }
             }
-            else if (canHitPlayer)
+            else if (healBall)
             {
                 SendHealing(ballValue, entity);
                 entitiesDamaged++;
@@ -165,5 +170,11 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
     }
 
     public void SetHitDamageUI(HitDamageUI ui) { hitDamageUI = ui; }
-    public void SetPlayerHit(bool playerHit, bool stuns) { canHitPlayer = playerHit; stunsEnemies = stuns; }
+    public void SetPlayerHit(bool heal, bool stuns) { healBall = heal; stunsEnemies = stuns; }
+
+    public void SetTags(string team, string enemyTeam)
+    {
+        teamTag = team;
+        enemyTeamTag = enemyTeam;
+    }
 }

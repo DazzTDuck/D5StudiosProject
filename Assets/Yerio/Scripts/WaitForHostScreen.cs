@@ -19,6 +19,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] List<GameObject> players = new List<GameObject>();
 
     string playerNameLocal = "Player";
+    GameInfo gameInfo;
 
     public override void Attached()
     {
@@ -38,6 +39,8 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     }
     private void Update()
     {
+        if(!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
+
         if (startGameCanvas.activeSelf)
             GetAllPlayers();
     }
@@ -50,7 +53,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Send();
 
         //start spawning enemies
-        EnemySpawningHandler.StartGame();
+        //EnemySpawningHandler.StartGame();
     }
 
     public void CloseScreen()
@@ -115,16 +118,13 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void CheckIfGameStarted()
     {
-        foreach (var started in FindObjectsOfType<EnemySpawningHandler>())
+        if (gameInfo.state.GameStarted)
         {
-            if (started.GetIfGameStarted())
-            {
-                CloseScreen();
-                var request = StartGameRequest.Create();
-                request.Entity = entity;
-                request.GameStarted = true;
-                request.Send();
-            }
+            var request = StartGameRequest.Create();
+            request.Entity = entity;
+            request.GameStarted = true;
+            request.Send();
+            CloseScreen();
         }
     }
 
