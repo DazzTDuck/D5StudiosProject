@@ -226,11 +226,23 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
+    public void SetTagForServer()
+    {
+        if (entity.IsOwner)
+        {
+            tag = state.PlayerTeamTag;
+        }
+    }
+
     public void SetTeamTag(int index)
     {
+        if (entity.IsOwner)
+        {
+            state.PlayerTeamTag = tags[index];
+            tag = state.PlayerTeamTag;
+        }
+
         var request = TeamTagEvent.Create();
-        request.PlayerEntity = GetComponentInParent<BoltEntity>();
-        request.TagString = tags[index];
         request.Send();
 
         StartCoroutine(WaitForTag(1));
