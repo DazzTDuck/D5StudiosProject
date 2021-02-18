@@ -137,22 +137,25 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
             if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
-            if (entityTag == "Enemy")
+            if (boltEntity)
             {
-                SendDamage(damage, true, boltEntity);
-            }
-            else if (entityTag == "EnemyHead")
-            {
-                SendDamage(damage * hsMultiplier, true, boltEntity);
-            }
-            else if (entityTag == enemyTeamTag)
-            {
-                SendDamage(damage, false, boltEntity);
-            }
-            else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
-            {
-                SendDamage(damage * hsMultiplier, false, boltEntity);
-            }
+                if (entityTag == "Enemy")
+                {
+                    SendDamage(damage, true, boltEntity);
+                }
+                else if (entityTag == "EnemyHead")
+                {
+                    SendDamage(damage * hsMultiplier, true, boltEntity);
+                }
+                else if (entityTag == enemyTeamTag)
+                {
+                    SendDamage(damage, false, boltEntity);
+                }
+                else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                {
+                    SendDamage(damage * hsMultiplier, false, boltEntity);
+                }
+            }          
         }
     }
 
