@@ -33,7 +33,7 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 
     void Update()
     {
-        if (state.GameTimeLeft > 0 && networkCallbacks.GetIfGameStarted())
+        if (state.GameTimeLeft > 0 && state.GameStarted)
         {
             state.GameTimeLeft -= Time.deltaTime;
         }

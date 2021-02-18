@@ -15,9 +15,6 @@ public class NetworkCallbacks : GlobalEventListener
     [SerializeField] public GameInfo gameInfo;
 
     int connectionsAmount;
-
-    public bool GetIfGameStarted() { return gameStarted; }
-
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         base.SceneLoadLocalDone(scene, token);
