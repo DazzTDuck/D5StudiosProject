@@ -87,7 +87,11 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(TeamTagEvent evnt)
     {
-        evnt.PlayerEntity.GetComponentInChildren<Health>().tag = evnt.TagString;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject player in players)
+        {
+            player.GetComponentInChildren<PlayerController>().SetTagForServer();
+        }
     }
 
     public override void OnEvent(DisconnectEvent evnt)
