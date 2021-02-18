@@ -57,6 +57,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     bool waitingForCourotine = false;
     bool isCrouching;
 
+    [Space, SerializeField] string[] tags;
+
     public override void Attached()
     {
         base.Attached();
@@ -222,6 +224,14 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             state.ConnectionID = id;
         }
+    }
+
+    public void SetTeamTag(int index)
+    {
+        var request = TeamTagEvent.Create();
+        request.PlayerEntity = GetComponentInParent<BoltEntity>();
+        request.TagString = tags[index];
+        request.Send();
     }
 }
 

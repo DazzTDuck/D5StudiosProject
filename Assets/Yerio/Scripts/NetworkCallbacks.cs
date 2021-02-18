@@ -87,6 +87,11 @@ public class NetworkCallbacks : GlobalEventListener
             evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
     }
 
+    public override void OnEvent(TeamTagEvent evnt)
+    {
+        evnt.PlayerEntity.GetComponentInChildren<Health>().tag = evnt.TagString;
+    }
+
     public override void OnEvent(DisconnectEvent evnt)
     {
         if (!evnt.EnitityToDisconnect.IsOwner && evnt.DisconnectEveryone)
