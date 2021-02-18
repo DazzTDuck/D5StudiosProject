@@ -26,15 +26,23 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 
     public float GetGameTimeLeft()
     {
-        return timer;
+        return state.GameTimeLeft;
     }
 
-    void Update()
+    public override void SimulateOwner()
     {
         if (state.GameTimeLeft > 0 && state.GameStarted && entity.IsOwner)
         {
             state.GameTimeLeft -= Time.deltaTime;
         }
+    }
+
+    void Update()
+    {
+        //if (state.GameTimeLeft > 0 && state.GameStarted && entity.IsOwner)
+        //{
+        //    state.GameTimeLeft -= Time.deltaTime;
+        //}
     }
 
     public void SetGameStarted()
