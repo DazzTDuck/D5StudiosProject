@@ -229,6 +229,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     public void SetTagForServer()
     {
             tag = state.PlayerTeamTag;
+
+        StartCoroutine(WaitForTag(1));
     }
 
     public void SetTeamTag(int index)
@@ -241,8 +243,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         var request = TeamTagEvent.Create();
         request.Send();
-
-        StartCoroutine(WaitForTag(1));
     }
 
     IEnumerator WaitForTag(float time)
