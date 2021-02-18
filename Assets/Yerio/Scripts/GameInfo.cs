@@ -12,12 +12,10 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
     int team2Kills;
 
     PlayerController player;
-    NetworkCallbacks networkCallbacks;
     bool isHost;
 
     public override void Attached()
     {
-        networkCallbacks = FindObjectOfType<NetworkCallbacks>();
         StartCoroutine(StartDelay());
     }
 
@@ -33,7 +31,7 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 
     void Update()
     {
-        if (state.GameTimeLeft > 0 && state.GameStarted)
+        if (state.GameTimeLeft > 0 && state.GameStarted && entity.IsOwner)
         {
             state.GameTimeLeft -= Time.deltaTime;
         }
