@@ -8,6 +8,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
 
     [Header("--Settings--")]
+    [SerializeField] bool canvasLookat;
     [Tooltip("Sensitivity of the camera movement")]
     public float sensitivity = 3f;
     public float maxRotX = 45f;
@@ -45,7 +46,9 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public void Update()
     {
         CameraPos();
-        EnemyHealthbarLookat();
+
+        if (canvasLookat)
+            EnemyHealthbarLookat();
 
         if (increaseRecoil)
         {
@@ -95,9 +98,15 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void EnemyHealthbarLookat()
     {
-        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        //foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        //{
+        //    enemy.GetComponent<EnemyHealth>().CanvasLookAt(transform);
+        //}
+
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            enemy.GetComponent<EnemyHealth>().CanvasLookAt(transform);
+            if (player.name != GetComponentInParent<BoltEntity>().name)
+                player.GetComponentInChildren<Healthbar>().CanvasLookAt(transform);
         }
     }
 
