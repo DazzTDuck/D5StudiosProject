@@ -1786,6 +1786,7 @@ GameObject:
   - component: {fileID: 7613218241451221596}
   - component: {fileID: 2536568368319805349}
   - component: {fileID: 5547365332188718786}
+  - component: {fileID: 8820485238222895647}
   m_Layer: 10
   m_Name: HUDCanvas
   m_TagString: Untagged
@@ -1962,6 +1963,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthbar: {fileID: 8896822404331246058}
+--- !u!114 &8820485238222895647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202377585167283769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4871b6e3a637f1a41be10fa2926a5fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 3360373550257331953}
 --- !u!1 &7345292408593306464
 GameObject:
   m_ObjectHideFlags: 0

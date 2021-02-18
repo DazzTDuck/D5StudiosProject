@@ -9,9 +9,13 @@ public class Instantiator : MonoBehaviour
     
     private void Start()
     {
+        var networkCallback = GetComponent<NetworkCallbacks>();
+
         foreach (var gameObject in objectsToInstatiateOnNetwork)
         {
-            BoltNetwork.Instantiate(gameObject);
+           var reference = BoltNetwork.Instantiate(gameObject);
+
+            if(reference.GetComponent<GameInfo>()) { var ref2 = reference.GetComponent<GameInfo>(); networkCallback.gameInfo = ref2; }         
         }
     }
 }
