@@ -228,10 +228,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void SetTagForServer()
     {
-        if (entity.IsOwner)
-        {
             tag = state.PlayerTeamTag;
-        }
     }
 
     public void SetTeamTag(int index)
