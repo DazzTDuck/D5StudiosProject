@@ -135,7 +135,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
                 BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
                 if (!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
-                if (entity.IsOwner)
+                if (boltEntity)
                 {
                     int damageToDo = damage / damageDivider;
                     if (hit.collider.GetComponent<Health>() && hit.collider.GetComponent<EnemyHealth>() && hit.collider.GetComponentInParent<EnemyHealth>())
