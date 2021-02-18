@@ -13,6 +13,9 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] float shankRate, range, damageTime;
     float nextTimeToShank;
 
+    string teamTag;
+    string enemyTeamTag;
+    
     Collider[] hitObjects;
     List<GameObject> hitEnemies = new List<GameObject>();
 
@@ -53,18 +56,20 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
-        {
-            string entityTag = hit.collider.tag;
+        {         
             BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
             if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
 
-            if(entityTag == "Enemy" && entity.IsOwner || entityTag == "EnemyHead" && entity.IsOwner)
+            if (entity.IsOwner)
             {
-                SendDamage(damage, true, boltEntity);
-            }
-            else if(entityTag == "Player" && entity.IsOwner || entityTag == "PlayerHead" && entity.IsOwner)
-            {
-                SendDamage(damage, false, boltEntity);
+                if (boltEntity.CompareTag("Enemy"))
+                {
+                    SendDamage(damage, true, boltEntity);
+                }
+                else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                {
+                    SendDamage(damage, false, boltEntity);
+                }
             }
         }
     }
@@ -88,5 +93,12 @@ public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
         Shank();
 
         StopCoroutine(nameof(WaitForAnimation));
+    }
+
+    public void SetTags()
+    {
+        teamTag = GetComponentInParent<Health>().tag;
+        if (teamTag == "Team1") { enemyTeamTag = "Team2"; }
+        else if (teamTag == "Team2") { enemyTeamTag = "Team1"; }
     }
 }

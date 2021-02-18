@@ -232,6 +232,20 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         request.PlayerEntity = GetComponentInParent<BoltEntity>();
         request.TagString = tags[index];
         request.Send();
+
+        StartCoroutine(WaitForTag(1));
+    }
+
+    IEnumerator WaitForTag(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (GetComponent<Support>()) { GetComponent<Support>().SetTags(); }
+        else if (GetComponentInChildren<Melee>()) { GetComponentInChildren<Melee>().SetTags(); }
+        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().SetTags(); }
+        else if (GetComponentInChildren<Shotgun>()) { GetComponentInChildren<Shotgun>().SetTags(); }
+
+        StopCoroutine(nameof(WaitForTag));
     }
 }
 

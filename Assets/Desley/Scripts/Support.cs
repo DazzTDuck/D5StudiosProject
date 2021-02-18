@@ -19,7 +19,9 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     float chargeTime;
 
     bool usingHeal, usingStun;
-    bool canHitPlayer;
+
+    string teamTag;
+    string enemyTeamTag;
 
     public override void Attached()
     {
@@ -46,17 +48,18 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
             else if (charging)
             {
                 if (chargeTime < minCharge) { return; }
-                InstantiateBall(ballToUse, chargeTime, canHitPlayer, false);
+                InstantiateBall(ballToUse, chargeTime, usingHeal, false);
                 charging = false;
             }
         }
     }
 
-    public void InstantiateBall(GameObject pickedBall, float finalChargeTime, bool hitPlayer, bool stunsEnemies)
+    public void InstantiateBall(GameObject pickedBall, float finalChargeTime, bool healBall, bool stunsEnemies)
     {
         var ball = BoltNetwork.Instantiate(pickedBall, firePoint.position, firePoint.rotation);
         ball.GetComponent<Balls>().SetHitDamageUI(hitDamageUI);
-        ball.GetComponent<Balls>().SetPlayerHit(hitPlayer, stunsEnemies);
+        ball.GetComponent<Balls>().SetTags(teamTag, enemyTeamTag);
+        ball.GetComponent<Balls>().SetPlayerHit(healBall, stunsEnemies);
         ball.GetComponent<Balls>().playerEntity = GetComponentInParent<BoltEntity>();
         ball.GetComponent<Rigidbody>().AddRelativeForce(0, 0, chargeForce * finalChargeTime, ForceMode.Impulse);
         chargeTime = 0;
@@ -73,15 +76,20 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             //make ball heal
             ballToUse = healBall;
-            canHitPlayer = true;
             usingHeal = true;
         }
         else
         {
             //make ball damage
             ballToUse = fireBall;
-            canHitPlayer = false;
             usingHeal = false;
         }
+    }
+
+    public void SetTags()
+    {
+        teamTag = GetComponentInParent<Health>().tag;
+        if (teamTag == "Team1") { enemyTeamTag = "Team2"; }
+        else if (teamTag == "Team2") { enemyTeamTag = "Team1"; }
     }
 }
