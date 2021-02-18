@@ -48,7 +48,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
         CameraPos();
 
         if (canvasLookat)
-            EnemyHealthbarLookat();
+            HealthbarLookAt();
 
         if (increaseRecoil)
         {
@@ -96,7 +96,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
         increaseRecoil = true;
     }
 
-    void EnemyHealthbarLookat()
+    void HealthbarLookAt()
     {
         //foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         //{
