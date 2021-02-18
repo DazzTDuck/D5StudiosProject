@@ -105,8 +105,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (player.name != GetComponentInParent<BoltEntity>().name)
-                player.GetComponentInChildren<Healthbar>().CanvasLookAt(transform);
+            player.GetComponentInChildren<Healthbar>().CanvasLookAt(transform);
         }
     }
 
