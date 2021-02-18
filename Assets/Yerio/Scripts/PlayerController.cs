@@ -229,7 +229,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     public void SetTagForServer()
     {
         StartCoroutine(WaitForTag(1));
-        tag = state.PlayerTeamTag;
+        gameObject.tag = state.PlayerTeamTag;
     }
 
     public void SetTeamTag(int index)
