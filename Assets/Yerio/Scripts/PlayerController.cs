@@ -56,6 +56,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     bool canCrouch = true;
     bool waitingForCourotine = false;
     bool isCrouching;
+    WaitForHostScreen waitForHostScreen;
 
     [Space, SerializeField] string[] tags;
 
@@ -66,9 +67,11 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (entity.IsOwner)
         {
             state.IsHost = isHost;
+            state.IsReady = false;
             state.AddCallback("IsHost", HostCallback);
         }
         rb = GetComponent<Rigidbody>();
+        waitForHostScreen = GetComponent<WaitForHostScreen>();
     }
 
     public override void SimulateOwner()
@@ -258,5 +261,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         StopCoroutine(nameof(WaitForTag));
     }
+
+    public void SetReady() { if (entity.IsOwner){ state.IsReady = true; waitForHostScreen.ReadyRequest(); } }
+    public bool GetIfReady() { return state.IsReady; }
 }
 

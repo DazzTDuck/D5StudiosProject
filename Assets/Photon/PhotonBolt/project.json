@@ -4732,6 +4732,22 @@
             "ExtrapolationMaxFrames": 9,
             "SnapMagnitude": 10.0
           }
+        },
+        {
+          "Name": "IsReady",
+          "Enabled": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "SnapMagnitude": 10.0
+          }
         }
       ],
       "PacketMaxBits": 512,
@@ -6268,6 +6284,15 @@
       },
       "Name": "GameInfoState",
       "Guid": "09d365c3-6cba-4a32-a0e7-cf0f81a566be",
+      "Groups": [
+        "Custom"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "Name": "SendReadyRequest",
+      "Guid": "aa0c0fa7-b257-4d40-8cb5-66fe26545998",
       "Groups": [
         "Custom"
       ]

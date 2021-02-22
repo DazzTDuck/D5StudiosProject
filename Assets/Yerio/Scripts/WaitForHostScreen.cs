@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
 {
@@ -21,6 +22,11 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     string playerNameLocal = "Player";
     GameInfo gameInfo;
 
+    [SerializeField] List<bool> playersReady = new List<bool>();
+    [SerializeField] bool allPlayersReady = false;
+
+    bool host;
+
     public override void Attached()
     {
         if (entity.IsOwner)
@@ -30,7 +36,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         state.IsDead = true;
 
         startGameButton.interactable = false;
-        StartCoroutine(StartButtonInteractable());
+        StartCoroutine(GetHost());
     }
     private void Start()
     {
@@ -42,7 +48,12 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         if(!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
 
         if (startGameCanvas.activeSelf)
+        {
             GetAllPlayers();
+            GetIfAllPlayersReady();
+
+            startGameButton.interactable = host && allPlayersReady;
+        }
     }
 
     public void StartGame()
@@ -89,8 +100,20 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
                     playerNamesInLobby[i].text = players[i].GetComponentInChildren<WaitForHostScreen>().playerNameText.text;
                 }             
             }
-        }
-        //Send Event To update Host Screen to corrensponding Player name      
+        }      
+    }
+
+    public void ReadyRequest()
+    {
+        var request = SendReadyRequest.Create();
+        request.Send();
+    }
+
+    public void AddPlayerReady() { playersReady.Add(true); }
+
+    public void GetIfAllPlayersReady()
+    {
+        if(playersReady.Count == players.Count) { allPlayersReady = true; } else { allPlayersReady = false; }        
     }
 
     public void ChangeNameCallback()
@@ -128,11 +151,10 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    IEnumerator StartButtonInteractable()
+    IEnumerator GetHost()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
 
-        bool host = GetComponent<PlayerController>().GetIfHost();
-        startGameButton.interactable = host;
+        host = GetComponent<PlayerController>().GetIfHost();
     }
 }

@@ -117,6 +117,17 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
+    public override void OnEvent(SendReadyRequest evnt)
+    {
+        foreach (var waitForHost in FindObjectsOfType<WaitForHostScreen>())
+        {
+            if (waitForHost.entity.IsOwner)
+            {
+                waitForHost.AddPlayerReady();
+            }       
+        }
+    }
+
     public override void OnEvent(RestartRequest evnt)
     {
         SceneManager.LoadScene(evnt.SceneIndex);
