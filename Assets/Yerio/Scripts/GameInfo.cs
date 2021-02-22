@@ -40,10 +40,12 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
     public void AddTeam1Kill()
     {
         state.Team1Kills++;
+        Debug.LogWarning("PauperNoob");
     }
     public void AddTeam2Kill()
     {
         state.Team2Kills++;
+        Debug.LogWarning("BokNoob");
     }
 
     public void SetGameStarted()
