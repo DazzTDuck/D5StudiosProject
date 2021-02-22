@@ -12,9 +12,15 @@ public class NetworkCallbacks : GlobalEventListener
 
     [HideInInspector] public EnemySpawningHandler enemySpawning;
     [HideInInspector] public GateHealth gateHealth;
-    [SerializeField] public GameInfo gameInfo;
 
+    GameInfo gameInfo;
     int connectionsAmount;
+
+    private void Update()
+    {
+        if (!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
+    }
+
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         base.SceneLoadLocalDone(scene, token);
