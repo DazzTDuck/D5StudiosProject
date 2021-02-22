@@ -59,6 +59,12 @@ public class NetworkCallbacks : GlobalEventListener
         gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
     }
 
+    public override void OnEvent(TeamKillEvent evnt)
+    {
+        if(evnt.TeamKillString == "Team1") { gameInfo.AddTeam1Kill(); }
+        else if(evnt.TeamKillString == "Team2") { gameInfo.AddTeam2Kill(); }
+    }
+
     public override void OnEvent(DestroyRequest evnt)
     {
         if (evnt.IsPlayer)

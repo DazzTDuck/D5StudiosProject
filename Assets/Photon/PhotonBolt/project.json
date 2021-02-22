@@ -6296,6 +6296,30 @@
       "Groups": [
         "Custom"
       ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "TeamKillString",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeString, bolt.compiler",
+            "MaxLength": 1
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "TeamKillEvent",
+      "Guid": "18a639f7-a966-408f-8193-9eb32133cd0c",
+      "Groups": [
+        "Custom"
+      ]
     }
   ],
   "ActiveGroup": "Custom"

@@ -70,8 +70,9 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
                     if (!killTrigger)
                     {
-                        if (enemyTeamTag == "Team1") { gameInfo.AddTeam1Kill(); }
-                        else if (enemyTeamTag == "Team2") { gameInfo.AddTeam2Kill(); }
+                        var killRequest = TeamKillEvent.Create();
+                        killRequest.TeamKillString = enemyTeamTag;
+                        killRequest.Send();
                     }
                     else
                         killTrigger = false;
