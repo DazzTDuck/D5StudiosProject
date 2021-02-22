@@ -254,6 +254,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         yield return new WaitForSeconds(0.2f);
 
+        GetComponent<Health>().SetTags();
+
         if (GetComponent<Support>()) { GetComponent<Support>().SetTags(); }
         else if (GetComponentInChildren<Melee>()) { GetComponentInChildren<Melee>().SetTags(); }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().SetTags(); }

@@ -13,9 +13,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isDeadlocal;
     bool gotShot;
 
+    GameInfo gameInfo;
+    string enemyTeamTag;
+    public bool killTrigger;
+
     private void Awake()
     {
         defaultMaxHealth = maxHealth;
+        gameInfo = GameObject.FindGameObjectWithTag("GameInfo").GetComponent<GameInfo>();
     }
 
     public override void Attached()
@@ -32,7 +37,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
 
-        if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
+        //if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
 
         if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
         {
@@ -61,6 +66,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                     GetComponent<MeshRenderer>().enabled = false;
                     GetComponent<Collider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
+
+                    if (!killTrigger)
+                    {
+                        if (enemyTeamTag == "Team1") { gameInfo.AddTeam1Kill(); }
+                        else if (enemyTeamTag == "Team2") { gameInfo.AddTeam2Kill(); }
+                    }
+                    else
+                        killTrigger = false;
 
                     //Create DestroyRequest, set entity to ent and then send
                     var request = DestroyRequest.Create();
@@ -138,4 +151,10 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public int GetCurrentHealth() { return state.PlayerHealth; }
     public float GetCurrentHealthPercentage() { return 100f / maxHealth * state.PlayerHealth; }
+
+    public void SetTags() 
+    {
+        if(tag == "Team1") { enemyTeamTag = "Team2"; }
+        else if(tag == "Team2") { enemyTeamTag = "Team1"; }
+    }
 }

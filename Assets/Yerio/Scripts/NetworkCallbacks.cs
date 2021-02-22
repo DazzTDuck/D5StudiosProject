@@ -82,7 +82,9 @@ public class NetworkCallbacks : GlobalEventListener
         }
 
         if (evnt.EntityShot)
+        {
             evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
+        }
     }
 
     public override void OnEvent(TeamTagEvent evnt)
