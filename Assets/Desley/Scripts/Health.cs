@@ -37,7 +37,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
 
-        if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
+        //if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
 
         if(maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
         {
