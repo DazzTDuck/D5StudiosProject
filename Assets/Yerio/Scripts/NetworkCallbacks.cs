@@ -159,14 +159,16 @@ public class NetworkCallbacks : GlobalEventListener
             return;
         }
 
-        gameInfo.SetGameStarted();
+        if (evnt.Entity.IsOwner)
+            gameInfo.SetGameStarted();
+
         foreach (var host in FindObjectsOfType<WaitForHostScreen>())
         {
             if (host.entity.IsOwner)
             {
                 host.CloseScreen();
                 host.entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
-            }              
+            }
         }
     }
    

@@ -20,7 +20,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Awake()
     {
         defaultMaxHealth = maxHealth;
-        gameInfo = GameObject.FindGameObjectWithTag("GameInfo").GetComponent<GameInfo>();
     }
 
     public override void Attached()
@@ -35,6 +34,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
+        if (!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
+
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
 
         //if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
