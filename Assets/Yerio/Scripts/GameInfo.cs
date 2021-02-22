@@ -39,11 +39,13 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 
     public void AddTeam1Kill()
     {
-        state.Team1Kills++;
+        if(entity.IsOwner)
+            state.Team1Kills++;
     }
     public void AddTeam2Kill()
     {
-        state.Team2Kills++;
+        if (entity.IsOwner)
+            state.Team2Kills++;
     }
 
     public void SetGameStarted()
