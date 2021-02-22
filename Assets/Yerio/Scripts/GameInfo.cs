@@ -7,7 +7,7 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 {
     float startingTime = 300;
 
-    [SerializeField] float timer;
+    float timer;
     int team1Kills;
     int team2Kills;
 
@@ -37,17 +37,24 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
         }
     }
 
-    void Update()
+    public void AddTeam1Kill()
     {
-        //if (state.GameTimeLeft > 0 && state.GameStarted && entity.IsOwner)
-        //{
-        //    state.GameTimeLeft -= Time.deltaTime;
-        //}
+        state.Team1Kills++;
+    }
+    public void AddTeam2Kill()
+    {
+        state.Team2Kills++;
     }
 
     public void SetGameStarted()
     {
         if(!state.GameStarted) { state.GameStarted = true; }
+    }
+
+    void KillsCallback()
+    {
+        team1Kills =  state.Team1Kills;
+        team2Kills =  state.Team2Kills;
     }
 
     void TimerCallback()
@@ -67,9 +74,11 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
             {
                 state.GameTimeLeft = startingTime;
                 timer = startingTime;
-                state.AddCallback("GameTimeLeft", TimerCallback);
                 state.Team1Kills = team1Kills;
                 state.Team2Kills = team2Kills;
+                state.AddCallback("GameTimeLeft", TimerCallback);
+                state.AddCallback("Team1Kills", KillsCallback);
+                state.AddCallback("Team2Kills", KillsCallback);
             }           
         }
         else
