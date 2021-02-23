@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Bolt;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Bolt;
-using UdpKit;
 
 public class NetworkCallbacks : GlobalEventListener
 {
@@ -14,7 +11,6 @@ public class NetworkCallbacks : GlobalEventListener
     [HideInInspector] public GateHealth gateHealth;
 
     GameInfo gameInfo;
-    int connectionsAmount;
 
     private void Update()
     {
@@ -28,11 +24,6 @@ public class NetworkCallbacks : GlobalEventListener
 
         base.SceneLoadLocalDone(scene, token);
         var player = BoltNetwork.Instantiate(cameraPrefab, GetNewSpawnpoint(), Quaternion.identity);
-
-        foreach (var connection in BoltNetwork.Connections)
-        {
-            connectionsAmount++;
-        }
     }
 
     public void SpawnPlayer(GameObject objectToRemove, GameObject newPrefab)
@@ -47,12 +38,12 @@ public class NetworkCallbacks : GlobalEventListener
         {
             if (player.IsOwner)
             {
-                Debug.LogWarning("ConnectionId");
+                //Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
 
-        if (connectionsAmount == 0)
+        if(player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
         {
             player.GetComponentInChildren<PlayerController>().SetHost();
         }
