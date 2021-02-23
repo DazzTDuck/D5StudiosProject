@@ -13,6 +13,22 @@ public class NetworkCallbacks : GlobalEventListener
 
     GameInfo gameInfo;
 
+    static BoltConnection yourLastConnection;
+    public static NetworkCallbacks instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Update()
     {
         if (!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
@@ -37,17 +53,20 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Connections)
         {
-            if (player.IsOwner && player.Source != null)
+            if(yourLastConnection == null) { yourLastConnection = player.Source; }
+
+            if (player.IsOwner && yourLastConnection == player.Source)
             {
                 Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
 
-        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null && player.Source == null)
+        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
         {
             if (player.IsOwner)
             {
+                yourLastConnection = player.Source;
                 player.GetComponentInChildren<PlayerController>().SetHost();
             }         
         }
