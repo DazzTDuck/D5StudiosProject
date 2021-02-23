@@ -13,21 +13,20 @@ public class NetworkCallbacks : GlobalEventListener
 
     GameInfo gameInfo;
 
-    static BoltConnection yourLastConnection;
-    public static NetworkCallbacks instance;
+    //public static NetworkCallbacks instance;
 
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+    //private void Awake()
+    //{
+    //    if (instance == null)
+    //        instance = this;
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
 
-        DontDestroyOnLoad(gameObject);
-    }
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     private void Update()
     {
@@ -51,13 +50,20 @@ public class NetworkCallbacks : GlobalEventListener
         request.Send();
         var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
+        //set host on restart
         foreach (var connection in BoltNetwork.Connections)
         {
-            if(yourLastConnection == null) { yourLastConnection = player.Source; }
-
-            if (player.IsOwner && yourLastConnection == player.Source)
+            if (player.IsOwner && connection.ConnectionType == UdpConnectionType.Direct)
             {
-                Debug.LogWarning("ConnectionId");
+                player.GetComponentInChildren<PlayerController>().SetHost();
+            }
+        }
+
+        foreach (var connection in BoltNetwork.Connections)
+        {
+            if (player.IsOwner && !player.GetComponentInChildren<PlayerController>().GetIfHost())
+            {
+                //Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
@@ -66,7 +72,6 @@ public class NetworkCallbacks : GlobalEventListener
         {
             if (player.IsOwner)
             {
-                yourLastConnection = player.Source;
                 player.GetComponentInChildren<PlayerController>().SetHost();
             }         
         }
