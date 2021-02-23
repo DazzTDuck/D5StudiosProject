@@ -50,18 +50,9 @@ public class NetworkCallbacks : GlobalEventListener
         request.Send();
         var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
-        //set host on restart
         foreach (var connection in BoltNetwork.Connections)
         {
-            if (player.IsOwner && connection.ConnectionType == UdpConnectionType.Direct)
-            {
-                player.GetComponentInChildren<PlayerController>().SetHost();
-            }
-        }
-
-        foreach (var connection in BoltNetwork.Connections)
-        {
-            if (player.IsOwner && !player.GetComponentInChildren<PlayerController>().GetIfHost())
+            if (player.IsOwner && player.Source.ConnectionId == connection.ConnectionId)
             {
                 //Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
