@@ -77,15 +77,7 @@ public class NetworkCallbacks : GlobalEventListener
 
         //enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
         //gateHealth.SetPlayer(player.GetComponentInChildren<PlayerController>());
-        //gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
-
-        foreach (var info in FindObjectsOfType<GameInfo>())
-        {
-            if (info.GetComponent<BoltEntity>().IsOwner)
-            {
-                info.SetPlayer(player.GetComponentInChildren<PlayerController>());
-            }          
-        }
+        gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
     }
 
     public override void OnEvent(TeamKillEvent evnt)
