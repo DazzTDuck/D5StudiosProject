@@ -15,10 +15,9 @@ public class Instantiator : MonoBehaviour
         {
             if(gameObject.GetComponent<GameInfo>() && FindObjectOfType<GameInfo>())
             {
-                return;
+                continue;
             }
-
-           var reference = BoltNetwork.Instantiate(gameObject);
+            var reference = BoltNetwork.Instantiate(gameObject);
         }
     }
 }
