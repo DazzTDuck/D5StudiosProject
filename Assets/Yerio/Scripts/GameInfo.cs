@@ -5,7 +5,7 @@ using Bolt;
 
 public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 {
-    float startingTime = 60;
+    float startingTime = 10;
 
     float timer;
     int team1Kills;

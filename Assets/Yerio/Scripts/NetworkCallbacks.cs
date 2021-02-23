@@ -36,16 +36,21 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Connections)
         {
-            if (player.IsOwner)
+            Debug.LogWarning(connection);
+
+            if (player.IsOwner && player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
             {
                 //Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
 
-        if(player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
+        if(player.GetComponentInChildren<PlayerController>().state.ConnectionID == null && !player.GetComponentInChildren<PlayerController>().GetIfHost())
         {
-            player.GetComponentInChildren<PlayerController>().SetHost();
+            if (player.IsOwner)
+            {
+                player.GetComponentInChildren<PlayerController>().SetHost();
+            }         
         }
 
         //enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
