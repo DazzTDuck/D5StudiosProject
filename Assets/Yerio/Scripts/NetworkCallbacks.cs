@@ -52,14 +52,20 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Clients)
         {
-            if (connection)
+            //if (connection)
+            //{
+            //    if (player.IsOwner)
+            //    {
+            //        //Debug.LogWarning("ConnectionId");
+            //        player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
+            //    }
+            //}       
+
+            if (player.IsOwner)
             {
-                if (player.IsOwner)
-                {
-                    //Debug.LogWarning("ConnectionId");
-                    player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
-                }
-            }               
+                //Debug.LogWarning("ConnectionId");
+                player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
+            }
         }
 
         if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
