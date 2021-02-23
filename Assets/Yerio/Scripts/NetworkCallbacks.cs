@@ -54,13 +54,10 @@ public class NetworkCallbacks : GlobalEventListener
         {
             if (connection)
             {
-                if (connection.UserData == player.Source.UserData)
+                if (player.IsOwner)
                 {
-                    if (player.IsOwner)
-                    {
-                        //Debug.LogWarning("ConnectionId");
-                        player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
-                    }
+                    //Debug.LogWarning("ConnectionId");
+                    player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
                 }
             }               
         }
