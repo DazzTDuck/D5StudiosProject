@@ -13,8 +13,6 @@ public class NetworkCallbacks : GlobalEventListener
 
     GameInfo gameInfo;
 
-    static UdpEndPoint localEndpoint;
-
     private void Update()
     {
         if (!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
@@ -39,12 +37,7 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Connections)
         {
-            if (player.IsOwner && localEndpoint == null)
-            {
-                localEndpoint = connection.RemoteEndPoint;
-            }
-
-            if (player.IsOwner && localEndpoint == connection.RemoteEndPoint)
+            if (player.IsOwner)
             {
                 Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
@@ -55,8 +48,7 @@ public class NetworkCallbacks : GlobalEventListener
         {
             if (player.IsOwner)
             {
-                localEndpoint = UdpEndPoint.Any;
-                player.GetComponentInChildren<PlayerController>().SetHost();
+                //player.GetComponentInChildren<PlayerController>().SetHost();
             }         
         }
 
