@@ -50,13 +50,19 @@ public class NetworkCallbacks : GlobalEventListener
         request.Send();
         var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
-        foreach (var connection in BoltNetwork.Connections)
+        foreach (var connection in BoltNetwork.Clients)
         {
-            if (player.IsOwner && player.Source.ConnectionType == connection.ConnectionType)
+            if (connection)
             {
-                //Debug.LogWarning("ConnectionId");
-                player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
-            }
+                if (connection.UserData == player.Source.UserData)
+                {
+                    if (player.IsOwner)
+                    {
+                        //Debug.LogWarning("ConnectionId");
+                        player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
+                    }
+                }
+            }               
         }
 
         if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
@@ -64,12 +70,14 @@ public class NetworkCallbacks : GlobalEventListener
             if (player.IsOwner)
             {
                 player.GetComponentInChildren<PlayerController>().SetHost();
-            }         
+            }
         }
 
         //enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
         //gateHealth.SetPlayer(player.GetComponentInChildren<PlayerController>());
-        gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
+
+        if (gameInfo.GetComponent<BoltEntity>().IsOwner)
+            gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
     }
 
     public override void OnEvent(TeamKillEvent evnt)
