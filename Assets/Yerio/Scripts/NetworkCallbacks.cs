@@ -54,19 +54,11 @@ public class NetworkCallbacks : GlobalEventListener
         {
             if (player.IsOwner && player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
             {
-                //Debug.LogWarning("ConnectionId");
-                foreach (var p in FindObjectsOfType<PlayerController>())
-                {
-                    if(p.state.ConnectionID != connection.ConnectionId.ToString() && p.GetComponent<BoltEntity>().IsOwner)
-                    {
-                        player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
-                    }
-                }
-                
+                player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
 
-        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == "host" || player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
+        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
         {
             if (player.IsOwner)
             {

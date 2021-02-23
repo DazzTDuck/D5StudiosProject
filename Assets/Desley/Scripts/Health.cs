@@ -36,8 +36,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
 
-        if (entity.IsOwner)
-            healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
+        healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
 
         //if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
 
