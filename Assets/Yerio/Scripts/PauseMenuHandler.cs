@@ -45,7 +45,7 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
         var request = DisconnectEvent.Create();
         request.EnitityToDisconnect = entity;
 
-        if(state.ConnectionID == null)
+        if(state.ConnectionID == "host")
         {
             request.DisconnectEveryone = true;
         }
