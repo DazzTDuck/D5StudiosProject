@@ -1,4 +1,5 @@
 ﻿using Bolt;
+using UdpKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,8 @@ public class NetworkCallbacks : GlobalEventListener
     [HideInInspector] public GateHealth gateHealth;
 
     GameInfo gameInfo;
+
+    static UdpEndPoint localEndpoint;
 
     private void Update()
     {
@@ -36,19 +39,23 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Connections)
         {
-            Debug.LogWarning(connection);
-
-            if (player.IsOwner && player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
+            if (player.IsOwner && localEndpoint == null)
             {
-                //Debug.LogWarning("ConnectionId");
+                localEndpoint = connection.RemoteEndPoint;
+            }
+
+            if (player.IsOwner && localEndpoint == connection.RemoteEndPoint)
+            {
+                Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
 
-        if(player.GetComponentInChildren<PlayerController>().state.ConnectionID == null && !player.GetComponentInChildren<PlayerController>().GetIfHost())
+        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
         {
             if (player.IsOwner)
             {
+                localEndpoint = UdpEndPoint.Any;
                 player.GetComponentInChildren<PlayerController>().SetHost();
             }         
         }
