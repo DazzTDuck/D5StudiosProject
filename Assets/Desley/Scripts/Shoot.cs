@@ -48,18 +48,21 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         CheckFireModeInput();
         CheckReloadInput();
 
-        if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
+        if (entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
-            currentBulletCount--;
-            sprayPatternIndex++;
-            state.Animator.ResetTrigger("Shoot");
-            ShootRaycast();
-            InstantiateEffect();
-            recoilResetTime = recoilResetAddTime;
-            nextTimeToShoot = Time.time + 1f / fireRate;
-            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
-            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
-            nextShot = false;
+            if (isShooting || nextShot)
+            {
+                currentBulletCount--;
+                sprayPatternIndex++;
+                state.Animator.ResetTrigger("Shoot");
+                ShootRaycast();
+                InstantiateEffect();
+                recoilResetTime = recoilResetAddTime;
+                nextTimeToShoot = Time.time + 1f / fireRate;
+                weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
+                cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
+                nextShot = false;
+            }
         }
 
         recoilResetTime -= Time.deltaTime;
@@ -228,6 +231,14 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 count++;
             }
         }
+    }
+
+    public void HealingStim(int heal)
+    {
+        var request = HealRequest.Create();
+        request.EntityShot = GetComponentInParent<BoltEntity>();
+        request.Healing = heal;
+        request.Send();
     }
 
     public void StartAccuracyStim(float time) 

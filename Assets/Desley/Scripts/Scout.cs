@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
+public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
 
@@ -39,26 +39,35 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
     float nextTimeToShoot;
     bool isShooting;
     bool nextShot;
+    bool shootingDisabled;
 
     string teamTag;
     string enemyTeamTag;
+
+    [Space, SerializeField] GameObject knife;
+    [SerializeField] Transform[] throwPoints;
+    [SerializeField] float force;
+
 
     private void Update()
     {
         CheckFireModeInput();
         CheckReloadInput();
 
-        if (isShooting && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead || nextShot && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
+        if(!shootingDisabled && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
-            state.Animator.ResetTrigger("Shoot");
-            state.Animator.SetTrigger("Shoot");
-            ShootRaycast();
-            InstantiateEffect(); 
-            nextTimeToShoot = Time.time + 1f / fireRate;
-            weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, 0);
-            cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, 0);
-            nextShot = false;
-            currentBulletCount--;
+            if (isShooting || nextShot)
+            {
+                state.Animator.ResetTrigger("Shoot");
+                state.Animator.SetTrigger("Shoot");
+                ShootRaycast();
+                InstantiateEffect();
+                nextTimeToShoot = Time.time + 1f / fireRate;
+                weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, 0);
+                cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, 0);
+                nextShot = false;
+                currentBulletCount--;
+            }
         }
     }
 
@@ -174,6 +183,18 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
         }   
     }
 
+    public void ThrowKnives()
+    {
+        StartCoroutine(DisableShooting(.5f));
+
+        foreach(Transform point in throwPoints)
+        {
+            var kniev = BoltNetwork.Instantiate(knife, point.position, point.rotation);
+            kniev.GetComponent<ThrowingKnife>().SetTags(teamTag, enemyTeamTag);
+            kniev.GetComponent<Rigidbody>().AddForce(0, 0, force, ForceMode.Impulse);
+        }
+    }
+
     void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
     {
         var request = DamageRequest.Create();
@@ -213,6 +234,17 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
         reloadingText.SetActive(false);
 
         StopCoroutine(nameof(Reload));
+    }
+
+    public IEnumerator DisableShooting(float time)
+    {
+        shootingDisabled = true;
+
+        yield return new WaitForSeconds(time);
+
+        shootingDisabled = false;
+
+        StopCoroutine(nameof(DisableShooting));
     }
 
     public void ResetAmmo()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee : Bolt.EntityBehaviour<IPlayerControllerState>
+public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
     [SerializeField] Camera cam;

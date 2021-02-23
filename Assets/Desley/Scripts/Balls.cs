@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Balls : Bolt.EntityBehaviour<IFireBallState>
+public class Balls : Bolt.EntityBehaviour<IProjectileState>
 {
     [SerializeField] int playerLayer;
     bool stunsEnemies;
@@ -35,7 +35,7 @@ public class Balls : Bolt.EntityBehaviour<IFireBallState>
     public override void Attached()
     {
         base.Attached();
-        state.SetTransforms(state.FireBallTransform, transform);
+        state.SetTransforms(state.ProjectileTransform, transform);
     }
 
     private void OnCollisionEnter(Collision collision)

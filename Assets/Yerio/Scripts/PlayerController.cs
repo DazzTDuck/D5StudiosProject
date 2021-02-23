@@ -32,7 +32,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] GameObject cam;
     [SerializeField] GameObject weaponCam;
     [SerializeField] Shoot shoot;
-    [SerializeField] Shotgun shotgun;
+    [SerializeField] Scout shotgun;
 
     [HideInInspector]
     public Rigidbody rb;
@@ -257,9 +257,9 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         GetComponent<Health>().SetTags();
 
         if (GetComponent<Support>()) { GetComponent<Support>().SetTags(); }
-        else if (GetComponentInChildren<Melee>()) { GetComponentInChildren<Melee>().SetTags(); }
+        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().SetTags(); }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().SetTags(); }
-        else if (GetComponentInChildren<Shotgun>()) { GetComponentInChildren<Shotgun>().SetTags(); }
+        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().SetTags(); }
 
         StopCoroutine(nameof(WaitForTag));
     }
