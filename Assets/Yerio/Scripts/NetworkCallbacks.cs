@@ -59,7 +59,7 @@ public class NetworkCallbacks : GlobalEventListener
             }
         }
 
-        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID != player.Source.ConnectionId.ToString())
+        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
         {
             if (player.IsOwner)
             {
