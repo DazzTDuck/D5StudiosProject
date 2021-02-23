@@ -14,6 +14,7 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
     public override void Attached()
     {
+        base.Attached();
         state.SetTransforms(state.ProjectileTransform, transform);
     }
 
@@ -24,8 +25,8 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag(teamTag) || collision.collider.GetComponentInParent<Health>().CompareTag(teamTag))
-            return;
+        //if (collision.collider.CompareTag(teamTag) || collision.collider.GetComponentInParent<Health>().CompareTag(teamTag))
+        //    return;
 
         if (!collided)
         {
@@ -39,22 +40,27 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
         BoltEntity boltEntity = objectHit.GetComponent<BoltEntity>();
         if (!boltEntity) { boltEntity = objectHit.GetComponentInParent<BoltEntity>(); }
 
-        if (objectHit.CompareTag("Enemy"))
+        if(boltEntity)
         {
-            SendDamage(damage, true, boltEntity);
+            if (objectHit.CompareTag("Enemy"))
+            {
+                SendDamage(damage, true, boltEntity);
+            }
+            else if (objectHit.CompareTag("EnemyHead"))
+            {
+                SendDamage(damage * hsMultiplier, true, boltEntity);
+            }
+            else if (objectHit.CompareTag(enemyTeamTag))
+            {
+                SendDamage(damage, false, boltEntity);
+            }
+            else if (objectHit.GetComponentInParent<Health>().CompareTag(enemyTeamTag))
+            {
+                SendDamage(damage * hsMultiplier, false, boltEntity);
+            }
         }
-        else if (objectHit.CompareTag("EnemyHead"))
-        {
-            SendDamage(damage * hsMultiplier, true, boltEntity);
-        }
-        else if (objectHit.CompareTag(enemyTeamTag))
-        {
-            SendDamage(damage, false, boltEntity);
-        }
-        else if (objectHit.GetComponentInParent<Health>().CompareTag(enemyTeamTag))
-        {
-            SendDamage(damage * hsMultiplier, false, boltEntity);
-        }
+        else
+            DestroyKnife();
     }
 
     void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)

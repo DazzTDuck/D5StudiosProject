@@ -191,7 +191,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             var kniev = BoltNetwork.Instantiate(knife, point.position, point.rotation);
             kniev.GetComponent<ThrowingKnife>().SetTags(teamTag, enemyTeamTag);
-            kniev.GetComponent<Rigidbody>().AddForce(0, 0, force, ForceMode.Impulse);
+            kniev.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
         }
     }
 
