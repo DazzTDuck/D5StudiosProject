@@ -52,7 +52,13 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Connections)
         {
-            if (player.IsOwner && player.Source.ConnectionId == connection.ConnectionId)
+            //if (player.IsOwner && player.Source.ConnectionType == connection.ConnectionType)
+            //{
+            //    //Debug.LogWarning("ConnectionId");
+            //    player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
+            //}
+
+            if (player.IsOwner)
             {
                 //Debug.LogWarning("ConnectionId");
                 player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
