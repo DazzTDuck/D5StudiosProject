@@ -52,8 +52,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
             GetAllPlayers();
             GetIfAllPlayersReady();
 
-            //startGameButton.interactable = host && allPlayersReady;
-            startGameButton.interactable = allPlayersReady;
+            startGameButton.interactable = host && allPlayersReady;
         }
     }
 

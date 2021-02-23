@@ -48,7 +48,7 @@ public class NetworkCallbacks : GlobalEventListener
         {
             if (player.IsOwner)
             {
-                //player.GetComponentInChildren<PlayerController>().SetHost();
+                player.GetComponentInChildren<PlayerController>().SetHost();
             }         
         }
 

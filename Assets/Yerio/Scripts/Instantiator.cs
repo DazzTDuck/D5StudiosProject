@@ -13,10 +13,6 @@ public class Instantiator : MonoBehaviour
 
         foreach (var gameObject in objectsToInstatiateOnNetwork)
         {
-            if(gameObject.GetComponent<GameInfo>() && FindObjectOfType<GameInfo>())
-            {
-                continue;
-            }
             var reference = BoltNetwork.Instantiate(gameObject);
         }
     }

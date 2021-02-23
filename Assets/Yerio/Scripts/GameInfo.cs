@@ -76,24 +76,22 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 
         isHost = player.GetIfHost();
 
-        if (entity.IsOwner)
-        {
-            state.GameTimeLeft = startingTime;
-            timer = startingTime;
-            state.Team1Kills = team1Kills;
-            state.Team2Kills = team2Kills;
-            state.AddCallback("GameTimeLeft", TimerCallback);
-            state.AddCallback("Team1Kills", KillsCallback);
-            state.AddCallback("Team2Kills", KillsCallback);
-        }
-
         if (isHost)
         {
-                     
+            if (entity.IsOwner)
+            {
+                state.GameTimeLeft = startingTime;
+                timer = startingTime;
+                state.Team1Kills = team1Kills;
+                state.Team2Kills = team2Kills;
+                state.AddCallback("GameTimeLeft", TimerCallback);
+                state.AddCallback("Team1Kills", KillsCallback);
+                state.AddCallback("Team2Kills", KillsCallback);
+            }           
         }
         else
         {
-            //BoltNetwork.Destroy(gameObject);
+            BoltNetwork.Destroy(gameObject);
         }
     }
 }
