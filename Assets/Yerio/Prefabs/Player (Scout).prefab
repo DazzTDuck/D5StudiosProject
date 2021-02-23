@@ -2332,8 +2332,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
+      propertyPath: duration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
       propertyPath: fireRate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
@@ -2342,9 +2352,19 @@ PrefabInstance:
       objectReference: {fileID: 5909814220828917061}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
+      propertyPath: shootSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
       propertyPath: hitDamageUI
       value: 
       objectReference: {fileID: 4408299781075190026}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
+      propertyPath: reloadSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
       propertyPath: dropoffRange
@@ -2615,7 +2635,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
+      propertyPath: ultimateRechargeTime
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
       propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
@@ -2630,7 +2660,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
       propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2495190810392733194}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2495190810392733194}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
@@ -2640,8 +2680,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
       propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ThrowKnives
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendEmpoweredEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2788017870834494655, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}

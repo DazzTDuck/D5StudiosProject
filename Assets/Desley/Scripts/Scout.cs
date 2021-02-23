@@ -48,6 +48,12 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Transform[] throwPoints;
     [SerializeField] float force;
 
+    //Empower values
+    [Space, SerializeField] float duration;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float shootSpeed;
+    [SerializeField] float reloadSpeed;
+
 
     private void Update()
     {
@@ -181,6 +187,29 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                 }
             }
         }   
+    }
+
+    public void SendEmpoweredEvent()
+    {
+        var request = EmpoweredEvent.Create();
+        request.EmpoweredTeamTag = teamTag;
+        request.EmpoweredDuration = duration;
+        request.EmpoweredWalkSpeed = walkSpeed;
+        request.Send();
+    }
+
+    public void Empowered(bool started)
+    {
+        if (!started)
+        {
+            fireRate *= shootSpeed;
+            reloadTime /= reloadSpeed;
+        }
+        else
+        {
+            fireRate /= shootSpeed;
+            reloadTime *= reloadSpeed;
+        }
     }
 
     public void ThrowKnives()

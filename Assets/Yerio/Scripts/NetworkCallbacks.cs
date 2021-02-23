@@ -126,6 +126,16 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
+    public override void OnEvent(EmpoweredEvent evnt)
+    {
+        GameObject[] teammates = GameObject.FindGameObjectsWithTag(evnt.EmpoweredTeamTag);
+
+        foreach(GameObject teammate in teammates)
+        {
+            teammate.GetComponent<PlayerController>().Empower(false, evnt.EmpoweredDuration, evnt.EmpoweredWalkSpeed);
+        }
+    }
+
     public override void OnEvent(DisconnectEvent evnt)
     {
         if (!evnt.EnitityToDisconnect.IsOwner && evnt.DisconnectEveryone)

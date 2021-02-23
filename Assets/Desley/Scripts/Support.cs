@@ -14,6 +14,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [Space, SerializeField] float chargeForce;
     [SerializeField] float maxCharge, minCharge;
+    float multiplier = 1;
     bool isShooting;
     bool charging;
     float chargeTime;
@@ -22,6 +23,9 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     string teamTag;
     string enemyTeamTag;
+
+    //Empower values
+    [Space, SerializeField] float shootSpeed;
 
     public override void Attached()
     {
@@ -42,7 +46,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
             if (isShooting && entity.IsOwner && !state.IsDead)
             {
                 charging = true;
-                chargeTime += Time.deltaTime;
+                chargeTime += Time.deltaTime * multiplier;
                 chargeTime = Mathf.Clamp(chargeTime, 0, maxCharge);
             }
             else if (charging)
@@ -83,6 +87,18 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
             //make ball damage
             ballToUse = fireBall;
             usingHeal = false;
+        }
+    }
+    
+    public void Empowered(bool started)
+    {
+        if (!started)
+        {
+            multiplier *= shootSpeed;
+        }
+        else
+        {
+            multiplier /= shootSpeed;
         }
     }
 

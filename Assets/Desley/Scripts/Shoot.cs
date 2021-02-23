@@ -43,6 +43,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
+    //Empower values
+    [Space, SerializeField] float shootSpeed;
+    [SerializeField] float reloadSpeed;
+
     private void Update()
     {
         CheckFireModeInput();
@@ -172,6 +176,20 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Send();
 
         hitDamageUI.SendDamage(damage, true);
+    }
+
+    public void Empowered(bool started)
+    {
+        if (!started)
+        {
+            fireRate *= shootSpeed;
+            reloadTime /= reloadSpeed;
+        }
+        else
+        {
+            fireRate /= shootSpeed;
+            reloadTime *= reloadSpeed;
+        }
     }
 
     void InstantiateEffect()
