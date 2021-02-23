@@ -14,6 +14,14 @@ public class Instantiator : MonoBehaviour
         foreach (var gameObject in objectsToInstatiateOnNetwork)
         {
             var reference = BoltNetwork.Instantiate(gameObject);
+
+            if (reference.GetComponent<GameInfo>())
+            {
+                if (!FindObjectOfType<GameInfo>().entity.IsOwner)
+                {
+                    BoltNetwork.Destroy(reference);
+                }
+            }
         }
     }
 }
