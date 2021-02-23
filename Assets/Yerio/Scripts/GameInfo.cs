@@ -12,7 +12,7 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
     int team2Kills;
 
     [SerializeField] PlayerController player;
-    bool isHost;
+    [SerializeField] bool isHost;
 
     public override void Attached()
     {
@@ -73,6 +73,8 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
     IEnumerator StartDelay()
     {
         yield return new WaitUntil(() => player);
+
+        yield return new WaitForSeconds(2f);
 
         isHost = player.GetIfHost();
 

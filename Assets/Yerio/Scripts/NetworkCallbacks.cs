@@ -1,4 +1,5 @@
 ﻿using Bolt;
+using System.Collections;
 using UdpKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -50,26 +51,33 @@ public class NetworkCallbacks : GlobalEventListener
         request.Send();
         var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
-        foreach (var connection in BoltNetwork.Connections)
+        if (!player.GetComponentInChildren<PlayerController>().GetIfHost())
         {
-            if (player.IsOwner && player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
-            {
-                player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
-            }
+            StartCoroutine(CheckName(player));
         }
 
-        if (player.GetComponentInChildren<PlayerController>().state.ConnectionID == null)
+        foreach (var connection in BoltNetwork.Connections)
         {
-            if (player.IsOwner)
+            if (player.IsOwner && !player.GetComponent<PlayerController>().GetIfHost())
             {
-                player.GetComponentInChildren<PlayerController>().SetConnectionID("host");
-                player.GetComponentInChildren<PlayerController>().SetHost();
+                player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
             }
         }
 
         //enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
         //gateHealth.SetPlayer(player.GetComponentInChildren<PlayerController>());
         gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
+    }
+
+    IEnumerator CheckName(BoltEntity entity)
+    {
+        yield return new WaitUntil(() => entity.GetComponentInChildren<WaitForHostScreen>().CheckFirstPlayer());
+
+        if (entity.IsOwner)
+        {
+            entity.GetComponentInChildren<PlayerController>().SetHost();
+            entity.GetComponentInChildren<WaitForHostScreen>().SendChangeNameRequest("PlayerHost");
+        }
     }
 
     public override void OnEvent(TeamKillEvent evnt)
