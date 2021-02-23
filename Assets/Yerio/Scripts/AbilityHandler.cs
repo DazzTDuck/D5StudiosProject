@@ -22,23 +22,28 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] GameObject ultimateIcon;
     [SerializeField] TMP_Text ultimateChargePercentageText;
 
+    [Header("--Input Names--")]
+    [SerializeField] string Ability1Input = "AbilityOne";
+    [SerializeField] string Ability2Input = "AbilityTwo";
+    [SerializeField] string UltimateInput = "Ultimate";
+
     [Header("Timers")]
     [SerializeField] Timer ability1Timer;
     [SerializeField] Timer ability2Timer;
     [SerializeField] Timer ultimateTimer;
     [SerializeField] Timer betweenAbilitesTimer;
 
-    [Header("Activatable")]
+    [Header("--Activatable--")]
     [SerializeField] bool abilityOneActivatable;
     [SerializeField] bool abilityTwoActivatable;
     [SerializeField] bool ultimateActivatable;
 
-    [Header("Actions")]
+    [Header("--Actions--")]
     [SerializeField] UnityEvent ability1OnClick;
     [SerializeField] UnityEvent ability2OnClick;
     [SerializeField] UnityEvent ultimateOnClick;
 
-    [Header("Cooldowns")]
+    [Header("--Cooldowns--")]
     [SerializeField] float ablility1RechargeTime;
     [SerializeField] float ablility2RechargeTime;
     [SerializeField] float ultimateRechargeTime;
@@ -171,9 +176,9 @@ public class AbilityHandler : MonoBehaviour
 
     public void GetAllInputs()
     {
-        pressedAblility1 = Input.GetButtonDown("AbilityOne");
-        pressedAblility2 = Input.GetButtonDown("AbilityTwo");
-        pressedUltimate = Input.GetButtonDown("Ultimate");
+        pressedAblility1 = Input.GetButtonDown(Ability1Input);
+        pressedAblility2 = Input.GetButtonDown(Ability2Input);
+        pressedUltimate = Input.GetButtonDown(UltimateInput);
     }
 
     public float GetPercentage(float maxValue, float currentValue)
@@ -195,5 +200,11 @@ public class AbilityHandler : MonoBehaviour
         }
         if (!abilityOneActivatable) { ability1TimerOverlay.gameObject.SetActive(true); }
         if (!abilityTwoActivatable) { ability2TimerOverlay.gameObject.SetActive(true); }
+    }
+
+    public void ResetTimers()
+    {
+        ability1Timer.ResetTimer();
+        ability2Timer.ResetTimer();
     }
 }

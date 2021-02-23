@@ -16,7 +16,7 @@ public class KillTrigger : MonoBehaviour
             //Create DamageRequest, set entity to ent and Damage to damage, then send
             var request = DamageRequest.Create();
             request.EntityShot = health.GetComponentInParent<BoltEntity>();
-            request.Damage = 100;
+            request.Damage = 200;
             request.Send();
             requestSent = true;
             StartCoroutine(ResetRequest());
@@ -25,7 +25,7 @@ public class KillTrigger : MonoBehaviour
 
     IEnumerator ResetRequest()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         requestSent = false;
     }

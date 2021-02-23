@@ -23,6 +23,9 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         base.SceneLoadLocalDone(scene, token);
         var player = BoltNetwork.Instantiate(cameraPrefab, GetNewSpawnpoint(), Quaternion.identity);
 
@@ -73,6 +76,11 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
             player.GetComponentInChildren<Rigidbody>().useGravity = true;
+
+            if(player.GetComponentInChildren<Shoot>()) { player.GetComponentInChildren<Shoot>().ResetAmmo(); }
+            if(player.GetComponentInChildren<Shotgun>()) { player.GetComponentInChildren<Shotgun>().ResetAmmo(); }
+
+            player.GetComponentInChildren<AbilityHandler>().ResetTimers();
             player.GetComponentInChildren<Health>().ResetHealth();
             return;
         }
@@ -144,7 +152,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(RestartRequest evnt)
     {
-        SceneManager.LoadScene(evnt.SceneIndex);
+        BoltNetwork.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public override void OnEvent(HealRequest evnt)

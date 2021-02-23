@@ -30,6 +30,8 @@ public class Timer : MonoBehaviour
         }
     }
 
+    public void ResetTimer() { timer = 0.25f; }
+
     public bool IsTimerComplete()
     {
         return timer <= 0;

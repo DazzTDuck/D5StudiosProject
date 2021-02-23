@@ -206,7 +206,7 @@ public class Shotgun : Bolt.EntityBehaviour<IPlayerControllerState>
 
         yield return new WaitForSeconds(time);
 
-        currentBulletCount = maxBulletCount;
+        ResetAmmo();
         nextShot = false;
         reloading = false;
 

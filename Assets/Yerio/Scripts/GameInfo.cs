@@ -5,7 +5,7 @@ using Bolt;
 
 public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 {
-    float startingTime = 300;
+    float startingTime = 60;
 
     float timer;
     int team1Kills;
@@ -34,6 +34,12 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
         if (state.GameTimeLeft > 0 && state.GameStarted && entity.IsOwner)
         {
             state.GameTimeLeft -= Time.deltaTime;
+        }
+
+        if(state.GameTimeLeft <= 0 && entity.IsOwner && state.GameStarted)
+        {
+            var request = RestartRequest.Create();
+            request.Send();
         }
     }
 
