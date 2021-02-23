@@ -52,15 +52,6 @@ public class NetworkCallbacks : GlobalEventListener
 
         foreach (var connection in BoltNetwork.Clients)
         {
-            //if (connection)
-            //{
-            //    if (player.IsOwner)
-            //    {
-            //        //Debug.LogWarning("ConnectionId");
-            //        player.GetComponentInChildren<PlayerController>().SetConnectionID(connection.ConnectionId.ToString());
-            //    }
-            //}       
-
             if (player.IsOwner)
             {
                 //Debug.LogWarning("ConnectionId");
@@ -78,9 +69,7 @@ public class NetworkCallbacks : GlobalEventListener
 
         //enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
         //gateHealth.SetPlayer(player.GetComponentInChildren<PlayerController>());
-
-        if (gameInfo.GetComponent<BoltEntity>().IsOwner)
-            gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
+        gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
     }
 
     public override void OnEvent(TeamKillEvent evnt)

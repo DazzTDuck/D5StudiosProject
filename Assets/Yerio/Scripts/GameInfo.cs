@@ -11,7 +11,7 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
     int team1Kills;
     int team2Kills;
 
-    PlayerController player;
+    [SerializeField] PlayerController player;
     bool isHost;
 
     public override void Attached()
