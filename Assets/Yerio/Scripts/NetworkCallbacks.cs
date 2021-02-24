@@ -67,6 +67,9 @@ public class NetworkCallbacks : GlobalEventListener
         //enemySpawning.SetPlayer(player.GetComponentInChildren<PlayerController>());
         //gateHealth.SetPlayer(player.GetComponentInChildren<PlayerController>());
         gameInfo.SetPlayer(player.GetComponentInChildren<PlayerController>());
+
+        Debug.LogWarning("Setting player");
+        Debug.LogWarning(player.GetComponentInChildren<PlayerController>());
     }
 
     IEnumerator CheckName(BoltEntity entity)

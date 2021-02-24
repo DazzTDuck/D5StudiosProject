@@ -101,7 +101,7 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 
     IEnumerator DeleteIfNoPlayer()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(20f);
 
         if (!player) { BoltNetwork.Destroy(gameObject); } else { StopCoroutine(nameof(DeleteIfNoPlayer)); }
     }
