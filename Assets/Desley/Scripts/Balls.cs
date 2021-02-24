@@ -111,7 +111,13 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             else if (!healBall)
             {
                 amountOfEnemiesDamaged++;
-                SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
+
+                if(entity.GetComponentInChildren<Health>())
+                    SendDamage(ballValue / distanceToEntities[entitiesDamaged], false, entity);
+                else if(entity.GetComponent<EnemyHealth>())
+                    SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
+
+
                 totalDamage += ballValue / distanceToEntities[entitiesDamaged];
                 entitiesDamaged++;
 

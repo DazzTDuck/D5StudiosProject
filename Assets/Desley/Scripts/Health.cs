@@ -68,6 +68,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                     GetComponent<Collider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
 
+                    Debug.LogWarning(killTrigger);
+
                     if (!killTrigger)
                     {
                         var killRequest = TeamKillEvent.Create();
