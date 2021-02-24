@@ -221,26 +221,9 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(WaitForCrouch));
     }
 
-    public void Empower(bool disable, float duration, float walkSpeed)
+    public void EmpowerSpeed(bool started, float walkSpeed)
     {
-        moveSpeed = !disable ? moveSpeed *= walkSpeed : moveSpeed /= walkSpeed;
-
-        if (GetComponent<Support>()) { GetComponent<Support>().Empowered(disable); }
-        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().Empowered(disable); }
-        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().Empowered(disable); }
-        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().Empowered(disable); }
-
-        if (!disable)
-            StartCoroutine(AwaitEmpowerDuration(duration, walkSpeed));
-    }
-
-    public IEnumerator AwaitEmpowerDuration(float duration, float walkSpeed)
-    {
-        yield return new WaitForSeconds(duration);
-
-        Empower(true, duration, walkSpeed);
-
-        StopCoroutine(nameof(AwaitEmpowerDuration));
+        moveSpeed = !started ? moveSpeed *= walkSpeed : moveSpeed /= walkSpeed;
     }
 
     public void SetConnectionID(string id)

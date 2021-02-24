@@ -189,27 +189,24 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         }   
     }
 
-    public void SendEmpoweredEvent()
+    public void Empower()
     {
-        var request = EmpoweredEvent.Create();
-        request.EmpoweredTeamTag = teamTag;
-        request.EmpoweredDuration = duration;
-        request.EmpoweredWalkSpeed = walkSpeed;
-        request.Send();
+        StartCoroutine(StartEmpowering());
     }
 
-    public void Empowered(bool started)
+    IEnumerator StartEmpowering()
     {
-        if (!started)
-        {
-            fireRate *= shootSpeed;
-            reloadTime /= reloadSpeed;
-        }
-        else
-        {
-            fireRate /= shootSpeed;
-            reloadTime *= reloadSpeed;
-        }
+        GetComponentInParent<PlayerController>().EmpowerSpeed(false, walkSpeed);
+        fireRate *= shootSpeed;
+        reloadTime /= reloadSpeed;
+
+        yield return new WaitForSeconds(duration);
+
+        GetComponentInParent<PlayerController>().EmpowerSpeed(true, walkSpeed);
+        fireRate /= shootSpeed;
+        reloadTime *= reloadSpeed;
+
+        StopCoroutine(nameof(StartEmpowering));
     }
 
     public void ThrowKnives()

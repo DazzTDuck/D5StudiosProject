@@ -21,9 +21,6 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     bool isShooting;
 
-    //Empower values
-    [Space, SerializeField] float shootSpeed;
-
     public void Update()
     {
         isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused();
@@ -87,18 +84,6 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Send();
 
         hitDamageUI.SendDamage(damage, true);
-    }
-
-    public void Empowered(bool started)
-    {
-        if (!started)
-        {
-            shankRate *= shootSpeed;
-        }
-        else
-        {
-            shankRate /= shootSpeed;
-        }
     }
 
     public IEnumerator WaitForAnimation(float time)

@@ -24,9 +24,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
-    //Empower values
-    [Space, SerializeField] float shootSpeed;
-
     public override void Attached()
     {
         base.Attached();
@@ -87,18 +84,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
             //make ball damage
             ballToUse = fireBall;
             usingHeal = false;
-        }
-    }
-    
-    public void Empowered(bool started)
-    {
-        if (!started)
-        {
-            multiplier *= shootSpeed;
-        }
-        else
-        {
-            multiplier /= shootSpeed;
         }
     }
 
