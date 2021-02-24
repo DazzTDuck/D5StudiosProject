@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75601f460e04ec649a67d2e817a72065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthbar: {fileID: 0}
+  healthbar: {fileID: 8883643550420236060}
   animator: {fileID: 4045349615693939769}
   maxHealth: 100
   killTrigger: 0
@@ -429,7 +429,6 @@ MonoBehaviour:
   chargeForce: 20
   maxCharge: 3
   minCharge: 0.5
-  shootSpeed: 2
 --- !u!114 &8883643550420236060
 MonoBehaviour:
   m_ObjectHideFlags: 0
