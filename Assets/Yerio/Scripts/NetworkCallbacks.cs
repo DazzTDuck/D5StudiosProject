@@ -103,6 +103,9 @@ public class NetworkCallbacks : GlobalEventListener
 
             player.GetComponentInChildren<AbilityHandler>().ResetTimers();
             player.GetComponentInChildren<Health>().ResetHealth();
+
+            if (!evnt.KillTrigger) { player.GetComponentInChildren<Health>().AddTeamKill(); }
+
             return;
         }
 
@@ -125,9 +128,6 @@ public class NetworkCallbacks : GlobalEventListener
         if (evnt.EntityShot)
         {
             evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
-
-            if (!evnt.KillTrigger)
-                evnt.EntityShot.GetComponentInChildren<Health>().AddTeamKill();
         }
     }
 

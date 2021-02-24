@@ -167,7 +167,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
         request.Damage = damage;
         request.IsEnemy = isEnemy;
         request.EntityShooter = playerEntity;
-        request.KillTrigger = false;
         request.Send();
     }
 

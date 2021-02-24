@@ -82,7 +82,6 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Damage = damage;
         request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
-        request.KillTrigger = false;
         request.Send();
 
         hitDamageUI.SendDamage(damage, true);

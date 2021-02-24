@@ -10,11 +10,13 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Image ability1TimerOverlay;
     [SerializeField] Animator ability1Animator;
     [SerializeField] bool ability1IsSwitch;
+    [SerializeField] bool ability1IsHold;
 
     [Space, SerializeField] GameObject ability2Button;
     [SerializeField] Image ability2TimerOverlay;
     [SerializeField] Animator ability2Animator;
     [SerializeField] bool ability2IsSwitch;
+    [SerializeField] bool ability2IsHold;
 
     [Header("--Ultimate--")]
     [SerializeField] Animator ultimateAnimator;
@@ -80,9 +82,13 @@ public class AbilityHandler : MonoBehaviour
             if (canActivateAblility1 && pressedAblility1 && !abilityActivated && abilityOneActivatable)
             {
                 ability1OnClick.Invoke();
-                abilityActivated = true;
-                timeBetweenAbilites = ability1UseTime;
 
+                if (!ability1IsHold)
+                {
+                    abilityActivated = false;
+                    timeBetweenAbilites = ability1UseTime;
+                }
+                
                 if (ability1IsSwitch)
                 {
                     switchAbility1 = !switchAbility1;
@@ -115,8 +121,12 @@ public class AbilityHandler : MonoBehaviour
             if (canActivateAblility2 && pressedAblility2 && !abilityActivated && abilityTwoActivatable)
             {
                 ability2OnClick.Invoke();
-                abilityActivated = true;
-                timeBetweenAbilites = ability2UseTime;
+
+                if (!ability2IsHold)
+                {
+                    abilityActivated = false;
+                    timeBetweenAbilites = ability2UseTime;
+                }
 
                 if (ability2IsSwitch)
                 {
@@ -187,8 +197,20 @@ public class AbilityHandler : MonoBehaviour
 
     public void GetAllInputs()
     {
-        pressedAblility1 = Input.GetButtonDown(Ability1Input);
-        pressedAblility2 = Input.GetButtonDown(Ability2Input);
+        if (ability1IsHold)
+        {
+            if(Input.GetButtonDown(Ability1Input)) { pressedAblility1 = true; } else if(!Input.GetButtonUp(Ability1Input)) { pressedAblility1 = false; }
+            if(Input.GetButtonUp(Ability1Input)) { pressedAblility1 = true; } else if (!Input.GetButtonDown(Ability1Input)) { pressedAblility1 = false; }
+        }
+        else { pressedAblility1 = Input.GetButtonDown(Ability1Input); }
+
+        if (ability2IsHold)
+        {
+            if (Input.GetButtonDown(Ability2Input)) { pressedAblility2 = true; } else if (!Input.GetButtonUp(Ability2Input)) { pressedAblility2 = false; }
+            if (Input.GetButtonUp(Ability2Input)) { pressedAblility2 = true; } else if (!Input.GetButtonDown(Ability2Input)) { pressedAblility2= false; }
+        }
+        else { pressedAblility2 = Input.GetButtonDown(Ability2Input); }
+
         pressedUltimate = Input.GetButtonDown(UltimateInput);
     }
 
