@@ -63,11 +63,13 @@ public class AbilityHandler : MonoBehaviour
     bool switchAbility1 = false;
     bool switchAbility2 = false;
 
+    bool isStunned = false;
+
     private void Update()
     {
         GetAllInputs();
 
-        if (AbilitiesActive)
+        if (AbilitiesActive && !isStunned)
         {
             if (abilityActivated)
             {
@@ -172,6 +174,15 @@ public class AbilityHandler : MonoBehaviour
         ultimateTimer.SetTimer(ultimateRechargeTime,
         () => { canActivateUltimate = true; ultimateIcon.SetActive(true); ultimateAnimator.ResetTrigger("Back"); ultimateAnimator.SetTrigger("Charged"); },
         () => { canActivateUltimate = false; });
+    }
+
+    public void PlayerStunned(float time)
+    {
+        if (!isStunned)
+        {        
+            betweenAbilitesTimer.SetTimer(time, () => { isStunned = false; });
+            isStunned = true;
+        }
     }
 
     public void GetAllInputs()
