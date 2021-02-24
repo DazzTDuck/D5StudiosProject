@@ -11,12 +11,12 @@ public class KillTrigger : MonoBehaviour
         var health = other.gameObject.GetComponent<Health>();
         if (health && !requestSent)
         {
-            health.killTrigger = true;
-
             //Create DamageRequest, set entity to ent and Damage to damage, then send
             var request = DamageRequest.Create();
             request.EntityShot = health.GetComponentInParent<BoltEntity>();
             request.Damage = 200;
+            request.IsEnemy = false;
+            request.KillTrigger = true;
             request.Send();
             requestSent = true;
             StartCoroutine(ResetRequest());

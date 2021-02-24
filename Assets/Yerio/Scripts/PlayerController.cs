@@ -133,6 +133,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator Stunned(float time)
     {
         isStunned = true;
+        GetComponentInParent<AbilityHandler>().PlayerStunned(time);
         if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
         else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }

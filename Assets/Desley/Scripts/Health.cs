@@ -15,7 +15,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
     GameInfo gameInfo;
     string enemyTeamTag;
-    public bool killTrigger;
 
     private void Awake()
     {
@@ -68,17 +67,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                     GetComponent<Collider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
 
-                    Debug.LogWarning(killTrigger);
-
-                    if (!killTrigger)
-                    {
-                        var killRequest = TeamKillEvent.Create();
-                        killRequest.TeamKillString = enemyTeamTag;
-                        killRequest.Send();
-                    }
-                    else
-                        killTrigger = false;
-
                     //Create DestroyRequest, set entity to ent and then send
                     var request = DestroyRequest.Create();
                     request.Entity = GetComponentInParent<BoltEntity>();
@@ -87,6 +75,13 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 }
             }
         }  
+    }
+
+    public void AddTeamKill()
+    {
+        var killRequest = TeamKillEvent.Create();
+        killRequest.TeamKillString = enemyTeamTag;
+        killRequest.Send();
     }
 
     public void TakeDamage(int damage)
