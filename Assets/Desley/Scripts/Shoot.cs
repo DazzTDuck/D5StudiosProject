@@ -81,7 +81,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         else if (Input.GetButtonDown("FireMode") && fullAuto && !pauseMenuHandler.GetIfPaused()) { fullAuto = false; }
 
         //check input of mouse
-        if (isStunned)
+        if (!isStunned)
         {
             if (!fullAuto)
                 isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
