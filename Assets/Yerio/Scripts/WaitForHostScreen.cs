@@ -110,7 +110,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
             if (players[0].GetComponentInChildren<PlayerController>().state.PlayerName == playerNameLocal) { return true; } else { return false; }
         }
 
-        Debug.LogWarning(players.Count);
+        //Debug.LogWarning(players.Count);
         //Debug.LogWarning(players[0].GetComponentInChildren<PlayerController>().state.PlayerName);
         return false;     
     }
