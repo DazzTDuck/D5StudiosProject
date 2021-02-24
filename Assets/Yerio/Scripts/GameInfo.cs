@@ -5,7 +5,7 @@ using Bolt;
 
 public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
 {
-    float startingTime = 100;
+    float startingTime = 10;
 
     float timer;
     int team1Kills;
@@ -17,11 +17,13 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
     public override void Attached()
     {
         StartCoroutine(StartDelay());
+        StartCoroutine(DeleteIfNoPlayer());
     }
 
     public void SetPlayer(PlayerController playerController)
     {
-        player = playerController;
+        if (!player)
+            player = playerController;
     }
 
     public float GetGameTimeLeft()
@@ -95,5 +97,12 @@ public class GameInfo : Bolt.EntityBehaviour<IGameInfoState>
         {
             BoltNetwork.Destroy(gameObject);
         }
+    }
+
+    IEnumerator DeleteIfNoPlayer()
+    {
+        yield return new WaitForSeconds(10f);
+
+        if (!player) { BoltNetwork.Destroy(gameObject); } else { StopCoroutine(nameof(DeleteIfNoPlayer)); }
     }
 }

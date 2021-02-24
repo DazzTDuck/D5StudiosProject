@@ -12,7 +12,7 @@ public class NetworkCallbacks : GlobalEventListener
     [HideInInspector] public EnemySpawningHandler enemySpawning;
     [HideInInspector] public GateHealth gateHealth;
 
-    GameInfo gameInfo;
+    [SerializeField] GameInfo gameInfo;
 
     //public static NetworkCallbacks instance;
 
