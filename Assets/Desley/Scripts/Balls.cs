@@ -78,7 +78,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
                         if (!stunsEnemies && !healBall)
                             GetDistanceToEntities(collider);
                     }
-                }
+                };
             }
 
             if (entitiesList.Count == 0)
@@ -103,16 +103,25 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
         foreach (BoltEntity entity in entitiesList)
         {
-            if (stunsEnemies)
+            if (entity.gameObject == playerEntity.gameObject)
             {
-                entity.GetComponent<EnemyMove>().StunEnemy(stunTime);
+                entitiesDamaged++;
+            }
+            else if (stunsEnemies)
+            {
+                if (entity.GetComponent<EnemyMove>())
+                    SendStun(stunTime, true, entity);
+                else if (entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                    SendStun(stunTime, false, entity);
+
+
                 entitiesDamaged++;
             }
             else if (!healBall)
             {
                 amountOfEnemiesDamaged++;
 
-                if(entity.GetComponentInChildren<Health>())
+                if(entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                     SendDamage(ballValue / distanceToEntities[entitiesDamaged], false, entity);
                 else if(entity.GetComponent<EnemyHealth>())
                     SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
@@ -131,13 +140,24 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             }
             else if (healBall)
             {
-                SendHealing(ballValue, entity);
+                if(entity.GetComponentInChildren<Health>().CompareTag(teamTag))
+                    SendHealing(ballValue, entity);
+
                 entitiesDamaged++;
             }
         }
 
         if(entitiesList.Count == entitiesDamaged)
             DestroyBall();
+    }
+
+    void SendStun(float duration, bool isEnemy, BoltEntity entityShot)
+    {
+        var request = StunEvent.Create();
+        request.Duration = duration;
+        request.IsEnemy = isEnemy;
+        request.EntityShot = entityShot;
+        request.Send();
     }
 
     void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
@@ -155,6 +175,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
         var request = HealRequest.Create();
         request.Healing = healing;
         request.EntityShot = entityShot;
+        request.HealStim = false;
         request.Send();
 
         if (directHit)

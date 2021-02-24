@@ -39,6 +39,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isShooting;
     bool nextShot;
     bool fullAuto;
+    public bool isStunned;
 
     string teamTag;
     string enemyTeamTag;
@@ -80,10 +81,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         else if (Input.GetButtonDown("FireMode") && fullAuto && !pauseMenuHandler.GetIfPaused()) { fullAuto = false; }
 
         //check input of mouse
-        if (!fullAuto)
-            isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
-        else
-            isShooting = Input.GetButton("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
+        if (isStunned)
+        {
+            if (!fullAuto)
+                isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
+            else
+                isShooting = Input.GetButton("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
+        }
 
         //check for input in between chambering rounds
         if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
@@ -238,6 +242,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         var request = HealRequest.Create();
         request.EntityShot = GetComponentInParent<BoltEntity>();
         request.Healing = heal;
+        request.HealStim = true;
         request.Send();
     }
 

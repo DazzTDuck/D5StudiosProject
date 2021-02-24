@@ -20,10 +20,11 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     List<GameObject> hitEnemies = new List<GameObject>();
 
     bool isShooting;
+    public bool isStunned;
 
     public void Update()
     {
-        isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused();
+        isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused() && !isStunned;
 
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShank && !state.IsDead)
         {

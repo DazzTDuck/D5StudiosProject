@@ -58,6 +58,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isCrouching;
     WaitForHostScreen waitForHostScreen;
 
+    bool isStunned;
+
     [Space, SerializeField] string[] tags;
 
     public override void Attached()
@@ -115,7 +117,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead && !isGrounded)
             finalMoveSpeed = moveSpeed / reducedMovement;
 
-        if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
+        if (!state.IsDead && !pauseMenuHandler.GetIfPaused() && !isStunned)
             transform.Translate(movement * finalMoveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
 
         isCrouching = Input.GetButton("Crouch");
@@ -124,6 +126,27 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             Crouch();
         }
+    }
+
+    public void StartStun(float time) { StartCoroutine(Stunned(time)); }
+        
+    IEnumerator Stunned(float time)
+    {
+        isStunned = true;
+        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
+        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
+        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }
+        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = true; }
+
+        yield return new WaitForSeconds(time);
+
+        isStunned = false;
+        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = false; }
+        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = false; }
+        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = false; }
+        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = false; }
+
+        StopCoroutine(nameof(Stunned));
     }
 
     void Crouch()

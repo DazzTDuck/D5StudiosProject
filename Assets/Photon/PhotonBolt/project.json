@@ -5924,41 +5924,6 @@
       "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [
         {
-          "Name": "Healing",
-          "Enabled": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
-            "MaxValue": 255
-          },
-          "AssetSettings": {
-            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        },
-        {
-          "Name": "EntityShot",
-          "Enabled": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
-          },
-          "AssetSettings": {
-            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        }
-      ],
-      "Name": "HealRequest",
-      "Guid": "50686b11-e575-4817-9e13-0639b41a2f76",
-      "Groups": [
-        "Custom"
-      ]
-    },
-    {
-      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
-      "Properties": [
-        {
           "Name": "EnitityToDisconnect",
           "Enabled": true,
           "Expanded": true,
@@ -6325,66 +6290,106 @@
       "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [
         {
-          "Name": "EmpoweredTeamTag",
+          "Name": "Healing",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeString, bolt.compiler",
-            "MaxLength": 1
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
           }
         },
         {
-          "Name": "EmpoweredDuration",
+          "Name": "HealStim",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeFloat, bolt.compiler",
-            "Compression": {
-              "MinValue": -2048,
-              "MaxValue": 2048,
-              "Accuracy": 0.01,
-              "Pack": 100.0,
-              "Read": 0.01,
-              "Shift": 2048.0,
-              "BitsRequired": 19
-            }
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
           }
         },
         {
-          "Name": "EmpoweredWalkSpeed",
+          "Name": "EntityShot",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeFloat, bolt.compiler",
-            "Compression": {
-              "MinValue": -2048,
-              "MaxValue": 2048,
-              "Accuracy": 0.01,
-              "Pack": 100.0,
-              "Read": 0.01,
-              "Shift": 2048.0,
-              "BitsRequired": 19
-            }
+            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
           }
         }
       ],
-      "Name": "EmpoweredEvent",
-      "Guid": "9fb9f238-b09c-4d5f-97a5-a135afc92b8f",
+      "Name": "HealRequest",
+      "Guid": "be90e560-fb28-4882-bd7f-e0fc023f79eb",
+      "Groups": [
+        "Custom"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "Duration",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeFloat, bolt.compiler",
+            "Compression": {
+              "MinValue": -2048,
+              "MaxValue": 2048,
+              "Accuracy": 0.01,
+              "Pack": 100.0,
+              "Read": 0.01,
+              "Shift": 2048.0,
+              "BitsRequired": 19
+            }
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "IsEnemy",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "EntityShot",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "StunEvent",
+      "Guid": "759d5df9-92aa-4f8a-93bf-89e94720b5d3",
       "Groups": [
         "Custom"
       ]

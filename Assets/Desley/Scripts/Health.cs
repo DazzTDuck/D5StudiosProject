@@ -118,14 +118,14 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    public void GetHealing(int healing)
+    public void GetHealing(int healing, bool healStim)
     {
         if (entity.IsOwner)
         {
             animator.ResetTrigger("Healed");
             animator.SetTrigger("Healed");
 
-            if(state.PlayerHealth == maxHealth)
+            if(state.PlayerHealth == maxHealth && healStim)
             {
                 maxHealth += healing;
                 gotShot = false;

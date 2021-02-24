@@ -176,9 +176,17 @@ public class NetworkCallbacks : GlobalEventListener
         BoltNetwork.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public override void OnEvent(StunEvent evnt)
+    {
+        if (evnt.IsEnemy)
+            evnt.EntityShot.GetComponent<EnemyMove>().StunEnemy(evnt.Duration);
+        else
+            evnt.EntityShot.GetComponentInChildren<PlayerController>().StartStun(evnt.Duration);
+    }
+
     public override void OnEvent(HealRequest evnt)
     {
-        evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing);
+        evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing, evnt.HealStim);
     }
 
     public override void OnEvent(ChangeNameEvent evnt)
