@@ -4,74 +4,129 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public GameObject startMenu;
-    public GameObject settingsMenu;
+    [Header("Mixer")]
+    [SerializeField] AudioMixer masterMixer;
 
-    public AudioMixer masterMixer;   
+    [Header("Dropdowns")]
+    [SerializeField] TMP_Dropdown resolutionDropdown;
+    [SerializeField] TMP_Dropdown qualityDropdown;
 
-    public TMP_Dropdown resolutionDropdown;
+    [Header("Sliders")]
+    [SerializeField] Slider master;
+    [SerializeField] Slider sfx;
 
-    public Slider master;
-    public Slider sfx;
-    public Slider music;
+    [Header("Sensitivity")]
+    [SerializeField] PlayerCamera[] cams;
+    [SerializeField] Slider sensitivity;
+    [SerializeField] float sensDevider = 5f;
 
-    public Slider fov;
-    public TMP_Text fovValueText;
+    [Header("Toggles")]
+    [SerializeField] UIToggle fullscreenToggle;
+    [SerializeField] UIToggle motionBlurToggle;
+    [SerializeField] UIToggle bloomToggle;
 
-    public Toggle fullscreenToggle;
+    [Header("PostFX Profile")]
+    [SerializeField] VolumeProfile postFx;
 
-    public TMP_Dropdown qualityDropdown;
+    MotionBlur motionBlur;
+    Bloom bloom;
 
-    //values
-    public static float masterVolume = 1f;
-    public static float sfxVolume = 1f;
-    public static float musicVolume = 1f;
-    public static float fovValue = 65f;
+    Resolution[] resolutions;
 
-    public static bool fullscreen = false;
+    List<Resolution> resolutionsList = new List<Resolution>();
 
-    public Resolution[] resolutions;
-    public static int currentResIndex;
-
-    public static int qualityIndexSave = 2;
-
+    Animator settingsAnimator;
 
     private void Start()
     {
-        GetResolutions();
-
-        SetMasterVolume(masterVolume);
-        master.value = masterVolume;
-
-        SetSFXVolume(sfxVolume);
-        sfx.value = sfxVolume;
-
-        SetMusicVolume(musicVolume);
-        music.value = musicVolume;
-
-        SetQuality(qualityIndexSave);
-        qualityDropdown.value = qualityIndexSave;
-
-        SetResolution(currentResIndex);
-        resolutionDropdown.value = currentResIndex;
-
-        SetFullscreen(fullscreen);
-        fullscreenToggle.isOn = fullscreen;
-
-        UpdateFOVNumber(fovValue);
-        fov.value = fovValue;
+        LoadSettings();
+        //settingsAnimator = GetComponentInChildren<Animator>();
     }
 
-        public void GetResolutions()
+    void LoadSettings()
+    {
+        if (resolutionDropdown)
+            GetResolutions();
+
+        if (postFx)
+        {
+            postFx.TryGet(out bloom);
+            postFx.TryGet(out motionBlur);
+        }
+
+        if (masterMixer)
+        {
+            SetMasterVolume(PlayerPrefs.GetFloat("masterVolume", 1f));
+            if (master)
+                master.value = PlayerPrefs.GetFloat("masterVolume", 1f);
+
+            SetSFXVolume(PlayerPrefs.GetFloat("sfxVolume", 1f));
+            if (sfx)
+                sfx.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
+        }       
+        
+        SetSensitivity(PlayerPrefs.GetFloat("sensitivityValue", 5f));
+        if (sensitivity)
+            sensitivity.value = PlayerPrefs.GetFloat("sensitivityValue", 5f);
+
+
+        if (qualityDropdown)
+        {
+            SetQuality(PlayerPrefs.GetInt("qualityIndex", 2));
+            qualityDropdown.value = PlayerPrefs.GetInt("qualityIndex", 2); ;
+            qualityDropdown.RefreshShownValue();
+        }
+
+        if (resolutionDropdown)
+        {
+            SetResolution(PlayerPrefs.GetInt("resIndex", resolutions.Length));
+            resolutionDropdown.value = PlayerPrefs.GetInt("resIndex", resolutions.Length);
+            resolutionDropdown.RefreshShownValue();
+        }
+        if (fullscreenToggle)
+        {
+            SetFullscreen(PlayerPrefs.GetInt("fullscreenBool", 1) != 0);
+            fullscreenToggle.SetValue(PlayerPrefs.GetInt("fullscreenBool", 1) != 0);
+        }
+        if (bloomToggle)
+        {
+            SetBloom(PlayerPrefs.GetInt("bloomBool", 1) != 0);
+            bloomToggle.SetValue(PlayerPrefs.GetInt("bloomBool", 1) != 0);
+        }
+        if (motionBlurToggle)
+        {
+            SetMotionBlur(PlayerPrefs.GetInt("motionBlurBool", 1) != 0);
+            motionBlurToggle.SetValue(PlayerPrefs.GetInt("motionBlurBool", 1) != 0);
+        }
+    }
+
+    public void ResetAllSettings()
+    {
+        PlayerPrefs.DeleteKey("masterVolume");
+        PlayerPrefs.DeleteKey("sfxVolume");
+        PlayerPrefs.DeleteKey("sensitivityValue");
+        PlayerPrefs.DeleteKey("resIndex");
+        PlayerPrefs.DeleteKey("qualityIndex");
+        PlayerPrefs.DeleteKey("motionBlurBool");
+        PlayerPrefs.DeleteKey("bloomBool");
+        PlayerPrefs.DeleteKey("fullscreenBool");
+
+        LoadSettings();
+    }
+
+    public void GetResolutions()
     {
         //get and set the resolutions for the dropdown
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
+        resolutionsList.Clear();
 
         List<string> options = new List<string>();
 
@@ -80,85 +135,92 @@ public class SettingsMenu : MonoBehaviour
             string option = resolutions[i].width + "x" + resolutions[i].height;
             if (!options.Contains(option))
             {
-                options.Add(option);               
-            }       
-
-            if (resolutions[i].width == Screen.currentResolution.width
-                && resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResIndex = i;
+                options.Add(option);
+                resolutionsList.Add(resolutions[i]);
+               // Debug.Log(option + " " + i);
             }
         }
 
+        PlayerPrefs.SetInt("resIndex", resolutions.Length); //the last in the list
+        PlayerPrefs.Save();
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResIndex;
+        resolutionDropdown.value = PlayerPrefs.GetInt("resIndex");
         resolutionDropdown.RefreshShownValue();
+    }
+
+    public void SettingsTrigger(string triggerName)
+    {
+        settingsAnimator.SetTrigger(triggerName);
     }
 
     public void SetResolution(int resIndex)
     {
-        Resolution res = resolutions[resIndex];
+        Resolution res = resolutionsList[resIndex];
         Screen.SetResolution(res.width, res.height, Screen.fullScreen);
-        currentResIndex = resIndex;
-    }
+        //Screen.SetResolution(1920, 1080, Screen.fullScreen);
 
-    //control the different volume sliders
-    public void SetMasterVolume(float volume)
-    {
-        masterMixer.SetFloat("MasterValue", Mathf.Log10(volume) * 20);
-        masterVolume = volume;
-    }
-    public void SetMusicVolume(float volume)
-    {
-        masterMixer.SetFloat("MusicValue", Mathf.Log10(volume) * 20);
-        musicVolume = volume;
-    }
-    public void SetSFXVolume(float volume)
-    {
-        masterMixer.SetFloat("SFXValue", Mathf.Log10(volume) * 20);
-        sfxVolume = volume;
+        Debug.Log(resIndex + " " + res.width + " " + res.height);
+
+        PlayerPrefs.SetInt("resIndex", resIndex);
+        PlayerPrefs.Save();
     }
 
     //set the quality of the game
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
-        qualityIndexSave = qualityIndex;
+
+        PlayerPrefs.SetInt("qualityIndex", qualityIndex);
+        PlayerPrefs.Save();
+    }
+
+    //control the different volume sliders
+    public void SetMasterVolume(float volume)
+    {
+        masterMixer.SetFloat("MasterValue", volume);
+
+        PlayerPrefs.SetFloat("masterVolume", volume);
+        PlayerPrefs.Save();
+    }
+    public void SetSensitivity(float value)
+    {
+        //set Sens On Camera
+        foreach (var cam in cams)
+        {
+            cam.SetSensitivity(value / sensDevider);
+        }
+
+        PlayerPrefs.SetFloat("sensitivityValue", value);
+        PlayerPrefs.Save();
+    }
+    public void SetSFXVolume(float volume)
+    {
+        masterMixer.SetFloat("SFXValue", volume);
+
+        PlayerPrefs.SetFloat("sfxVolume", volume);
+        PlayerPrefs.Save();
     }
 
     //set the fullscreen of the game
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
-        fullscreen = isFullscreen;
+
+        PlayerPrefs.SetInt("fullscreenBool", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save();
     }
-
-    public void UpdateFOVNumber(float value)
+    public void SetBloom(bool isBloom)
     {
-        fovValueText.text = value.ToString();
-        fovValue = value;
-        Camera.main.GetComponent<Camera>().fieldOfView = value;
+        bloom.active = isBloom;
+
+        PlayerPrefs.SetInt("bloomBool", isBloom ? 1 : 0);
+        PlayerPrefs.Save();
     }
-
-    public void SettingsToMenuTrigger()
+    public void SetMotionBlur(bool isMB)
     {
-        StartCoroutine("SettingsToMenu");
-    }
+        motionBlur.active = isMB;
 
-    public void MenuToSettingsTrigger()
-    {
-        StartCoroutine("MenuToSettings");
-    }
-
-    public void LoadMainMenu()
-    {
-        StartCoroutine("LoadingSceneMenu");
-    }
-
-    IEnumerator LoadingSceneMenu()
-    {
-        yield return new WaitForSeconds(1f);
-
-        SceneManager.LoadScene(0);
+        PlayerPrefs.SetInt("motionBlurBool", isMB ? 1 : 0);
+        PlayerPrefs.Save();
     }
 }

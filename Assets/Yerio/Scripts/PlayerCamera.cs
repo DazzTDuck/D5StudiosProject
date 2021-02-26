@@ -10,7 +10,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     [Header("--Settings--")]
     [SerializeField] bool canvasLookat;
     [Tooltip("Sensitivity of the camera movement")]
-    public float sensitivity = 3f;
+    float sensitivity;
     public float maxRotX = 45f;
     public float minRotX = -55;
     public Vector3 camOffset;
@@ -139,5 +139,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
+
+    public void SetSensitivity(float value) { sensitivity = value; }
 
 }

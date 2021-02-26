@@ -98,7 +98,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -121,7 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuHandler: {fileID: 2082330947250021270}
   canvasLookat: 0
-  sensitivity: 1
   maxRotX: 60
   minRotX: -60
   camOffset: {x: 0, y: 1.15, z: 0}
@@ -543,8 +542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 1
-  m_RequiresOpaqueTextureOption: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras:
   - {fileID: 3663411601210606873}
@@ -576,7 +575,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuHandler: {fileID: 2082330947250021270}
   canvasLookat: 1
-  sensitivity: 1
   maxRotX: 60
   minRotX: -60
   camOffset: {x: 0, y: 1.15, z: 0}

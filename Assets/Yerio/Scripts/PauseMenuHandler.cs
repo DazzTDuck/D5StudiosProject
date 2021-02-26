@@ -8,6 +8,7 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] GameObject panel;
     bool isPaused;
+    bool inSettings = false;
 
     GameInfo gameInfo;
 
@@ -15,7 +16,7 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if(!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
 
-        if (Input.GetButtonDown("Cancel") && gameInfo.state.GameStarted)
+        if (Input.GetButtonDown("Cancel") && gameInfo.state.GameStarted && !inSettings)
         {
             OpenAndClosePauseMenu();
         }
@@ -33,11 +34,11 @@ public class PauseMenuHandler : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void OpenSettings()
     {
-
+        inSettings = true;
     }
     public void CloseSettings()
     {
-
+        inSettings = false;
     }
 
     public void DisconnectEventSend()
