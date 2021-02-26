@@ -54,11 +54,12 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isHost;
 
     bool canCrouch = true;
-    bool waitingForCourotine = false;
+    bool waitingForCoroutine = false;
     bool isCrouching;
     WaitForHostScreen waitForHostScreen;
 
     bool isStunned;
+    bool isGrappling;
 
     [Space, SerializeField] string[] tags;
 
@@ -78,7 +79,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void SimulateOwner()
     {
-        if (entity.IsOwner)
+        if (entity.IsOwner && !isGrappling)
             Movement();
     }
 
@@ -122,10 +123,15 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         isCrouching = Input.GetButton("Crouch");
 
-        if (!waitingForCourotine)
+        if (!waitingForCoroutine)
         {
             Crouch();
         }
+    }
+
+    public void GrappleState(bool state)
+    {
+        isGrappling = state;
     }
 
     public void StartStun(float time) { StartCoroutine(Stunned(time)); }
@@ -210,6 +216,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
             rb.AddRelativeForce(jumpVelocityX, jumpVelocityY, jumpVelocityZ, ForceMode.Impulse);
             jumpCooldown = true;
+
+            if (GetComponentInChildren<GrapplingHook>()) { GetComponentInChildren<GrapplingHook>().StopGrapple(); }
         }
 
     }
@@ -236,11 +244,11 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public IEnumerator WaitForCrouch(float time)
     {
-        waitingForCourotine = true;
+        waitingForCoroutine = true;
         yield return new WaitForSeconds(time);
 
         canCrouch = true;
-        waitingForCourotine = false;
+        waitingForCoroutine = false;
 
         StopCoroutine(nameof(WaitForCrouch));
     }

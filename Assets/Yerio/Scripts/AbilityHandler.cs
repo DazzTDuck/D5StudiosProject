@@ -81,8 +81,6 @@ public class AbilityHandler : MonoBehaviour
 
             if (canActivateAblility1 && pressedAblility1 && !abilityActivated && abilityOneActivatable)
             {
-                ability1OnClick.Invoke();
-
                 if (!ability1IsHold)
                 {
                     abilityActivated = false;
@@ -116,12 +114,11 @@ public class AbilityHandler : MonoBehaviour
                     ability1Animator.SetTrigger("Press");
                 }
 
+                ability1OnClick.Invoke();
             }
 
             if (canActivateAblility2 && pressedAblility2 && !abilityActivated && abilityTwoActivatable)
-            {
-                ability2OnClick.Invoke();
-
+            { 
                 if (!ability2IsHold)
                 {
                     abilityActivated = false;
@@ -154,6 +151,8 @@ public class AbilityHandler : MonoBehaviour
                     ability2Animator.ResetTrigger("Press");
                     ability2Animator.SetTrigger("Press");
                 }
+
+                ability2OnClick.Invoke();
             }
 
             if (canActivateUltimate && pressedUltimate && !abilityActivated && ultimateActivatable)
@@ -238,6 +237,11 @@ public class AbilityHandler : MonoBehaviour
     public void ResetTimers()
     {
         ability1Timer.ResetTimer();
+        ability2Timer.ResetTimer();
+    }
+
+    public void ResetAbility2Timer()
+    {
         ability2Timer.ResetTimer();
     }
 }

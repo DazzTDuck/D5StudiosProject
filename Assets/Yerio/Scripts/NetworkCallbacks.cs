@@ -99,7 +99,11 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Rigidbody>().useGravity = true;
 
             if(player.GetComponentInChildren<Shoot>()) { player.GetComponentInChildren<Shoot>().ResetAmmo(); }
-            if(player.GetComponentInChildren<Scout>()) { player.GetComponentInChildren<Scout>().ResetAmmo(); }
+            if(player.GetComponentInChildren<Scout>()) 
+            { 
+                player.GetComponentInChildren<Scout>().ResetAmmo();
+                player.GetComponentInChildren<GrapplingHook>().StopGrapple();
+            }
 
             player.GetComponentInChildren<AbilityHandler>().ResetTimers();
             player.GetComponentInChildren<Health>().ResetHealth();
