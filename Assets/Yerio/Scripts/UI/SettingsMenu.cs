@@ -14,7 +14,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] AudioMixer masterMixer;
 
     [Header("Dropdowns")]
-    [SerializeField] TMP_Dropdown resolutionDropdown;
+    [SerializeField] TMP_Dropdown resolutionSwitch;
     [SerializeField] TMP_Dropdown qualityDropdown;
 
     [Header("Sliders")]
@@ -51,7 +51,7 @@ public class SettingsMenu : MonoBehaviour
 
     void LoadSettings()
     {
-        if (resolutionDropdown)
+        if (resolutionSwitch)
             GetResolutions();
 
         if (postFx)
@@ -83,11 +83,11 @@ public class SettingsMenu : MonoBehaviour
             qualityDropdown.RefreshShownValue();
         }
 
-        if (resolutionDropdown)
+        if (resolutionSwitch)
         {
             SetResolution(PlayerPrefs.GetInt("resIndex", resolutions.Length));
-            resolutionDropdown.value = PlayerPrefs.GetInt("resIndex", resolutions.Length);
-            resolutionDropdown.RefreshShownValue();
+            resolutionSwitch.value = PlayerPrefs.GetInt("resIndex", resolutions.Length);
+            resolutionSwitch.RefreshShownValue();
         }
         if (fullscreenToggle)
         {
@@ -125,7 +125,7 @@ public class SettingsMenu : MonoBehaviour
         //get and set the resolutions for the dropdown
         resolutions = Screen.resolutions;
 
-        resolutionDropdown.ClearOptions();
+        resolutionSwitch.ClearOptions();
         resolutionsList.Clear();
 
         List<string> options = new List<string>();
@@ -143,9 +143,9 @@ public class SettingsMenu : MonoBehaviour
 
         PlayerPrefs.SetInt("resIndex", resolutions.Length); //the last in the list
         PlayerPrefs.Save();
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = PlayerPrefs.GetInt("resIndex");
-        resolutionDropdown.RefreshShownValue();
+        resolutionSwitch.AddOptions(options);
+        resolutionSwitch.value = PlayerPrefs.GetInt("resIndex");
+        resolutionSwitch.RefreshShownValue();
     }
 
     public void SettingsTrigger(string triggerName)
@@ -159,7 +159,7 @@ public class SettingsMenu : MonoBehaviour
         Screen.SetResolution(res.width, res.height, Screen.fullScreen);
         //Screen.SetResolution(1920, 1080, Screen.fullScreen);
 
-        Debug.Log(resIndex + " " + res.width + " " + res.height);
+        //Debug.Log(resIndex + " " + res.width + " " + res.height);
 
         PlayerPrefs.SetInt("resIndex", resIndex);
         PlayerPrefs.Save();
