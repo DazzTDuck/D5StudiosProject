@@ -35,6 +35,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     float recoilResetTime;
     int count;
 
+    [Space, SerializeField] GameObject clusterBomb;
+    [SerializeField] Transform throwPoint;
+    [SerializeField] float throwForce;
+
     float nextTimeToShoot;
     bool isShooting;
     bool nextShot;
@@ -276,6 +280,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
 
         StopCoroutine(nameof(AccuracyStim));
+    }
+
+    public void ClusterFuck()
+    {
+        var bomb = BoltNetwork.Instantiate(clusterBomb, throwPoint.position, throwPoint.rotation);
+        bomb.GetComponent<Rigidbody>().AddRelativeForce(0, 0, throwForce, ForceMode.Impulse);
     }
 
     public void SetTags()
