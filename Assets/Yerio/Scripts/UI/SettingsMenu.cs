@@ -14,8 +14,8 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] AudioMixer masterMixer;
 
     [Header("Dropdowns")]
-    [SerializeField] TMP_Dropdown resolutionSwitch;
-    [SerializeField] TMP_Dropdown qualityDropdown;
+    [SerializeField] UISwitch resolutionSwitch;
+    [SerializeField] UISwitch qualitySwitch;
 
     [Header("Sliders")]
     [SerializeField] Slider master;
@@ -54,11 +54,8 @@ public class SettingsMenu : MonoBehaviour
         if (resolutionSwitch)
             GetResolutions();
 
-        if (postFx)
-        {
-            postFx.TryGet(out bloom);
-            postFx.TryGet(out motionBlur);
-        }
+        postFx.TryGet(out bloom);
+        postFx.TryGet(out motionBlur);
 
         if (masterMixer)
         {
@@ -76,17 +73,17 @@ public class SettingsMenu : MonoBehaviour
             sensitivity.value = PlayerPrefs.GetFloat("sensitivityValue", 5f);
 
 
-        if (qualityDropdown)
+        if (qualitySwitch)
         {
             SetQuality(PlayerPrefs.GetInt("qualityIndex", 2));
-            qualityDropdown.value = PlayerPrefs.GetInt("qualityIndex", 2); ;
-            qualityDropdown.RefreshShownValue();
+            qualitySwitch.SetValue(PlayerPrefs.GetInt("qualityIndex", 2));
+            qualitySwitch.RefreshShownValue();
         }
 
         if (resolutionSwitch)
         {
             SetResolution(PlayerPrefs.GetInt("resIndex", resolutions.Length));
-            resolutionSwitch.value = PlayerPrefs.GetInt("resIndex", resolutions.Length);
+            resolutionSwitch.SetValue(PlayerPrefs.GetInt("resIndex", resolutions.Length - 1));
             resolutionSwitch.RefreshShownValue();
         }
         if (fullscreenToggle)
@@ -141,10 +138,10 @@ public class SettingsMenu : MonoBehaviour
             }
         }
 
-        PlayerPrefs.SetInt("resIndex", resolutions.Length); //the last in the list
+        PlayerPrefs.SetInt("resIndex", resolutions.Length - 1); //the last in the list
         PlayerPrefs.Save();
         resolutionSwitch.AddOptions(options);
-        resolutionSwitch.value = PlayerPrefs.GetInt("resIndex");
+        resolutionSwitch.SetValue(PlayerPrefs.GetInt("resIndex"));
         resolutionSwitch.RefreshShownValue();
     }
 

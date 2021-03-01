@@ -14,14 +14,14 @@ public class SwitchEvent : UnityEvent<int>
 
 public class UISwitch : MonoBehaviour
 {
-    [SerializeField] TMP_Text resolutionText;
+    [SerializeField] TMP_Text selectedText;
 
     [Space, SerializeField] List<string> options = new List<string>();
     [Space, SerializeField] SwitchEvent onValueChanged;
 
     int value;
 
-    public void RefreshShownValue() { resolutionText.text = options[value]; }
+    public void RefreshShownValue() { selectedText.text = options[value]; }
     public void ClearOptions() { options.Clear(); }
     public void AddOptions(List<string> options) { ClearOptions(); this.options.AddRange(options); }
 

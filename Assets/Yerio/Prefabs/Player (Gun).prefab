@@ -498,7 +498,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 1
-  m_Antialiasing: 1
+  m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -1605,6 +1605,16 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 5909814220828917061}
+    - target: {fileID: 4848212967394645997, guid: 07ad36204057bfa4383947c1eaabcedd,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4848212967394645997, guid: 07ad36204057bfa4383947c1eaabcedd,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4887716817680597876, guid: 07ad36204057bfa4383947c1eaabcedd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
