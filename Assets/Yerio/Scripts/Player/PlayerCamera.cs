@@ -22,6 +22,8 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     public Transform player;
     public CapsuleCollider capsuleCollider;
     public Shoot weapon;
+    [SerializeField] bool moveFakeCamera = false;
+    [SerializeField] Transform fakeCamera;
 
     [HideInInspector]
     public float rotCamX;
@@ -126,6 +128,12 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
         transform.position = player.position + camOffset;
         transform.rotation = rotation;
         player.rotation = rotPlayer;
+
+        if (moveFakeCamera)
+        {
+            fakeCamera.rotation = rotation;
+            fakeCamera.position = player.position + camOffset;
+        }
     }
 
     public static void HideCursor()
