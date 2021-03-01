@@ -88,6 +88,11 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
+    public void SendTeamBoost()
+    {
+
+    }
+
     public void SetTags()
     {
         teamTag = GetComponentInParent<Health>().tag;
