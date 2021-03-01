@@ -285,6 +285,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ClusterFuck()
     {
         var bomb = BoltNetwork.Instantiate(clusterBomb, throwPoint.position, throwPoint.rotation);
+        bomb.GetComponent<DetonateBomb>().SetTags(teamTag, enemyTeamTag);
         bomb.GetComponent<Rigidbody>().AddRelativeForce(0, 0, throwForce, ForceMode.Impulse);
     }
 
