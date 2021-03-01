@@ -134,28 +134,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         isGrappling = state;
     }
 
-    public void StartStun(float time) { StartCoroutine(Stunned(time)); }
-        
-    IEnumerator Stunned(float time)
-    {
-        isStunned = true;
-        GetComponentInParent<AbilityHandler>().PlayerStunned(time);
-        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
-        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
-        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }
-        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = true; }
-
-        yield return new WaitForSeconds(time);
-
-        isStunned = false;
-        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = false; }
-        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = false; }
-        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = false; }
-        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = false; }
-
-        StopCoroutine(nameof(Stunned));
-    }
-
     void Crouch()
     {
         if (isCrouching && !state.IsDead && canCrouch && !pauseMenuHandler.GetIfPaused())
@@ -251,11 +229,35 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(WaitForCrouch));
     }
 
+    //Effects stuff
     public void EmpowerSpeed(bool started, float walkSpeed)
     {
         moveSpeed = !started ? moveSpeed *= walkSpeed : moveSpeed /= walkSpeed;
     }
 
+    public void StartStun(float time) { StartCoroutine(Stunned(time)); }
+    IEnumerator Stunned(float time)
+    {
+        isStunned = true;
+        GetComponentInParent<AbilityHandler>().PlayerStunned(time);
+        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
+        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
+        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }
+        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = true; }
+
+        yield return new WaitForSeconds(time);
+
+        isStunned = false;
+        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = false; }
+        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = false; }
+        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = false; }
+        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = false; }
+
+        StopCoroutine(nameof(Stunned));
+    }
+
+
+    //Connection stuff
     public void SetConnectionID(string id)
     {
         if (entity.IsOwner)
