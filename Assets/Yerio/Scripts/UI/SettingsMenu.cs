@@ -41,12 +41,9 @@ public class SettingsMenu : MonoBehaviour
 
     List<Resolution> resolutionsList = new List<Resolution>();
 
-    Animator settingsAnimator;
-
     private void Start()
     {
         LoadSettings();
-        //settingsAnimator = GetComponentInChildren<Animator>();
     }
 
     void LoadSettings()
@@ -134,11 +131,13 @@ public class SettingsMenu : MonoBehaviour
             {
                 options.Add(option);
                 resolutionsList.Add(resolutions[i]);
-               // Debug.Log(option + " " + i);
+                //Debug.Log(option + " " + i);
             }
         }
 
-        PlayerPrefs.SetInt("resIndex", resolutions.Length - 1); //the last in the list
+        Debug.Log(resolutions.Length);
+
+        PlayerPrefs.SetInt("resIndex", options.Count - 1); //the last in the list
         PlayerPrefs.Save();
         resolutionSwitch.AddOptions(options);
         resolutionSwitch.SetValue(PlayerPrefs.GetInt("resIndex"));
@@ -151,7 +150,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     public void SetResolution(int resIndex)
-    {
+    {      
         Resolution res = resolutionsList[resIndex];
         Screen.SetResolution(res.width, res.height, Screen.fullScreen);
         //Screen.SetResolution(1920, 1080, Screen.fullScreen);
@@ -182,10 +181,14 @@ public class SettingsMenu : MonoBehaviour
     public void SetSensitivity(float value)
     {
         //set Sens On Camera
-        foreach (var cam in cams)
+        
+        if(cams.Length > 0)
         {
-            cam.SetSensitivity(value / sensDevider);
-        }
+            foreach (var cam in cams)
+            {
+                cam.SetSensitivity(value / sensDevider);
+            }
+        }     
 
         PlayerPrefs.SetFloat("sensitivityValue", value);
         PlayerPrefs.Save();
