@@ -102,7 +102,7 @@ public class NetworkCallbacks : GlobalEventListener
             if(player.GetComponentInChildren<Scout>()) 
             { 
                 player.GetComponentInChildren<Scout>().ResetAmmo();
-                player.GetComponentInChildren<GrapplingHook>().StopGrapple();
+                player.GetComponentInChildren<GrapplingHook>().StopGrapple(false);
             }
 
             player.GetComponentInChildren<AbilityHandler>().ResetTimers();
