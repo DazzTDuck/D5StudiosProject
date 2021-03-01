@@ -73,7 +73,7 @@ PrefabInstance:
     - target: {fileID: 244844899187523639, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_RenderMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 244844899187523639, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 244844899187523639, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_PlaneDistance
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 286301480916194478, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
@@ -264,7 +264,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7854036057870350604}
+      objectReference: {fileID: 0}
     - target: {fileID: 4033823967651205545, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
