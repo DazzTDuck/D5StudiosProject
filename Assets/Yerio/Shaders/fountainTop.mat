@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: fountainTop
+  m_Shader: {fileID: -6465566751694194690, guid: daf00e7bf252ccf47b3a65822673fe88,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_E4B01719:
+        m_Texture: {fileID: 2800000, guid: 5380129c90c25134bae84906c33df1aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_33D4FF35: 0
+    - Vector1_397D146: 0
+    - Vector1_3B011EC4: 0.616
+    - Vector1_3BFD1FCD: 0.5
+    - Vector1_82167E03: 0
+    - Vector1_AEA2DD3D: 0
+    - Vector1_B0D09A1B: 0
+    - Vector1_DF206EAB: 0
+    - Vector1_F7294499: 0.8
+    m_Colors:
+    - Color_F54C6DFA: {r: 1, g: 1, b: 1, a: 0}
+    - Vector4_41AB2946: {r: 2, g: 2, b: 0, a: 0}
