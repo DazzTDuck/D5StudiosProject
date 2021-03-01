@@ -216,8 +216,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
             rb.AddRelativeForce(jumpVelocityX, jumpVelocityY, jumpVelocityZ, ForceMode.Impulse);
             jumpCooldown = true;
-
-            if (GetComponentInChildren<GrapplingHook>()) { GetComponentInChildren<GrapplingHook>().StopGrapple(); }
         }
 
     }

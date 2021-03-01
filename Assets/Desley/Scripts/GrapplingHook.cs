@@ -8,10 +8,13 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] Camera cam;
     [SerializeField] AbilityHandler abilityHandler;
+    [SerializeField] LineRenderer lr;
+    [SerializeField] Transform grappleGunPoint;
 
     [Space, SerializeField] float range;
     [SerializeField] float hookSpeed;
     [SerializeField] float stoppingDistance;
+    [SerializeField] float jumpForce;
     
     Vector3 direction;
     Vector3 hitPoint;
@@ -23,7 +26,7 @@ public class GrapplingHook : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
-        {           
+        { 
             hitPoint = hit.point;
             direction = (hit.point - playerTransform.position).normalized;
 
@@ -31,6 +34,7 @@ public class GrapplingHook : MonoBehaviour
 
             DetermineStopDistance(Vector3.Distance(playerTransform.position, hitPoint));
             playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
+            lr.positionCount = 2;
         }
         else
         {
@@ -43,13 +47,23 @@ public class GrapplingHook : MonoBehaviour
         stoppingDistance = distance < 15 ? stoppingDistance = 1f : stoppingDistance = 3f;
     }
 
+    void DrawGrappleRope()
+    {
+        lr.SetPosition(0, grappleGunPoint.position);
+        lr.SetPosition(1, hitPoint);
+    }
+
     private void Update()
     {
         if (isGrappling)
         {
             distance = Vector3.Distance(playerTransform.position, hitPoint);
-            if (distance < stoppingDistance || Input.GetButtonDown("Jump"))
-                StopGrapple();
+
+            if (distance < stoppingDistance)
+                StopGrapple(false);
+            else if (Input.GetButtonDown("Jump"))
+                StopGrapple(true);
+                
         }
     }
 
@@ -59,9 +73,21 @@ public class GrapplingHook : MonoBehaviour
             rb.MovePosition(playerTransform.position + direction * hookSpeed * Time.fixedDeltaTime);
     }
 
-    public void StopGrapple()
+    private void LateUpdate()
+    {
+        if (isGrappling)
+        {
+            DrawGrappleRope();
+        }
+    }
+
+    public void StopGrapple(bool stoppedByJump)
     {
         isGrappling = false;
         playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
+        lr.positionCount = 0;
+
+        if (stoppedByJump)
+            rb.AddRelativeForce(0, 0, jumpForce, ForceMode.Impulse);
     }
 }
