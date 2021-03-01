@@ -27,7 +27,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] int currentBulletCount;
     [SerializeField] int maxBulletCount;
     [SerializeField] float reloadTime;
-    [SerializeField] bool reloading;
+    bool reloading;
     
     [Space, SerializeField] Vector3[] sprayPattern;
     [SerializeField] int sprayPatternIndex;
@@ -38,7 +38,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     float nextTimeToShoot;
     bool isShooting;
     bool nextShot;
-    bool fullAuto;
+    bool fullAuto = true;
+
+    [HideInInspector]
     public bool isStunned;
 
     string teamTag;
