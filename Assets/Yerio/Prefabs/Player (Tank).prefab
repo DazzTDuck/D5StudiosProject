@@ -134,6 +134,7 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
+  isStunned: 0
 --- !u!1 &1713651737991147581
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +309,7 @@ MonoBehaviour:
   pauseMenuHandler: {fileID: 1167529193778240779}
   cam: {fileID: 4788751972979609531}
   weaponCam: {fileID: 1238842621562586105}
+  hudCanvas: {fileID: 3219504657251805392}
   shoot: {fileID: 0}
   shotgun: {fileID: 0}
   rb: {fileID: 0}
@@ -534,6 +536,7 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
+  isStunned: 0
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0

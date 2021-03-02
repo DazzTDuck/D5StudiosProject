@@ -37,6 +37,8 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     float recoilValueY = 0;
     bool increaseRecoil = false;
 
+    public bool isStunned;
+
     private void Awake()
     {
         ShowCursor();
@@ -99,26 +101,29 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void CameraPos()
     {
-        if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
+        if (!isStunned)
         {
-            rotCamY += Input.GetAxis("Mouse X") * sensitivity;
-            rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
-        }
+            if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
+            {
+                rotCamY += Input.GetAxis("Mouse X") * sensitivity;
+                rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
+            }
 
-        //Clamping the rotX value
-        rotCamX = Mathf.Clamp(rotCamX, minRotX, maxRotX);
+            //Clamping the rotX value
+            rotCamX = Mathf.Clamp(rotCamX, minRotX, maxRotX);
 
-        //EulerAngles for the camera rotation (this is so it rotates around the player)
-        Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
-        Quaternion rotation = Quaternion.Euler(rotCamX - recoilValueX, rotCamY + recoilValueY, 0);
-        transform.position = player.position + camOffset;
-        transform.rotation = rotation;
-        player.rotation = rotPlayer;
+            //EulerAngles for the camera rotation (this is so it rotates around the player)
+            Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
+            Quaternion rotation = Quaternion.Euler(rotCamX - recoilValueX, rotCamY + recoilValueY, 0);
+            transform.position = player.position + camOffset;
+            transform.rotation = rotation;
+            player.rotation = rotPlayer;
 
-        if (moveFakeCamera)
-        {
-            fakeCamera.rotation = rotation;
-            fakeCamera.position = player.position + camOffset;
+            if (moveFakeCamera)
+            {
+                fakeCamera.rotation = rotation;
+                fakeCamera.position = player.position + camOffset;
+            }
         }
     }
 
