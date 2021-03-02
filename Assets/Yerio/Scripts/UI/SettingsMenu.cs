@@ -102,15 +102,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void ResetAllSettings()
     {
-        PlayerPrefs.DeleteKey("masterVolume");
-        PlayerPrefs.DeleteKey("sfxVolume");
-        PlayerPrefs.DeleteKey("sensitivityValue");
-        PlayerPrefs.DeleteKey("resIndex");
-        PlayerPrefs.DeleteKey("qualityIndex");
-        PlayerPrefs.DeleteKey("motionBlurBool");
-        PlayerPrefs.DeleteKey("bloomBool");
-        PlayerPrefs.DeleteKey("fullscreenBool");
-
+        PlayerPrefs.DeleteAll();
         LoadSettings();
     }
 
@@ -137,10 +129,8 @@ public class SettingsMenu : MonoBehaviour
 
         Debug.Log(resolutions.Length);
 
-        PlayerPrefs.SetInt("resIndex", options.Count - 1); //the last in the list
-        PlayerPrefs.Save();
         resolutionSwitch.AddOptions(options);
-        resolutionSwitch.SetValue(PlayerPrefs.GetInt("resIndex"));
+        resolutionSwitch.SetValue(PlayerPrefs.GetInt("resIndex", options.Count - 1));
         resolutionSwitch.RefreshShownValue();
     }
 
@@ -173,6 +163,14 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("masterVolume", volume);
         PlayerPrefs.Save();
     }
+    public void SetSFXVolume(float volume)
+    {
+        masterMixer.SetFloat("SFXValue", volume);
+
+        PlayerPrefs.SetFloat("sfxVolume", volume);
+        PlayerPrefs.Save();
+    }
+
     public void SetSensitivity(float value)
     {
         //set Sens On Camera
@@ -186,13 +184,6 @@ public class SettingsMenu : MonoBehaviour
         }     
 
         PlayerPrefs.SetFloat("sensitivityValue", value);
-        PlayerPrefs.Save();
-    }
-    public void SetSFXVolume(float volume)
-    {
-        masterMixer.SetFloat("SFXValue", volume);
-
-        PlayerPrefs.SetFloat("sfxVolume", volume);
         PlayerPrefs.Save();
     }
 

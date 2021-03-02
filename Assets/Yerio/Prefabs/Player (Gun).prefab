@@ -2607,14 +2607,19 @@ PrefabInstance:
       objectReference: {fileID: 7432532120117980883}
     - target: {fileID: 7854036057870350604, guid: 07ad36204057bfa4383947c1eaabcedd,
         type: 3}
+      propertyPath: cams.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854036057870350604, guid: 07ad36204057bfa4383947c1eaabcedd,
+        type: 3}
       propertyPath: cams.Array.data[0]
       value: 
-      objectReference: {fileID: 6737294529189290909}
+      objectReference: {fileID: 4788751972979609524}
     - target: {fileID: 7854036057870350604, guid: 07ad36204057bfa4383947c1eaabcedd,
         type: 3}
       propertyPath: cams.Array.data[1]
       value: 
-      objectReference: {fileID: 4788751972979609524}
+      objectReference: {fileID: 6737294529189290909}
     - target: {fileID: 8956500239921547659, guid: 07ad36204057bfa4383947c1eaabcedd,
         type: 3}
       propertyPath: m_RootOrder
