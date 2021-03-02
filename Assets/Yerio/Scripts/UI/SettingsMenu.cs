@@ -144,11 +144,6 @@ public class SettingsMenu : MonoBehaviour
         resolutionSwitch.RefreshShownValue();
     }
 
-    public void SettingsTrigger(string triggerName)
-    {
-        settingsAnimator.SetTrigger(triggerName);
-    }
-
     public void SetResolution(int resIndex)
     {      
         Resolution res = resolutionsList[resIndex];
