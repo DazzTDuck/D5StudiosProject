@@ -73,7 +73,7 @@ PrefabInstance:
     - target: {fileID: 244844899187523639, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_RenderMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244844899187523639, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 244844899187523639, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_PlaneDistance
-      value: 0.2
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 286301480916194478, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
@@ -173,17 +173,17 @@ PrefabInstance:
     - target: {fileID: 1798400032068933495, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1798400032068933495, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1798400032068933495, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1798400032068933495, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
@@ -319,6 +319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022617733422592575, guid: 1021cb35675cba746afbb5931306fefc,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6322962211326145740, guid: 1021cb35675cba746afbb5931306fefc,
         type: 3}
