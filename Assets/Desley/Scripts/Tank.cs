@@ -20,6 +20,8 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     List<GameObject> hitEnemies = new List<GameObject>();
 
     bool isShooting;
+
+    [HideInInspector]
     public bool isStunned;
 
     public void Update()
@@ -57,30 +59,24 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
-        {         
-            BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
-            if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
+        {
+            BoltEntity boltEntity = hit.collider.GetComponentInParent<BoltEntity>();
 
-            if (entity.IsOwner)
+            if (boltEntity)
             {
-                if (boltEntity.CompareTag("Enemy"))
+                if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                 {
-                    SendDamage(damage, true, boltEntity);
-                }
-                else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
-                {
-                    SendDamage(damage, false, boltEntity);
+                    SendDamage(damage, boltEntity);
                 }
             }
         }
     }
 
-    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    void SendDamage(int damage, BoltEntity entityShot)
     {
         var request = DamageRequest.Create();
         request.EntityShot = entityShot;
         request.Damage = damage;
-        request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
         request.Send();
 

@@ -25,11 +25,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
-    public override void Attached()
-    {
-        base.Attached();
-    }
-
     void Start() 
     { 
         ballToUse = fireBall; 
@@ -86,11 +81,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
             ballToUse = fireBall;
             usingHeal = false;
         }
-    }
-
-    public void SendTeamBoost()
-    {
-
     }
 
     public void SetTags()

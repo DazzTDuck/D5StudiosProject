@@ -20,7 +20,6 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [Header("--References--")]
     public Transform player;
-    public CapsuleCollider capsuleCollider;
     public Shoot weapon;
     [SerializeField] bool moveFakeCamera = false;
     [SerializeField] Transform fakeCamera;
@@ -30,7 +29,6 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     [HideInInspector]
     public float rotCamY;
 
-    Vector3 colliderCenter;
     [SerializeField] float crouchDivider = 2;
 
     float recoilMaxX;
@@ -42,7 +40,6 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Awake()
     {
         ShowCursor();
-        colliderCenter = capsuleCollider.center;
     }
 
     public void Update()
@@ -77,16 +74,10 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
         if (crouching)
         {
             camOffset /= crouchDivider;
-            capsuleCollider.height /= crouchDivider;
-            colliderCenter = new Vector3(colliderCenter.x, colliderCenter.y / crouchDivider, colliderCenter.z);
-            capsuleCollider.center = colliderCenter;
         }
         else
         {
             camOffset *= crouchDivider;
-            capsuleCollider.height *= crouchDivider;
-            colliderCenter = new Vector3(colliderCenter.x, colliderCenter.y * crouchDivider, colliderCenter.z);
-            capsuleCollider.center = colliderCenter;
         }
     }
 
@@ -100,11 +91,6 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void HealthbarLookAt()
     {
-        //foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-        //{
-        //    enemy.GetComponent<EnemyHealth>().CanvasLookAt(transform);
-        //}
-
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             player.GetComponentInChildren<Healthbar>().CanvasLookAt(transform);

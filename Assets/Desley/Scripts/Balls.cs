@@ -34,7 +34,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
     public override void Attached()
     {
-        base.Attached();
         state.SetTransforms(state.ProjectileTransform, transform);
     }
 
@@ -67,12 +66,11 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             foreach (Collider collider in hitObjects)
             {
                 string entityTag = collider.tag;
-                BoltEntity boltEntity = collider.GetComponent<BoltEntity>();
-                if (!boltEntity) { boltEntity = collider.GetComponentInParent<BoltEntity>(); }
+                BoltEntity boltEntity = collider.GetComponentInParent<BoltEntity>();
 
                 if (!entitiesList.Contains(boltEntity))
                 {
-                    if (entityTag == "Enemy" || entityTag == teamTag || entityTag == enemyTeamTag)
+                    if (entityTag == teamTag || entityTag == enemyTeamTag)
                     {
                         entitiesList.Add(boltEntity);
                         if (!stunsEnemies && !healBall)
@@ -109,11 +107,8 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             }
             else if (stunsEnemies)
             {
-                if (entity.GetComponent<EnemyMove>())
-                    SendStun(stunTime, true, entity);
-                else if (entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
-                    SendStun(stunTime, false, entity);
-
+                if (entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                    SendStun(stunTime, entity);
 
                 entitiesDamaged++;
             }
@@ -122,10 +117,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
                 amountOfEnemiesDamaged++;
 
                 if(entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
-                    SendDamage(ballValue / distanceToEntities[entitiesDamaged], false, entity);
-                else if(entity.GetComponent<EnemyHealth>())
-                    SendDamage(ballValue / distanceToEntities[entitiesDamaged], true, entity);
-
+                    SendDamage(ballValue / distanceToEntities[entitiesDamaged], entity);
 
                 totalDamage += ballValue / distanceToEntities[entitiesDamaged];
                 entitiesDamaged++;
@@ -151,21 +143,19 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             DestroyBall();
     }
 
-    void SendStun(float duration, bool isEnemy, BoltEntity entityShot)
+    void SendStun(float duration, BoltEntity entityShot)
     {
         var request = StunEvent.Create();
         request.Duration = duration;
-        request.IsEnemy = isEnemy;
         request.EntityShot = entityShot;
         request.Send();
     }
 
-    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    void SendDamage(int damage, BoltEntity entityShot)
     {
         var request = DamageRequest.Create();
         request.EntityShot = entityShot;
         request.Damage = damage;
-        request.IsEnemy = isEnemy;
         request.EntityShooter = playerEntity;
         request.Send();
     }

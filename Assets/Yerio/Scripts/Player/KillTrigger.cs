@@ -27,7 +27,6 @@ public class KillTrigger : MonoBehaviour
             //Create DestroyRequest, set entity to ent and then send
             var request = DestroyRequest.Create();
             request.Entity = entity;
-            request.IsPlayer = true;
             request.KillTrigger = true;
             request.Send();
             requestSent = true;

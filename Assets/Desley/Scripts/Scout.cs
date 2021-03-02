@@ -140,9 +140,9 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
             var randomY = Random.Range(-randomSpread, randomSpread);
             spread = new Vector3(randomX, randomY, 0);
 
-            Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition + spread);
+            Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f) + spread);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, range))
+            if (Physics.Raycast(ray, cam.transform.forward, out hit))
             {
                 var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
                 StartCoroutine(DestroyEffect(.25f, hitEffect));
@@ -157,28 +157,14 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                 if (boltEntity)
                 {
                     int damageToDo = damage / damageDivider;
-                    if (hit.collider.GetComponent<Health>() && hit.collider.GetComponent<EnemyHealth>() && hit.collider.GetComponentInParent<EnemyHealth>())
+                    if (entityTag == enemyTeamTag)
                     {
-                        totalDamage += 0;
-                    }
-                    else if (entityTag == "Enemy")
-                    {
-                        SendDamage(damageToDo, true, boltEntity);
-                        totalDamage += damageToDo;
-                    }
-                    else if (entityTag == "EnemyHead")
-                    {
-                        SendDamage(damageToDo * hsMultiplier, true, boltEntity);
-                        totalDamage += damageToDo * hsMultiplier;
-                    }
-                    else if (entityTag == enemyTeamTag)
-                    {
-                        SendDamage(damageToDo, false, boltEntity);
+                        SendDamage(damageToDo, boltEntity);
                         totalDamage += damageToDo;
                     }
                     else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                     {
-                        SendDamage(damageToDo * hsMultiplier, false, boltEntity);
+                        SendDamage(damageToDo * hsMultiplier, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
                     }
                 }
@@ -225,12 +211,11 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    void SendDamage(int damage, BoltEntity entityShot)
     {
         var request = DamageRequest.Create();
         request.EntityShot = entityShot;
         request.Damage = damage;
-        request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
         request.Send();
     }

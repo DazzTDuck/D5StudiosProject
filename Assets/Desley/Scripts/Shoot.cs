@@ -113,11 +113,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             bulletCountText.text = currentBulletCount + "|" + maxBulletCount;
     }
 
-    //public bool GetIfShooting() { return isShooting && Time.time >= nextTimeToShoot; }
-
     public override void Attached()
     {
-        base.Attached();
         state.SetAnimator(animator);
 
         if (entity.IsOwner)
@@ -139,45 +136,35 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ShootRaycast()
     {
         state.Animator.SetTrigger("Shoot");
-        Ray ray = weaponCam.ScreenPointToRay(Input.mousePosition + sprayPattern[sprayPatternIndex - 1]);
+        Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f) + sprayPattern[sprayPatternIndex-1]);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit))
+        if(Physics.Raycast(ray, cam.transform.forward, out hit))
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(.25f, hitEffect));
 
             string entityTag = hit.collider.tag;
-            BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
-            if(!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
+            BoltEntity boltEntity = hit.collider.GetComponentInParent<BoltEntity>();
 
             if (boltEntity)
             {
-                if (entityTag == "Enemy")
+                if (entityTag == enemyTeamTag)
                 {
-                    SendDamage(damage, true, boltEntity);
-                }
-                else if (entityTag == "EnemyHead")
-                {
-                    SendDamage(damage * hsMultiplier, true, boltEntity);
-                }
-                else if (entityTag == enemyTeamTag)
-                {
-                    SendDamage(damage, false, boltEntity);
+                    SendDamage(damage, boltEntity);
                 }
                 else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                 {
-                    SendDamage(damage * hsMultiplier, false, boltEntity);
+                    SendDamage(damage * hsMultiplier, boltEntity);
                 }
             }          
         }
     }
 
-    void SendDamage(int damage, bool isEnemy, BoltEntity entityShot)
+    void SendDamage(int damage, BoltEntity entityShot)
     {
         var request = DamageRequest.Create();
         request.EntityShot = entityShot;
         request.Damage = damage;
-        request.IsEnemy = isEnemy;
         request.EntityShooter = entity;
         request.Send();
 

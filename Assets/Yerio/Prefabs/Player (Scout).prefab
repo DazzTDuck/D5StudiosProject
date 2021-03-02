@@ -322,7 +322,6 @@ MonoBehaviour:
   recoilIncreaseValue: 20
   recoilMaxClamp: 7
   player: {fileID: 4788751972951705024}
-  capsuleCollider: {fileID: 4788751972951705025}
   weapon: {fileID: 0}
   moveFakeCamera: 1
   fakeCamera: {fileID: 4601295003860607056}
@@ -679,7 +678,6 @@ MonoBehaviour:
   recoilIncreaseValue: 20
   recoilMaxClamp: 7
   player: {fileID: 4788751972951705024}
-  capsuleCollider: {fileID: 4788751972951705025}
   weapon: {fileID: 0}
   moveFakeCamera: 0
   fakeCamera: {fileID: 0}
@@ -2665,7 +2663,7 @@ PrefabInstance:
         type: 3}
       propertyPath: knife
       value: 
-      objectReference: {fileID: 8002187134932986925, guid: fee163817bc798447a436e5aefc0ed71,
+      objectReference: {fileID: 8002187134932986925, guid: 7a93f5bcf44809d4c8dda262e7f3dae6,
         type: 3}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
@@ -2720,7 +2718,7 @@ PrefabInstance:
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
       propertyPath: randomSpread
-      value: 25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}

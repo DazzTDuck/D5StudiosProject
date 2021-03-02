@@ -79,30 +79,30 @@ MonoBehaviour:
   reloadTime: 1.5
   sprayPattern:
   - {x: 0, y: 0, z: 0}
-  - {x: 2, y: 1, z: 0}
-  - {x: 4, y: 2, z: 0}
-  - {x: 6, y: 3, z: 0}
-  - {x: 8, y: 5, z: 0}
-  - {x: 10, y: 7, z: 0}
-  - {x: 12, y: 9, z: 0}
-  - {x: 14, y: 11, z: 0}
-  - {x: 16, y: 13, z: 0}
-  - {x: 18, y: 15, z: 0}
-  - {x: 20, y: 17, z: 0}
-  - {x: 22, y: 19, z: 0}
-  - {x: 24, y: 21, z: 0}
-  - {x: 26, y: 23, z: 0}
-  - {x: 28, y: 25, z: 0}
-  - {x: 30, y: 25, z: 0}
-  - {x: 25, y: 25, z: 0}
-  - {x: 20, y: 25, z: 0}
-  - {x: 15, y: 25, z: 0}
-  - {x: 10, y: 25, z: 0}
-  - {x: 5, y: 25, z: 0}
-  - {x: 0, y: 25, z: 0}
-  - {x: -5, y: 25, z: 0}
-  - {x: -10, y: 25, z: 0}
-  - {x: -15, y: 25, z: 0}
+  - {x: 0.05, y: 0.05, z: 0}
+  - {x: 0.1, y: 0.1, z: 0}
+  - {x: 0.15, y: 0.15, z: 0}
+  - {x: 0.2, y: 0.25, z: 0}
+  - {x: 0.25, y: 0.35, z: 0}
+  - {x: 0.3, y: 0.45, z: 0}
+  - {x: 0.35, y: 0.55, z: 0}
+  - {x: 0.4, y: 0.65, z: 0}
+  - {x: 0.45, y: 0.75, z: 0}
+  - {x: 0.5, y: 0.85, z: 0}
+  - {x: 0.55, y: 0.95, z: 0}
+  - {x: 0.6, y: 1.05, z: 0}
+  - {x: 0.65, y: 1.15, z: 0}
+  - {x: 0.7, y: 1.25, z: 0}
+  - {x: 0.75, y: 1.25, z: 0}
+  - {x: 0.625, y: 1.25, z: 0}
+  - {x: 0.5, y: 1.25, z: 0}
+  - {x: 0.375, y: 1.25, z: 0}
+  - {x: 0.25, y: 1.25, z: 0}
+  - {x: 0.125, y: 1.25, z: 0}
+  - {x: 0, y: 1.25, z: 0}
+  - {x: -0.125, y: 1.25, z: 0}
+  - {x: -0.25, y: 1.25, z: 0}
+  - {x: -0.375, y: 1.25, z: 0}
   sprayPatternIndex: 0
   recoilResetAddTime: 0.25
   clusterBomb: {fileID: 2992397441041350406, guid: e420ade0097bdb840b623a900059aa39,
@@ -547,7 +547,6 @@ MonoBehaviour:
   recoilIncreaseValue: 20
   recoilMaxClamp: 5
   player: {fileID: 4788751972951705024}
-  capsuleCollider: {fileID: 4788751972951705025}
   weapon: {fileID: 0}
   moveFakeCamera: 1
   fakeCamera: {fileID: 4601295003860607056}
@@ -1038,7 +1037,6 @@ MonoBehaviour:
   recoilIncreaseValue: 20
   recoilMaxClamp: 5
   player: {fileID: 4788751972951705024}
-  capsuleCollider: {fileID: 4788751972951705025}
   weapon: {fileID: 0}
   moveFakeCamera: 0
   fakeCamera: {fileID: 0}
@@ -2838,6 +2836,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4788751973370468055}
     m_Modifications:
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateRechargeTime
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
       propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

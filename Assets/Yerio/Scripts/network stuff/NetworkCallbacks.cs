@@ -91,7 +91,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(DestroyRequest evnt)
     {
-        if (evnt.IsPlayer && evnt.Entity.IsOwner)
+        if (evnt.Entity.IsOwner)
         {
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
@@ -109,26 +109,11 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Health>().ResetHealth();
 
             if (!evnt.KillTrigger) { player.GetComponentInChildren<Health>().AddTeamKill(); }
-
-            return;
         }
-
-        if (evnt.IsEnemy && evnt.Entity)
-            enemySpawning.RemoveEnemyFromList(evnt.Entity.gameObject);
-
-        if (evnt.Entity)
-            BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
     public override void OnEvent(DamageRequest evnt)
     {
-        if (evnt.IsEnemy)
-        {
-            if (evnt.EntityShot.IsOwner)
-                evnt.EntityShot.GetComponent<EnemyHealth>().TakeDamage(evnt.Damage);
-            return;
-        }
-
         if (evnt.EntityShot)
         {
             evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
@@ -185,9 +170,6 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(StunEvent evnt)
     {
-        if (evnt.IsEnemy)
-            evnt.EntityShot.GetComponent<EnemyMove>().StunEnemy(evnt.Duration);
-        else
             evnt.EntityShot.GetComponentInChildren<PlayerController>().StartStun(evnt.Duration);
     }
 
