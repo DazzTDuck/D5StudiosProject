@@ -31,6 +31,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
     [Space, SerializeField] GameObject cam;
     [SerializeField] GameObject weaponCam;
+    [SerializeField] GameObject hudCanvas;
     [SerializeField] Shoot shoot;
     [SerializeField] Scout shotgun;
 
@@ -239,7 +240,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator Stunned(float time)
     {
         isStunned = true;
-        GetComponentInParent<AbilityHandler>().PlayerStunned(time);
+        hudCanvas.GetComponent<AbilityHandler>().PlayerStunned(time);
+        cam.GetComponent<PlayerCamera>().isStunned = true;
         if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
         else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }
@@ -248,6 +250,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         yield return new WaitForSeconds(time);
 
         isStunned = false;
+        cam.GetComponent<PlayerCamera>().isStunned = false;
         if (GetComponent<Support>()) { GetComponent<Support>().isStunned = false; }
         else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = false; }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = false; }

@@ -458,11 +458,13 @@ MonoBehaviour:
   pauseMenuHandler: {fileID: 5263953469245031243}
   cam: {fileID: 4788751972979609531}
   weaponCam: {fileID: 4297703519134521421}
+  hudCanvas: {fileID: 4571308570237180164}
   shoot: {fileID: 0}
   shotgun: {fileID: 2495190810392733194}
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
+  isStunned: 0
   tags:
   - Team1
   - Team2
