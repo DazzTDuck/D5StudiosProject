@@ -851,7 +851,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3663411601210606873}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d46a5c4b6c30dd4a8b40218a26f08dc, type: 3}
 --- !u!224 &6580286577978139609 stripped
@@ -1119,6 +1119,11 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3807153769534451863, guid: 1c3cecaa07280aa439f2e4e3143852a5,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 3663411601210606873}
     - target: {fileID: 4185499942597862039, guid: 1c3cecaa07280aa439f2e4e3143852a5,
         type: 3}
       propertyPath: m_Name
@@ -1654,7 +1659,7 @@ PrefabInstance:
     - target: {fileID: 9150445975764052169, guid: 6d7b4ae99b32af94f86705c23c3a77d8,
         type: 3}
       propertyPath: m_PlaneDistance
-      value: 0.22
+      value: 0.14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d7b4ae99b32af94f86705c23c3a77d8, type: 3}
@@ -1861,6 +1866,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4848212967394645997, guid: 07ad36204057bfa4383947c1eaabcedd,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 3663411601210606873}
     - target: {fileID: 4887716817680597876, guid: 07ad36204057bfa4383947c1eaabcedd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -2442,11 +2452,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PixelPerfect
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9006978056109927590, guid: b903a8c3f7edee54b86b0b6e724de9cb,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9010882066288066061, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
