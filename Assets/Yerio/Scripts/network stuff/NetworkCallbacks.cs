@@ -91,7 +91,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(DestroyRequest evnt)
     {
-        if (evnt.Entity.IsOwner)
+        if (evnt.IsPlayer && evnt.Entity.IsOwner)
         {
             var player = evnt.Entity.gameObject;
             player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
@@ -109,7 +109,12 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<Health>().ResetHealth();
 
             if (!evnt.KillTrigger) { player.GetComponentInChildren<Health>().AddTeamKill(); }
+
+            return;
         }
+
+        if (evnt.Entity)
+            BoltNetwork.Destroy(evnt.Entity.gameObject);
     }
 
     public override void OnEvent(DamageRequest evnt)

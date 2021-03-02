@@ -71,6 +71,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                     var request = DestroyRequest.Create();
                     request.Entity = GetComponentInParent<BoltEntity>();
                     request.KillTrigger = false;
+                    request.IsPlayer = true;
                     request.Send();
                 }
             }

@@ -21,7 +21,6 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     bool isShooting;
 
-    [HideInInspector]
     public bool isStunned;
 
     public void Update()

@@ -136,7 +136,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void Crouch()
     {
-        if (isCrouching && !state.IsDead && canCrouch && !pauseMenuHandler.GetIfPaused())
+        if (isCrouching && !state.IsDead && canCrouch && !isStunned && !pauseMenuHandler.GetIfPaused())
         {
             cam.GetComponent<PlayerCamera>().Crouch(true);
             weaponCam.GetComponent<PlayerCamera>().Crouch(true);
@@ -166,7 +166,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     void Jumping()
     {
         if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
-            wantToJump = Input.GetButtonDown("Jump");
+            wantToJump = Input.GetButtonDown("Jump") && !isStunned;
 
         //when the cooldown is active add it up with time and if it has exceeded the cooldown time you can jump again
         if (jumpCooldown && isGrounded && !wantToJump && entity.IsOwner)

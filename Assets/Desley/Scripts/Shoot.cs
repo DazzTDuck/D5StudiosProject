@@ -44,7 +44,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool fullAuto = true;
 
-    [HideInInspector]
     public bool isStunned;
 
     string teamTag;
