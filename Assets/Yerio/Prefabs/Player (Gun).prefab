@@ -443,6 +443,7 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
+  isStunned: 0
 --- !u!1 &4526313664149623396
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +714,6 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
-  isStunned: 0
   tags:
   - Team1
   - Team2
@@ -935,6 +935,7 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
+  isStunned: 0
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1111,7 @@ MonoBehaviour:
   BulletCountCanvas: {fileID: 2500806047011825011}
   bulletCountText: {fileID: 1324771189513345550}
   reloadingText: {fileID: 4526313664149623396}
-  flash: {fileID: 100004, guid: e5727721799e00f44906e7af53883073, type: 3}
+  flash: {fileID: 100008, guid: 7b4c09739930d43458b94e59aa06933a, type: 3}
   bulletHit: {fileID: 4193772629632023559, guid: 2470c3a121c722641bc6a7f1fe2ffce3,
     type: 3}
   muzzle: {fileID: 3014392554702533222}
