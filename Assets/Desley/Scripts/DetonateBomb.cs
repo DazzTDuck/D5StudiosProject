@@ -40,7 +40,8 @@ public class DetonateBomb : Bolt.EntityBehaviour<IProjectileState>
     {
         foreach(Vector3 dir in directions)
         {
-            BoltNetwork.Instantiate(clusterFragBomb, transform.position + dir, Quaternion.identity);
+            var frag = BoltNetwork.Instantiate(clusterFragBomb, transform.position + dir, Quaternion.identity);
+            frag.GetComponent<BombFragment>().SetTags(teamTag, enemyTeamTag);
         }
 
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);

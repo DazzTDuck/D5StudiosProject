@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3837079373977524626}
   - component: {fileID: -6442176144234294906}
   - component: {fileID: 3894370576720400702}
+  - component: {fileID: 7931764748414258148}
   m_Layer: 0
   m_Name: ClusterFrag
   m_TagString: Untagged
@@ -97,7 +98,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &-6442176144234294906
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -140,3 +141,19 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 1
   _entityReplicationFilterQueryOption: 1
+--- !u!114 &7931764748414258148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9186733321569537657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab1bd549082f3242a04e5005eb377fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 35
+  explosionTime: 0.75
+  radius: 3
+  entitiesHit: []
