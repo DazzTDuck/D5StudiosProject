@@ -21,7 +21,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
 
-    [Space, SerializeField] int damage, hsMultiplier;
+    [Space, SerializeField] int damage, powerUp, hsMultiplier;
     [SerializeField] float fireRate, weaponPunchY;
     [SerializeField] float[] weaponPunchX;
 
@@ -120,6 +120,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         state.SetAnimator(animator);
+        state.AddCallback("IsPoweredUp", DamageCallback);
 
         if (entity.IsOwner)
         {
@@ -136,6 +137,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             }
         }
     }
+
+    void DamageCallback() { damage = state.IsPoweredUp ? damage *= powerUp : damage /= powerUp; }
 
     public void ShootRaycast()
     {

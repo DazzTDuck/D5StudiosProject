@@ -9,7 +9,7 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
     [SerializeField] Transform shankPoint;
-    [SerializeField] int damage;
+    [SerializeField] int damage, powerUp;
     [SerializeField] float shankRate, range, damageTime;
     float nextTimeToShank;
 
@@ -37,6 +37,7 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         state.SetAnimator(animator);
+        state.AddCallback("IsPoweredUp", DamageCallback);
 
         if (entity.IsOwner)
         {
@@ -50,6 +51,8 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
             }
         }
     }
+
+    void DamageCallback() { damage = state.IsPoweredUp ? damage *= powerUp : damage /= powerUp; }
 
     public void Shank()
     {

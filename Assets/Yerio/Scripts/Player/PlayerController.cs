@@ -156,11 +156,27 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         cam.GetComponent<PlayerCamera>().Crouch(state);
         weaponCam.GetComponent<PlayerCamera>().Crouch(state);
-        CrouchMoveSpeed(state);
         if (shoot)
             shoot.CrouchRecoil(state);
         else if (shotgun)
             shotgun.ReduceSpread(state);
+
+        if (state)
+            moveSpeed /= 2;
+        else
+            moveSpeed *= 2;
+    }
+
+    IEnumerator WaitForCrouch(float time)
+    {
+        waitingForCoroutine = true;
+
+        yield return new WaitForSeconds(time);
+
+        canCrouch = true;
+        waitingForCoroutine = false;
+
+        StopCoroutine(nameof(WaitForCrouch));
     }
 
     void Jumping()
@@ -210,25 +226,8 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    public void CrouchMoveSpeed(bool crouching)
-    {
-        if (crouching)
-            moveSpeed /= 2;
-        else
-            moveSpeed *= 2;
-    }
 
-    public IEnumerator WaitForCrouch(float time)
-    {
-        waitingForCoroutine = true;
-        yield return new WaitForSeconds(time);
-
-        canCrouch = true;
-        waitingForCoroutine = false;
-
-        StopCoroutine(nameof(WaitForCrouch));
-    }
-
+    //Ability stuff
     public void EmpowerSpeed(bool started, float walkSpeed)
     {
         moveSpeed = !started ? moveSpeed *= walkSpeed : moveSpeed /= walkSpeed;
@@ -245,6 +244,18 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         state.IsStunned = false;
 
         StopCoroutine(nameof(Stunned));
+    }
+
+    public void StartPowerUp(float time) { StartCoroutine(PowerUp(time)); }
+    IEnumerator PowerUp(float time)
+    {
+        state.IsPoweredUp = true;
+
+        yield return new WaitForSeconds(time);
+
+        state.IsPoweredUp = false;
+
+        StopCoroutine(nameof(PowerUp));
     }
 
 

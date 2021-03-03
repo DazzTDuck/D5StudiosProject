@@ -5,12 +5,13 @@ using UnityEngine;
 public class Balls : Bolt.EntityBehaviour<IProjectileState>
 {
     [SerializeField] int playerLayer;
-    bool stunsEnemies;
     bool directHit;
     bool healBall;
+    bool stunBall;
 
     [Space, SerializeField] int ballValue;
     [SerializeField] int directHitValue;
+    [SerializeField] int powerUp;
     [SerializeField] float stunTime;
     [SerializeField] float radius;
 
@@ -35,6 +36,12 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
     public override void Attached()
     {
         state.SetTransforms(state.ProjectileTransform, transform);
+    }
+
+    public void DetermineDamage(bool state)
+    {
+        if (state && !healBall && !stunBall)
+            ballValue *= powerUp;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -73,7 +80,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
                     if (entityTag == teamTag || entityTag == enemyTeamTag)
                     {
                         entitiesList.Add(boltEntity);
-                        if (!stunsEnemies && !healBall)
+                        if (!stunBall && !healBall)
                             GetDistanceToEntities(collider);
                     }
                 };
@@ -105,7 +112,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             {
                 entitiesDamaged++;
             }
-            else if (stunsEnemies)
+            else if (stunBall)
             {
                 if (entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                     SendStun(stunTime, entity);
@@ -187,7 +194,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
     }
 
     public void SetHitDamageUI(HitDamageUI ui) { hitDamageUI = ui; }
-    public void SetPlayerHit(bool heal, bool stuns) { healBall = heal; stunsEnemies = stuns; }
+    public void SetPlayerHit(bool heal, bool stuns) { healBall = heal; stunBall = stuns; }
 
     public void SetTags(string team, string enemyTeam)
     {

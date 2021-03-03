@@ -186,6 +186,15 @@ public class NetworkCallbacks : GlobalEventListener
         evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing, evnt.HealStim);
     }
 
+    public override void OnEvent(TeamBoostRequest evnt)
+    {
+        GameObject[] teammates = GameObject.FindGameObjectsWithTag(evnt.TeamTagString);
+        foreach(GameObject teammate in teammates)
+        {
+            teammate.GetComponent<PlayerController>().StartPowerUp(evnt.Duration);
+        }
+    }        
+
     public override void OnEvent(ChangeNameEvent evnt)
     {
         evnt.Entity.GetComponentInChildren<WaitForHostScreen>().ChangeName(evnt.Name);

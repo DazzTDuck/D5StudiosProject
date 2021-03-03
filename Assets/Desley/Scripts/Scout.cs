@@ -19,7 +19,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject bulletHit;
     [SerializeField] Transform muzzle;
 
-    [Space, SerializeField] int damage, hsMultiplier, range;
+    [Space, SerializeField] int damage, powerUp, hsMultiplier, range;
     [SerializeField] float fireRate, weaponPunchX;
 
     [Space, SerializeField] int currentBulletCount;
@@ -110,6 +110,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Attached();
         state.SetAnimator(animator);
+        state.AddCallback("IsPoweredUp", DamageCallback);
 
         if (entity.IsOwner)
         {
@@ -126,6 +127,8 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
             }
         }
     }
+
+    void DamageCallback() { damage = state.IsPoweredUp ? damage *= powerUp : damage /= powerUp; }
 
     public void ShootRaycast()
     { 
