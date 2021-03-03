@@ -41,6 +41,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool shootingDisabled;
     public bool isStunned;
+    public bool isGrappling;
 
     string teamTag;
     string enemyTeamTag;
@@ -61,7 +62,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         CheckFireModeInput();
         CheckReloadInput();
 
-        if(!shootingDisabled && entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
+        if(!shootingDisabled && !isGrappling && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && entity.IsOwner && !state.IsDead)
         {
             if (isShooting || nextShot)
             {

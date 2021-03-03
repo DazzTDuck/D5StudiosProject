@@ -6,7 +6,9 @@ using Photon;
 
 public class GrapplingHook : MonoBehaviour
 {
-    [SerializeField] Transform playerTransform;
+    [SerializeField] int ungrapplableLayerIndex;
+
+    [Space, SerializeField] Transform playerTransform;
     [SerializeField] Rigidbody rb;
     [SerializeField] Camera cam;
     [SerializeField] AbilityHandler abilityHandler;
@@ -28,7 +30,14 @@ public class GrapplingHook : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
-        { 
+        {
+            if (hit.collider.gameObject.layer == ungrapplableLayerIndex)
+            {
+                abilityHandler.ResetAbility2Timer();
+                return;
+            }
+                
+
             hitPoint = hit.point;
             direction = (hit.point - playerTransform.position).normalized;
 
@@ -36,6 +45,7 @@ public class GrapplingHook : MonoBehaviour
 
             DetermineStopDistance(Vector3.Distance(playerTransform.position, hitPoint));
             playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
+            GetComponent<Scout>().isGrappling = true;
             lr.positionCount = 2;
         }
         else
@@ -88,6 +98,7 @@ public class GrapplingHook : MonoBehaviour
         isGrappling = false;
         rb.velocity = new Vector3(0,0,0);
         playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
+        GetComponent<Scout>().isGrappling = false;
         lr.positionCount = 0;
 
         if (stoppedByJump)

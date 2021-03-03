@@ -21,8 +21,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Transform muzzle;
 
     [Space, SerializeField] int damage, hsMultiplier;
-    [SerializeField] float fireRate, weaponPunchX;
-    [SerializeField] float[] weaponPunchY;
+    [SerializeField] float fireRate, weaponPunchY;
+    [SerializeField] float[] weaponPunchX;
 
     [Space, SerializeField] int currentBulletCount;
     [SerializeField] int maxBulletCount;
@@ -45,6 +45,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool fullAuto = true;
 
     public bool isStunned;
+    bool accuracyStimmed;
 
     string teamTag;
     string enemyTeamTag;
@@ -65,9 +66,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 InstantiateEffect();
                 recoilResetTime = recoilResetAddTime;
                 nextTimeToShoot = Time.time + 1f / fireRate;
-                weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
-                cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchX, weaponPunchY[sprayPatternIndex - 1]);
                 nextShot = false;
+
+                if (!accuracyStimmed)
+                {
+                    weaponCam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchY, weaponPunchX[sprayPatternIndex - 1]);
+                    cam.GetComponent<PlayerCamera>().AddRecoil(weaponPunchY, weaponPunchX[sprayPatternIndex - 1]);
+                }
             }
         }
 
@@ -248,6 +253,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public IEnumerator AccuracyStim(float time)
     {
         count = 0;
+        accuracyStimmed = true;
+
         foreach (Vector3 pattern in sprayPattern)
         {
             pattern.Set(pattern.x / 10, pattern.y / 10, pattern.z / 10);
@@ -258,12 +265,16 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         yield return new WaitForSeconds(time);
 
         count = 0;
+        accuracyStimmed = false;
+
         foreach (Vector3 pattern in sprayPattern)
         {
             pattern.Set(pattern.x * 10, pattern.y * 10, pattern.z * 10);
             sprayPattern[count] = pattern;
             count++;
         }
+
+        sprayPatternIndex = 0;
 
         StopCoroutine(nameof(AccuracyStim));
     }
