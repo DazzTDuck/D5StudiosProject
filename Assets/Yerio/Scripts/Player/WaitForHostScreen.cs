@@ -37,10 +37,12 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
 
         startGameButton.interactable = false;
         StartCoroutine(GetHost());
+
+        CheckIfGameStarted();
     }
     private void Start()
     {
-        setNameButton.onClick.AddListener(() => { SendChangeNameRequest(playerInputName.text); CheckIfGameStarted(); });
+        setNameButton.onClick.AddListener(() => { SendChangeNameRequest(playerInputName.text); });
         startGameButton.onClick.AddListener(() => { StartGame(); });
     }
     private void Update()
@@ -72,6 +74,11 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
         startGameCanvas.SetActive(false);
         PlayerCamera.HideCursor();
         state.IsDead = false;
+    }
+
+    public void RespawnPlayer()
+    {
+        GetComponent<Health>().RespawnPlayer();
     }
 
     public void GetAllPlayers()
@@ -155,11 +162,10 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (gameInfo.state.GameStarted)
         {
-            var request = StartGameRequest.Create();
-            request.Entity = entity;
-            request.GameStarted = true;
+            var request = DisconnectEvent.Create();
+            request.EnitityToDisconnect = entity;
+            request.DisconnectEveryone = false;
             request.Send();
-            CloseScreen();
         }
     }
 

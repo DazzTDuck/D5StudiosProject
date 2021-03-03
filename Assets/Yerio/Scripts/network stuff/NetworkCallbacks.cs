@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class NetworkCallbacks : GlobalEventListener
 {
     [SerializeField] GameObject cameraPrefab;
-    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] Transform[] spawnPointsTeam1;
+    [SerializeField] Transform[] spawnPointsTeam2;
 
     [HideInInspector] public EnemySpawningHandler enemySpawning;
     [HideInInspector] public GateHealth gateHealth;
@@ -40,7 +41,7 @@ public class NetworkCallbacks : GlobalEventListener
         Cursor.visible = true;
 
         base.SceneLoadLocalDone(scene, token);
-        var player = BoltNetwork.Instantiate(cameraPrefab, GetNewSpawnpoint(), Quaternion.identity);
+        var player = BoltNetwork.Instantiate(cameraPrefab, GetNewSpawnpoint("Team2"), Quaternion.identity);
     }
 
     public void SpawnPlayer(GameObject objectToRemove, GameObject newPrefab)
@@ -49,7 +50,7 @@ public class NetworkCallbacks : GlobalEventListener
         var request = DestroyRequest.Create();
         request.Entity = objectToRemove.GetComponent<BoltEntity>();
         request.Send();
-        var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint(), Quaternion.identity);
+        var player = BoltNetwork.Instantiate(newPrefab, GetNewSpawnpoint("Team2"), Quaternion.identity);
 
         if (!player.GetComponentInChildren<PlayerController>().GetIfHost())
         {
@@ -94,7 +95,9 @@ public class NetworkCallbacks : GlobalEventListener
         if (evnt.IsPlayer && evnt.Entity.IsOwner)
         {
             var player = evnt.Entity.gameObject;
-            player.GetComponentInChildren<PlayerController>().gameObject.transform.position = GetNewSpawnpoint();
+            var playerController = player.GetComponentInChildren<PlayerController>();
+
+            playerController.gameObject.transform.position = GetNewSpawnpoint(playerController.gameObject.tag);
             player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
             player.GetComponentInChildren<Rigidbody>().useGravity = true;
 
@@ -205,13 +208,17 @@ public class NetworkCallbacks : GlobalEventListener
             {
                 host.CloseScreen();
                 host.entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
+                host.RespawnPlayer();
             }
         }
     }
    
-    public Vector3 GetNewSpawnpoint()
+    public Vector3 GetNewSpawnpoint(string team)
     {
-        return spawnPoints[Random.Range(0, spawnPoints.Length)].position;
+        if(team == "Team1") { return spawnPointsTeam1[Random.Range(0, spawnPointsTeam1.Length)].position; }
+        if(team == "Team2") { return spawnPointsTeam2[Random.Range(0, spawnPointsTeam2.Length)].position; }
+
+        return Vector3.zero;
     }
 }
 
