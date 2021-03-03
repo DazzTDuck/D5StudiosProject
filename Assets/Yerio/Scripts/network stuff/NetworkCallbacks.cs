@@ -178,7 +178,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(StunEvent evnt)
     {
-            evnt.EntityShot.GetComponentInChildren<PlayerController>().StartStun(evnt.Duration);
+        evnt.EntityShot.GetComponentInChildren<PlayerController>().StartStun(evnt.Duration);
     }
 
     public override void OnEvent(HealRequest evnt)

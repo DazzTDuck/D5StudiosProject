@@ -242,6 +242,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         isStunned = true;
         hudCanvas.GetComponent<AbilityHandler>().PlayerStunned(time);
         cam.GetComponent<PlayerCamera>().isStunned = true;
+        weaponCam.GetComponent<PlayerCamera>().isStunned = true;
         if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
         else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }
@@ -251,6 +252,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
         isStunned = false;
         cam.GetComponent<PlayerCamera>().isStunned = false;
+        weaponCam.GetComponent<PlayerCamera>().isStunned = false;
         if (GetComponent<Support>()) { GetComponent<Support>().isStunned = false; }
         else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = false; }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = false; }
