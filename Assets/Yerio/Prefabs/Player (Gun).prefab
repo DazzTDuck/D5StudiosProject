@@ -443,7 +443,6 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
-  isStunned: 0
 --- !u!1 &4526313664149623396
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +708,7 @@ MonoBehaviour:
   cam: {fileID: 4788751972979609531}
   weaponCam: {fileID: 4297703519134521421}
   hudCanvas: {fileID: 4571308570237180164}
-  shoot: {fileID: 0}
+  shoot: {fileID: 1681499615688388323}
   shotgun: {fileID: 0}
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
@@ -935,7 +934,6 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
-  isStunned: 0
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,7 +1276,6 @@ MonoBehaviour:
     type: 3}
   throwPoint: {fileID: 8238584644362551986}
   throwForce: 15
-  isStunned: 0
 --- !u!114 &4283912007857026332
 MonoBehaviour:
   m_ObjectHideFlags: 0

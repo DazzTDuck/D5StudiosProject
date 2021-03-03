@@ -45,7 +45,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool fullAuto = true;
 
-    public bool isStunned;
     bool accuracyStimmed;
 
     string teamTag;
@@ -92,7 +91,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         else if (Input.GetButtonDown("FireMode") && fullAuto && !pauseMenuHandler.GetIfPaused()) { fullAuto = false; }
 
         //check input of mouse
-        if (!isStunned)
+        if (!state.IsStunned)
         {
             if (!fullAuto)
                 isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();

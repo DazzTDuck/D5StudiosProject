@@ -37,8 +37,6 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
     float recoilValueY = 0;
     bool increaseRecoil = false;
 
-    public bool isStunned;
-
     private void Awake()
     {
         ShowCursor();
@@ -101,7 +99,7 @@ public class PlayerCamera : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void CameraPos()
     {
-        if (!isStunned)
+        if (!state.IsStunned)
         {
             if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
             {

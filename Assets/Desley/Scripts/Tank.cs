@@ -21,11 +21,9 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     bool isShooting;
 
-    public bool isStunned;
-
     public void Update()
     {
-        isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused() && !isStunned;
+        isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused() && !state.IsStunned;
 
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShank && !state.IsDead)
         {

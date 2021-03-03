@@ -40,7 +40,6 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     bool isShooting;
     bool nextShot;
     bool shootingDisabled;
-    public bool isStunned;
     public bool isGrappling;
 
     string teamTag;
@@ -85,7 +84,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
 
         //check for input in between chambering rounds
-        if (!isStunned)
+        if (!state.IsStunned)
         {
             if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
                 nextShot = true;

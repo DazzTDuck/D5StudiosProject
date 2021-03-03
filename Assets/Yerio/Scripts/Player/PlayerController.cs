@@ -57,10 +57,10 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     bool canCrouch = true;
     bool waitingForCoroutine = false;
     bool isCrouching;
-    WaitForHostScreen waitForHostScreen;
 
-    bool isStunned;
     bool isGrappling;
+
+    WaitForHostScreen waitForHostScreen;
 
     [Space, SerializeField] string[] tags;
 
@@ -119,7 +119,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead && !isGrounded)
             finalMoveSpeed = moveSpeed / reducedMovement;
 
-        if (!state.IsDead && !pauseMenuHandler.GetIfPaused() && !isStunned)
+        if (!state.IsDead && !pauseMenuHandler.GetIfPaused() && !state.IsStunned)
             transform.Translate(movement * finalMoveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
 
         isCrouching = Input.GetButton("Crouch");
@@ -137,37 +137,36 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     void Crouch()
     {
-        if (isCrouching && !state.IsDead && canCrouch && !isStunned && !pauseMenuHandler.GetIfPaused())
+        if(!state.IsDead && !pauseMenuHandler.GetIfPaused())
         {
-            cam.GetComponent<PlayerCamera>().Crouch(true);
-            weaponCam.GetComponent<PlayerCamera>().Crouch(true);
-            CrouchMoveSpeed(true);
-            if (shoot)
-                shoot.CrouchRecoil(true);
-            else if (shotgun)
-                shotgun.ReduceSpread(true);
-                    
-
-            canCrouch = false;
+            if (isCrouching && canCrouch && !state.IsStunned)
+            {
+                ChangeCrouch(true);
+                canCrouch = false;
+            }
+            else if (!isCrouching && !canCrouch)
+            {
+                ChangeCrouch(false);
+                StartCoroutine(WaitForCrouch(nextCrouch));
+            }
         }
-        else if (!isCrouching && !state.IsDead && !canCrouch && !pauseMenuHandler.GetIfPaused())
-        {
-            cam.GetComponent<PlayerCamera>().Crouch(false);
-            weaponCam.GetComponent<PlayerCamera>().Crouch(false);
-            CrouchMoveSpeed(false);
-            if(shoot)
-                shoot.CrouchRecoil(false);
-            else if (shotgun)
-                shotgun.ReduceSpread(false);
+    }
 
-            StartCoroutine(WaitForCrouch(nextCrouch));
-        }
+    void ChangeCrouch(bool state)
+    {
+        cam.GetComponent<PlayerCamera>().Crouch(state);
+        weaponCam.GetComponent<PlayerCamera>().Crouch(state);
+        CrouchMoveSpeed(state);
+        if (shoot)
+            shoot.CrouchRecoil(state);
+        else if (shotgun)
+            shotgun.ReduceSpread(state);
     }
 
     void Jumping()
     {
         if (!state.IsDead && !pauseMenuHandler.GetIfPaused())
-            wantToJump = Input.GetButtonDown("Jump") && !isStunned;
+            wantToJump = Input.GetButtonDown("Jump") && !state.IsStunned;
 
         //when the cooldown is active add it up with time and if it has exceeded the cooldown time you can jump again
         if (jumpCooldown && isGrounded && !wantToJump && entity.IsOwner)
@@ -230,7 +229,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(WaitForCrouch));
     }
 
-    //Effects stuff
     public void EmpowerSpeed(bool started, float walkSpeed)
     {
         moveSpeed = !started ? moveSpeed *= walkSpeed : moveSpeed /= walkSpeed;
@@ -239,24 +237,12 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     public void StartStun(float time) { StartCoroutine(Stunned(time)); }
     IEnumerator Stunned(float time)
     {
-        isStunned = true;
+        state.IsStunned = true;
         hudCanvas.GetComponent<AbilityHandler>().PlayerStunned(time);
-        cam.GetComponent<PlayerCamera>().isStunned = true;
-        weaponCam.GetComponent<PlayerCamera>().isStunned = true;
-        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = true; }
-        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = true; }
-        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = true; }
-        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = true; }
 
         yield return new WaitForSeconds(time);
 
-        isStunned = false;
-        cam.GetComponent<PlayerCamera>().isStunned = false;
-        weaponCam.GetComponent<PlayerCamera>().isStunned = false;
-        if (GetComponent<Support>()) { GetComponent<Support>().isStunned = false; }
-        else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().isStunned = false; }
-        else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().isStunned = false; }
-        else if (GetComponentInChildren<Scout>()) { GetComponentInChildren<Scout>().isStunned = false; }
+        state.IsStunned = false;
 
         StopCoroutine(nameof(Stunned));
     }
@@ -297,7 +283,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         yield return new WaitForSeconds(0.2f);
 
         GetComponent<Health>().SetTags();
-
         if (GetComponent<Support>()) { GetComponent<Support>().SetTags(); }
         else if (GetComponentInChildren<Tank>()) { GetComponentInChildren<Tank>().SetTags(); }
         else if (GetComponentInChildren<Shoot>()) { GetComponentInChildren<Shoot>().SetTags(); }

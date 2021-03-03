@@ -20,7 +20,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     float chargeTime;
 
     bool usingHeal, usingStun;
-    public bool isStunned;
 
     string teamTag;
     string enemyTeamTag;
@@ -32,7 +31,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
-        isShooting = Input.GetButton("Fire1") && !isStunned;
+        isShooting = Input.GetButton("Fire1") && !state.IsStunned;
 
         if (!usingStun)
         {
