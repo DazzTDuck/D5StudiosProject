@@ -67,7 +67,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                     GetComponent<Collider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
 
-                    RespawnPlayer();
+                    //Create DestroyRequest, set entity to ent and then send
+                    var request = DestroyRequest.Create();
+                    request.Entity = GetComponentInParent<BoltEntity>();
+                    request.KillTrigger = false;
+                    request.IsPlayer = true;
+                    request.Send();
                 }
             }
         }  
@@ -78,7 +83,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         //Create DestroyRequest, set entity to ent and then send
         var request = DestroyRequest.Create();
         request.Entity = GetComponentInParent<BoltEntity>();
-        request.KillTrigger = false;
+        request.KillTrigger = true;
         request.IsPlayer = true;
         request.Send();
     }
