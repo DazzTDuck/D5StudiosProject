@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BombFragment : Bolt.EntityBehaviour<IProjectileState>
 {
+    [SerializeField] GameObject explosionEffect;
     [SerializeField] int damage;
     [SerializeField] float explosionTime;
     [SerializeField] float radius;
+    [SerializeField] float effectDestroyTime;
 
     [Space, SerializeField] List<BoltEntity> entitiesHit;
 
@@ -16,11 +18,6 @@ public class BombFragment : Bolt.EntityBehaviour<IProjectileState>
     public override void Attached()
     {
         state.SetTransforms(state.ProjectileTransform, transform);
-    }
-
-    void Start()
-    {
-        StartCoroutine(ExplodeFragment(explosionTime));
     }
 
     IEnumerator ExplodeFragment(float time)
@@ -52,24 +49,35 @@ public class BombFragment : Bolt.EntityBehaviour<IProjectileState>
             }
         }
 
-        if (entitiesHit.Count != 0)
-            SendDamage();
-        else
-            DestroyFragment();
+        SendDamage();
     }
 
     void SendDamage()
     {
-        foreach(BoltEntity entity in entitiesHit)
+        if(entitiesHit.Count != 0)
         {
-            var request = DamageRequest.Create();
-            request.EntityShot = entity;
-            request.Damage = damage;
-            request.EntityShooter = GetComponentInParent<BoltEntity>();
-            request.Send();
+            foreach (BoltEntity entity in entitiesHit)
+            {
+                var request = DamageRequest.Create();
+                request.EntityShot = entity;
+                request.Damage = damage;
+                request.EntityShooter = GetComponentInParent<BoltEntity>();
+                request.Send();
+            }
         }
 
+        var effect = BoltNetwork.Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        StartCoroutine(DestroyEffect(effect, effectDestroyTime));
+    }
+
+    IEnumerator DestroyEffect(BoltEntity effect, float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        BoltNetwork.Destroy(effect);
         DestroyFragment();
+
+        StopCoroutine(nameof(DestroyEffect));
     }
 
     void DestroyFragment()
@@ -81,5 +89,7 @@ public class BombFragment : Bolt.EntityBehaviour<IProjectileState>
     {
         teamTag = team;
         enemyTeamTag = enemyTeam;
+
+        StartCoroutine(ExplodeFragment(explosionTime));
     }
 }

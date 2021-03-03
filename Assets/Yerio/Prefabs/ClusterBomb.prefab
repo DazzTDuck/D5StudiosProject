@@ -155,6 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clusterFragBomb: {fileID: 9186733321569537657, guid: 7c7df16d10e94b44b89e67dad3901b22,
     type: 3}
+  explosionEffect: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
+    type: 3}
   directions:
   - {x: 0, y: 1, z: 0.3}
   - {x: 0, y: 1, z: -0.3}
@@ -165,4 +167,5 @@ MonoBehaviour:
   explosionForce: 5
   radius: 5
   upforce: 0.1
+  effectDestroyTime: 1.75
   fallbackTime: 5
