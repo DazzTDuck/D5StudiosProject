@@ -160,6 +160,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                 if (boltEntity)
                 {
                     int damageToDo = damage / damageDivider;
+
                     if (entityTag == enemyTeamTag)
                     {
                         SendDamage(damageToDo, boltEntity);

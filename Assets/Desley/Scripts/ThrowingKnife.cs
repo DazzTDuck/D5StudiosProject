@@ -33,8 +33,8 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
     void CheckCollision(GameObject objectHit)
     {
-        BoltEntity boltEntity = objectHit.GetComponent<BoltEntity>();
-        if (!boltEntity) { boltEntity = objectHit.GetComponentInParent<BoltEntity>(); }
+        BoltEntity boltEntity = objectHit.GetComponentInParent<BoltEntity>();
+        Health health = boltEntity.GetComponentInChildren<Health>();
 
         if(boltEntity)
         {
@@ -42,7 +42,7 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
             {
                 SendDamage(damage, boltEntity);
             }
-            else if (objectHit.GetComponentInParent<Health>().CompareTag(enemyTeamTag))
+            else if (health.CompareTag(enemyTeamTag))
             {
                 SendDamage(damage * hsMultiplier, boltEntity);
             }

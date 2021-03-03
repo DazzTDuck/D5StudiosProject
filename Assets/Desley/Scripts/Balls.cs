@@ -74,16 +74,15 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             {
                 string entityTag = collider.tag;
                 BoltEntity boltEntity = collider.GetComponentInParent<BoltEntity>();
+                Health health = boltEntity.GetComponentInChildren<Health>();
 
-                if (!entitiesList.Contains(boltEntity))
+                if (!entitiesList.Contains(boltEntity) && health)
                 {
-                    if (entityTag == teamTag || entityTag == enemyTeamTag)
-                    {
-                        entitiesList.Add(boltEntity);
-                        if (!stunBall && !healBall)
-                            GetDistanceToEntities(collider);
-                    }
-                };
+                    entitiesList.Add(boltEntity);
+
+                    if (!stunBall && !healBall)
+                        GetDistanceToEntities(collider);
+                }
             }
 
             if (entitiesList.Count == 0)
