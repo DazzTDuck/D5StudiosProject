@@ -46,7 +46,7 @@ public class GrapplingHook : MonoBehaviour
 
     void DetermineStopDistance(float distance)
     {
-        stoppingDistance = distance < 15 ? stoppingDistance = 1f : stoppingDistance = 3f;
+        stoppingDistance = distance < 15 ? stoppingDistance = 2f : stoppingDistance = 3f;
     }
 
     void DrawGrappleRope()
@@ -72,7 +72,7 @@ public class GrapplingHook : MonoBehaviour
     private void FixedUpdate()
     {
         if (isGrappling)
-            rb.MovePosition(playerTransform.position + direction * hookSpeed * Time.fixedDeltaTime);
+            rb.velocity = (direction * hookSpeed * Time.fixedDeltaTime);
     }
 
     private void LateUpdate()
@@ -86,6 +86,7 @@ public class GrapplingHook : MonoBehaviour
     public void StopGrapple(bool stoppedByJump)
     {
         isGrappling = false;
+        rb.velocity = new Vector3(0,0,0);
         playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
         lr.positionCount = 0;
 
