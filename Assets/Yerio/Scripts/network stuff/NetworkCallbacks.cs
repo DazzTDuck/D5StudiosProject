@@ -193,7 +193,12 @@ public class NetworkCallbacks : GlobalEventListener
         {
             teammate.GetComponent<PlayerController>().StartPowerUp(evnt.Duration);
         }
-    }        
+    }
+
+    public override void OnEvent(DisableMeshRenderer evnt)
+    {
+        evnt.Entity.GetComponent<MeshRenderer>().enabled = false;
+    }
 
     public override void OnEvent(ChangeNameEvent evnt)
     {

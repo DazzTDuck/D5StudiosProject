@@ -68,7 +68,10 @@ public class DetonateBomb : Bolt.EntityBehaviour<IProjectileState>
 
             var effect = BoltNetwork.Instantiate(explosionEffect, transform.position, Quaternion.identity);
             StartCoroutine(DestroyEffect(effect, effectDestroyTime));
-            GetComponent<MeshRenderer>().enabled = false;
+
+            var request = DisableMeshRenderer.Create();
+            request.Entity = GetComponent<BoltEntity>();
+            request.Send();
         }
     }
 
