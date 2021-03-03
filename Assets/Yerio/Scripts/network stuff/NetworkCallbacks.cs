@@ -215,8 +215,6 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(PlayGunSound evnt)
     {
-        Debug.LogWarning(evnt.EntityToPlayAt);
-
         if (evnt.SoundToPlay == "Fire")
         {
             evnt.EntityToPlayAt.GetComponentInChildren<GunSounds>().PlayFireSound();
