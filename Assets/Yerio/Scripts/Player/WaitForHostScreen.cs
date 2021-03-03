@@ -47,17 +47,18 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if(!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
 
-        if (gameInfo)
-        {
-            CheckIfGameStarted();
-        }
-
+        
         if (startGameCanvas.activeSelf)
         {
             GetAllPlayers();
             GetIfAllPlayersReady();
 
             startGameButton.interactable = host && allPlayersReady;
+
+            if (gameInfo)
+            {
+                CheckIfGameStarted();
+            }
         }
     }
 
