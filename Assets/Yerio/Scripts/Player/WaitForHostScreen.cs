@@ -37,8 +37,6 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
 
         startGameButton.interactable = false;
         StartCoroutine(GetHost());
-
-        CheckIfGameStarted();
     }
     private void Start()
     {
@@ -48,6 +46,11 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     private void Update()
     {
         if(!gameInfo) { gameInfo = FindObjectOfType<GameInfo>(); }
+
+        if (gameInfo)
+        {
+            CheckIfGameStarted();
+        }
 
         if (startGameCanvas.activeSelf)
         {
