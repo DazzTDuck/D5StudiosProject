@@ -11,6 +11,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Animator animator;
     [SerializeField] Animator animatorOverlay;
     [SerializeField] HitDamageUI hitDamageUI;
+    [SerializeField] GunSounds gunSounds;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
@@ -140,6 +141,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ShootRaycast()
     {
         state.Animator.SetTrigger("Shoot");
+        gunSounds.PlaySound("Fire");
         Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f) + sprayPattern[sprayPatternIndex-1]);
         RaycastHit hit;
         if(Physics.Raycast(ray, cam.transform.forward, out hit))
@@ -194,6 +196,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public IEnumerator Reload(float time)
     {
         reloadingText.SetActive(true);
+        gunSounds.PlaySound("Reload");
 
         yield return new WaitForSeconds(time);
 

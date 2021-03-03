@@ -212,7 +212,20 @@ public class NetworkCallbacks : GlobalEventListener
             }
         }
     }
-   
+
+    public override void OnEvent(PlayGunSound evnt)
+    {
+        if (evnt.SoundToPlay == "Fire")
+        {
+            evnt.EntityToPlayAt.GetComponentInChildren<GunSounds>().PlayFireSound();
+        }
+
+        if (evnt.SoundToPlay == "Reload")
+        {
+            evnt.EntityToPlayAt.GetComponentInChildren<GunSounds>().PlayReloadSound();
+        }
+    }
+
     public Vector3 GetNewSpawnpoint(string team)
     {
         if(team == "Team1") { return spawnPointsTeam1[Random.Range(0, spawnPointsTeam1.Length)].position; }
