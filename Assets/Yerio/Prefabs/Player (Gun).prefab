@@ -758,6 +758,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
+  crouchRecoilDivider: 2
+  isStimmed: 0
   tags:
   - Team1
   - Team2
@@ -1322,6 +1324,7 @@ MonoBehaviour:
     type: 3}
   throwPoint: {fileID: 8238584644362551986}
   throwForce: 15
+  disableShootingTime: 0.5
 --- !u!114 &4283912007857026332
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -39,8 +39,10 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     float nextTimeToShoot;
     bool isShooting;
     bool nextShot;
-    bool shootingDisabled;
     public bool isGrappling;
+
+    [Space, SerializeField] float disableShootingTime;
+    bool shootingDisabled;
 
     string teamTag;
     string enemyTeamTag;
@@ -58,8 +60,11 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
-        CheckFireModeInput();
-        CheckReloadInput();
+        if (!shootingDisabled)
+        {
+            CheckFireModeInput();
+            CheckReloadInput();
+        }
 
         if(!shootingDisabled && !isGrappling && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && entity.IsOwner && !state.IsDead)
         {
@@ -154,11 +159,11 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                 damageDivider = distance < dropoffRange ? 1 : dropOffDivider;
 
                 string entityTag = hit.collider.tag;
-                BoltEntity boltEntity = hit.collider.GetComponent<BoltEntity>();
-                if (!boltEntity) { boltEntity = hit.collider.GetComponentInParent<BoltEntity>(); }
+                BoltEntity boltEntity = hit.collider.GetComponentInParent<BoltEntity>();
 
                 if (boltEntity)
                 {
+                    Health health = boltEntity.GetComponentInChildren<Health>();
                     int damageToDo = damage / damageDivider;
 
                     if (entityTag == enemyTeamTag)
@@ -166,7 +171,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                         SendDamage(damageToDo, boltEntity);
                         totalDamage += damageToDo;
                     }
-                    else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                    else if (health && health.CompareTag(enemyTeamTag))
                     {
                         SendDamage(damageToDo * hsMultiplier, boltEntity);
                         totalDamage += damageToDo * hsMultiplier;
@@ -183,6 +188,8 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         }   
     }
 
+    public void ShootGrapplingHook() { GetComponentInChildren<GrapplingHook>().ShootGrapplingHook(); }
+
     public void Empower()
     {
         StartCoroutine(StartEmpowering());
@@ -190,6 +197,8 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 
     IEnumerator StartEmpowering()
     {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
         GetComponentInParent<PlayerController>().EmpowerSpeed(false, walkSpeed);
         fireRate *= shootSpeed;
         reloadTime /= reloadSpeed;
@@ -205,7 +214,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ThrowKnives()
     {
-        StartCoroutine(DisableShooting(.5f));
+        StartCoroutine(DisableShooting(disableShootingTime));
 
         foreach(Transform point in throwPoints)
         {

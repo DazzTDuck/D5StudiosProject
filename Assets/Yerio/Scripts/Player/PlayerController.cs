@@ -54,11 +54,14 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
 
     bool isHost;
 
+    [Space, SerializeField] float crouchRecoilDivider;
     bool canCrouch = true;
     bool waitingForCoroutine = false;
     bool isCrouching;
 
     bool isGrappling;
+
+    public bool isStimmed;
 
     WaitForHostScreen waitForHostScreen;
 
@@ -156,10 +159,14 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         cam.GetComponent<PlayerCamera>().Crouch(state);
         weaponCam.GetComponent<PlayerCamera>().Crouch(state);
-        if (shoot)
-            shoot.CrouchRecoil(state);
-        else if (shotgun)
-            shotgun.ReduceSpread(state);
+
+        if (!isStimmed)
+        {
+            if (shoot)
+                shoot.CrouchRecoil(state, crouchRecoilDivider);
+            else if (shotgun)
+                shotgun.ReduceSpread(state);
+        }
 
         if (state)
             moveSpeed /= 2;

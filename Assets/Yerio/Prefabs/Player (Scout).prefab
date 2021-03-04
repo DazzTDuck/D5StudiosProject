@@ -510,6 +510,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
+  crouchRecoilDivider: 2
+  isStimmed: 0
   tags:
   - Team1
   - Team2
@@ -2797,6 +2799,11 @@ PrefabInstance:
       propertyPath: pauseMenuHandler
       value: 
       objectReference: {fileID: 5263953469245031243}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
+      propertyPath: disableShootingTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
       propertyPath: throwPoints.Array.size

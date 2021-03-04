@@ -20,7 +20,9 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     bool charging;
     float chargeTime;
 
-    bool usingHeal, usingStun;
+    [Space, SerializeField] float disableShootingTime = .5f;
+    bool usingHeal;
+    bool usingAbility;
 
     string teamTag;
     string enemyTeamTag;
@@ -34,7 +36,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         isShooting = Input.GetButton("Fire1") && !state.IsStunned;
 
-        if (!usingStun)
+        if (!usingAbility)
         {
             if (isShooting && entity.IsOwner && !state.IsDead)
             {
@@ -69,11 +71,15 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void StunBall()
     {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
         InstantiateBall(stunBall, maxCharge, false, true);
     }
 
     public void ChangeBalls()
     {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
         if (!usingHeal)
         {
             //make ball heal
@@ -90,10 +96,23 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void PowerUp()
     {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
         var request = TeamBoostRequest.Create();
         request.TeamTagString = teamTag;
         request.Duration = powerUpDuration;
         request.Send();
+    }
+
+    IEnumerator DisableShooting(float time)
+    {
+        usingAbility = true;
+
+        yield return new WaitForSeconds(time);
+
+        usingAbility = false;
+
+        StopCoroutine(nameof(DisableShooting));
     }
 
     public void SetTags()

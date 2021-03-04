@@ -45,6 +45,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool fullAuto = true;
 
+    [Space, SerializeField] float disableShootingTime = .5f;
+    bool usingAbility;
+
     bool accuracyStimmed;
 
     string teamTag;
@@ -52,8 +55,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
-        CheckFireModeInput();
-        CheckReloadInput();
+        if (!usingAbility)
+        {
+            CheckFireModeInput();
+            CheckReloadInput();
+        }
 
         if (entity.IsOwner && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && !state.IsDead)
         {
@@ -144,9 +150,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         state.Animator.SetTrigger("Shoot");
         gunSounds.PlaySound("Fire");
-        Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f) + sprayPattern[sprayPatternIndex-1]);
+        Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
         RaycastHit hit;
-        if(Physics.Raycast(ray, cam.transform.forward, out hit))
+        if(Physics.Raycast(ray + sprayPattern[sprayPatternIndex - 1], cam.transform.forward, out hit))
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(.25f, hitEffect));
@@ -156,11 +162,13 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
             if (boltEntity)
             {
+                Health health = boltEntity.GetComponentInChildren<Health>();
+
                 if (entityTag == enemyTeamTag)
                 {
                     SendDamage(damage, boltEntity);
                 }
-                else if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                else if (health && health.CompareTag(enemyTeamTag))
                 {
                     SendDamage(damage * hsMultiplier, boltEntity);
                 }
@@ -216,14 +224,14 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         currentBulletCount = maxBulletCount;
     }
 
-    public void CrouchRecoil(bool crouching)
+    public void CrouchRecoil(bool crouching, float divider)
     {
         count = 0;
         if (crouching)
         {
             foreach (Vector3 pattern in sprayPattern)
             {
-                pattern.Set(pattern.x / 2, pattern.y / 2, pattern.z / 2);
+                pattern.Set(pattern.x / divider, pattern.y / divider, pattern.z / divider);
                 sprayPattern[count] = pattern;
                 count++;
             }
@@ -232,7 +240,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             foreach (Vector3 pattern in sprayPattern)
             {
-                pattern.Set(pattern.x * 2, pattern.y * 2, pattern.z * 2);
+                pattern.Set(pattern.x * divider, pattern.y * divider, pattern.z * divider);
                 sprayPattern[count] = pattern;
                 count++;
             }
@@ -241,6 +249,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void HealingStim(int heal)
     {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
         var request = HealRequest.Create();
         request.EntityShot = GetComponentInParent<BoltEntity>();
         request.Healing = heal;
@@ -255,29 +265,19 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         animatorOverlay.SetTrigger("Accuracy");
     }
 
-    public IEnumerator AccuracyStim(float time)
+    IEnumerator AccuracyStim(float time)
     {
-        count = 0;
-        accuracyStimmed = true;
+        StartCoroutine(DisableShooting(disableShootingTime));
 
-        foreach (Vector3 pattern in sprayPattern)
-        {
-            pattern.Set(pattern.x / 10, pattern.y / 10, pattern.z / 10);
-            sprayPattern[count] = pattern;
-            count++;
-        }
+        accuracyStimmed = true;
+        GetComponentInParent<PlayerController>().isStimmed = true;
+        CrouchRecoil(true, 10);
 
         yield return new WaitForSeconds(time);
 
-        count = 0;
         accuracyStimmed = false;
-
-        foreach (Vector3 pattern in sprayPattern)
-        {
-            pattern.Set(pattern.x * 10, pattern.y * 10, pattern.z * 10);
-            sprayPattern[count] = pattern;
-            count++;
-        }
+        GetComponentInParent<PlayerController>().isStimmed = false;
+        CrouchRecoil(false, 10);
 
         sprayPatternIndex = 0;
 
@@ -286,9 +286,21 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ClusterFuck()
     {
+        StartCoroutine(DisableShooting(disableShootingTime));
         var bomb = BoltNetwork.Instantiate(clusterBomb, throwPoint.position, throwPoint.rotation);
         bomb.GetComponent<DetonateBomb>().SetTags(teamTag, enemyTeamTag);
         bomb.GetComponent<Rigidbody>().AddRelativeForce(0, 0, throwForce, ForceMode.Impulse);
+    }
+
+    IEnumerator DisableShooting(float time)
+    {
+        usingAbility = true;
+
+        yield return new WaitForSeconds(time);
+
+        usingAbility = false;
+
+        StopCoroutine(nameof(DisableShooting));
     }
 
     public void SetTags()

@@ -64,7 +64,9 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
             if (boltEntity)
             {
-                if (boltEntity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
+                Health health = boltEntity.GetComponentInChildren<Health>();
+
+                if (health && health.CompareTag(enemyTeamTag))
                 {
                     SendDamage(damage, boltEntity);
                 }
