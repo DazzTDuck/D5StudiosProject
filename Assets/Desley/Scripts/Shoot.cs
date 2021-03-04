@@ -209,6 +209,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public IEnumerator Reload(float time)
     {
+        state.Animator.SetTrigger("Reload");
         reloadingText.SetActive(true);
         gunSounds.PlaySound("Reload");
 
