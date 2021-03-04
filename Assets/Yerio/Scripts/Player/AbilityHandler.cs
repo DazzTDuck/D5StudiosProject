@@ -176,6 +176,10 @@ public class AbilityHandler : MonoBehaviour
                 ultimateChargePercentageText.text = $"{percent:0}";
             }
         }
+
+        if (!abilityOneActivatable) { ability1Button.SetActive(false); }
+        if (!abilityTwoActivatable) { ability2Button.SetActive(false); }
+
     }
 
     public void StartUlimateTimer()
