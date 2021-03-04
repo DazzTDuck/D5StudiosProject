@@ -127,7 +127,7 @@ public class SettingsMenu : MonoBehaviour
             }
         }
 
-        Debug.Log(resolutions.Length);
+        //Debug.Log(resolutions.Length);
 
         resolutionSwitch.AddOptions(options);
         resolutionSwitch.SetValue(PlayerPrefs.GetInt("resIndex", options.Count - 1));

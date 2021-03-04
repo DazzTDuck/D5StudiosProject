@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 7379281605722146556}
   - component: {fileID: 660778896405340681}
   - component: {fileID: 7372761715400816359}
+  - component: {fileID: 1571796322750326702}
   m_Layer: 5
   m_Name: Select Team 2
   m_TagString: Untagged
@@ -488,6 +489,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1571796322750326702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808892244018522941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef51836a1190d141851da935143b3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1657650485990027620
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +780,7 @@ GameObject:
   - component: {fileID: 63315583028084007}
   - component: {fileID: 9057551911388456884}
   - component: {fileID: 8329066170807978333}
+  - component: {fileID: 8835114014807188661}
   m_Layer: 10
   m_Name: ReadyButton
   m_TagString: Untagged
@@ -915,6 +929,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8835114014807188661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2886235207329415101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef51836a1190d141851da935143b3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3099838867050861824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,6 +1193,7 @@ GameObject:
   - component: {fileID: 7563383145120777950}
   - component: {fileID: 662424473716485311}
   - component: {fileID: 1862147170012320865}
+  - component: {fileID: 8504719661981157074}
   m_Layer: 10
   m_Name: ButtonSetName
   m_TagString: Untagged
@@ -1293,6 +1320,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8504719661981157074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561013230620746374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef51836a1190d141851da935143b3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4761322675385799234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,6 +1747,7 @@ GameObject:
   - component: {fileID: 5152495396336213581}
   - component: {fileID: 832408976616127108}
   - component: {fileID: 178621615344842653}
+  - component: {fileID: 4064781511102567397}
   m_Layer: 5
   m_Name: Select Team 1
   m_TagString: Untagged
@@ -1856,6 +1896,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4064781511102567397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091491931211520497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef51836a1190d141851da935143b3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6355789185658930528
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,6 +2266,7 @@ GameObject:
   - component: {fileID: 8431064318502836449}
   - component: {fileID: 3283537605459426293}
   - component: {fileID: 8506496323818805693}
+  - component: {fileID: 3948403480329260625}
   m_Layer: 10
   m_Name: StartGameButton
   m_TagString: Untagged
@@ -2340,6 +2393,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3948403480329260625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6903199035443022123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef51836a1190d141851da935143b3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6996705086099422452
 GameObject:
   m_ObjectHideFlags: 0
