@@ -22,7 +22,9 @@ public class KillTrigger : MonoBehaviour
         //}
 
         var entity = other.gameObject.GetComponentInParent<BoltEntity>();
-        if(entity && !requestSent)
+        Health health = entity.GetComponentInChildren<Health>();
+
+        if(entity && health && !requestSent)
         {
             //Create DestroyRequest, set entity to ent and then send
             var request = DestroyRequest.Create();

@@ -13,6 +13,10 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] float shankRate, range, damageTime;
     float nextTimeToShank;
 
+    [Space, SerializeField] int bleedDamage;
+    [SerializeField] int bleedTimes;
+    [SerializeField] float timeInBetween;
+
     string teamTag;
     string enemyTeamTag;
     
@@ -82,7 +86,19 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         request.EntityShooter = entity;
         request.Send();
 
+        SendBleedEffect(entityShot);
+
         hitDamageUI.SendDamage(damage, true);
+    }
+
+    void SendBleedEffect(BoltEntity entityShot)
+    {
+        var request = BleedEffectEvent.Create();
+        request.EntityShot = entityShot;
+        request.Damage = bleedDamage;
+        request.BleedTimes = bleedTimes;
+        request.TimeInBetween = timeInBetween;
+        request.Send();
     }
 
     public IEnumerator WaitForAnimation(float time)

@@ -359,6 +359,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
+  crouchRecoilDivider: 2
+  isStimmed: 0
   tags:
   - Team1
   - Team2
@@ -393,6 +395,7 @@ MonoBehaviour:
   healthbar: {fileID: 2978759123938859930}
   animator: {fileID: 7399516170024925067}
   maxHealth: 100
+  stopBleeding: 0
 --- !u!114 &9185460742567943604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2595,14 +2598,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
+      propertyPath: bleedTimes
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
+        type: 3}
       propertyPath: shootSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
+        type: 3}
+      propertyPath: bleedDamage
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
       propertyPath: hitDamageUI
       value: 
       objectReference: {fileID: 1968769331061847705}
+    - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
+        type: 3}
+      propertyPath: timeInBetween
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
       propertyPath: pauseMenuHandler

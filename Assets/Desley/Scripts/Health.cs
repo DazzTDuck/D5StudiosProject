@@ -16,6 +16,10 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     GameInfo gameInfo;
     string enemyTeamTag;
 
+    [HideInInspector]
+    public bool stopBleeding;
+    bool alreadyBleeding;
+
     private void Awake()
     {
         defaultMaxHealth = maxHealth;
@@ -76,6 +80,37 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 }
             }
         }  
+    }
+
+    public void StartBleeding(float time, int bleedDamage, int bleedTimes) 
+    {
+        if (!alreadyBleeding)
+        {
+            alreadyBleeding = true;
+            StartCoroutine(Bleeding(time, bleedDamage, bleedTimes));
+        }
+    }
+    IEnumerator Bleeding(float time, int bleedDamage, int bleedTimes)
+    {
+        stopBleeding = false;
+        for (int i = 0; i < bleedTimes; i++)
+        {
+            if (!stopBleeding)
+            {
+                if (entity.IsOwner)
+                    state.PlayerHealth -= bleedDamage;
+
+                yield return new WaitForSeconds(time);
+            }
+            else
+            {
+                alreadyBleeding = false;
+                StopCoroutine(nameof(Bleeding));
+            }
+        }
+
+        alreadyBleeding = false;
+        StopCoroutine(nameof(Bleeding));
     }
 
     public void RespawnPlayer()
@@ -142,6 +177,9 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             }
 
             state.PlayerHealth += healing;
+
+            if (!healStim)
+                stopBleeding = true;
         }
     }
 

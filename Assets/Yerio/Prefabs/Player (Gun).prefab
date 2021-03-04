@@ -794,6 +794,7 @@ MonoBehaviour:
   healthbar: {fileID: 3127628443562074321}
   animator: {fileID: 4109135297782414065}
   maxHealth: 100
+  stopBleeding: 0
 --- !u!114 &5135158191704413740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,6 +1326,9 @@ MonoBehaviour:
   throwPoint: {fileID: 8238584644362551986}
   throwForce: 15
   disableShootingTime: 0.5
+  bleedDamage: 3
+  bleedTimes: 5
+  timeInBetween: 1
 --- !u!114 &4283912007857026332
 MonoBehaviour:
   m_ObjectHideFlags: 0
