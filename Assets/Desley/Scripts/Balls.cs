@@ -19,10 +19,13 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
     [Space] public BoltEntity playerEntity;
     [SerializeField] List<BoltEntity> entitiesList;
-    [SerializeField] List<int> distanceToEntities;
     int entitiesDamaged;
     bool collided;
     HitDamageUI hitDamageUI;
+
+    [Space, SerializeField] int bleedDamage;
+    [SerializeField] int bleedTimes;
+    [SerializeField] float timeInBetween;
 
     string teamTag;
     string enemyTeamTag;
@@ -31,7 +34,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
     {
         StartCoroutine(DestroyFallBack(destroyTime));
     }
-
 
     public override void Attached()
     {
@@ -74,14 +76,18 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             {
                 string entityTag = collider.tag;
                 BoltEntity boltEntity = collider.GetComponentInParent<BoltEntity>();
-                Health health = boltEntity.GetComponentInChildren<Health>();
 
-                if (!entitiesList.Contains(boltEntity) && health)
+                if (boltEntity)
                 {
-                    entitiesList.Add(boltEntity);
+                    Health health = boltEntity.GetComponentInChildren<Health>();
 
-                    if (!stunBall && !healBall)
-                        GetDistanceToEntities(collider);
+                    if (!entitiesList.Contains(boltEntity) && health)
+                    {
+                        if(entityTag == enemyTeamTag && health.CompareTag(enemyTeamTag))
+                        {
+                            entitiesList.Add(boltEntity);
+                        }
+                    }
                 }
             }
 
@@ -90,14 +96,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             else
                 SendRequestInfo();
         }
-    }
-
-    void GetDistanceToEntities(Collider collider)
-    {
-        float distance = Vector3.Distance(transform.position, collider.transform.position);
-        int distanceRound = Mathf.RoundToInt(distance);
-        if(distanceRound == 0) { distanceRound = 1; }
-        distanceToEntities.Add(distanceRound);
     }
 
     void SendRequestInfo()
@@ -113,7 +111,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             }
             else if (stunBall)
             {
-                if (entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
                     SendStun(stunTime, entity);
 
                 entitiesDamaged++;
@@ -122,13 +119,12 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             {
                 amountOfEnemiesDamaged++;
 
-                if(entity.GetComponentInChildren<Health>().CompareTag(enemyTeamTag))
-                    SendDamage(ballValue / distanceToEntities[entitiesDamaged], entity);
+                SendDamage(ballValue, entity);
 
-                totalDamage += ballValue / distanceToEntities[entitiesDamaged];
+                totalDamage += ballValue;
                 entitiesDamaged++;
 
-                if (amountOfEnemiesDamaged == distanceToEntities.Count)
+                if (amountOfEnemiesDamaged == entitiesList.Count)
                 {
                     if (totalDamage != 0)
                     {
@@ -138,7 +134,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             }
             else if (healBall)
             {
-                if(entity.GetComponentInChildren<Health>().CompareTag(teamTag))
                     SendHealing(ballValue, entity);
 
                 entitiesDamaged++;

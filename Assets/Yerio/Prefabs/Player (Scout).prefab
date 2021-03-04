@@ -510,7 +510,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
-  crouchRecoilDivider: 2
+  crouchRecoilDivider: 0
   isStimmed: 0
   tags:
   - Team1
@@ -546,6 +546,7 @@ MonoBehaviour:
   healthbar: {fileID: 6433405336673792050}
   animator: {fileID: 8983696350130558061}
   maxHealth: 100
+  stopBleeding: 0
 --- !u!114 &5135158191704413740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2761,8 +2762,18 @@ PrefabInstance:
       objectReference: {fileID: 5909814220828917061}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
+      propertyPath: bleedTimes
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
       propertyPath: shootSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
+      propertyPath: bleedDamage
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}
@@ -2788,6 +2799,11 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponPunchX
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
+        type: 3}
+      propertyPath: timeInBetween
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -662285306590750855, guid: 95efcc33f3f9d1348bcb311de51d7b9c,
         type: 3}

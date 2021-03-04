@@ -57,6 +57,9 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] float shootSpeed;
     [SerializeField] float reloadSpeed;
 
+    [Space, SerializeField] int bleedDamage;
+    [SerializeField] int bleedTimes;
+    [SerializeField] float timeInBetween;
 
     private void Update()
     {

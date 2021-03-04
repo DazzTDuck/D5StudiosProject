@@ -48,6 +48,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] float disableShootingTime = .5f;
     bool usingAbility;
 
+    [Space, SerializeField] int bleedDamage;
+    [SerializeField] int bleedTimes;
+    [SerializeField] float timeInBetween;
+
     bool accuracyStimmed;
 
     string teamTag;

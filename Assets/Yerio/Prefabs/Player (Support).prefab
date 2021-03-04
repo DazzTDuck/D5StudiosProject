@@ -346,6 +346,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
+  crouchRecoilDivider: 0
+  isStimmed: 0
   tags:
   - Team1
   - Team2
@@ -380,6 +382,7 @@ MonoBehaviour:
   healthbar: {fileID: 8883643550420236060}
   animator: {fileID: 4045349615693939769}
   maxHealth: 100
+  stopBleeding: 0
 --- !u!114 &9185460742567943604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +434,10 @@ MonoBehaviour:
   maxCharge: 3
   minCharge: 0.5
   powerUpDuration: 5
+  disableShootingTime: 0.5
+  bleedDamage: 3
+  bleedTimes: 5
+  timeInBetween: 1
 --- !u!114 &8883643550420236060
 MonoBehaviour:
   m_ObjectHideFlags: 0

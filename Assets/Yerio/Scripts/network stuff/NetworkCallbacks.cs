@@ -110,6 +110,7 @@ public class NetworkCallbacks : GlobalEventListener
 
             player.GetComponentInChildren<AbilityHandler>().ResetTimers();
             player.GetComponentInChildren<Health>().ResetHealth();
+            player.GetComponentInChildren<Health>().stopBleeding = true;
 
             if (!evnt.KillTrigger) { player.GetComponentInChildren<Health>().AddTeamKill(); }
 
@@ -125,6 +126,30 @@ public class NetworkCallbacks : GlobalEventListener
         if (evnt.EntityShot)
         {
             evnt.EntityShot.GetComponentInChildren<Health>().TakeDamage(evnt.Damage);
+        }
+    }
+
+    public override void OnEvent(BleedEffectEvent evnt)
+    {
+        evnt.EntityShot.GetComponentInChildren<Health>().StartBleeding(evnt.TimeInBetween, evnt.Damage, evnt.BleedTimes);
+    }
+
+    public override void OnEvent(StunEvent evnt)
+    {
+        evnt.EntityShot.GetComponentInChildren<PlayerController>().StartStun(evnt.Duration);
+    }
+
+    public override void OnEvent(HealRequest evnt)
+    {
+        evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing, evnt.HealStim);
+    }
+
+    public override void OnEvent(TeamBoostRequest evnt)
+    {
+        GameObject[] teammates = GameObject.FindGameObjectsWithTag(evnt.TeamTagString);
+        foreach(GameObject teammate in teammates)
+        {
+            teammate.GetComponent<PlayerController>().StartPowerUp(evnt.Duration);
         }
     }
 
@@ -174,25 +199,6 @@ public class NetworkCallbacks : GlobalEventListener
     public override void OnEvent(RestartRequest evnt)
     {
         BoltNetwork.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public override void OnEvent(StunEvent evnt)
-    {
-        evnt.EntityShot.GetComponentInChildren<PlayerController>().StartStun(evnt.Duration);
-    }
-
-    public override void OnEvent(HealRequest evnt)
-    {
-        evnt.EntityShot.GetComponentInChildren<Health>().GetHealing(evnt.Healing, evnt.HealStim);
-    }
-
-    public override void OnEvent(TeamBoostRequest evnt)
-    {
-        GameObject[] teammates = GameObject.FindGameObjectsWithTag(evnt.TeamTagString);
-        foreach(GameObject teammate in teammates)
-        {
-            teammate.GetComponent<PlayerController>().StartPowerUp(evnt.Duration);
-        }
     }
 
     public override void OnEvent(DisableMeshRenderer evnt)

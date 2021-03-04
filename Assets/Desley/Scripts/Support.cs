@@ -24,6 +24,10 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     bool usingHeal;
     bool usingAbility;
 
+    [Space, SerializeField] int bleedDamage;
+    [SerializeField] int bleedTimes;
+    [SerializeField] float timeInBetween;
+
     string teamTag;
     string enemyTeamTag;
 
