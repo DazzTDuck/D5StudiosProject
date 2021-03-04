@@ -243,12 +243,14 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     public void StartStun(float time) { StartCoroutine(Stunned(time)); }
     IEnumerator Stunned(float time)
     {
-        state.IsStunned = true;
+        if (entity.IsOwner)
+            state.IsStunned = true;
         hudCanvas.GetComponent<AbilityHandler>().PlayerStunned(time);
 
         yield return new WaitForSeconds(time);
 
-        state.IsStunned = false;
+        if (entity.IsOwner)
+            state.IsStunned = false;
 
         StopCoroutine(nameof(Stunned));
     }
@@ -256,13 +258,29 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     public void StartPowerUp(float time) { StartCoroutine(PowerUp(time)); }
     IEnumerator PowerUp(float time)
     {
-        state.IsPoweredUp = true;
+        if (entity.IsOwner)
+            state.IsPoweredUp = true;
 
         yield return new WaitForSeconds(time);
 
-        state.IsPoweredUp = false;
+        if (entity.IsOwner)
+            state.IsPoweredUp = false;
 
         StopCoroutine(nameof(PowerUp));
+    }
+
+    public void StartBleed(float time) { StartCoroutine(InflictBleed(time)); }
+    IEnumerator InflictBleed(float time)
+    {
+        if(entity.IsOwner)
+            state.CanBleedEnemies = true;
+
+        yield return new WaitForSeconds(time);
+
+        if (entity.IsOwner)
+            state.CanBleedEnemies = false;
+
+        StopCoroutine(nameof(InflictBleed));
     }
 
 

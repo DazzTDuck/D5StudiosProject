@@ -24,10 +24,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     bool usingHeal;
     bool usingAbility;
 
-    [Space, SerializeField] int bleedDamage;
-    [SerializeField] int bleedTimes;
-    [SerializeField] float timeInBetween;
-
     string teamTag;
     string enemyTeamTag;
 
@@ -68,6 +64,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
         balls.SetPlayerHit(healBall, stunsEnemies);
         balls.DetermineDamage(state.IsPoweredUp);
         balls.playerEntity = GetComponentInParent<BoltEntity>();
+        balls.canBleedEnemies = state.CanBleedEnemies;
         balls.GetComponent<Rigidbody>().AddRelativeForce(0, 0, chargeForce * finalChargeTime, ForceMode.Impulse);
 
         chargeTime = 0;

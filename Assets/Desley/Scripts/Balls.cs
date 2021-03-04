@@ -27,6 +27,8 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
     [SerializeField] int bleedTimes;
     [SerializeField] float timeInBetween;
 
+    public bool canBleedEnemies;
+
     string teamTag;
     string enemyTeamTag;
 
@@ -158,6 +160,19 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
         request.EntityShot = entityShot;
         request.Damage = damage;
         request.EntityShooter = playerEntity;
+        request.Send();
+
+        if (canBleedEnemies)
+            SendBleedEffect(entityShot);
+    }
+
+    void SendBleedEffect(BoltEntity entityShot)
+    {
+        var request = BleedEffectEvent.Create();
+        request.EntityShot = entityShot;
+        request.Damage = bleedDamage;
+        request.BleedTimes = bleedTimes;
+        request.TimeInBetween = timeInBetween;
         request.Send();
     }
 

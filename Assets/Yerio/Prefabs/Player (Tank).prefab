@@ -2114,6 +2114,16 @@ PrefabInstance:
       propertyPath: abilityTwoActivatable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5238571127349686615}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TeamCanBleed
+      objectReference: {fileID: 0}
     - target: {fileID: 2788017870834494655, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
       propertyPath: m_fontSize
@@ -2616,6 +2626,11 @@ PrefabInstance:
       propertyPath: hitDamageUI
       value: 
       objectReference: {fileID: 1968769331061847705}
+    - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
+        type: 3}
+      propertyPath: canBleedTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1259697112945051263, guid: 0695fab302b15414da79bdb5f51317d3,
         type: 3}
       propertyPath: timeInBetween

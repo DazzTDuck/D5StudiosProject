@@ -188,7 +188,20 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         request.EntityShooter = entity;
         request.Send();
 
+        if (state.CanBleedEnemies)
+            SendBleedEffect(entityShot);
+
         hitDamageUI.SendDamage(damage, true);
+    }
+
+    void SendBleedEffect(BoltEntity entityShot)
+    {
+        var request = BleedEffectEvent.Create();
+        request.EntityShot = entityShot;
+        request.Damage = bleedDamage;
+        request.BleedTimes = bleedTimes;
+        request.TimeInBetween = timeInBetween;
+        request.Send();
     }
 
     void InstantiateEffect()

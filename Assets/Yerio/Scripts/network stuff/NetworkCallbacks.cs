@@ -153,6 +153,15 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
+    public override void OnEvent(GiveTeamBleed evnt)
+    {
+        GameObject[] teammates = GameObject.FindGameObjectsWithTag(evnt.TeamTagString);
+        foreach (GameObject teammate in teammates)
+        {
+            teammate.GetComponent<PlayerController>().StartBleed(evnt.Duration);
+        }
+    }
+
     public override void OnEvent(TeamTagEvent evnt)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");

@@ -234,6 +234,19 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Damage = damage;
         request.EntityShooter = entity;
         request.Send();
+
+        if (state.CanBleedEnemies)
+            SendBleedEffect(entityShot);
+    }
+
+    void SendBleedEffect(BoltEntity entityShot)
+    {
+        var request = BleedEffectEvent.Create();
+        request.EntityShot = entityShot;
+        request.Damage = bleedDamage;
+        request.BleedTimes = bleedTimes;
+        request.TimeInBetween = timeInBetween;
+        request.Send();
     }
 
     void InstantiateEffect()

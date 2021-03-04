@@ -16,6 +16,7 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] int bleedDamage;
     [SerializeField] int bleedTimes;
     [SerializeField] float timeInBetween;
+    [SerializeField] float canBleedTime;
 
     string teamTag;
     string enemyTeamTag;
@@ -98,6 +99,14 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         request.Damage = bleedDamage;
         request.BleedTimes = bleedTimes;
         request.TimeInBetween = timeInBetween;
+        request.Send();
+    }
+
+    public void TeamCanBleed()
+    {
+        var request = GiveTeamBleed.Create();
+        request.TeamTagString = teamTag;
+        request.Duration = canBleedTime;
         request.Send();
     }
 
