@@ -98,18 +98,23 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             if (!stopBleeding)
             {
                 if (entity.IsOwner)
+                {
                     state.PlayerHealth -= bleedDamage;
+                    animator.SetBool("isBleeding", true);
+                }
 
                 yield return new WaitForSeconds(time);
             }
             else
             {
                 alreadyBleeding = false;
+                animator.SetBool("isBleeding", false);
                 StopCoroutine(nameof(Bleeding));
             }
         }
 
         alreadyBleeding = false;
+        animator.SetBool("isBleeding", false);
         StopCoroutine(nameof(Bleeding));
     }
 
