@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class GrappleLine : MonoBehaviour
 {
-    LineRenderer lr;
     public Transform start;
     public Vector3 endPos;
 
-    void Start()
+    void LateUpdate()
     {
-        lr = GetComponent<LineRenderer>();
-    }
-
-    private void LateUpdate()
-    {
-        lr.SetPosition(0, start.position);
-        lr.SetPosition(1, endPos);
+        var request = UpdateGrappleLine.Create();
+        request.GrappleLine = GetComponent<BoltEntity>();
+        request.StartPos = start.position;
+        request.EndPos = endPos;
+        request.Send();
     }
 }

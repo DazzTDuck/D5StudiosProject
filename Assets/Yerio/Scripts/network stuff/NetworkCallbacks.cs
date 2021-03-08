@@ -171,6 +171,12 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
+    public override void OnEvent(UpdateGrappleLine evnt)
+    {
+        evnt.GrappleLine.GetComponent<LineRenderer>().SetPosition(0, evnt.StartPos);
+        evnt.GrappleLine.GetComponent<LineRenderer>().SetPosition(1, evnt.EndPos);
+    }
+
     public override void OnEvent(DisconnectEvent evnt)
     {
         if (!evnt.EnitityToDisconnect.IsOwner && evnt.DisconnectEveryone)
