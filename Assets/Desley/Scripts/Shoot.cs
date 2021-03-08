@@ -57,6 +57,27 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
+    public override void Attached()
+    {
+        state.SetAnimator(animator);
+        state.AddCallback("IsPoweredUp", DamageCallback);
+
+        if (entity.IsOwner)
+        {
+            int index = 9; //Weapon layer
+            gameObject.layer = index;
+            BulletCountCanvas.layer = 10;
+            reloadingText.gameObject.layer = 10; //HUD layer
+            bulletCountText.gameObject.layer = 10;
+            var transforms = GetComponentsInChildren<Transform>();
+
+            foreach (var gameObject in transforms)
+            {
+                gameObject.gameObject.layer = index;
+            }
+        }
+    }
+
     private void Update()
     {
         if (!usingAbility)
@@ -126,27 +147,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
         if (!reloading)
             bulletCountText.text = currentBulletCount + "|" + maxBulletCount;
-    }
-
-    public override void Attached()
-    {
-        state.SetAnimator(animator);
-        state.AddCallback("IsPoweredUp", DamageCallback);
-
-        if (entity.IsOwner)
-        {
-            int index = 9; //Weapon layer
-            gameObject.layer = index;
-            BulletCountCanvas.layer = 10;
-            reloadingText.gameObject.layer = 10; //HUD layer
-            bulletCountText.gameObject.layer = 10;
-            var transforms = GetComponentsInChildren<Transform>();
-
-            foreach (var gameObject in transforms)
-            {
-                gameObject.gameObject.layer = index;
-            }
-        }
     }
 
     void DamageCallback() { damage = state.IsPoweredUp ? damage *= powerUp : damage /= powerUp; }
