@@ -50,7 +50,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == playerLayer && healBall && !collided)
+        if (healBall && !collided)
         {
             if (collision.collider.CompareTag(teamTag) || collision.collider.GetComponentInParent<Health>().CompareTag(teamTag))
             {

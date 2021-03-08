@@ -169,15 +169,18 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                     Health health = boltEntity.GetComponentInChildren<Health>();
                     int damageToDo = damage / damageDivider;
 
-                    if (entityTag == enemyTeamTag)
+                    if (health)
                     {
-                        SendDamage(damageToDo, boltEntity);
-                        totalDamage += damageToDo;
-                    }
-                    else if (health && health.CompareTag(enemyTeamTag))
-                    {
-                        SendDamage(damageToDo * hsMultiplier, boltEntity);
-                        totalDamage += damageToDo * hsMultiplier;
+                        if (entityTag == "PlayerHead" && health.CompareTag(enemyTeamTag))
+                        {
+                            SendDamage(damageToDo * hsMultiplier, boltEntity);
+                            totalDamage += damageToDo * hsMultiplier;
+                        }
+                        else if (health.CompareTag(enemyTeamTag))
+                        {
+                            SendDamage(damageToDo, boltEntity);
+                            totalDamage += damageToDo;
+                        }
                     }
                 }
             }

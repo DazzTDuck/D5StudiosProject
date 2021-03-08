@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 6005517163303123126}
   m_Layer: 11
   m_Name: HeadCollider
-  m_TagString: Untagged
+  m_TagString: PlayerHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -681,6 +681,7 @@ MonoBehaviour:
   - {fileID: 4857570192975218027}
   objectsToSetNotActiveForPlayer:
   - {fileID: 7318222028906963506}
+  objectsToHideFromYourCamera: []
 --- !u!1 &4862979647619266147
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,19 +33,23 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
     void CheckCollision(GameObject objectHit)
     {
+        string entityTag = objectHit.tag;
         BoltEntity boltEntity = objectHit.GetComponentInParent<BoltEntity>();
 
         if(boltEntity)
         {
             Health health = boltEntity.GetComponentInChildren<Health>();
 
-            if (objectHit.CompareTag(enemyTeamTag))
+            if (health)
             {
-                SendDamage(damage, boltEntity);
-            }
-            else if (health && health.CompareTag(enemyTeamTag))
-            {
-                SendDamage(damage * hsMultiplier, boltEntity);
+                if (entityTag == "PlayerHead" && health.CompareTag(enemyTeamTag))
+                {
+                    SendDamage(damage * hsMultiplier, boltEntity);
+                }
+                else if (health.CompareTag(enemyTeamTag))
+                {
+                    SendDamage(damage, boltEntity);
+                }
             }
         }
         else

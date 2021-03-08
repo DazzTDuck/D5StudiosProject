@@ -168,13 +168,16 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             {
                 Health health = boltEntity.GetComponentInChildren<Health>();
 
-                if (entityTag == enemyTeamTag)
+                if (health)
                 {
-                    SendDamage(damage, boltEntity);
-                }
-                else if (health && health.CompareTag(enemyTeamTag))
-                {
-                    SendDamage(damage * hsMultiplier, boltEntity);
+                    if (entityTag == "PlayerHead" && health.CompareTag(enemyTeamTag))
+                    {
+                        SendDamage(damage * hsMultiplier, boltEntity);
+                    }
+                    else if (health.CompareTag(enemyTeamTag))
+                    {
+                        SendDamage(damage, boltEntity);
+                    }
                 }
             }          
         }
