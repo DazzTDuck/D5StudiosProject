@@ -67,8 +67,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 {
                     Debug.LogWarning("dead");
 
-                    GetComponent<MeshRenderer>().enabled = false;
-                    GetComponent<Collider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
 
                     //Create DestroyRequest, set entity to ent and then send

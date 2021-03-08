@@ -91,7 +91,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             {
                 currentBulletCount--;
                 sprayPatternIndex++;
-                state.Animator.ResetTrigger("Shoot");
+                animator.ResetTrigger("Shoot");
                 ShootRaycast();
                 InstantiateEffect();
                 recoilResetTime = recoilResetAddTime;
@@ -235,7 +235,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         reloading = false;
 
         reloadingText.SetActive(false);
-        state.Animator.ResetTrigger("Reload");
+        animator.ResetTrigger("Reload");
 
         StopCoroutine(nameof(Reload));
     }
