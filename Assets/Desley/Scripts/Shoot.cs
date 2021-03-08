@@ -141,8 +141,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (Input.GetButtonDown("Reload") && !pauseMenuHandler.GetIfPaused() && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
-            StartCoroutine(Reload(reloadTime));
             state.Animator.SetTrigger("Reload");
+            StartCoroutine(Reload(reloadTime));
             reloading = true;
         }
         if (!reloading)
@@ -233,6 +233,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         reloading = false;
 
         reloadingText.SetActive(false);
+        state.Animator.ResetTrigger("Reload");
 
         StopCoroutine(nameof(Reload));
     }
