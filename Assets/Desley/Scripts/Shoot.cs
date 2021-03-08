@@ -121,6 +121,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if (Input.GetButtonDown("Reload") && !pauseMenuHandler.GetIfPaused() && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
             StartCoroutine(Reload(reloadTime));
+            state.Animator.SetTrigger("Reload");
             reloading = true;
         }
         if (!reloading)
@@ -222,7 +223,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public IEnumerator Reload(float time)
     {
-        state.Animator.SetTrigger("Reload");
         reloadingText.SetActive(true);
         gunSounds.PlaySound("Reload");
 
