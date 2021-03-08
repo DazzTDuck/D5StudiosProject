@@ -366,6 +366,7 @@ MonoBehaviour:
   recoilDecreaseValue: 10
   recoilIncreaseValue: 20
   recoilMaxClamp: 7
+  playerPoint: {fileID: 0}
   player: {fileID: 4788751972951705024}
   weapon: {fileID: 0}
   moveFakeCamera: 1
@@ -373,6 +374,7 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
+  crouchLerpSpeed: 5
 --- !u!1 &4788751972951705027
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +730,7 @@ MonoBehaviour:
   recoilDecreaseValue: 10
   recoilIncreaseValue: 20
   recoilMaxClamp: 7
+  playerPoint: {fileID: 0}
   player: {fileID: 4788751972951705024}
   weapon: {fileID: 0}
   moveFakeCamera: 0
@@ -735,6 +738,7 @@ MonoBehaviour:
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 2
+  crouchLerpSpeed: 5
 --- !u!1 &4788751973370468054
 GameObject:
   m_ObjectHideFlags: 0
