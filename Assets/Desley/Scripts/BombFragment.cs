@@ -38,7 +38,7 @@ public class BombFragment : Bolt.EntityBehaviour<IProjectileState>
 
             if (entity && !entitiesHit.Contains(entity))
             {
-                Health health = obj.GetComponentInChildren<Health>();
+                Health health = entity.GetComponentInChildren<Health>();
 
                 if (health && health.CompareTag(enemyTeamTag))
                 {
