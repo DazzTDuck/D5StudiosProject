@@ -73,8 +73,8 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             if (isShooting || nextShot)
             {
-                state.Animator.ResetTrigger("Shoot");
-                state.Animator.SetTrigger("Shoot");
+                animator.ResetTrigger("Shoot");
+                animator.SetTrigger("Shoot");
                 ShootRaycast();
                 InstantiateEffect();
                 nextTimeToShoot = Time.time + 1f / fireRate;
@@ -117,7 +117,6 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     public override void Attached()
     {
         base.Attached();
-        state.SetAnimator(animator);
         state.AddCallback("IsPoweredUp", DamageCallback);
 
         if (entity.IsOwner)
