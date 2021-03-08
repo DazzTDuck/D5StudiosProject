@@ -7,6 +7,7 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] GameObject[] objectsToSetActiveForPlayer;
     [SerializeField] GameObject[] objectsToSetActiveForPlayerOnAttached;
     [SerializeField] GameObject[] objectsToSetNotActiveForPlayer;
+    [SerializeField] GameObject[] objectsToHideFromYourCamera;
 
     public override void Attached()
     {
@@ -23,6 +24,14 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
             if (entity.IsOwner && gameObject.activeInHierarchy)
             {
                 gameObject.SetActive(false);
+            }
+        }
+
+        foreach (var gameObject in objectsToHideFromYourCamera)
+        {
+            if (entity.IsOwner && gameObject.layer != 13)
+            {
+                gameObject.layer = 13;
             }
         }
     }
