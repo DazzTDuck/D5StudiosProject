@@ -12,8 +12,10 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] Camera cam;
     [SerializeField] AbilityHandler abilityHandler;
-    [SerializeField] LineRenderer lr;
+    [SerializeField] GameObject lr;
     [SerializeField] Transform grappleGunPoint;
+
+    GameObject lineClone;
 
     [Space, SerializeField] float range;
     [SerializeField] float hookSpeed;
@@ -46,7 +48,7 @@ public class GrapplingHook : MonoBehaviour
             DetermineStopDistance(Vector3.Distance(playerTransform.position, hitPoint));
             playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
             GetComponent<Scout>().isGrappling = true;
-            lr.positionCount = 2;
+            DrawGrappleRope();
         }
         else
         {
@@ -61,8 +63,9 @@ public class GrapplingHook : MonoBehaviour
 
     void DrawGrappleRope()
     {
-        lr.SetPosition(0, grappleGunPoint.position);
-        lr.SetPosition(1, hitPoint);
+        lineClone = BoltNetwork.Instantiate(lr);
+        lineClone.GetComponent<GrappleLine>().start = grappleGunPoint;
+        lineClone.GetComponent<GrappleLine>().endPos = hitPoint;
     }
 
     private void Update()
@@ -75,7 +78,6 @@ public class GrapplingHook : MonoBehaviour
                 StopGrapple(false);
             else if (Input.GetButtonDown("Jump"))
                 StopGrapple(true);
-                
         }
     }
 
@@ -85,21 +87,13 @@ public class GrapplingHook : MonoBehaviour
             rb.velocity = (direction * hookSpeed * Time.fixedDeltaTime);
     }
 
-    private void LateUpdate()
-    {
-        if (isGrappling)
-        {
-            DrawGrappleRope();
-        }
-    }
-
     public void StopGrapple(bool stoppedByJump)
     {
         isGrappling = false;
         rb.velocity = new Vector3(0,0,0);
         playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
         GetComponent<Scout>().isGrappling = false;
-        lr.positionCount = 0;
+        BoltNetwork.Destroy(lineClone);
 
         if (stoppedByJump)
             rb.AddRelativeForce(0, 0, jumpForce, ForceMode.Impulse);
