@@ -59,7 +59,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void Attached()
     {
-        state.SetAnimator(animator);
         state.AddCallback("IsPoweredUp", DamageCallback);
 
         if (entity.IsOwner)
@@ -141,7 +140,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (Input.GetButtonDown("Reload") && !pauseMenuHandler.GetIfPaused() && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
-            state.Animator.SetTrigger("Reload");
+            animator.SetTrigger("Reload");
             StartCoroutine(Reload(reloadTime));
             reloading = true;
         }
@@ -153,7 +152,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ShootRaycast()
     {
-        state.Animator.SetTrigger("Shoot");
+        animator.SetTrigger("Shoot");
         gunSounds.PlaySound("Fire");
         Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
         RaycastHit hit;

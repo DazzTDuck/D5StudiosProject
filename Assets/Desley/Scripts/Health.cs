@@ -196,8 +196,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead)
         {
             state.PlayerHealth = maxHealth;
-            GetComponent<MeshRenderer>().enabled = true;
-            GetComponent<Collider>().enabled = true;
             GetComponent<Rigidbody>().useGravity = true;
         }
     }

@@ -28,6 +28,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Tooltip("This is the gravity applied to the player when hes falling down from a jump")]
     public float fallGravityMultiplier = 1.5f;
 
+    [Space, SerializeField] Animator characterAnimator;
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
     [Space, SerializeField] GameObject cam;
     [SerializeField] GameObject weaponCam;
@@ -71,6 +72,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Attached();
         state.SetTransforms(state.PlayerTransform, transform);
+        state.SetAnimator(characterAnimator);
         if (entity.IsOwner)
         {
             state.IsHost = isHost;
@@ -131,6 +133,10 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             Crouch();
         }
+
+        state.Animator.SetFloat("velocityX", horizontal);
+        state.Animator.SetFloat("velocityZ", vertical);
+        state.Animator.SetBool("IsCrouching", isCrouching);
     }
 
     public void GrappleState(bool state)
