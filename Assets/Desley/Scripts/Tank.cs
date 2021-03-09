@@ -32,8 +32,8 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
         if (isShooting && entity.IsOwner && Time.time >= nextTimeToShank && !state.IsDead)
         {
-            state.Animator.ResetTrigger("Bonk");
-            state.Animator.SetTrigger("Bonk");
+            animator.ResetTrigger("Bonk");
+            animator.SetTrigger("Bonk");
             StartCoroutine(WaitForAnimation(damageTime));
             nextTimeToShank = Time.time + 1f / shankRate;
         }
@@ -41,7 +41,6 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public override void Attached()
     {
-        state.SetAnimator(animator);
         state.AddCallback("IsPoweredUp", DamageCallback);
 
         if (entity.IsOwner)
