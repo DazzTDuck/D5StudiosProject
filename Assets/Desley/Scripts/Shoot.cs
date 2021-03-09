@@ -96,6 +96,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 currentBulletCount--;
                 sprayPatternIndex++;
                 animator.ResetTrigger("Shoot");
+                animator.ResetTrigger("Stim");
+                animator.ResetTrigger("Nade");
                 ShootRaycast();
                 InstantiateEffect();
                 recoilResetTime = recoilResetAddTime;
@@ -285,14 +287,17 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         if(index == 0) 
         {
             //play heal animation
+            animator.SetTrigger("Stim");
         }
         else if(index == 1) 
         {
             //play acc animation
+            animator.SetTrigger("Stim");
         }
         else if(index == 2)
         {
             //play cluster animation
+            animator.SetTrigger("Nade");
         }
 
         yield return new WaitForSeconds(time);
