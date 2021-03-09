@@ -61,6 +61,8 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] int bleedTimes;
     [SerializeField] float timeInBetween;
 
+    [Space, SerializeField] float animationTime = .5f;
+
     private void Update()
     {
         if (!shootingDisabled)
@@ -193,7 +195,28 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         }   
     }
 
-    public void ShootGrapplingHook() { GetComponentInChildren<GrapplingHook>().ShootGrapplingHook(); }
+    public void ShootGrapplingHook() { GetComponentInChildren<GrapplingHook>().StartGrapple(); }
+
+    public void ThrowKnives()
+    {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
+        StartCoroutine(WaitForAnimation(animationTime));
+    }
+
+    IEnumerator WaitForAnimation(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        foreach (Transform point in throwPoints)
+        {
+            var kniev = BoltNetwork.Instantiate(knife, point.position, point.rotation);
+            kniev.GetComponent<ThrowingKnife>().SetTags(teamTag, enemyTeamTag);
+            kniev.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
+        }
+
+        StopCoroutine(nameof(WaitForAnimation));
+    }
 
     public void Empower()
     {
@@ -215,18 +238,6 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         reloadTime *= reloadSpeed;
 
         StopCoroutine(nameof(StartEmpowering));
-    }
-
-    public void ThrowKnives()
-    {
-        StartCoroutine(DisableShooting(disableShootingTime));
-
-        foreach(Transform point in throwPoints)
-        {
-            var kniev = BoltNetwork.Instantiate(knife, point.position, point.rotation);
-            kniev.GetComponent<ThrowingKnife>().SetTags(teamTag, enemyTeamTag);
-            kniev.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
-        }
     }
 
     void SendDamage(int damage, BoltEntity entityShot)

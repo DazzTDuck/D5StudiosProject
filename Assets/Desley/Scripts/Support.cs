@@ -30,6 +30,8 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
+    [Space, SerializeField] float animationTimer = .5f;
+
     void Start() 
     { 
         ballToUse = fireBall; 
@@ -86,7 +88,18 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         StartCoroutine(DisableShooting(disableShootingTime));
 
+        StartCoroutine(WaitForAnimation(animationTimer));
+    }
+
+    IEnumerator WaitForAnimation(float time)
+    {
+        //play animation
+
+        yield return new WaitForSeconds(time);
+
         InstantiateBall(stunBall, maxCharge, false, true);
+
+        StopCoroutine(nameof(WaitForAnimation));
     }
 
     public void ChangeBalls()

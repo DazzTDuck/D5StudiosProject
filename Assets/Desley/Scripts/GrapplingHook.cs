@@ -27,7 +27,22 @@ public class GrapplingHook : MonoBehaviour
     float distance;
     bool isGrappling;
 
-    public void ShootGrapplingHook()
+    [Space, SerializeField] float animationTimer = .5f;
+
+    public void StartGrapple() { StartCoroutine(WaitForAnimation(animationTimer)); }
+
+    IEnumerator WaitForAnimation(float time)
+    {
+        //play animation
+
+        yield return new WaitForSeconds(time);
+
+        ShootGrapplingHook();
+
+        StopCoroutine(nameof(WaitForAnimation));
+    }
+
+    void ShootGrapplingHook()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;

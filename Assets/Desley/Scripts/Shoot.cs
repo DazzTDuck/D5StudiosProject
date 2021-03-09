@@ -36,6 +36,12 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     float recoilResetTime;
     int count;
 
+    [Space, SerializeField] float stimAnimationTimer = .5f;
+    [SerializeField] float clusterAnimationTimer = .5f;
+    [SerializeField] int healing;
+    [SerializeField] float accuracyStimTime;
+    bool accuracyStimmed;
+
     [Space, SerializeField] GameObject clusterBomb;
     [SerializeField] Transform throwPoint;
     [SerializeField] float throwForce;
@@ -51,8 +57,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] int bleedDamage;
     [SerializeField] int bleedTimes;
     [SerializeField] float timeInBetween;
-
-    bool accuracyStimmed;
 
     string teamTag;
     string enemyTeamTag;
@@ -268,26 +272,58 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         }
     }
 
-    public void HealingStim(int heal)
+    public void StartAnimation(int index) 
+    {
+        if(index == 0 || index == 1)
+            StartCoroutine(WaitForAnimation(index, stimAnimationTimer)); 
+        else
+            StartCoroutine(WaitForAnimation(index, clusterAnimationTimer));
+    }
+
+    IEnumerator WaitForAnimation(int index, float time)
+    {
+        if(index == 0) 
+        {
+            //play heal animation
+        }
+        else if(index == 1) 
+        {
+            //play acc animation
+        }
+        else if(index == 2)
+        {
+            //play cluster animation
+        }
+
+        yield return new WaitForSeconds(time);
+
+        if (index == 0)
+            HealingStim();
+        else if (index == 1)
+            StartCoroutine(AccuracyStim(accuracyStimTime));
+        else if (index == 2)
+            ClusterFuck();
+
+        StopCoroutine(nameof(WaitForAnimation));
+    }
+
+    //start animation index = 0
+    void HealingStim()
     {
         StartCoroutine(DisableShooting(disableShootingTime));
 
         var request = HealRequest.Create();
         request.EntityShot = GetComponentInParent<BoltEntity>();
-        request.Healing = heal;
+        request.Healing = healing;
         request.HealStim = true;
         request.Send();
     }
 
-    public void StartAccuracyStim(float time) 
-    {
-        animatorOverlay.ResetTrigger("Accuracy");
-        StartCoroutine(AccuracyStim(time));
-        animatorOverlay.SetTrigger("Accuracy");
-    }
-
+    //start animation index = 1
     IEnumerator AccuracyStim(float time)
     {
+        animatorOverlay.ResetTrigger("Accuracy");
+        animatorOverlay.SetTrigger("Accuracy");
         StartCoroutine(DisableShooting(disableShootingTime));
 
         accuracyStimmed = true;
@@ -305,7 +341,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(AccuracyStim));
     }
 
-    public void ClusterFuck()
+    //start animation index = 2
+    void ClusterFuck()
     {
         StartCoroutine(DisableShooting(disableShootingTime));
         var bomb = BoltNetwork.Instantiate(clusterBomb, throwPoint.position, throwPoint.rotation);

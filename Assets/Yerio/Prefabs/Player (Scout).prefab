@@ -118,6 +118,7 @@ MonoBehaviour:
   hookSpeed: 1200
   stoppingDistance: 0
   jumpForce: 5
+  animationTimer: 0.5
 --- !u!1 &3249217193694405244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,7 +2955,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ability2OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3951712909800052817}
+      objectReference: {fileID: 2495190810392733194}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
       propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
