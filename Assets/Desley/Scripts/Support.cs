@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] HitDamageUI hitDamageUI;
+    [SerializeField] Image chargeBar;
+    [SerializeField] GameObject chargeBarBacking;
 
     [Space, SerializeField] GameObject fireBall;
     [SerializeField] GameObject healBall;
@@ -43,15 +46,24 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
                 charging = true;
                 chargeTime += Time.deltaTime * multiplier;
                 chargeTime = Mathf.Clamp(chargeTime, 0, maxCharge);
+
+                chargeBar.gameObject.SetActive(true);
+                chargeBarBacking.SetActive(true);
+                chargeBar.fillAmount = GetPercentage(maxCharge, chargeTime) / 100f;
             }
             else if (charging)
             {
                 if (chargeTime < minCharge) { return; }
                 InstantiateBall(ballToUse, chargeTime, usingHeal, false);
                 charging = false;
+                chargeBar.fillAmount = 0;
+                chargeBar.gameObject.SetActive(false);
+                chargeBarBacking.SetActive(false);
             }
         }
     }
+
+    public float GetPercentage(float max, float current) { return 100f / max * current; }
 
     public void InstantiateBall(GameObject pickedBall, float finalChargeTime, bool healBall, bool stunsEnemies)
     {

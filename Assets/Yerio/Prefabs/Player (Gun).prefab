@@ -349,9 +349,9 @@ MonoBehaviour:
   recoilMaxClamp: 5
   playerPoint: {fileID: 7398580186015443964}
   player: {fileID: 8815847057668568831}
-  weapon: {fileID: 0}
+  weapon: {fileID: 3938633642845765214}
   moveFakeCamera: 1
-  fakeCamera: {fileID: 0}
+  fakeCamera: {fileID: 5754561793584843560}
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 1.5
@@ -630,8 +630,8 @@ MonoBehaviour:
   playerPoint: {fileID: 7398580186015443964}
   player: {fileID: 8815847057668568831}
   weapon: {fileID: 3938633642845765214}
-  moveFakeCamera: 1
-  fakeCamera: {fileID: 5754561793584843560}
+  moveFakeCamera: 0
+  fakeCamera: {fileID: 0}
   rotCamX: 0
   rotCamY: 0
   crouchDivider: 1.5
@@ -1381,6 +1381,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205461519445479317, guid: 3419e39d30ea116458fc236be0a5a519,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2925167849778442177, guid: 3419e39d30ea116458fc236be0a5a519,
         type: 3}
