@@ -32,6 +32,8 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
     string teamTag;
     string enemyTeamTag;
 
+    GameObject hit;
+
     private void Start()
     {
         StartCoroutine(DestroyFallBack(destroyTime));
@@ -50,7 +52,8 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject hit = collision.collider.GetComponentInParent<Health>().gameObject;
+        if(collision.collider.GetComponentInParent<Health>().gameObject)
+            hit = collision.collider.GetComponentInParent<Health>().gameObject;
 
         if (hit && hit.layer == playerLayer && healBall && !collided)
         {
