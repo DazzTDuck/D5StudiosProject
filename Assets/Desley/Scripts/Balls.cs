@@ -52,7 +52,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.GetComponentInParent<Health>().gameObject)
+        if(collision.collider.GetComponentInParent<Health>())
             hit = collision.collider.GetComponentInParent<Health>().gameObject;
 
         if (hit && hit.layer == playerLayer && healBall && !collided)
