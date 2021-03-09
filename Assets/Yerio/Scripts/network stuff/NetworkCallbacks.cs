@@ -244,6 +244,7 @@ public class NetworkCallbacks : GlobalEventListener
                 host.CloseScreen();
                 host.entity.GetComponentInChildren<AbilityHandler>().ActivateAbilities();
                 host.RespawnPlayer();
+                host.GetComponent<ApplyOutlineMaterials>().ApplyMaterialsOnAllPlayers();
             }
         }
     }

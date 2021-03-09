@@ -17,7 +17,7 @@ public class WaitForHostScreen : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Button startGameButton;
 
     [SerializeField] TMP_Text[] playerNamesInLobby;
-    [SerializeField] List<GameObject> players = new List<GameObject>();
+    public List<GameObject> players = new List<GameObject>();
 
     string playerNameLocal = "Player";
     GameInfo gameInfo;

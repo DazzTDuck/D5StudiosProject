@@ -1590,6 +1590,7 @@ GameObject:
   - component: {fileID: 7881781601050147196}
   - component: {fileID: 8191834955399390922}
   - component: {fileID: 4286170523445713271}
+  - component: {fileID: 5123052527049947353}
   m_Layer: 11
   m_Name: PlayerController
   m_TagString: Untagged
@@ -1758,6 +1759,29 @@ MonoBehaviour:
   tags:
   - Team1
   - Team2
+--- !u!114 &5123052527049947353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019926573543779996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf272bc70184fd4d96b3b1b06984818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 4019926573543779996}
+  waitForHostScreen: {fileID: 8191834955399390922}
+  team_TopOutline: {fileID: 2100000, guid: 88b3dcd2a296c4942b3e0e9ddd2fab1a, type: 2}
+  team_PantsOutline: {fileID: 2100000, guid: 5f2eedc2de8528446aeb99f52836f1f9, type: 2}
+  team_ShoesOutline: {fileID: 2100000, guid: a64439b317dd5ce499bf34c0594cd482, type: 2}
+  enemy_TopOutline: {fileID: 2100000, guid: f947e40128314b748a2fc8e4195cf89c, type: 2}
+  enemy_PantsOutline: {fileID: 2100000, guid: b33f407af61a6784680729ff7413a019, type: 2}
+  enemy_ShoesOutline: {fileID: 2100000, guid: 7e5653172a6252c41b14d2637861dd08, type: 2}
+  topRenderer: {fileID: 8482603486918089636}
+  pantsRenderer: {fileID: 3958297358985588849}
+  shoesRenderer: {fileID: 499201197037203614}
 --- !u!1 &4296652925210239793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,6 +4336,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef77e670c2b34934197f99f072b0c31a, type: 3}
+--- !u!224 &2722528415905642459 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2397289781559171519, guid: ef77e670c2b34934197f99f072b0c31a,
+    type: 3}
+  m_PrefabInstance: {fileID: 327847367853502052}
+  m_PrefabAsset: {fileID: 0}
 --- !u!223 &7227277835649462139 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 6971798275813064991, guid: ef77e670c2b34934197f99f072b0c31a,
@@ -4342,9 +4372,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2722528415905642459 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2397289781559171519, guid: ef77e670c2b34934197f99f072b0c31a,
-    type: 3}
-  m_PrefabInstance: {fileID: 327847367853502052}
-  m_PrefabAsset: {fileID: 0}
