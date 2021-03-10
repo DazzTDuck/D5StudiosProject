@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 
 public class SettingsMenu : MonoBehaviour
