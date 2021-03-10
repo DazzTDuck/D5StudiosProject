@@ -41,7 +41,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
 
         healthbar.UpdateHealthbar(GetCurrentHealthPercentage(), maxHealth, state.PlayerHealth);
 
-        //if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 10; }
+        if (Input.GetButtonDown("FireMode") && entity.IsOwner) { state.PlayerHealth -= 100; }
 
         if (maxHealth > defaultMaxHealth && Time.time >= timePerReduce)
         {
@@ -63,6 +63,9 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             if (state.PlayerHealth <= 0)
             {
                 state.IsDead = true;
+                state.StopAbilities = true;
+                StartCoroutine(ResetStopAbilities(1));
+
                 if (state.IsDead)
                 {
                     Debug.LogWarning("dead");
@@ -196,6 +199,15 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             state.PlayerHealth = maxHealth;
             GetComponent<Rigidbody>().useGravity = true;
         }
+    }
+
+    IEnumerator ResetStopAbilities(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        state.StopAbilities = false;
+
+        StopCoroutine(nameof(ResetStopAbilities));
     }
 
     public int GetCurrentHealth() { return state.PlayerHealth; }

@@ -244,6 +244,11 @@ public class AbilityHandler : MonoBehaviour
         ability2Timer.ResetTimer();
     }
 
+    public void ResetAbility1Timer()
+    {
+        ability1Timer.ResetTimer();
+    }
+
     public void ResetAbility2Timer()
     {
         ability2Timer.ResetTimer();

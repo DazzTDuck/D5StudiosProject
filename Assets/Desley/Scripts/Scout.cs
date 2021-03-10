@@ -42,7 +42,6 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     public bool isGrappling;
 
     [Space, SerializeField] float disableShootingTime;
-    bool shootingDisabled;
 
     string teamTag;
     string enemyTeamTag;
@@ -65,13 +64,13 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
-        if (!shootingDisabled)
+        if (!state.IsUsingAbility && !state.IsStunned && !isGrappling)
         {
             CheckFireModeInput();
             CheckReloadInput();
         }
 
-        if(!shootingDisabled && !isGrappling && currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && entity.IsOwner && !state.IsDead)
+        if(currentBulletCount > 0 && !reloading && Time.time >= nextTimeToShoot && entity.IsOwner && !state.IsDead)
         {
             if (isShooting || nextShot)
             {
@@ -94,13 +93,10 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
 
         //check for input in between chambering rounds
-        if (!state.IsStunned)
-        {
             if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
                 nextShot = true;
             else if (nextTimeToShoot > Time.time && Input.GetButtonUp("Fire1"))
                 nextShot = false;
-        }
     }
 
     void CheckReloadInput()
@@ -195,7 +191,12 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         }   
     }
 
-    public void ShootGrapplingHook() { GetComponentInChildren<GrapplingHook>().StartGrapple(); }
+    public void ShootGrapplingHook() 
+    {
+        StartCoroutine(DisableShooting(disableShootingTime));
+
+        GetComponentInChildren<GrapplingHook>().StartGrapple(); 
+    }
 
     public void ThrowKnives()
     {
@@ -207,6 +208,9 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator WaitForAnimation(float time)
     {
         yield return new WaitForSeconds(time);
+
+        if (state.StopAbilities)
+            yield break;
 
         foreach (Transform point in throwPoints)
         {
@@ -269,7 +273,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         StartCoroutine(DestroyEffect(.1f, Effect));
     }
 
-    public IEnumerator DestroyEffect(float time, BoltEntity entity)
+    IEnumerator DestroyEffect(float time, BoltEntity entity)
     {
         yield return new WaitForSeconds(time);
 
@@ -278,7 +282,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(DestroyEffect));
     }
 
-    public IEnumerator Reload(float time)
+    IEnumerator Reload(float time)
     {
         reloadingText.SetActive(true);
 
@@ -293,13 +297,13 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(Reload));
     }
 
-    public IEnumerator DisableShooting(float time)
+    IEnumerator DisableShooting(float time)
     {
-        shootingDisabled = true;
+        state.IsUsingAbility = true;
 
         yield return new WaitForSeconds(time);
 
-        shootingDisabled = false;
+        state.IsUsingAbility = false;
 
         StopCoroutine(nameof(DisableShooting));
     }

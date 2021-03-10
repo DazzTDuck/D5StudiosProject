@@ -4,7 +4,7 @@ using UnityEngine;
 using Bolt;
 using Photon;
 
-public class GrapplingHook : MonoBehaviour
+public class GrapplingHook : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] int ungrapplableLayerIndex;
 
@@ -36,6 +36,9 @@ public class GrapplingHook : MonoBehaviour
         //play animation
 
         yield return new WaitForSeconds(time);
+
+        if (state.StopAbilities)
+            yield break;
 
         ShootGrapplingHook();
 
@@ -108,7 +111,9 @@ public class GrapplingHook : MonoBehaviour
         rb.velocity = new Vector3(0,0,0);
         playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);
         GetComponent<Scout>().isGrappling = false;
-        BoltNetwork.Destroy(lineClone);
+        
+        if(lineClone)
+            BoltNetwork.Destroy(lineClone);
 
         if (stoppedByJump)
             rb.AddRelativeForce(0, 0, jumpForce, ForceMode.Impulse);

@@ -12,6 +12,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Animator animatorOverlay;
     [SerializeField] HitDamageUI hitDamageUI;
     [SerializeField] GunSounds gunSounds;
+    [SerializeField] AbilityHandler abilityHandler;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
@@ -52,7 +53,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool fullAuto = true;
 
     [Space, SerializeField] float disableShootingTime = .5f;
-    bool usingAbility;
 
     [Space, SerializeField] int bleedDamage;
     [SerializeField] int bleedTimes;
@@ -83,7 +83,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     private void Update()
     {
-        if (!usingAbility)
+        if (!state.IsUsingAbility && !state.IsStunned)
         {
             CheckFireModeInput();
             CheckReloadInput();
@@ -127,13 +127,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         else if (Input.GetButtonDown("FireMode") && fullAuto && !pauseMenuHandler.GetIfPaused()) { fullAuto = false; }
 
         //check input of mouse
-        if (!state.IsStunned)
-        {
             if (!fullAuto)
                 isShooting = Input.GetButtonDown("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
             else
                 isShooting = Input.GetButton("Fire1") && nextTimeToShoot < Time.time && !pauseMenuHandler.GetIfPaused();
-        }
 
         //check for input in between chambering rounds
         if (nextTimeToShoot > Time.time && Input.GetButtonDown("Fire1") && !isShooting)
@@ -220,7 +217,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         StartCoroutine(DestroyEffect(.1f, Effect));
     }
 
-    public IEnumerator DestroyEffect(float time, BoltEntity entity)
+    IEnumerator DestroyEffect(float time, BoltEntity entity)
     {
         yield return new WaitForSeconds(time);
 
@@ -229,7 +226,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         StopCoroutine(nameof(DestroyEffect));
     }
 
-    public IEnumerator Reload(float time)
+    IEnumerator Reload(float time)
     {
         reloadingText.SetActive(true);
         gunSounds.PlaySound("Reload");
@@ -276,6 +273,20 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void StartAnimation(int index) 
     {
+        if (state.IsUsingAbility)
+        {
+            if (index == 0)
+                abilityHandler.ResetAbility2Timer();
+            else if (index == 1)
+                abilityHandler.ResetAbility1Timer();
+            else if (index == 2)
+            {
+                //stop player from using ult
+            }
+
+            return;
+        }
+
         if(index == 0 || index == 1)
             StartCoroutine(WaitForAnimation(index, stimAnimationTimer)); 
         else
@@ -285,22 +296,18 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator WaitForAnimation(int index, float time)
     {
         if(index == 0) 
-        {
-            //play heal animation
             animator.SetTrigger("Stim");
-        }
         else if(index == 1) 
-        {
-            //play acc animation
             animator.SetTrigger("Stim");
-        }
         else if(index == 2)
-        {
-            //play cluster animation
             animator.SetTrigger("Nade");
-        }
+
+        StartCoroutine(DisableShooting(disableShootingTime));
 
         yield return new WaitForSeconds(time);
+
+        if (state.StopAbilities)
+            yield break;
 
         if (index == 0)
             HealingStim();
@@ -315,8 +322,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     //start animation index = 0
     void HealingStim()
     {
-        StartCoroutine(DisableShooting(disableShootingTime));
-
         var request = HealRequest.Create();
         request.EntityShot = GetComponentInParent<BoltEntity>();
         request.Healing = healing;
@@ -329,7 +334,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         animatorOverlay.ResetTrigger("Accuracy");
         animatorOverlay.SetTrigger("Accuracy");
-        StartCoroutine(DisableShooting(disableShootingTime));
 
         accuracyStimmed = true;
         GetComponentInParent<PlayerController>().isStimmed = true;
@@ -349,7 +353,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     //start animation index = 2
     void ClusterFuck()
     {
-        StartCoroutine(DisableShooting(disableShootingTime));
         var bomb = BoltNetwork.Instantiate(clusterBomb, throwPoint.position, throwPoint.rotation);
         bomb.GetComponent<DetonateBomb>().SetTags(teamTag, enemyTeamTag);
         bomb.GetComponent<Rigidbody>().AddRelativeForce(0, 0, throwForce, ForceMode.Impulse);
@@ -357,11 +360,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     IEnumerator DisableShooting(float time)
     {
-        usingAbility = true;
+        state.IsUsingAbility = true;
 
         yield return new WaitForSeconds(time);
 
-        usingAbility = false;
+        state.IsUsingAbility = false;
 
         StopCoroutine(nameof(DisableShooting));
     }

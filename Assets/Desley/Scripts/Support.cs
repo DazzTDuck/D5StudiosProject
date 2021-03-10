@@ -25,7 +25,6 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     [Space, SerializeField] float disableShootingTime = .5f;
     bool usingHeal;
-    bool usingAbility;
 
     string teamTag;
     string enemyTeamTag;
@@ -41,7 +40,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         isShooting = Input.GetButton("Fire1") && !state.IsStunned;
 
-        if (!usingAbility)
+        if (!state.IsUsingAbility)
         {
             if (isShooting && entity.IsOwner && !state.IsDead)
             {
@@ -94,8 +93,12 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator WaitForAnimation(float time)
     {
         //play animation
+        StartCoroutine(DisableShooting(disableShootingTime));
 
         yield return new WaitForSeconds(time);
+
+        if(state.StopAbilities)
+            yield break;
 
         InstantiateBall(stunBall, maxCharge, false, true);
 
@@ -132,11 +135,11 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     IEnumerator DisableShooting(float time)
     {
-        usingAbility = true;
+        state.IsUsingAbility = true;
 
         yield return new WaitForSeconds(time);
 
-        usingAbility = false;
+        state.IsUsingAbility = false;
 
         StopCoroutine(nameof(DisableShooting));
     }
