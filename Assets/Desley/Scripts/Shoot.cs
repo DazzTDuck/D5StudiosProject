@@ -280,10 +280,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
                 abilityHandler.ResetAbility2Timer();
             else if (index == 1)
                 abilityHandler.ResetAbility1Timer();
-            else if (index == 2)
-            {
-                //stop player from using ult
-            }
 
             return;
         }
@@ -302,17 +298,20 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             animator.SetTrigger("Stim");
             timeDisableShooting = disableShootingTimeStim;
+            abilityHandler.ultimateActivatable = false;
         }            
         else if(index == 1)
         {
             animator.SetTrigger("Stim");
             timeDisableShooting = disableShootingTimeStim;
+            abilityHandler.ultimateActivatable = false;
         }           
         else if(index == 2)
         {
             animator.SetTrigger("Nade");
             timeDisableShooting = disableShootingTimeNade;
         }
+
         StartCoroutine(DisableShooting(timeDisableShooting));
 
         yield return new WaitForSeconds(time);
@@ -376,6 +375,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         yield return new WaitForSeconds(time);
 
         state.IsUsingAbility = false;
+        abilityHandler.ultimateActivatable = true;
 
         StopCoroutine(nameof(DisableShooting));
     }
