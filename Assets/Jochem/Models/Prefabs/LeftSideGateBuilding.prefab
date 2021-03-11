@@ -1,5 +1,93 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &250312989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 250312990}
+  - component: {fileID: 250312991}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &250312990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250312989}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.42, y: 3.9099998, z: -0.45}
+  m_LocalScale: {x: 8.036987, y: 12.839, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5000458452836236024}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &250312991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250312989}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &557309621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 557309622}
+  - component: {fileID: 557309623}
+  m_Layer: 0
+  m_Name: Collider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &557309622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557309621}
+  m_LocalRotation: {x: -0, y: 0.24088313, z: -0, w: 0.9705541}
+  m_LocalPosition: {x: -4.17, y: 3.9099998, z: 0.76}
+  m_LocalScale: {x: 6.796639, y: 12.839, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5000458452836236024}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 27.877, z: 0}
+--- !u!65 &557309623
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557309621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &520062749804272054
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +102,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5000458452836236024
 Transform:
@@ -32,6 +120,8 @@ Transform:
   - {fileID: 865523861378412056}
   - {fileID: 865523860770074562}
   - {fileID: 865523862167748590}
+  - {fileID: 250312990}
+  - {fileID: 557309622}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,6 +196,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LeftGateBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39a14bd193f5f4f46b88afbe96d597eb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39a14bd193f5f4f46b88afbe96d597eb, type: 3}
@@ -187,6 +282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallDeco
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3ea8f7a2de3ce2e49b9f01ba79f60ee8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ea8f7a2de3ce2e49b9f01ba79f60ee8, type: 3}
 --- !u!4 &865523861868211148 stripped
@@ -266,6 +366,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WallDivide
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a7df099d119ab0c4c95fc53f41d8fde7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7df099d119ab0c4c95fc53f41d8fde7, type: 3}
@@ -347,6 +452,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindowRailing
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f68ef5c4e6277a5409d3868b835786cc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f68ef5c4e6277a5409d3868b835786cc, type: 3}
 --- !u!4 &865523860770074562 stripped
@@ -426,6 +536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoofDeco
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: edd364e45991f4f49af00f30ccd510ea,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edd364e45991f4f49af00f30ccd510ea, type: 3}

@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7358421773052471797
 Transform:
@@ -41,6 +41,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &2141605128
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7700931389286021687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6335965048631572536, guid: 1cc5b6344bb44cc4bafb6ecc90881ced, type: 3}
+--- !u!64 &2141605129
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7700931389914859296}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4563637298700409943, guid: 832e62fddaae5e743abc7b25d7cf95d1, type: 3}
+--- !u!64 &2141605130
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7700931390475958164}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2454634519608151991, guid: 59424c3f9cab43b4d8c4e780e8af30f6, type: 3}
 --- !u!1001 &7358421772291820229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,8 +160,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: TulipStoreDoors
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 59424c3f9cab43b4d8c4e780e8af30f6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59424c3f9cab43b4d8c4e780e8af30f6, type: 3}
+--- !u!1 &7700931390475958164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 59424c3f9cab43b4d8c4e780e8af30f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7358421772291820229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7031496573155093806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 59424c3f9cab43b4d8c4e780e8af30f6,
@@ -197,6 +250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TulipStoreWIndow (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 79044485ff164d24eaa920e35cb08e9a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79044485ff164d24eaa920e35cb08e9a, type: 3}
@@ -278,6 +336,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InsideTulip
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 140c69512faec8549a2968d86822b29e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 140c69512faec8549a2968d86822b29e, type: 3}
 --- !u!4 &7031496572860781486 stripped
@@ -357,6 +420,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TulipStoreWIndow (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 79044485ff164d24eaa920e35cb08e9a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79044485ff164d24eaa920e35cb08e9a, type: 3}
@@ -438,6 +506,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TulipStoreWIndow (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 79044485ff164d24eaa920e35cb08e9a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79044485ff164d24eaa920e35cb08e9a, type: 3}
 --- !u!4 &7031496572127195932 stripped
@@ -518,6 +591,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TulipStoreWIndow (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 79044485ff164d24eaa920e35cb08e9a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79044485ff164d24eaa920e35cb08e9a, type: 3}
 --- !u!4 &7031496571886625185 stripped
@@ -551,7 +629,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.609192
+      value: 7.6209717
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
@@ -561,27 +639,27 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.773445
+      value: 5.792221
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3859146
+      value: -0.3555748
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5925115
+      value: 0.61120087
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5925115
+      value: 0.6112009
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.38591468
+      value: -0.35557488
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
@@ -591,7 +669,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 246.15399
+      value: 240.379
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2e525a1902715274296f737be4b02436,
         type: 3}
@@ -607,6 +685,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pipe (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2e525a1902715274296f737be4b02436,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e525a1902715274296f737be4b02436, type: 3}
@@ -688,6 +771,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TulipStoreChimney
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f6d092099ba7a1e41b2fdf8bcc2f1d51,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6d092099ba7a1e41b2fdf8bcc2f1d51, type: 3}
 --- !u!4 &7031496571762082498 stripped
@@ -768,8 +856,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: TulipStoreBlinders
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 832e62fddaae5e743abc7b25d7cf95d1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 832e62fddaae5e743abc7b25d7cf95d1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 832e62fddaae5e743abc7b25d7cf95d1, type: 3}
+--- !u!1 &7700931389914859296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 832e62fddaae5e743abc7b25d7cf95d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7358421773744536177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7031496571727879578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 832e62fddaae5e743abc7b25d7cf95d1,
@@ -847,6 +951,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TulipStoreWIndow (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 79044485ff164d24eaa920e35cb08e9a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79044485ff164d24eaa920e35cb08e9a, type: 3}
@@ -933,8 +1042,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: TulipStore
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1cc5b6344bb44cc4bafb6ecc90881ced,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cc5b6344bb44cc4bafb6ecc90881ced, type: 3}
+--- !u!1 &7700931389286021687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cc5b6344bb44cc4bafb6ecc90881ced,
+    type: 3}
+  m_PrefabInstance: {fileID: 7358421774322714470}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7031496571115806861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1cc5b6344bb44cc4bafb6ecc90881ced,

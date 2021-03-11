@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1119422724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1119422725}
+  - component: {fileID: 1119422726}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1119422725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119422724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.89, z: 1.79}
+  m_LocalScale: {x: 12.62506, y: 12.839, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6128286179096497688}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1119422726
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119422724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6323872639248058257
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +58,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6128286179096497688
 Transform:
@@ -34,6 +78,7 @@ Transform:
   - {fileID: 978620130781945087}
   - {fileID: 978620129728183701}
   - {fileID: 978620130137164519}
+  - {fileID: 1119422725}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,6 +153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EntranceDoorBorder
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9e88c3dbf36baf47a96fc9ddacf53a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9e88c3dbf36baf47a96fc9ddacf53a5, type: 3}
@@ -189,6 +239,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoofDeco
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6919415c6a0a71e4eb1e7175b8795660,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6919415c6a0a71e4eb1e7175b8795660, type: 3}
 --- !u!4 &978620130358667722 stripped
@@ -268,6 +323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GateRightSide
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 64c9ff7453bfc39469556d76f3b668ae,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64c9ff7453bfc39469556d76f3b668ae, type: 3}
@@ -349,6 +409,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerDeco
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 775ec8b915986d34c87483f292b98f49,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 775ec8b915986d34c87483f292b98f49, type: 3}
 --- !u!4 &978620130087957668 stripped
@@ -372,7 +437,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 677a83ef24d13a345bd7ac96b91d7ba6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8492737
+      value: 1.883
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 677a83ef24d13a345bd7ac96b91d7ba6,
         type: 3}
@@ -428,6 +493,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WallDeco
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 677a83ef24d13a345bd7ac96b91d7ba6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 677a83ef24d13a345bd7ac96b91d7ba6, type: 3}
@@ -509,6 +579,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindowDeco
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 965f8f885f90d3641a363a0b902504d1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 965f8f885f90d3641a363a0b902504d1, type: 3}
 --- !u!4 &978620129728183701 stripped
@@ -588,6 +663,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f3781ec8fb41c8446ae41493f2cef511,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3781ec8fb41c8446ae41493f2cef511, type: 3}
