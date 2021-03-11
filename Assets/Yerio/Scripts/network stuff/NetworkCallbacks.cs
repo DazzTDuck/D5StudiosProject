@@ -259,6 +259,11 @@ public class NetworkCallbacks : GlobalEventListener
         evnt.GrenadeSoundEntity.GetComponent<GrenadeSound>().PlaySound();
     }
 
+    public override void OnEvent(PlayFootstep evnt)
+    {
+        evnt.EntityToPlayAt.GetComponentInChildren<PlayerFootsteps>().PlayStepSound();
+    }
+
     public Vector3 GetNewSpawnpoint(string team)
     {
         if(team == "Team1") { return spawnPointsTeam1[Random.Range(0, spawnPointsTeam1.Length)].position; }
