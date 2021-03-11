@@ -62,6 +62,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
+    [SerializeField] LayerMask ignoreLayer;
+
     public override void Attached()
     {
         state.AddCallback("IsPoweredUp", DamageCallback);
@@ -158,9 +160,11 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         animator.SetTrigger("Shoot");
         playerSounds.PlaySoundRequest(0);
+
         Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
+        var dir = cam.transform.forward + sprayPattern[sprayPatternIndex - 1];
         RaycastHit hit;
-        if(Physics.Raycast(ray + sprayPattern[sprayPatternIndex - 1], cam.transform.forward, out hit))
+        if(Physics.Raycast(ray, dir, out hit, ignoreLayer))
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(.25f, hitEffect));
@@ -234,12 +238,16 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
         yield return new WaitForSeconds(time);
 
-        ResetAmmo();
         nextShot = false;
         reloading = false;
 
         reloadingText.SetActive(false);
         animator.ResetTrigger("Reload");
+
+        if (state.IsUsingAbility)
+            yield break;
+
+        ResetAmmo();
 
         StopCoroutine(nameof(Reload));
     }
