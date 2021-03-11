@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DetonateBomb : Bolt.EntityBehaviour<IProjectileState>
 {
+    [SerializeField] GameObject grenadeSound;
     [SerializeField] GameObject clusterFragBomb;
     [SerializeField] GameObject explosionEffect;
     [SerializeField] Vector3[] directions; 
@@ -50,6 +51,9 @@ public class DetonateBomb : Bolt.EntityBehaviour<IProjectileState>
     {
         if (entity.IsOwner)
         {
+            //the sound Object
+            BoltNetwork.Instantiate(grenadeSound, transform.position, Quaternion.identity);
+
             foreach (Vector3 dir in directions)
             {
                 var frag = BoltNetwork.Instantiate(clusterFragBomb, transform.position + dir, Quaternion.identity);

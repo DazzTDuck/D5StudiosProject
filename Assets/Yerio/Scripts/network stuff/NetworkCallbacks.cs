@@ -249,17 +249,14 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
-    public override void OnEvent(PlayGunSound evnt)
+    public override void OnEvent(PlayPlayerSoundRequest evnt)
     {
-        if (evnt.SoundToPlay == "Fire")
-        {
-            evnt.EntityToPlayAt.GetComponentInChildren<GunSounds>().PlayFireSound();
-        }
+        evnt.EntityToPlayAt.GetComponentInChildren<PlayPlayerSounds>().PlayPlayerSound(evnt.SoundToPlayIndex);
+    }
 
-        if (evnt.SoundToPlay == "Reload")
-        {
-            evnt.EntityToPlayAt.GetComponentInChildren<GunSounds>().PlayReloadSound();
-        }
+    public override void OnEvent(PlayGrenadeSound evnt)
+    {
+        evnt.GrenadeSoundEntity.GetComponent<GrenadeSound>().PlaySound();
     }
 
     public Vector3 GetNewSpawnpoint(string team)

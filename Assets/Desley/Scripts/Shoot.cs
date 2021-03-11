@@ -11,7 +11,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Animator animator;
     [SerializeField] Animator animatorOverlay;
     [SerializeField] HitDamageUI hitDamageUI;
-    [SerializeField] GunSounds gunSounds;
+    [SerializeField] PlayPlayerSounds playerSounds;
     [SerializeField] AbilityHandler abilityHandler;
 
     [Space, SerializeField] GameObject BulletCountCanvas;
@@ -52,7 +52,8 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     bool nextShot;
     bool fullAuto = true;
 
-    [Space, SerializeField] float disableShootingTime = .5f;
+    [Space, SerializeField] float disableShootingTimeStim = .5f;
+    [SerializeField] float disableShootingTimeNade = .5f;
 
     [Space, SerializeField] int bleedDamage;
     [SerializeField] int bleedTimes;
@@ -156,7 +157,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ShootRaycast()
     {
         animator.SetTrigger("Shoot");
-        gunSounds.PlaySound("Fire");
+        playerSounds.PlaySoundRequest(0);
         Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
         RaycastHit hit;
         if(Physics.Raycast(ray + sprayPattern[sprayPatternIndex - 1], cam.transform.forward, out hit))
@@ -229,7 +230,7 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator Reload(float time)
     {
         reloadingText.SetActive(true);
-        gunSounds.PlaySound("Reload");
+        playerSounds.PlaySoundRequest(1);
 
         yield return new WaitForSeconds(time);
 
@@ -295,14 +296,24 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
 
     IEnumerator WaitForAnimation(int index, float time)
     {
-        if(index == 0) 
-            animator.SetTrigger("Stim");
-        else if(index == 1) 
-            animator.SetTrigger("Stim");
-        else if(index == 2)
-            animator.SetTrigger("Nade");
+        var timeDisableShooting = 0f;
 
-        StartCoroutine(DisableShooting(disableShootingTime));
+        if(index == 0)
+        {
+            animator.SetTrigger("Stim");
+            timeDisableShooting = disableShootingTimeStim;
+        }            
+        else if(index == 1)
+        {
+            animator.SetTrigger("Stim");
+            timeDisableShooting = disableShootingTimeStim;
+        }           
+        else if(index == 2)
+        {
+            animator.SetTrigger("Nade");
+            timeDisableShooting = disableShootingTimeNade;
+        }
+        StartCoroutine(DisableShooting(timeDisableShooting));
 
         yield return new WaitForSeconds(time);
 
