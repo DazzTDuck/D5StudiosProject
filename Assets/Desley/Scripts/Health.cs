@@ -7,6 +7,12 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Healthbar healthbar;
     [SerializeField] Animator animator;
     [SerializeField] int maxHealth;
+    [Space]
+    [SerializeField] RespawnHandler respawnHandler;
+    [SerializeField] Canvas respawnCanvas;
+    [SerializeField] Collider[] playerColliders;    
+    [SerializeField] SkinnedMeshRenderer[] playerMeshes;    
+ 
     float timePerReduce;
     int defaultMaxHealth;
 
@@ -69,18 +75,36 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 if (state.IsDead)
                 {
                     Debug.LogWarning("dead");
-
                     GetComponent<Rigidbody>().useGravity = false;
 
-                    //Create DestroyRequest, set entity to ent and then send
-                    var request = DestroyRequest.Create();
-                    request.Entity = GetComponentInParent<BoltEntity>();
-                    request.KillTrigger = false;
-                    request.IsPlayer = true;
-                    request.Send();
+                    SendRespawnRequest(false);
+
+                    respawnCanvas.gameObject.SetActive(true);
+                    respawnHandler.SetEntity(entity);
+                    respawnHandler.StartRespawnTimer(respawnCanvas.gameObject);
                 }
             }
         }  
+    }
+
+    public void SendRespawnRequest(bool state)
+    {
+        var request = RespawnRequest.Create();
+        request.EntityToRespawn = entity;
+        request.MeshAndCollState = state;
+        request.Send();
+    }
+
+    public void SetCollidersAndMeshes(bool state)
+    {
+        foreach (var mesh in playerMeshes)
+        {
+            mesh.gameObject.SetActive(state);
+        }
+        foreach (var coll in playerColliders)
+        {
+            coll.gameObject.SetActive(state);
+        }
     }
 
     public void StartBleeding(float time, int bleedDamage, int bleedTimes) 

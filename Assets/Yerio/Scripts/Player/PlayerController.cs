@@ -59,7 +59,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [Space, SerializeField] float crouchRecoilDivider;
     bool canCrouch = true;
     bool waitingForCoroutine = false;
-    bool isCrouching;
+    [HideInInspector] public bool isCrouching;
 
     bool isGrappling;
 

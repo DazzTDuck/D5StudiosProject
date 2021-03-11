@@ -111,6 +111,7 @@ public class NetworkCallbacks : GlobalEventListener
             player.GetComponentInChildren<AbilityHandler>().ResetTimers();
             player.GetComponentInChildren<Health>().ResetHealth();
             player.GetComponentInChildren<Health>().stopBleeding = true;
+            player.GetComponentInChildren<Health>().SendRespawnRequest(true);
 
             if (!evnt.KillTrigger) { player.GetComponentInChildren<Health>().AddTeamKill(); }
 
@@ -247,6 +248,11 @@ public class NetworkCallbacks : GlobalEventListener
                 host.GetComponent<ApplyOutlineMaterials>().ApplyMaterialsOnAllPlayers();
             }
         }
+    }
+
+    public override void OnEvent(RespawnRequest evnt)
+    {
+        evnt.EntityToRespawn.GetComponentInChildren<Health>().SetCollidersAndMeshes(evnt.MeshAndCollState);
     }
 
     public override void OnEvent(PlayPlayerSoundRequest evnt)
