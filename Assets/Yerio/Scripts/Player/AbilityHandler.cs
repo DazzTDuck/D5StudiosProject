@@ -36,9 +36,9 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] Timer betweenAbilitesTimer;
 
     [Header("--Activatable--")]
-    [SerializeField] bool abilityOneActivatable;
-    [SerializeField] bool abilityTwoActivatable;
-    [SerializeField] bool ultimateActivatable;
+    public bool abilityOneActivatable;
+    public bool abilityTwoActivatable;
+    public bool ultimateActivatable;
 
     [Header("--Actions--")]
     [SerializeField] UnityEvent ability1OnClick;
