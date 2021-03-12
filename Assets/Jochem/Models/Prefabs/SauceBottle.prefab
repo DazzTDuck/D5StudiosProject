@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1478336003618407622}
   - component: {fileID: 2534331790510230371}
   - component: {fileID: 346555207100366761}
+  - component: {fileID: 4446782002914513989}
   m_Layer: 0
   m_Name: SauceBottle
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2292273317084192380}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.354, y: 4.571, z: -1.257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &4446782002914513989
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2292273317084192380}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05691405
+  m_Height: 0.3515531
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.17577656, z: 0}
