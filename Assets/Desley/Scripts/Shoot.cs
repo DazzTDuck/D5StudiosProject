@@ -62,8 +62,6 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     string teamTag;
     string enemyTeamTag;
 
-    [SerializeField] LayerMask ignoreLayer;
-
     public override void Attached()
     {
         state.AddCallback("IsPoweredUp", DamageCallback);

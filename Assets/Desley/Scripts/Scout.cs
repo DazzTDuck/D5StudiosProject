@@ -7,7 +7,6 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
 
-    [SerializeField] LayerMask ignoreRaycast;
     [SerializeField] Camera cam, weaponCam;
     [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
@@ -151,7 +150,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
 
             Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f) + spread);
             RaycastHit hit;
-            if (Physics.Raycast(ray, cam.transform.forward, out hit, ignoreRaycast))
+            if (Physics.Raycast(ray, cam.transform.forward, out hit))
             {
                 var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
                 StartCoroutine(DestroyEffect(.25f, hitEffect));
