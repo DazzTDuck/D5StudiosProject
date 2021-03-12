@@ -196,9 +196,6 @@ MonoBehaviour:
   bleedDamage: 3
   bleedTimes: 5
   timeInBetween: 1
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 16384
 --- !u!1 &3957541499675307896
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3104,11 @@ PrefabInstance:
       propertyPath: respawnHandler
       value: 
       objectReference: {fileID: 1366742890436211182}
+    - target: {fileID: 6290124186466509295, guid: b90ead4e915831843be7c3553d1ee7a6,
+        type: 3}
+      propertyPath: playerInfoCanvas
+      value: 
+      objectReference: {fileID: 6510788353367293543}
     - target: {fileID: 6367564593728785032, guid: b90ead4e915831843be7c3553d1ee7a6,
         type: 3}
       propertyPath: cam
