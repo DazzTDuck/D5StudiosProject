@@ -12,6 +12,7 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] Canvas respawnCanvas;
     [SerializeField] Collider[] playerColliders;    
     [SerializeField] SkinnedMeshRenderer[] playerMeshes;    
+    [SerializeField] GameObject playerInfoCanvas;    
  
     float timePerReduce;
     int defaultMaxHealth;
@@ -75,7 +76,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
                 if (state.IsDead)
                 {
                     Debug.LogWarning("dead");
-                    GetComponent<Rigidbody>().useGravity = false;
 
                     SendRespawnRequest(false);
 
@@ -105,6 +105,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             coll.gameObject.SetActive(state);
         }
+
+        playerInfoCanvas.SetActive(state);
     }
 
     public void StartBleeding(float time, int bleedDamage, int bleedTimes) 
@@ -221,7 +223,6 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead)
         {
             state.PlayerHealth = maxHealth;
-            GetComponent<Rigidbody>().useGravity = true;
         }
     }
 
