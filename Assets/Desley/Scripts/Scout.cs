@@ -148,9 +148,10 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
             var randomY = Random.Range(-randomSpread, randomSpread);
             spread = new Vector3(randomX, randomY, 0);
 
-            Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f) + spread);
+            Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
+            Vector3 dir = cam.transform.forward + spread;
             RaycastHit hit;
-            if (Physics.Raycast(ray, cam.transform.forward, out hit))
+            if (Physics.Raycast(ray, dir, out hit))
             {
                 var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
                 StartCoroutine(DestroyEffect(.25f, hitEffect));
