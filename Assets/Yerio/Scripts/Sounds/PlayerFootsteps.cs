@@ -41,6 +41,8 @@ public class PlayerFootsteps : Bolt.EntityBehaviour<PlayerController>
             var i = Random.Range(0, footstepSounds.Length);
             source.clip = footstepSounds[i];
             source.Play();
+
+            Debug.LogWarning("Played StepSound");
         }
             
     }
