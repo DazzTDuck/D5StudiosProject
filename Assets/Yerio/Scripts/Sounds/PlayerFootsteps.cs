@@ -16,17 +16,17 @@ public class PlayerFootsteps : Bolt.EntityBehaviour<PlayerController>
     private void Update()
     {
         //step timing
-        if (stepTimer.IsTimerComplete() && player.isWalking && entity.IsOwner && !player.isCrouching)
+        if (stepTimer.IsTimerComplete() && player.state.IsWalking && entity.IsOwner && !player.isCrouching)
         {
             if(!fistStepSet) { StepSoundRequest(); fistStepSet = true; }
             stepTimer.SetTimer(stepDelay, () => StepSoundRequest());
         }
 
-        if(!player.isWalking && entity.IsOwner && fistStepSet != false) { fistStepSet = false; }
+        if(!player.state.IsWalking && entity.IsOwner && fistStepSet != false) { fistStepSet = false; }
     }
     public void StepSoundRequest()
     {
-        if (player.isWalking && entity.IsOwner && !player.isCrouching)
+        if (player.state.IsWalking && entity.IsOwner && !player.isCrouching)
         {
             var request = PlayFootstep.Create();
             request.EntityToPlayAt = entity;
@@ -36,13 +36,11 @@ public class PlayerFootsteps : Bolt.EntityBehaviour<PlayerController>
 
     public void PlayStepSound()
     {
-        if (player.isWalking)
+        if (player.state.IsWalking)
         {
             var i = Random.Range(0, footstepSounds.Length);
             source.clip = footstepSounds[i];
             source.Play();
-
-            Debug.LogWarning("Played StepSound");
         }
             
     }

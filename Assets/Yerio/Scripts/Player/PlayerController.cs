@@ -52,7 +52,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     Vector3 velocity;
     float horizontal;
     float vertical;
-    [HideInInspector] public bool isWalking;
 
     bool isHost;
 
@@ -78,6 +77,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         {
             state.IsHost = isHost;
             state.IsReady = false;
+            state.IsWalking = false;
             state.AddCallback("IsHost", HostCallback);
         }
         rb = GetComponent<Rigidbody>();
@@ -128,7 +128,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
         if (!state.IsDead && !pauseMenuHandler.GetIfPaused() && !state.IsStunned)
             transform.Translate(movement * finalMoveSpeed * BoltNetwork.FrameDeltaTime, Space.Self);
 
-        isWalking = movement != Vector3.zero && !state.IsDead && !state.IsStunned && !pauseMenuHandler.GetIfPaused() && isGrounded;
+        state.IsWalking = movement != Vector3.zero && !state.IsDead && !state.IsStunned && !pauseMenuHandler.GetIfPaused() && isGrounded;
 
         isCrouching = Input.GetButton("Crouch");
 
