@@ -128,30 +128,30 @@ MonoBehaviour:
   weaponPunchY: 1
   weaponPunchX:
   - 0
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
-  - 2.5
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
   - 0
-  - -2.5
-  - -2.5
-  - -2.5
+  - -2
+  - -2
+  - -2
   currentBulletCount: 25
   maxBulletCount: 25
   reloadTime: 1.5
@@ -2766,6 +2766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -11.319605
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601777590000952714, guid: b90ead4e915831843be7c3553d1ee7a6,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3646096901875732320, guid: b90ead4e915831843be7c3553d1ee7a6,
         type: 3}

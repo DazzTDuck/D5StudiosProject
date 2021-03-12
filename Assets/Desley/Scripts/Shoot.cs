@@ -161,10 +161,16 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
         animator.SetTrigger("Shoot");
         playerSounds.PlaySoundRequest(0);
 
+        //adjust spray pattern according to transform.forward
+        Vector3 dir;
+        if(cam.transform.forward.z >= 0 && cam.transform.forward.z <= 1)
+            dir = cam.transform.forward + sprayPattern[sprayPatternIndex - 1];
+        else
+            dir = cam.transform.forward + new Vector3(-sprayPattern[sprayPatternIndex -1].x, sprayPattern[sprayPatternIndex -1].y, 0);
+
         Vector3 ray = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
-        var dir = cam.transform.forward + sprayPattern[sprayPatternIndex - 1];
         RaycastHit hit;
-        if(Physics.Raycast(ray, dir, out hit, ignoreLayer))
+        if(Physics.Raycast(ray, dir, out hit))
         {
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(.25f, hitEffect));
