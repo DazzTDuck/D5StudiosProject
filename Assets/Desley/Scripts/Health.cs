@@ -106,7 +106,8 @@ public class Health : Bolt.EntityBehaviour<IPlayerControllerState>
             coll.gameObject.SetActive(state);
         }
 
-        playerInfoCanvas.SetActive(state);
+        if (!entity.IsOwner)
+            playerInfoCanvas.SetActive(state);
     }
 
     public void StartBleeding(float time, int bleedDamage, int bleedTimes) 
