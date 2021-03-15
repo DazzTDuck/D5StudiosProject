@@ -123,7 +123,8 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
             foreach (var gameObject in transforms)
             {
-                gameObject.gameObject.layer = index;
+                if (gameObject.gameObject.layer == 0)
+                    gameObject.gameObject.layer = index;
             }
         }
     }
