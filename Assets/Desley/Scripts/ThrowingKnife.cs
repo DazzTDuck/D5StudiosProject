@@ -24,6 +24,9 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == 15)
+            DestroyKnife();
+
         if (!collided && enemyTeamTag != null)
         {
             CheckCollision(collision.gameObject);

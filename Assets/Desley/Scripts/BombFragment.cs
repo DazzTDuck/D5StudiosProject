@@ -34,6 +34,9 @@ public class BombFragment : Bolt.EntityBehaviour<IProjectileState>
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, radius);
         foreach(Collider obj in hitObjects)
         {
+            if (obj.gameObject.layer == 15)
+                return;
+
             BoltEntity entity = obj.GetComponentInParent<BoltEntity>();
 
             if (entity && !entitiesHit.Contains(entity))

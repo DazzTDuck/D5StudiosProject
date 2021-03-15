@@ -61,6 +61,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     [HideInInspector] public bool isCrouching;
 
     bool isGrappling;
+    public bool shieldClosed;
 
     public bool isStimmed;
 
@@ -151,7 +152,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if(!state.IsDead && !pauseMenuHandler.GetIfPaused())
         {
-            if (isCrouching && canCrouch && !state.IsStunned)
+            if (isCrouching && canCrouch && !shieldClosed && !state.IsStunned)
             {
                 ChangeCrouch(true);
                 canCrouch = false;

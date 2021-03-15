@@ -6,7 +6,6 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [Space, SerializeField] PauseMenuHandler pauseMenuHandler;
     [SerializeField] Camera cam;
-    [SerializeField] Animator animator;
     [SerializeField] HitDamageUI hitDamageUI;
     [SerializeField] Transform shankPoint;
     [SerializeField] int damage, powerUp;
@@ -26,17 +25,73 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     bool isShooting;
 
+    [Space, SerializeField] float animationResetAddTime;
+    float animationResetTime;
+    int attackAnimationIndex;
+
+    bool shieldClosed;
+
+    [SerializeField] float canAttackAgainTime;
+    bool canAttack = true;
+
     public void Update()
     {
-        isShooting = Input.GetButton("Fire1") && !pauseMenuHandler.GetIfPaused() && !state.IsStunned;
+        isShooting = Input.GetButton("Fire1") && canAttack && !pauseMenuHandler.GetIfPaused() && !state.IsStunned;
 
-        if (isShooting && entity.IsOwner && Time.time >= nextTimeToShank && !state.IsDead)
+        if (isShooting && Time.time >= nextTimeToShank && !state.IsDead && entity.IsOwner)
         {
-            animator.ResetTrigger("Bonk");
-            animator.SetTrigger("Bonk");
             StartCoroutine(WaitForAnimation(damageTime));
+            animationResetTime = animationResetAddTime;
+
             nextTimeToShank = Time.time + 1f / shankRate;
+
+            //switch between left and right
+            if(attackAnimationIndex == 0) { attackAnimationIndex = 1; }
+            else { attackAnimationIndex = 0; }
         }
+
+        if (animationResetTime != Mathf.Infinity)
+            ShankAnimationHandler();
+    }
+
+    void ShankAnimationHandler()
+    {
+        animationResetTime -= Time.deltaTime;
+        if(animationResetTime <= 0)
+        {
+            attackAnimationIndex = 0;
+            animationResetTime = Mathf.Infinity;
+        }
+    }
+
+    public void ChangeShieldStance()
+    {
+        shieldClosed = !shieldClosed;
+        if (shieldClosed) 
+        { 
+            canAttack = false;
+            GetComponentInParent<PlayerController>().shieldClosed = true;
+        }
+        else { StartCoroutine(CanAttackAgain(canAttackAgainTime)); }
+
+        string animationString;
+        if (shieldClosed)
+            animationString = "ShieldUp";
+        else
+            animationString = "ShieldDown";
+
+        var request = TankAnimationsEvent.Create();
+        request.TankEntity = GetComponentInParent<BoltEntity>();
+        request.AnimationTriggerString = animationString;
+        request.Send();
+    }
+
+    IEnumerator CanAttackAgain(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        canAttack = true;
+        GetComponentInParent<PlayerController>().shieldClosed = false;
     }
 
     public override void Attached()
@@ -64,6 +119,9 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
         {
+            if (hit.collider.gameObject.layer == 15)
+                return;
+
             BoltEntity boltEntity = hit.collider.GetComponentInParent<BoltEntity>();
 
             if (boltEntity)
@@ -111,11 +169,27 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public IEnumerator WaitForAnimation(float time)
     {
+        SendAnimation();
+
         yield return new WaitForSeconds(time);
 
         Shank();
 
         StopCoroutine(nameof(WaitForAnimation));
+    }
+
+    void SendAnimation()
+    {
+        string animationString;
+        if (attackAnimationIndex == 0)
+            animationString = "AttackLeft";
+        else
+            animationString = "AttackRight";
+
+        var request = TankAnimationsEvent.Create();
+        request.TankEntity = GetComponentInParent<BoltEntity>();
+        request.AnimationTriggerString = animationString;
+        request.Send();
     }
 
     public void SetTags()

@@ -156,6 +156,9 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
                 var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
                 StartCoroutine(DestroyEffect(.25f, hitEffect));
 
+                if (hit.collider.gameObject.layer == 15)
+                    return;
+
                 float distance = Vector3.Distance(weaponCam.transform.position, hit.point);
                 damageDivider = distance < dropoffRange ? 1 : dropOffDivider;
 

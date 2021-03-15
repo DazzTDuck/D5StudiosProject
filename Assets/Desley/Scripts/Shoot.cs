@@ -173,6 +173,9 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
             var hitEffect = BoltNetwork.Instantiate(bulletHit, hit.point, Quaternion.identity);
             StartCoroutine(DestroyEffect(.25f, hitEffect));
 
+            if (hit.collider.gameObject.layer == 15)
+                return;
+
             string entityTag = hit.collider.tag;
             BoltEntity boltEntity = hit.collider.GetComponentInParent<BoltEntity>();
 

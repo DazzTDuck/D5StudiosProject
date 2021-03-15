@@ -255,7 +255,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(TankAnimationsEvent evnt)
     {
-        
+        evnt.TankEntity.GetComponentInChildren<Tank>().GetComponent<Animator>().SetTrigger(evnt.AnimationTriggerString);
     }
 
     public override void OnEvent(RespawnRequest evnt)

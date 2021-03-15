@@ -1003,18 +1003,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuHandler: {fileID: 1167529193778240779}
   cam: {fileID: 3663411601210606873}
-  animator: {fileID: 0}
   hitDamageUI: {fileID: 1968769331061847705}
   shankPoint: {fileID: 3977809645046454250}
-  damage: 50
+  damage: 40
   powerUp: 2
   shankRate: 1
-  range: 3
+  range: 2.5
   damageTime: 0.5
   bleedDamage: 3
   bleedTimes: 5
   timeInBetween: 1
   canBleedTime: 5
+  animationResetAddTime: 1.1
+  canAttackAgainTime: 0.5
 --- !u!1 &9180581134517910826
 GameObject:
   m_ObjectHideFlags: 0
@@ -3298,6 +3299,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4174712877755481753, guid: 5f1995c3c4fa91e4c9d412f2a4719921,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4277496383567568257, guid: 5f1995c3c4fa91e4c9d412f2a4719921,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3799,8 +3805,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}
+      propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5813086201038708272}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
       propertyPath: ultimateOnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
+        type: 3}
+      propertyPath: ability1OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeShieldStance
       objectReference: {fileID: 0}
     - target: {fileID: 2536568368319805349, guid: b903a8c3f7edee54b86b0b6e724de9cb,
         type: 3}

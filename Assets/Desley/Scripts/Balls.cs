@@ -81,6 +81,9 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             //check colliders for tag and bolt component
             foreach (Collider collider in hitObjects)
             {
+                if (collider.gameObject.layer == 15 && !healBall)
+                    return;
+
                 string entityTag = collider.tag;
                 BoltEntity boltEntity = collider.GetComponentInParent<BoltEntity>();
 
