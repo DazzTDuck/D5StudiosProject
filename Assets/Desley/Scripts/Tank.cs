@@ -77,7 +77,7 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         else
         {
             StartCoroutine(CanAttackAgain(canAttackAgainTime));
-            StartCoroutine(CanReactToInput(1.5f));
+            StartCoroutine(CanReactToInput(2f));
         }
 
         string animationString;
