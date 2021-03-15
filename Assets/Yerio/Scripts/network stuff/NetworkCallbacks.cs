@@ -253,6 +253,11 @@ public class NetworkCallbacks : GlobalEventListener
         }
     }
 
+    public override void OnEvent(TankAnimationsEvent evnt)
+    {
+        
+    }
+
     public override void OnEvent(RespawnRequest evnt)
     {
         evnt.EntityToRespawn.GetComponentInChildren<Health>().SetCollidersAndMeshes(evnt.MeshAndCollState);
