@@ -23,13 +23,14 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
     Collider[] hitObjects;
     List<GameObject> hitEnemies = new List<GameObject>();
 
-    bool isShooting;
+    public bool isShooting;
+    public bool reactToInput = true;
 
     [Space, SerializeField] float animationResetAddTime;
     float animationResetTime;
     int attackAnimationIndex;
 
-    bool shieldClosed;
+    public bool shieldClosed;
 
     [SerializeField] float canAttackAgainTime;
     bool canAttack = true;
@@ -66,13 +67,18 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void ChangeShieldStance()
     {
+        if (!reactToInput)
+            return;
+
         shieldClosed = !shieldClosed;
+
         if (shieldClosed) 
-        { 
-            canAttack = false;
             GetComponentInParent<PlayerController>().shieldClosed = true;
+        else
+        {
+            StartCoroutine(CanAttackAgain(canAttackAgainTime));
+            StartCoroutine(CanReactToInput(1.5f));
         }
-        else { StartCoroutine(CanAttackAgain(canAttackAgainTime)); }
 
         string animationString;
         if (shieldClosed)
@@ -80,18 +86,29 @@ public class Tank : Bolt.EntityBehaviour<IPlayerControllerState>
         else
             animationString = "ShieldDown";
 
-        var request = TankAnimationsEvent.Create();
-        request.TankEntity = GetComponentInParent<BoltEntity>();
-        request.AnimationTriggerString = animationString;
-        request.Send();
+            var request = TankAnimationsEvent.Create();
+            request.TankEntity = GetComponentInParent<BoltEntity>();
+            request.AnimationTriggerString = animationString;
+            request.Send();
     }
 
     IEnumerator CanAttackAgain(float time)
     {
+        canAttack = false;
+
         yield return new WaitForSeconds(time);
 
         canAttack = true;
         GetComponentInParent<PlayerController>().shieldClosed = false;
+    }
+
+    IEnumerator CanReactToInput(float time)
+    {
+        reactToInput = false;
+
+        yield return new WaitForSeconds(time);
+
+        reactToInput = true;
     }
 
     public override void Attached()
