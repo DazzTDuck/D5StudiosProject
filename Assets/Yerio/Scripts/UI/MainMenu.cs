@@ -11,6 +11,7 @@ using TMPro;
 
 public class MainMenu : GlobalEventListener
 {
+    [SerializeField] string sceneToLoad;
     [SerializeField] Button hostButton;
 
     private void Awake()
@@ -29,7 +30,7 @@ public class MainMenu : GlobalEventListener
     {
         base.BoltStartDone();
 
-        BoltMatchmaking.CreateSession(sessionID: "Epic Game", sceneToLoad: "Yerio");
+        BoltMatchmaking.CreateSession(sessionID: "Epic Game", sceneToLoad: sceneToLoad);
     }
 
     //join game button
