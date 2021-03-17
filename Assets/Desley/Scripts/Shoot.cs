@@ -14,6 +14,10 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] PlayPlayerSounds playerSounds;
     [SerializeField] AbilityHandler abilityHandler;
 
+    [Space,SerializeField] SkinnedMeshRenderer skinnedRenderer;
+    [SerializeField] Material liquidBlue;
+    [SerializeField] Material liquidGreen;
+
     [Space, SerializeField] GameObject BulletCountCanvas;
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] GameObject reloadingText;
@@ -308,6 +312,16 @@ public class Shoot : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator WaitForAnimation(int index, float time)
     {
         var timeDisableShooting = 0f;
+
+        if(index == 0 || index == 1)
+        {
+            Material material;
+            material = index == 0 ? material = liquidGreen : material = liquidBlue;
+
+            Material[] newMaterials = skinnedRenderer.materials;
+            newMaterials[2] = material;
+            skinnedRenderer.materials = newMaterials;
+        }
 
         if(index == 0)
         {
