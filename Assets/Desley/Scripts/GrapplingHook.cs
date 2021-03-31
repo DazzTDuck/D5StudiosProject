@@ -107,6 +107,7 @@ public class GrapplingHook : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void StopGrapple(bool stoppedByJump)
     {
+        GetComponent<Scout>().GrappleEndAnimation();
         isGrappling = false;
         rb.velocity = new Vector3(0,0,0);
         playerTransform.GetComponent<PlayerController>().GrappleState(isGrappling);

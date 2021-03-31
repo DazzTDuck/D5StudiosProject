@@ -103,6 +103,7 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if (Input.GetButtonDown("Reload") && !pauseMenuHandler.GetIfPaused() && !reloading && nextTimeToShoot < Time.time && currentBulletCount != maxBulletCount || currentBulletCount == 0 && !reloading && nextTimeToShoot < Time.time)
         {
+            animator.SetTrigger("Reload");
             StartCoroutine(Reload(reloadTime));
             reloading = true;
         }
@@ -195,9 +196,13 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
         }   
     }
 
+    public void GrappleEndAnimation() { animator.SetTrigger("GrappleEnd"); }
+
     public void ShootGrapplingHook() 
     {
         StartCoroutine(DisableShooting(disableShootingTime));
+
+        animator.SetTrigger("GrappleStart");
 
         GetComponentInChildren<GrapplingHook>().StartGrapple(); 
     }
@@ -205,6 +210,8 @@ public class Scout : Bolt.EntityBehaviour<IPlayerControllerState>
     public void ThrowKnives()
     {
         StartCoroutine(DisableShooting(disableShootingTime));
+
+        animator.SetTrigger("KnifeThrow");
 
         StartCoroutine(WaitForAnimation(animationTime));
     }

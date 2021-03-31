@@ -8,6 +8,7 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     [SerializeField] HitDamageUI hitDamageUI;
     [SerializeField] Image chargeBar;
     [SerializeField] GameObject chargeBarBacking;
+    [SerializeField] Animator animator;
 
     [Space, SerializeField] GameObject fireBall;
     [SerializeField] GameObject healBall;
@@ -68,6 +69,8 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
 
     public void InstantiateBall(GameObject pickedBall, float finalChargeTime, bool healBall, bool stunsEnemies)
     {
+        animator.SetTrigger("Fire");
+
         var ball = BoltNetwork.Instantiate(pickedBall, firePoint.position, firePoint.rotation);
         Balls balls = ball.GetComponent<Balls>();
 
@@ -93,6 +96,8 @@ public class Support : Bolt.EntityBehaviour<IPlayerControllerState>
     IEnumerator WaitForAnimation(float time)
     {
         //play animation
+        animator.SetTrigger("Fire");
+
         StartCoroutine(DisableShooting(disableShootingTime));
 
         yield return new WaitForSeconds(time);
