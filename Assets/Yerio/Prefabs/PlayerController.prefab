@@ -1720,6 +1720,7 @@ MonoBehaviour:
   - {fileID: 499201197037203614}
   - {fileID: 8482603486918089636}
   - {fileID: 477256278421010692}
+  playerInfoCanvas: {fileID: 0}
   stopBleeding: 0
 --- !u!114 &7881781601050147196
 MonoBehaviour:
@@ -1799,8 +1800,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   gForceVector: {x: 0, y: 0, z: 0}
   isStationary: 0
-  isWalking: 0
   crouchRecoilDivider: 2
+  isCrouching: 0
+  shieldClosed: 0
   isStimmed: 0
   tags:
   - Team1

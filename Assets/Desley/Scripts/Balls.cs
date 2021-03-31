@@ -84,7 +84,6 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
                 if (collider.gameObject.layer == 15 && !healBall)
                     return;
 
-                string entityTag = collider.tag;
                 BoltEntity boltEntity = collider.GetComponentInParent<BoltEntity>();
 
                 if (boltEntity)
@@ -93,6 +92,8 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
 
                     if (!entitiesList.Contains(boltEntity) && health)
                     {
+                        string entityTag = health.tag;
+
                         if(entityTag == enemyTeamTag && health.CompareTag(enemyTeamTag))
                         {
                             entitiesList.Add(boltEntity);
@@ -121,7 +122,7 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
             }
             else if (stunBall)
             {
-                    SendStun(stunTime, entity);
+                SendStun(stunTime, entity);
 
                 entitiesDamaged++;
             }
@@ -142,9 +143,9 @@ public class Balls : Bolt.EntityBehaviour<IProjectileState>
                     }
                 }
             }
-            else if (healBall)
+            else if (healBall && entity.GetComponentInChildren<Health>().CompareTag(teamTag))
             {
-                    SendHealing(ballValue, entity);
+                SendHealing(ballValue, entity);
 
                 entitiesDamaged++;
             }

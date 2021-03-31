@@ -5,7 +5,6 @@ using UnityEngine;
 public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 {
     [SerializeField] int damage;
-    [SerializeField] int hsMultiplier;
 
     bool collided;
 
@@ -36,7 +35,6 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
     void CheckCollision(GameObject objectHit)
     {
-        string entityTag = objectHit.tag;
         BoltEntity boltEntity = objectHit.GetComponentInParent<BoltEntity>();
 
         if(boltEntity)
@@ -45,11 +43,7 @@ public class ThrowingKnife : Bolt.EntityBehaviour<IProjectileState>
 
             if (health)
             {
-                if (entityTag == "PlayerHead" && health.CompareTag(enemyTeamTag))
-                {
-                    SendDamage(damage * hsMultiplier, boltEntity);
-                }
-                else if (health.CompareTag(enemyTeamTag))
+                if (health.CompareTag(enemyTeamTag))
                 {
                     SendDamage(damage, boltEntity);
                 }
